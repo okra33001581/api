@@ -36,6 +36,8 @@ return array(
     'App\\model\\AuthRole' => $baseDir . '/app/model/AuthRole.php',
     'App\\model\\AuthRoleAdmin' => $baseDir . '/app/model/AuthRoleAdmin.php',
     'App\\model\\Event' => $baseDir . '/app/model/Event.php',
+    'App\\model\\AdSite' => $baseDir . '/app/model/AdSite.php',
+    'App\\model\\Ad' => $baseDir . '/app/model/Ad.php',
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'ArticlesTableSeeder' => $baseDir . '/database/seeds/ArticlesTableSeeder.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',

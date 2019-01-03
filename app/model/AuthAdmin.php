@@ -55,7 +55,7 @@ class AuthAdmin extends Model
             }
         }else{
 
-            Log::info('1111111111111111111111111111111111111');
+//            Log::info('1111111111111111111111111111111111111');
 
             if ($values && is_array($values)){
 
@@ -79,12 +79,12 @@ class AuthAdmin extends Model
 
                 $values = $values['token'];
 
-                Log::info('2222222222222222222222222222222222222222');
+//                Log::info('2222222222222222222222222222222222222222');
             }
             $info = Redis::get($key);
 
-            Log::info('key==============='.$key);
-            Log::info($info);
+//            Log::info('key==============='.$key);
+//            Log::info($info);
 
             if ($info != '') {
                 $aFinal = get_object_vars(json_decode($info));

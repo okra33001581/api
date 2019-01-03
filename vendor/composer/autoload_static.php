@@ -357,6 +357,8 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\model\\AuthRole' => __DIR__ . '/../..' . '/app/model/AuthRole.php',
         'App\\model\\AuthRoleAdmin' => __DIR__ . '/../..' . '/app/model/AuthRoleAdmin.php',
         'App\\model\\Event' => __DIR__ . '/../..' . '/app/model/Event.php',
+        'App\\model\\AdSite' => __DIR__ . '/../..' . '/app/model/AdSite.php',
+        'App\\model\\Ad' => __DIR__ . '/../..' . '/app/model/Ad.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'ArticlesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ArticlesTableSeeder.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
