@@ -578,15 +578,22 @@ class EventsController extends Controller
      * 添加
      */
     public function permissionRuleSave(){
-        $data = $this->request->post();
+
+        $data = request()->post();
+
+//        $data = $this->request->post();
         if (empty($data['name']) || empty($data['status'])){
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
         $name = strtolower(strip_tags($data['name']));
         // 菜单模型
+//        $info = AuthPermissionRule::where('name',$name)
+//            ->field('name')
+//            ->find();
+
         $info = AuthPermissionRule::where('name',$name)
-            ->field('name')
-            ->find();
+            ->first();
+
         if ($info){
             return ResultVo::error(ErrorCode::DATA_REPEAT, "权限已经存在");
         }
@@ -595,9 +602,14 @@ class EventsController extends Controller
         $status = !empty($data['status']) ? $data['status'] : 0;
         $pid = !empty($data['pid']) ? $data['pid'] : 0;
         if ($pid){
+//            $info = AuthPermissionRule::where('id',$pid)
+//                ->field('id')
+//                ->find();
+
             $info = AuthPermissionRule::where('id',$pid)
-                ->field('id')
-                ->find();
+                ->first();
+
+
             if (!$info){
                 return ResultVo::error(ErrorCode::NOT_NETWORK);
             }
@@ -616,6 +628,15 @@ class EventsController extends Controller
         if (!$result){
             return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
+
+
+        $aFinal = [];
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $auth_permission_rule;
+
+        return response()->json($aFinal);
+
         return ResultVo::success($auth_permission_rule);
     }
 
@@ -856,9 +877,39 @@ class EventsController extends Controller
         //先删除
         $auth_permission = new AuthPermission();
         $auth_permission->where(['role_id' => $role_id])->delete();
-        if (!$rule_access || !$auth_permission->saveAll($rule_access)){
-            return ResultVo::error(ErrorCode::NOT_NETWORK);
+
+
+
+        if (!$rule_access){
+            if (count($rule_access) > 0) {
+
+                foreach ($rule_access as $k=>$v) {
+                    $auth_permission = new AuthPermission();
+                    $auth_permission['role_id'] = $v['role_id'];
+                    $auth_permission['permission_rule_id'] = $v['permission_rule_id'];
+                    $auth_permission['type'] = $v['type'];
+                    $iRet = $auth_permission->save();
+
+
+                }
+            }
+//            return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
+
+
+
+//        if (!$rule_access || !$auth_permission->saveAll($rule_access)){
+//            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+
+
+        $aFinal = [];
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+
 
         return ResultVo::success();
 
@@ -874,12 +925,16 @@ class EventsController extends Controller
         }
         $name = $data['name'];
         // 菜单模型
+//        $info = AuthRole::where('name',$name)
+//            ->field('name')
+//            ->find();
+
         $info = AuthRole::where('name',$name)
-            ->field('name')
-            ->find();
-        if ($info){
-            return ResultVo::error(ErrorCode::DATA_REPEAT);
-        }
+            ->first();
+
+//        if ($info){
+//            return ResultVo::error(ErrorCode::DATA_REPEAT);
+//        }
 
         $now_time = date("Y-m-d H:i:s");
         $status = isset($data['status']) ? $data['status'] : 0;
@@ -894,6 +949,13 @@ class EventsController extends Controller
         if (!$result){
             return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
+
+        $aFinal = [];
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
 
         return ResultVo::success($auth_role);
     }
@@ -1104,12 +1166,17 @@ class EventsController extends Controller
         }
         $username = $data['username'];
         // 模型
+//        $info = AuthAdmin::where('username',$username)
+//            ->field('username')
+//            ->find();
+
         $info = AuthAdmin::where('username',$username)
-            ->field('username')
-            ->find();
-        if ($info){
-            return ResultVo::error(ErrorCode::DATA_REPEAT);
-        }
+            ->first();
+
+
+//        if ($info){
+//            return ResultVo::error(ErrorCode::DATA_REPEAT);
+//        }
 
         $status = isset($data['status']) ? $data['status'] : 0;
         $auth_admin = new AuthAdmin();
@@ -1134,12 +1201,27 @@ class EventsController extends Controller
                 $temp[$key]['admin_id'] = $admin_id;
             }
             //添加用户的角色
-            $auth_role_admin = new AuthRoleAdmin();
-            $auth_role_admin->saveAll($temp);
+
+            if (count($temp) > 0) {
+                foreach ($temp as $k=>$v) {
+                    $auth_role_admin = new AuthRoleAdmin();
+                    $auth_role_admin->role_id = $v['role_id'];
+                    $auth_role_admin->admin_id = $v['admin_id'];
+                    $iRet = $auth_role_admin->save();
+                }
+            }
+//            $auth_role_admin->saveAll($temp);
         }
 
         $auth_admin['password'] = '';
         $auth_admin['roles'] = $roles;
+
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $auth_admin;
+
+        return response()->json($aFinal);
 
         return ResultVo::success($auth_admin);
     }
@@ -1182,9 +1264,9 @@ class EventsController extends Controller
             ->first();
 
         // 判断username 是否重名，剔除自己
-        if (!empty($info['id']) && $info['id'] != $id){
-            return ResultVo::error(ErrorCode::DATA_REPEAT, "管理员已存在");
-        }
+//        if (!empty($info['id']) && $info['id'] != $id){
+//            return ResultVo::error(ErrorCode::DATA_REPEAT, "管理员已存在");
+//        }
 
         $status = isset($data['status']) ? $data['status'] : 0;
         $password = isset($data['password']) ? PassWordUtils::create($data['password']) : '';
