@@ -61,5 +61,21 @@ class AuthPermissionRule extends Model
         return $result;
     }
 
+    /* 查找它所有的上级分类 */
+    public static function queryParentAll($arr, $idName, $pidName, $id)
+    {
+        $pids = array();
+        while($id != 0){
+            foreach($arr as $v){
+                if($v[$idName] == $id){
+                    $pids[] = $v[$idName];
+                    $id = $v[$pidName];
+                    break;
+                }
+            }
+        }
+        return $pids;
+    }
+
 
 }

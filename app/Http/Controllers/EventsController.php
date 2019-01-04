@@ -12,9 +12,6 @@ use App\model\AuthRoleAdmin;
 use App\model\AuthPermission;
 use App\model\AuthPermissionRule;
 use App\model\AuthRole;
-use App\model\AdSite;
-use App\model\Ad;
-
 use App\common\utils\PublicFileUtils;
 use App\common\utils\PassWordUtils;
 //use App\vendor\Redis;
@@ -72,8 +69,8 @@ class EventsController extends Controller
 
         print_r('aaaaaaaaaaaaaaa');
 
-//        Log::info(request()->all);
-//        Log::info('123===============');
+        Log::info(request()->all);
+        Log::info('123===============');
 //        Log::info($id);
 
 //        print_r(request()->all);
@@ -495,22 +492,22 @@ class EventsController extends Controller
 //        return response()->json($aData);
 //
 //    }
-
+//
 //    public function adminedit()
 //    {
 //        $aTmp['code']=2;
 //        $aTmp['message']="success";
 //        return response()->json($aData);
 //    }
-
-
-    public function admindel()
-    {
-        $aTmp['code']=2;
-        $aTmp['message']="success";
-        return response()->json($aTmp);
-
-    }
+//
+//
+//    public function admindel()
+//    {
+//        $aTmp['code']=2;
+//        $aTmp['message']="success";
+//        return response()->json($aTmp);
+//
+//    }
 
 
 // PermissionRuleController.php
@@ -580,7 +577,7 @@ class EventsController extends Controller
     /**
      * 添加
      */
-    public function save(){
+    public function permissionRuleSave(){
         $data = $this->request->post();
         if (empty($data['name']) || empty($data['status'])){
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
@@ -625,24 +622,39 @@ class EventsController extends Controller
     /**
      * 编辑
      */
-    public function edit(){
-        $data = $this->request->post();
+    public function permissionRuleEdit(){
+
+
+        $data = request()->all();
+
+
+
+//        $data = $this->request->post();
         if (empty($data['id']) || empty($data['name'])){
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
         $id = $data['id'];
         $name = strtolower(strip_tags($data['name']));
         // 模型
+//        $auth_permission_rule = AuthPermissionRule::where('id',$id)
+//            ->field('id')
+//            ->find();
+
         $auth_permission_rule = AuthPermissionRule::where('id',$id)
-            ->field('id')
-            ->find();
+            ->first();
+
         if (!$auth_permission_rule){
             return ResultVo::error(ErrorCode::DATA_NOT, "角色不存在");
         }
 
+//        $idInfo = AuthPermissionRule::where('name',$name)
+//            ->field('id')
+//            ->find();
+
         $idInfo = AuthPermissionRule::where('name',$name)
-            ->field('id')
-            ->find();
+            ->first();
+
+
         // 判断名称 是否重名，剔除自己
         if (!empty($idInfo['id']) && $idInfo['id'] != $id){
             return ResultVo::error(ErrorCode::DATA_REPEAT, "权限名称已存在");
@@ -651,9 +663,13 @@ class EventsController extends Controller
         $pid = isset($data['pid']) ? $data['pid'] : 0;
         // 判断父级是否存在
         if ($pid){
+//            $info = AuthPermissionRule::where('id',$pid)
+//                ->field('id')
+//                ->find();
+
             $info = AuthPermissionRule::where('id',$pid)
-                ->field('id')
-                ->find();
+                ->first();
+
             if (!$info){
                 return ResultVo::error(ErrorCode::NOT_NETWORK);
             }
@@ -679,6 +695,14 @@ class EventsController extends Controller
             return ResultVo::error(ErrorCode::DATA_CHANGE);
         }
 
+        $aFinal = [];
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+
+
         return ResultVo::success();
     }
 
@@ -686,15 +710,21 @@ class EventsController extends Controller
     /**
      * 删除
      */
-    public function delete(){
-        $id = request()->post('id/d');
-        if (empty($id)){
+    public function permissionRuleDelete(){
+//        $id = request()->post('id/d');
+//        if (empty($id)){
+        $id = request()->all()['id'];
+
+        Log::info('++++++++++++');
+        Log::info($id);
+        if ($id == ''){
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
 
         // 下面有子节点，不能删除
-        $sub = AuthPermissionRule::where('pid',$id)->field('id')->find();
-        if ($sub){
+//        $sub = AuthPermissionRule::where('pid',$id)->field('id')->find();
+        $sub = AuthPermissionRule::where('pid',$id)->get();
+        if (count($sub) > 0){
             return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
 
@@ -704,6 +734,12 @@ class EventsController extends Controller
 
         // 删除授权的权限
         AuthPermission::where('permission_rule_id',$id)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
 
         return ResultVo::success();
 
@@ -799,106 +835,6 @@ class EventsController extends Controller
     }
 
 
-    /**
-     * 添加
-     */
-    public function roleSave(){
-        $data = request()->post();
-        if (empty($data['name']) || empty($data['status'])){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $name = $data['name'];
-        // 菜单模型
-//        $info = AuthRole::where('name',$name)
-//            ->field('name')
-//            ->find();
-
-        $info = AuthRole::where('name',$name)
-            ->first();
-
-        if ($info){
-            return ResultVo::error(ErrorCode::DATA_REPEAT);
-        }
-
-        $now_time = date("Y-m-d H:i:s");
-        $status = isset($data['status']) ? $data['status'] : 0;
-        $auth_role = new AuthRole();
-        $auth_role->name = $name;
-        $auth_role->status = $status;
-        $auth_role->remark = isset($data['remark']) ? strip_tags($data['remark']) : '';
-        $auth_role->create_time = $now_time;
-        $auth_role->update_time = $now_time;
-        $result = $auth_role->save();
-
-        if (!$result){
-            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
-
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $auth_role;
-
-        return response()->json($aFinal);
-
-        return ResultVo::success($auth_role);
-    }
-
-
-    /**
-     * 编辑
-     */
-    public function roleEdit(){
-        $data = request()->post();
-        if (empty($data['id']) || empty($data['name'])){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $id = $data['id'];
-        $name = strip_tags($data['name']);
-        // 模型
-//        $auth_role = AuthRole::where('id',$id)
-//            ->field('id')
-//            ->find();
-
-        $auth_role = AuthRole::where('id',$id)
-            ->first();
-        if (!$auth_role){
-            return ResultVo::error(ErrorCode::DATA_NOT, "角色不存在");
-        }
-
-//        $info = AuthRole::where('name',$name)
-//            ->field('id')
-//            ->find();
-        $info = AuthRole::where('name',$name)
-            ->first();
-        // 判断角色名称 是否重名，剔除自己
-        if (!empty($info['id']) && $info['id'] != $id){
-            return ResultVo::error(ErrorCode::DATA_REPEAT);
-        }
-
-        $status = isset($data['status']) ? $data['status'] : 0;
-        $auth_role->name = $name;
-        $auth_role->status = $status;
-        $auth_role->remark = isset($data['remark']) ? strip_tags($data['remark']) : '';
-        $auth_role->update_time = date("Y-m-d H:i:s");
-        $auth_role->listorder = isset($data['listorder']) ? intval($data['listorder']) : 999;
-        $result = $auth_role->save();
-
-        if (!$result){
-            return ResultVo::error(ErrorCode::DATA_CHANGE);
-        }
-
-
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $auth_role;
-
-        return response()->json($auth_role);
-
-        return ResultVo::success();
-    }
-
 
     /*
      * 授权
@@ -917,46 +853,144 @@ class EventsController extends Controller
             $rule_access[$key]['type'] = 'admin';
         }
 
-
-
-//        Log::info('role_id======================================================================'.$role_id);
-//        Log::info('+++++++++++++++++++++++++');
-//        Log::info($rule_access);
-
         //先删除
         $auth_permission = new AuthPermission();
         $auth_permission->where(['role_id' => $role_id])->delete();
-//        if (!$rule_access || !$auth_permission->saveAll($rule_access)){
-//            return ResultVo::error(ErrorCode::NOT_NETWORK);
-//        }
-        if (count($rule_access) > 0){
-            foreach ($rule_access as $k=>$v) {
-                $oAuthPermission = new AuthPermission();
-                $oAuthPermission->role_id = $v['role_id'];
-                $oAuthPermission->permission_rule_id = $v['permission_rule_id'];
-                $oAuthPermission->type = $v['type'];
-                $result = $oAuthPermission->save();
-                if (!$result){
-                    return ResultVo::error(ErrorCode::NOT_NETWORK);
-                }
-            }
-
-//            return ResultVo::error(ErrorCode::NOT_NETWORK);
+        if (!$rule_access || !$auth_permission->saveAll($rule_access)){
+            return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
-
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-//        $aFinal['data'] = $auth_role;
-
-        return response()->json($aFinal);
 
         return ResultVo::success();
 
     }
 
+    /**
+     * 添加
+     */
+    public function roleSave(){
+        $data = request()->post();
+        if (empty($data['name']) || empty($data['status'])){
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+        $name = $data['name'];
+        // 菜单模型
+        $info = AuthRole::where('name',$name)
+            ->field('name')
+            ->find();
+        if ($info){
+            return ResultVo::error(ErrorCode::DATA_REPEAT);
+        }
+
+        $now_time = date("Y-m-d H:i:s");
+        $status = isset($data['status']) ? $data['status'] : 0;
+        $auth_role = new AuthRole();
+        $auth_role->name = $name;
+        $auth_role->status = $status;
+        $auth_role->remark = isset($data['remark']) ? strip_tags($data['remark']) : '';
+        $auth_role->create_time = $now_time;
+        $auth_role->update_time = $now_time;
+        $result = $auth_role->save();
+
+        if (!$result){
+            return ResultVo::error(ErrorCode::NOT_NETWORK);
+        }
+
+        return ResultVo::success($auth_role);
+    }
+
+    /**
+     * 编辑
+     */
+    public function roleEdit(){
+        $data = request()->post();
+        if (empty($data['id']) || empty($data['name'])){
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+        $id = $data['id'];
+        $name = strip_tags($data['name']);
+        // 模型
+//        $auth_role = AuthRole::where('id',$id)
+//            ->field('id')
+//            ->find();
+
+        $auth_role = AuthRole::where('id',$id)
+            ->first();
+
+        if (!$auth_role){
+            return ResultVo::error(ErrorCode::DATA_NOT, "角色不存在");
+        }
+
+//        $info = AuthRole::where('name',$name)
+//            ->field('id')
+//            ->find();
+
+        $info = AuthRole::where('name',$name)
+            ->first();
+
+        // 判断角色名称 是否重名，剔除自己
+        if (!empty($info['id']) && $info['id'] != $id){
+            return ResultVo::error(ErrorCode::DATA_REPEAT);
+        }
+
+        $status = isset($data['status']) ? $data['status'] : 0;
+        $auth_role->name = $name;
+        $auth_role->status = $status;
+        $auth_role->remark = isset($data['remark']) ? strip_tags($data['remark']) : '';
+        $auth_role->update_time = date("Y-m-d H:i:s");
+        $auth_role->listorder = isset($data['listorder']) ? intval($data['listorder']) : 999;
+        $result = $auth_role->save();
+
+        if (!$result){
+            return ResultVo::error(ErrorCode::DATA_CHANGE);
+        }
+
+        $aFinal = [];
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
 
 
+
+        return ResultVo::success();
+    }
+
+    /**
+     * 删除
+     */
+    public function roleDelete(){
+
+
+
+
+
+
+//        $id = request()->post('id/d');
+
+
+        $id = request()->all()['id'];
+
+
+        if ($id == ''){
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+        if (!AuthRole::where('id',$id)->delete()){
+            return ResultVo::error(ErrorCode::NOT_NETWORK);
+        }
+
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+
+
+
+        return ResultVo::success();
+
+    }
 
 
 // AdminController.php
@@ -1052,17 +1086,12 @@ class EventsController extends Controller
         $res = [];
         $res["total"] = $lists->total();
         $res["list"] = $lists->items();
-
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
-
-        return response()->json($aFinal);
+        return response()->json($res);
         return ResultVo::success($res);
 
 
     }
+
 
 
     /**
@@ -1075,11 +1104,9 @@ class EventsController extends Controller
         }
         $username = $data['username'];
         // 模型
-//        $info = AuthAdmin::where('username',$username)
-//            ->field('username')
-//            ->find();
         $info = AuthAdmin::where('username',$username)
-            ->first();
+            ->field('username')
+            ->find();
         if ($info){
             return ResultVo::error(ErrorCode::DATA_REPEAT);
         }
@@ -1114,19 +1141,8 @@ class EventsController extends Controller
         $auth_admin['password'] = '';
         $auth_admin['roles'] = $roles;
 
-
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $auth_admin;
-
-        return response()->json($aFinal);
-
-
         return ResultVo::success($auth_admin);
     }
-
-
 
     /**
      * 编辑
@@ -1151,8 +1167,7 @@ class EventsController extends Controller
         if (!$auth_admin){
             return ResultVo::error(ErrorCode::DATA_NOT, "管理员不存在");
         }
-        $login_info = $auth_admin->toArray();
-
+        $login_info = $auth_admin;
         $login_user_name = isset($login_info['username']) ? $login_info['username'] : '';
         // 如果是超级管理员，判断当前登录用户是否匹配
         if ($auth_admin->username == 'admin' && $login_user_name != $auth_admin->username){
@@ -1203,50 +1218,75 @@ class EventsController extends Controller
                 $temp[$key]['role_id'] = $value;
                 $temp[$key]['admin_id'] = $id;
             }
+
+
             //添加用户的角色
             $auth_role_admin = new AuthRoleAdmin();
 
 
-            if (count($temp) > 0) {
+//            dddd
+//            $auth_role_admin->saveAll($temp);
+
+            if (count($temp) > 0){
                 foreach ($temp as $k=>$v) {
-                    $oAuthRoleAdmin = new AuthRoleAdmin();
-                    $oAuthRoleAdmin->role_id = $v['role_id'];
-                    $oAuthRoleAdmin->admin_id = $v['admin_id'];
-                    $iRet = $oAuthRoleAdmin->save();
-
-
+                    $oAuthPermission = new AuthRoleAdmin();
+                    $oAuthPermission->role_id = $v['role_id'];
+                    $oAuthPermission->admin_id = $v['admin_id'];
+                    $result = $oAuthPermission->save();
+                    if (!$result){
+                        return ResultVo::error(ErrorCode::NOT_NETWORK);
+                    }
                 }
+
+//            return ResultVo::error(ErrorCode::NOT_NETWORK);
             }
 
-
-
-//            Log::info('=================================================');
-//            Log::info($temp);
-
-
-
-
-//            array (
-//                0 =>
-//                    array (
-//                        'role_id' => 20,
-//                        'admin_id' => 2,
-//                    ),
-//            )
-
-
-//            $auth_role_admin->saveAll($temp);
         }
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-//        $aFinal['data'] = $auth_admin;
+//        $aFinal['data'] = $res;
 
         return response()->json($aFinal);
 
         return ResultVo::success();
     }
 
+    /**
+     * 删除
+     */
+    public function adminDelete(){
+
+
+
+
+//        Log::info('++++++++++++');
+//        Log::info(request()->all()['id']);
+//        die;
+//        $id = request()->post('id/d');
+        $id = request()->all()['id'];
+
+        Log::info('++++++++++++');
+        Log::info($id);
+        if ($id == ''){
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
+        $auth_admin = AuthAdmin::where('id',$id)->first();
+        if (!$auth_admin || $auth_admin['username'] == 'admin' || !$auth_admin->delete()){
+//            return ResultVo::error(ErrorCode::NOT_NETWORK);
+        }
+        // 删除权限
+        AuthRoleAdmin::where('admin_id',$id)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
 
 
 // LoginController.php
@@ -1299,13 +1339,9 @@ class EventsController extends Controller
         if (!$user_name || !$pwd){
 //            return ResultVo::error(ErrorCode::VALIDATION_FAILED, "username 不能为空。 password 不能为空。");
         }
-//        $user_name = 'admin';
+        $user_name = 'admin';
         $admin = AuthAdmin::where('username',$user_name)
             ->first();
-
-
-
-
         if (empty($admin) ||  PassWordUtils::create($pwd) != $admin->password){
 //            return ResultVo::error(ErrorCode::USER_AUTH_FAIL);
         }
@@ -1319,22 +1355,13 @@ class EventsController extends Controller
         if ($user_name == 'admin'){
             $authRules = ['admin'];
         }else{
-//            $oAuthRoleAdminList = AuthRoleAdmin::where('admin_id',$admin->id)->select('role_id')->get();
-            $oAuthRoleAdminList = AuthRoleAdmin::where('admin_id','=',$admin->id)->first();
-
-
-
-
-            if (is_object($oAuthRoleAdminList)){
-//                $oAuthPermissionList = AuthPermission::where('role_id','in',$oAuthRoleAdminList->role_id)
-//                    ->select(['permission_rule_id'])
-//                    ->get();
-
-                $oAuthPermissionList = AuthPermission::where('role_id','=',$oAuthRoleAdminList->role_id)
+            $oAuthRoleAdminList = AuthRoleAdmin::where('admin_id',$admin->id)->select('role_id')->get();
+            if (count($oAuthRoleAdminList) > 0){
+                $oAuthPermissionList = AuthPermission::where('role_id','in',$oAuthRoleAdminList->role_id)
+                    ->select(['permission_rule_id'])
                     ->get();
                 foreach ($oAuthPermissionList as $oAuthPermission){
-//                    $oAuthPermissionRule = AuthPermissionRule::where('id',$oAuthPermission->permission_rule_id)->select('name')->first();
-                    $oAuthPermissionRule = AuthPermissionRule::where('id',$oAuthPermission->permission_rule_id)->first();
+                    $oAuthPermissionRule = AuthPermissionRule::where('id',$oAuthPermission->permission_rule_id)->select('name')->first();
                     if (is_object($oAuthPermissionRule)){
                         $authRules[] = $oAuthPermissionRule->name;
                     }
@@ -1351,9 +1378,9 @@ class EventsController extends Controller
         // ];
         // 保存用户信息
 
-//        Log::info('++++++++++++++++++++++++++++++++++++++++++++++++');
-//        Log::info($info);
-//        Log::info('------------------------------------------------');
+        Log::info('++++++++++++++++++++++++++++++++++++++++++++++++');
+        Log::info($info);
+        Log::info('------------------------------------------------');
 
         $loginInfo = AuthAdmin::loginInfo($info['id'],$info);
         $admin->last_login_ip = request()->ip();
@@ -1376,10 +1403,6 @@ class EventsController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        Log::info('================================================');
-        Log::info($info);
-
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -1388,7 +1411,7 @@ class EventsController extends Controller
     /**
      * 获取登录用户信息
      */
-    public function loginInfoa()
+    public function loginInfo()
     {
 
 
@@ -1399,7 +1422,7 @@ class EventsController extends Controller
 
 
 
-//        Log::info('huangqiu');
+        Log::info('huangqiu');
 
         $id = request()->header('X-Adminid');
         $token = request()->header('X-Token');
@@ -1419,9 +1442,9 @@ class EventsController extends Controller
         $res = AuthAdmin::loginInfo($id, (string)$token);
 
 
-//        Log::info('ligang');
-//
-//        Log::info($res);
+        Log::info('ligang');
+
+        Log::info($res);
 
         $res['id'] = !empty($res['id']) ? intval($res['id']) : 0;
         $res['avatar'] = !empty($res['avatar']) ? PublicFileUtils::createUploadUrl($res['avatar']) : '';
@@ -1437,371 +1460,6 @@ class EventsController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
-
-
-
-//SiteController.php
-
-    /**
-     * 列表
-     */
-    public function siteIndex()
-    {
-
-        $where = [];
-        $site_id = request()->get('site_id/d', '');
-        if ($site_id !== ''){
-            $where[] = ['site_id','=',intval($site_id)];
-        }
-        $limit = request()->get('limit/d', 20);
-        //分页配置
-        $paginate = [
-            'type' => 'bootstrap',
-            'var_page' => 'page',
-            'list_rows' => ($limit <= 0 || $limit > 20) ? 20 : $limit,
-        ];
-//        $lists = AdSite::where($where)
-//            ->field('site_id,site_name,describe,ad_ids,update_time')
-//            ->paginate($paginate);
-        $lists = AdSite::where($where)
-            ->paginate($limit);
-        foreach ($lists as $v) {
-            $ad_ids = !empty($v['ad_ids']) ? explode(",", $v['ad_ids']) : [];
-            foreach ($ad_ids as $key => $val) {
-                $ad_ids[$key] = intval($val);
-            }
-            $v['ad_ids'] = $ad_ids;
-        }
-        $res = [];
-        $res["total"] = $lists->total();
-        $res["list"] = $lists->items();
-
-        $aFinal = [];
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
-
-
-        return response()->json($aFinal);
-
-        return ResultVo::success($res);
-
-    }
-
-    /**
-     * 给广告位选择广告时调用
-     */
-    public function siteList() {
-        $where = [];
-        $limit = request()->get('adLimit/d', 20);
-        //分页配置
-        $paginate = [
-            'type' => 'bootstrap',
-            'var_page' => 'adPage',
-            'list_rows' => ($limit <= 0 || $limit > 20) ? 20 : $limit,
-        ];
-        // 查询当前广告位的广告id
-        $ad_ids = request()->get('ad_ids');
-        $ad_ids = !empty($ad_ids) ? explode(",", $ad_ids) : [];
-//        $lists = Ad::where($where)
-//            ->field('ad_id,title,describe,status')
-//            ->paginate($paginate);
-
-
-        $lists = Ad::where($where)
-            ->paginate($limit);
-
-
-        $data = [];
-        foreach ($lists as $k => $v) {
-            $temp = [];
-            $temp['key'] = $v['ad_id'];
-            $temp['label'] = $v['ad_id'] . '-' . $v['title'] . '-' . $v['describe'];
-            $temp['disabled'] = $v['status'] !== 1;
-            $temp['describe'] = $v['describe'];
-            $data[] = $temp;
-            foreach ($ad_ids as $key => $val) {
-                if ($v['ad_id'] == $val) {
-                    unset($ad_ids[$key]);
-                }
-            }
-        }
-        // 查询该页没有的广告
-        if (count($lists) > 0 && $ad_ids) {
-            $temp_data = Ad::whereIn('ad_id', $ad_ids)
-                ->field('ad_id,title,describe,status')
-                ->select();
-            foreach ($temp_data as $k => $v) {
-                $temp = [];
-                $temp['key'] = $v['ad_id'];
-                $temp['label'] = $v['ad_id'] . '-' . $v['title'] . '-' . $v['describe'];
-                $temp['disabled'] = $v['status'] !== 1;
-                $temp['describe'] = $v['describe'];
-                $data[] = $temp;
-            }
-        }
-
-
-        $aFinal = [];
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $data;
-
-
-        return response()->json($aFinal);
-
-        return ResultVo::success($data);
-    }
-
-    /**
-     * 添加
-     */
-    public function siteSave(){
-        $data = request()->post();
-        if (empty($data['site_name'])){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $ad_site = new AdSite();
-        $ad_site->site_name = $data['site_name'];
-        $ad_site->describe = !empty($data['describe']) ? $data['describe'] : ' ';
-        $ad_site->ad_ids = !empty($data['ad_ids']) ? implode(",", $data['ad_ids']) : '0';
-        $ad_site->create_time = date("Y-m-d H:i:s");
-        $ad_site->update_time = date("Y-m-d H:i:s");
-        $result = $ad_site->save();
-
-        if (!$result){
-            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
-        $ad_site->ad_ids = !empty($data['ad_ids']) ? $data['ad_ids'] : [];
-
-
-
-        $aFinal = [];
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $ad_site;
-
-
-        return response()->json($aFinal);
-
-
-        return ResultVo::success($ad_site);
-    }
-
-    /**
-     * 编辑
-     */
-    public function siteEdit(){
-        $data = request()->post();
-        if (empty($data['site_id']) || empty($data['site_name'])){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $site_id = $data['site_id'];
-        // 模型
-//        $ad_site = AdSite::where('site_id',$site_id)
-//            ->field('site_id')
-//            ->find();
-
-        $ad_site = AdSite::where('site_id',$site_id)
-            ->first();
-        if (!$ad_site){
-            return ResultVo::error(ErrorCode::DATA_NOT);
-        }
-        $ad_site->site_id = $data['site_id'];
-        $ad_site->site_name = $data['site_name'];
-        $ad_site->describe = !empty($data['describe']) ? $data['describe'] : ' ';
-        $ad_site->ad_ids = !empty($data['ad_ids']) ? implode(",", $data['ad_ids']) : '0';
-        $result = $ad_site->save();
-        if (!$result){
-            return ResultVo::error(ErrorCode::DATA_CHANGE);
-        }
-
-
-        $aFinal = [];
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $data;
-
-
-        return response()->json($aFinal);
-
-
-        return ResultVo::success();
-    }
-
-    /**
-     * 删除
-     */
-    public function siteDelete(){
-        $site_id = request()->post('site_id/d');
-        if (empty($site_id)){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        // 这里广告位不让删除
-        return ResultVo::error(ErrorCode::NOT_NETWORK, "此功能目前不开放");
-        if (!AdSite::where('site_id',$site_id)->delete()){
-            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
-
-        return ResultVo::success();
-
-    }
-
-//AdController.php
-
-    /**
-     * 列表
-     */
-    public function adIndex()
-    {
-
-        $where = [];
-        $title = request()->get('title', '');
-        if ($title !== ''){
-            $where[] = ['title','=',$title];
-        }
-        $limit = request()->get('limit/d', 20);
-        //分页配置
-        $paginate = [
-            'type' => 'bootstrap',
-            'var_page' => 'page',
-            'list_rows' => ($limit <= 0 || $limit > 20) ? 20 : $limit,
-        ];
-
-
-//        $lists = Ad::where($where)
-//            ->field('ad_id,title,describe,jump_type,link_url,pic,wxa_appid,wxa_path,extra_data,env_version,status')
-//            ->paginate($paginate);
-
-//        if (!empty($where)) {
-//            $lists = Ad::where($where)
-//                ->paginate($limit);
-//        } else {
-//            $lists = Ad::paginate($limit);
-//        }
-
-
-//        $lists = Ad::get()->toArray();
-
-                    $lists = Ad::paginate($limit);
-
-
-        print_r($lists);
-
-        foreach ($lists as $k => $v) {
-            $temp = $v;
-            $temp['pic_url'] = PublicFileUtils::createUploadUrl($v['pic']);
-            $temp['jump_type'] = !empty($v['jump_type']) ? $v['jump_type'] : '';
-            $temp['link_url'] = !empty($v['link_url']) ? $v['link_url'] : '';
-            $temp['wxa_appid'] = !empty($v['wxa_appid']) ? $v['wxa_appid'] : '';
-            $temp['wxa_path'] = !empty($v['wxa_path']) ? $v['wxa_path'] : '';
-            $temp['extra_data'] = !empty($v['extra_data']) ? $v['extra_data'] : '';
-            $temp['env_version'] = !empty($v['env_version']) ? $v['env_version'] : '';
-        }
-
-//        $res = [];
-//        $res["total"] = count($lists);
-//        $res["list"] = $lists;
-
-
-        $res = [];
-        $res["total"] = $lists->total();
-        $res["list"] = $lists->items();
-
-        $aFinal = [];
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
-
-        return response()->json($aFinal);
-
-
-        return ResultVo::success($res);
-
-    }
-
-    /**
-     * 添加
-     */
-    public function adSave(){
-        $data = request()->post();
-        if (empty($data['title']) || empty($data['jump_type']) || empty($data['pic'])){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $status = isset($data['status']) ? $data['status'] : 0;
-        $ad = new Ad();
-        $ad->title = $data['title'];
-        $ad->describe = !empty($data['describe']) ? $data['describe'] : '0';
-        $ad->jump_type = $data['jump_type'];
-        $ad->link_url = !empty($data['link_url']) ? $data['link_url'] : '0';
-        $ad->pic = $data['pic'];
-        $ad->wxa_appid = !empty($data['wxa_appid']) ? $data['wxa_appid'] : '0';
-        $ad->wxa_path = !empty($data['wxa_path']) ? $data['wxa_path'] : '0';
-        $ad->extra_data = !empty($data['extra_data']) ? $data['extra_data'] : '0';
-        $ad->env_version = !empty($data['env_version']) ? $data['env_version'] : '0';
-        $ad->status = $status;
-        $ad->create_time = date("Y-m-d H:i:s");
-        $ad->update_time = date("Y-m-d H:i:s");
-        $result = $ad->save();
-
-        if (!$result){
-            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
-        return ResultVo::success($ad);
-    }
-
-    /**
-     * 编辑
-     */
-    public function adEdit(){
-        $data = request()->post();
-        if (empty($data['ad_id']) || empty($data['title']) || empty($data['jump_type']) || empty($data['pic'])){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $ad_id = $data['ad_id'];
-        // 模型
-        $ad = Ad::where('ad_id',$ad_id)
-            ->field('ad_id')
-            ->find();
-        if (!$ad){
-            return ResultVo::error(ErrorCode::DATA_NOT);
-        }
-        $status = isset($data['status']) ? $data['status'] : 0;
-        $ad->title = $data['title'];
-        $ad->describe = !empty($data['describe']) ? $data['describe'] : '0';
-        $ad->jump_type = $data['jump_type'];
-        $ad->link_url = !empty($data['link_url']) ? $data['link_url'] : '0';
-        $ad->pic = $data['pic'];
-        $ad->wxa_appid = !empty($data['wxa_appid']) ? $data['wxa_appid'] : '0';
-        $ad->wxa_path = !empty($data['wxa_path']) ? $data['wxa_path'] : '0';
-        $ad->extra_data = !empty($data['extra_data']) ? $data['extra_data'] : '0';
-        $ad->env_version = !empty($data['env_version']) ? $data['env_version'] : '0';
-        $ad->status = $status;
-        $result = $ad->save();
-        if (!$result){
-            return ResultVo::error(ErrorCode::DATA_CHANGE);
-        }
-
-        return ResultVo::success();
-    }
-
-    /**
-     * 删除
-     */
-    public function adDelete(){
-        $ad_id = request()->post('ad_id/d');
-        if (empty($ad_id)){
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        if (!Ad::where('ad_id',$ad_id)->delete()){
-            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
-
-        return ResultVo::success();
-
-    }
-
 
 
 }
