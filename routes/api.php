@@ -77,8 +77,21 @@ Route::get('event/adminRoleList', 'EventsController@adminRoleList');
 
 
 
+//AdController.php
+//siteDelete siteEdit siteSave siteList siteIndex
+Route::get('event/siteIndex', 'EventsController@siteIndex');
+Route::get('event/siteAdList', 'EventsController@siteAdList');
+Route::post('event/siteEdit', 'EventsController@siteEdit');
+Route::post('event/siteSave', 'EventsController@siteSave');
+Route::post('event/siteDelete', 'EventsController@siteDelete');
 
 
+//AdController.php
+//adIndex adSave  adEdit adDelete
+Route::get('event/adIndex', 'EventsController@adIndex');
+Route::post('event/adSave', 'EventsController@adSave');
+Route::post('event/adEdit', 'EventsController@adEdit');
+Route::post('event/adDelete', 'EventsController@adDelete');
 
 
 
