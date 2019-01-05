@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class AuthPermissionRule extends Model
 {
     public static $icon = ['│', '├', '└'];
+
     //
 
-
-    public static function getLists($where,$order){
+    public static function getLists($where, $order)
+    {
         $lists = self::where($where)
-            ->orderby('id','asc')->get();
+            ->orderby('id', 'asc')->get();
         return $lists;
     }
 
-    public static function getListsTmp($where,$order){
-        $lists = self::orderby('id','asc')->get();
+    public static function getListsTmp($where, $order)
+    {
+        $lists = self::orderby('id', 'asc')->get();
         return $lists;
     }
 
@@ -36,12 +38,13 @@ class AuthPermissionRule extends Model
 
 
     /* 分类数型图 */
-    public static function cateTree($arr, $idName, $pidName, $pid = 0, $level = 0, $html = '&nbsp;&nbsp;|--') {
+    public static function cateTree($arr, $idName, $pidName, $pid = 0, $level = 0, $html = '&nbsp;&nbsp;|--')
+    {
         if (empty($arr)) {
             return array();
         }
         $result = array();
-        $total  = count($arr);
+        $total = count($arr);
         $number = 1;
         foreach ($arr as $val) {
             $tmp_str = str_repeat(self::$icon[0] . '&nbsp;', $level > 0 ? $level - 1 : 0);
@@ -65,9 +68,9 @@ class AuthPermissionRule extends Model
     public static function queryParentAll($arr, $idName, $pidName, $id)
     {
         $pids = array();
-        while($id != 0){
-            foreach($arr as $v){
-                if($v[$idName] == $id){
+        while ($id != 0) {
+            foreach ($arr as $v) {
+                if ($v[$idName] == $id) {
                     $pids[] = $v[$idName];
                     $id = $v[$pidName];
                     break;
