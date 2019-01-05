@@ -19,18 +19,10 @@ use App\model\AdSite;
 use App\model\FileResource;
 use App\model\FileResourceTag;
 
-//use App\vendor\Redis;
-//use Redis;
 use Illuminate\Support\Facades\Redis;
 
-///home/ok/apidemo/vendor/predis
-///
 
-//use App\common\vo\ResultVo;
-
-//app\common\vo
-
-class EventsController extends Controller
+class UserController extends Controller
 {
 
 
@@ -1348,6 +1340,11 @@ class EventsController extends Controller
      */
     public function loginIndex()
     {
+
+
+
+//        print_r('aaaaaaa');
+//        die;
 //        $aFinal = [];
 //
 //        $aData["id"] = 1;

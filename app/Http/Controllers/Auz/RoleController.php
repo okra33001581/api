@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Redis;
 
 //app\common\vo
 
-class EventsController extends Controller
+class RoleController extends Controller
 {
 
 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auz\UserController;
 
 ///
 ///
@@ -40,40 +41,40 @@ Route::post('event/update', 'EventsController@update');
 
 
 // LoginController.php
-Route::post('event/login1', 'EventsController@login1');
-Route::post('event/out', 'EventsController@out');
-Route::post('event/password', 'EventsController@password');
-Route::post('event/userinfo', 'EventsController@userinfo');
+Route::post('event/login1', 'UserController@login1');
+Route::post('event/out', 'UserController@out');
+Route::post('event/password', 'UserController@password');
+Route::post('event/userinfo', 'UserController@userinfo');
 
-Route::post('event/loginIndex', 'EventsController@loginIndex');
-Route::get('event/loginInfo', 'EventsController@loginInfo');
+Route::post('event/loginIndex', 'UserController@loginIndex');
+Route::get('event/loginInfo', 'UserController@loginInfo');
 
 
 // PermissionRuleController.php
-Route::get('event/permissionRuleIndex', 'EventsController@permissionRuleIndex');
-Route::get('event/permissionRuleTree', 'EventsController@permissionRuleTree');
-Route::post('event/permissionRuleSave', 'EventsController@permissionRuleSave');
-Route::post('event/permissionRuleEdit', 'EventsController@permissionRuleEdit');
-Route::post('event/permissionRuleDelete', 'EventsController@permissionRuleDelete');
+Route::get('event/permissionRuleIndex', 'PermissionRuleController@permissionRuleIndex');
+Route::get('event/permissionRuleTree', 'PermissionRuleController@permissionRuleTree');
+Route::post('event/permissionRuleSave', 'PermissionRuleController@permissionRuleSave');
+Route::post('event/permissionRuleEdit', 'PermissionRuleController@permissionRuleEdit');
+Route::post('event/permissionRuleDelete', 'PermissionRuleController@permissionRuleDelete');
 
 
 // RoleController.php
-Route::get('event/roleIndex', 'EventsController@roleIndex');
-Route::get('event/roleAuthList', 'EventsController@roleAuthList');
+Route::get('event/roleIndex', 'RoleController@roleIndex');
+Route::get('event/roleAuthList', 'RoleController@roleAuthList');
 
-Route::post('event/roleAuth', 'EventsController@roleAuth');
-Route::post('event/roleSave', 'EventsController@roleSave');
-Route::post('event/roleEdit', 'EventsController@roleEdit');
-Route::post('event/roleDelete', 'EventsController@roleDelete');
+Route::post('event/roleAuth', 'RoleController@roleAuth');
+Route::post('event/roleSave', 'RoleController@roleSave');
+Route::post('event/roleEdit', 'RoleController@roleEdit');
+Route::post('event/roleDelete', 'RoleController@roleDelete');
 
 
 // AdminController.php
-Route::get('event/adminIndex', 'EventsController@adminIndex');
-Route::get('event/adminList', 'EventsController@adminList');
-Route::post('event/adminSave', 'EventsController@adminSave');
-Route::post('event/adminEdit', 'EventsController@adminEdit');
-Route::post('event/adminDelete', 'EventsController@adminDelete');
-Route::get('event/adminRoleList', 'EventsController@adminRoleList');
+Route::get('event/adminIndex', 'AdminController@adminIndex');
+Route::get('event/adminList', 'AdminController@adminList');
+Route::post('event/adminSave', 'AdminController@adminSave');
+Route::post('event/adminEdit', 'AdminController@adminEdit');
+Route::post('event/adminDelete', 'AdminController@adminDelete');
+Route::get('event/adminRoleList', 'AdminController@adminRoleList');
 
 
 
@@ -94,13 +95,8 @@ Route::post('event/adEdit', 'EventsController@adEdit');
 Route::post('event/adDelete', 'EventsController@adDelete');
 
 
-
-
-
-
-
-
-
-
-
+//ResourceController.php
+Route::get('event/resourceIndex', 'EventsController@resourceIndex');
+Route::get('event/resourceTagIndex', 'EventsController@resourceTagIndex');
+Route::post('event/resourceTagAdd', 'EventsController@resourceTagAdd');
 
