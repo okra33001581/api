@@ -26,7 +26,41 @@ class AdminController extends Controller
 
 // AdminController.php
     /**
-     * 列表
+     * @api {get} /api/admin 显示商户列表
+     * @apiGroup admin
+     *
+     *
+     * @apiSuccessExample 返回商户信息列表
+     * HTTP/1.1 200 OK
+     * {
+     *  "data": [
+     *     {
+     *       "id": 2 // 整数型  用户标识
+     *       "name": "test"  //字符型 用户昵称
+     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
+     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
+     *       "avatar": "" // 字符型 用户的头像图片
+     *     }
+     *   ],
+     * "status": "success",
+     * "status_code": 200,
+     * "links": {
+     * "first": "http://manger.test/api/admin?page=1",
+     * "last": "http://manger.test/api/admin?page=19",
+     * "prev": null,
+     * "next": "http://manger.test/api/admin?page=2"
+     * },
+     * "meta": {adminDelete
+     * "current_page": 1, // 当前页
+     * "from": 1, //当前页开始的记录
+     * "last_page": 19, //总页数
+     * "path": "http://manger.test/api/admin",
+     * "per_page": 15,
+     * "to": 15, //当前页结束的记录
+     * "total": 271  // 总条数
+     * }
+     * }
+     *
      */
     public function adminIndex()
     {
@@ -87,8 +121,28 @@ class AdminController extends Controller
         return ResultVo::success($res);
     }
 
-    /*
-     * 角色列表
+    /**
+     * @api {get} /api/adminRoleList 取得角色列表
+     * @apiGroup admin
+     * @apiParam {string} null 不需要参数
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       null: 'null',
+     *     }
+     *
+     * @apiSuccessExample 取得角色列表成功
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
      */
     public function adminRoleList()
     {
@@ -113,7 +167,35 @@ class AdminController extends Controller
 
 
     /**
-     * 添加
+     * @api {post} /api/adminSave  建立新的商户
+     * @apiGroup admin
+     * @apiParam {string} name 用户昵称
+     * @apiParam {string} email 用户登陆名　email格式 必须唯一
+     * @apiParam {string} password 用户登陆密码
+     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
+     * @apiParam {string} [avatar] 用户头像地址
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       name: 'test',
+     *       email: '1111@qq.com',
+     *       password: '123456',
+     *       role: 'editor',
+     *       avatar: 'uploads/20178989.png'
+     *     }
+     *
+     * @apiSuccessExample 新建用户成功
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
      */
     public function adminSave()
     {
@@ -181,7 +263,35 @@ class AdminController extends Controller
     }
 
     /**
-     * 编辑
+     * @api {post} /api/adminEdit  編輯管理員信息
+     * @apiGroup admin
+     * @apiParam {string} name 用户昵称
+     * @apiParam {string} email 用户登陆名　email格式 必须唯一
+     * @apiParam {string} password 用户登陆密码
+     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
+     * @apiParam {string} [avatar] 用户头像地址
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       name: 'test',
+     *       email: '1111@qq.com',
+     *       password: '123456',
+     *       role: 'editor',
+     *       avatar: 'uploads/20178989.png'
+     *     }
+     *
+     * @apiSuccessExample 新建用户成功
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
      */
     public function adminEdit()
     {
@@ -199,11 +309,11 @@ class AdminController extends Controller
             ->first();
 
         if (!$oAuthAdmin) {
-            return ResultVo::error(ErrorCode::DATA_NOT, "管理员不存在");
+            return ResultVo::error(ErrorCode::DATA_NOT, "商户不存在");
         }
         $login_info = $oAuthAdmin;
         $login_user_name = isset($login_info['username']) ? $login_info['username'] : '';
-        // 如果是超级管理员，判断当前登录用户是否匹配
+        // 如果是超级商户，判断当前登录用户是否匹配
         if ($oAuthAdmin->username == 'admin' && $login_user_name != $oAuthAdmin->username) {
             return ResultVo::error(ErrorCode::DATA_NOT, "最高权限用户，无权修改");
         }
@@ -217,7 +327,7 @@ class AdminController extends Controller
 
         // 判断username 是否重名，剔除自己
 //        if (!empty($info['id']) && $info['id'] != $id){
-//            return ResultVo::error(ErrorCode::DATA_REPEAT, "管理员已存在");
+//            return ResultVo::error(ErrorCode::DATA_REPEAT, "商户已存在");
 //        }
 
         $status = isset($data['status']) ? $data['status'] : 0;
@@ -282,7 +392,27 @@ class AdminController extends Controller
     }
 
     /**
-     * 删除
+     * @api {post} /api/adminDelete  删除商户
+     * @apiGroup admin
+     * @apiParam {string} id 编号
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       id: '111111',
+     *     }
+     *
+     * @apiSuccessExample 新建用户成功
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
      */
     public function adminDelete()
     {

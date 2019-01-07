@@ -27,7 +27,35 @@ class UserController extends Controller
 // LoginController.php
 
     /**
-     * logout
+     * @api {post} /api/out  登录注销
+     * @apiGroup user
+     * @apiParam {string} name 用户昵称
+     * @apiParam {string} email 用户登陆名　email格式 必须唯一
+     * @apiParam {string} password 用户登陆密码
+     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
+     * @apiParam {string} [avatar] 用户头像地址
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       name: 'test',
+     *       email: '1111@qq.com',
+     *       password: '123456',
+     *       role: 'editor',
+     *       avatar: 'uploads/20178989.png'
+     *     }
+     *
+     * @apiSuccessExample 新建用户成功
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
      */
     public function out()
     {
@@ -37,7 +65,35 @@ class UserController extends Controller
     }
 
     /**
-     * 获取用户信息
+     * @api {post} /api/loginIndex  登录
+     * @apiGroup user
+     * @apiParam {string} name 用户昵称
+     * @apiParam {string} email 用户登陆名　email格式 必须唯一
+     * @apiParam {string} password 用户登陆密码
+     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
+     * @apiParam {string} [avatar] 用户头像地址
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       name: 'test',
+     *       email: '1111@qq.com',
+     *       password: '123456',
+     *       role: 'editor',
+     *       avatar: 'uploads/20178989.png'
+     *     }
+     *
+     * @apiSuccessExample 新建用户成功
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
      */
     public function loginIndex()
     {
@@ -106,7 +162,35 @@ class UserController extends Controller
 
 
     /**
-     * 获取登录用户信息
+     * @api {get} /api/loginInfo  取得登录信息
+     * @apiGroup user
+     * @apiParam {string} name 用户昵称
+     * @apiParam {string} email 用户登陆名　email格式 必须唯一
+     * @apiParam {string} password 用户登陆密码
+     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
+     * @apiParam {string} [avatar] 用户头像地址
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       name: 'test',
+     *       email: '1111@qq.com',
+     *       password: '123456',
+     *       role: 'editor',
+     *       avatar: 'uploads/20178989.png'
+     *     }
+     *
+     * @apiSuccessExample 新建用户成功
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
      */
     public function loginInfo()
     {
