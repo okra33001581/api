@@ -2,126 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/apidoc.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/api_data.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/api_data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/api_project.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/api_project.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/img/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/ca.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/de.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/es.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/fr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/it.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/locale.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/nl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/pl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/pt_br.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/ro.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/ru.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/tr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/vi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/zh.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/locales/zh_cn.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/utils/handlebars_helper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/utils/send_sample_request.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/diff_match_patch.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/handlebars.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/list.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/lodash.custom.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/path-to-regexp/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/path-to-regexp/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/polyfill.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-Splus.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-aea.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-agc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-apollo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-basic.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-cbm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-cl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-clj.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-css.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-dart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-el.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-erl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-erlang.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-fs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-go.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-hs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-lasso.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-lassoscript.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-latex.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-lgt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-lisp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-ll.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-llvm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-logtalk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-ls.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-lsp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-lua.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-matlab.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-ml.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-mumps.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-n.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-nemerle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-pascal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-proto.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-r.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-rd.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-rkt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-rust.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-s.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-scala.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-scm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-sql.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-ss.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-swift.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-tcl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-tex.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-vb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-vbs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-vhd.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-vhdl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-wiki.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-xq.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-xquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-yaml.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/lang-yml.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/prettify.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/prettify.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/prettify/run_prettify.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/require.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/semver.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/apidoc/vendor/webfontloader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/api.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/api.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_files.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_namespaces.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_namespaces.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -134,43 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/apidoc/api_project.json">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/apidoc/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/apidoc/api_project.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apidoc.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+            <state relative-caret-position="237">
+              <caret line="363" lean-forward="true" selection-start-line="363" selection-end-line="363" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -179,22 +33,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.env">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/data.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+            <state relative-caret-position="750">
+              <caret line="50" column="19" lean-forward="true" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php">
+        <entry file="file://$PROJECT_DIR$/app/common/utils/PublicFileUtils.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3983">
-              <caret line="96" column="16" selection-start-line="96" selection-start-column="16" selection-end-line="96" selection-end-column="16" />
+            <state relative-caret-position="270">
+              <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="174" selection-start-line="174" selection-end-line="177" selection-end-column="9" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="33" column="8" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -202,10 +74,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
+            <state relative-caret-position="1127">
+              <caret line="283" column="50" lean-forward="true" selection-start-line="283" selection-start-column="50" selection-end-line="283" selection-end-column="50" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/AuthPermissionRule.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/api.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+              <folding>
+                <element signature="e#7#35#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -214,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+            <state relative-caret-position="517">
+              <caret line="137" column="25" lean-forward="true" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="25" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -226,8 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/apidoc/api_data.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
+            <state relative-caret-position="675">
+              <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -244,9 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Log::info(</find>
-      <find>event</find>
-      <find>$admin</find>
       <find>siteDelete</find>
       <find>$res</find>
       <find>-&gt;all</find>
@@ -274,6 +164,9 @@
       <find>ew K</find>
       <find>本文档提供laravel5 商品，订单，收货地址，等API文档供嗨聊服务端开发人员作为参考</find>
       <find>管理员</find>
+      <find>$iSort</find>
+      <find>authRules</find>
+      <find />
     </findStrings>
     <replaceStrings>
       <replace />
@@ -299,8 +192,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/EventsController.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
-        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
-        <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/vendor/composer/autoload_static.php" />
         <option value="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/LoginController.php" />
@@ -310,12 +201,15 @@
         <option value="$PROJECT_DIR$/public/apidoc/main.js" />
         <option value="$PROJECT_DIR$/public/apidoc/vendor/require.min.js" />
         <option value="$PROJECT_DIR$/public/apidoc/index.html" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/AdminController.php" />
         <option value="$PROJECT_DIR$/public/apidoc/api_project.js" />
         <option value="$PROJECT_DIR$/apidoc.json" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/data.json" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
+        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/AdminController.php" />
       </list>
     </option>
   </component>
@@ -448,7 +342,22 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
               <item name="Auz" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Middleware" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="api" type="b2602c69:ProjectViewProjectNode" />
@@ -477,11 +386,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Auz" />
       <recent name="$PROJECT_DIR$/public/apidoc" />
       <recent name="$PROJECT_DIR$/public/apidoc/css" />
       <recent name="$PROJECT_DIR$/public/apidoc/locales" />
       <recent name="$PROJECT_DIR$/public/apidoc/utils" />
-      <recent name="$PROJECT_DIR$/public/apidoc/vendor" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -518,18 +427,19 @@
       <workItem from="1546656630272" duration="17508000" />
       <workItem from="1546678857642" duration="678000" />
       <workItem from="1546680246540" duration="106000" />
-      <workItem from="1546680461859" duration="4040000" />
+      <workItem from="1546680461859" duration="5673000" />
+      <workItem from="1546854267883" duration="20662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48857000" />
+    <option name="totallyTimeSpent" value="71152000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1857" height="984" extended-state="6" />
+    <frame x="65" y="-4" width="1855" height="976" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26755112" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27086788" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -544,7 +454,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.15898058" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.36229947" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3616505" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -603,9 +513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -630,16 +537,6 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="1087" column="29" selection-start-line="1087" selection-start-column="23" selection-end-line="1087" selection-end-column="29" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/LoginController.php" />
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -652,13 +549,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/AuthPermissionRule.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="71" column="34" selection-start-line="71" selection-start-column="34" selection-end-line="71" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -698,16 +588,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tsconfig.json" />
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1059">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#7#35#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/apidoc.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -787,26 +667,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/apidoc/api_data.json">
+    <entry file="file://$PROJECT_DIR$/public/apidoc/api_project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="78" column="16" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="16" />
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
+    <entry file="file://$PROJECT_DIR$/apidoc.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="90">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3983">
+        <state relative-caret-position="1185">
           <caret line="96" column="16" selection-start-line="96" selection-start-column="16" selection-end-line="96" selection-end-column="16" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
@@ -814,44 +698,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php">
+    <entry file="file://$PROJECT_DIR$/public/apidoc/api_data.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
+        <state relative-caret-position="675">
+          <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/common/utils/PublicFileUtils.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="174" selection-start-line="174" selection-end-line="177" selection-end-column="9" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
+    <entry file="file://$PROJECT_DIR$/app/model/AuthPermissionRule.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+        <state relative-caret-position="180">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1127">
+          <caret line="283" column="50" lean-forward="true" selection-start-line="283" selection-start-column="50" selection-end-line="283" selection-end-column="50" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+          <folding>
+            <element signature="e#7#35#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/data.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="50" column="19" lean-forward="true" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="517">
+          <caret line="137" column="25" lean-forward="true" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="25" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="8" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        <state relative-caret-position="237">
+          <caret line="363" lean-forward="true" selection-start-line="363" selection-end-line="363" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/apidoc/api_project.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apidoc.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
         </state>
       </provider>
     </entry>

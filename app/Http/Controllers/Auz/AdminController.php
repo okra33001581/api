@@ -25,6 +25,16 @@ class AdminController extends Controller
 {
 
 // AdminController.php
+
+
+
+    public function getJson()
+    {
+        // 从文件中读取数据到PHP变量
+        $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
+        return $json_string;
+
+    }
     /**
      * @api {get} /api/admin 显示商户列表
      * @apiGroup admin
@@ -66,53 +76,61 @@ class AdminController extends Controller
     {
         $sWhere = [];
         $sOrder = 'id DESC';
-        $status = request()->get('status', '');
-        if ($status !== '') {
-            $sWhere[] = ['status', '=', intval($status)];
-            $order = '';
-        }
-        $sUsername = request()->get('username', '');
-        if (!empty($sUsername)) {
-            $where[] = ['username', 'like', $sUsername . '%'];
-            $order = '';
-        }
-        $role_id = request()->get('role_id/id', '');
-        if ($role_id !== '') {
-            $aAdminIds = AuthRoleAdmin::where('role_id', $role_id)->column('admin_id');
-            $where[] = ['id', 'in', $aAdminIds];
-            $sOrder = '';
-        }
-        $limit = request()->get('limit/d', 20);
-        //分页配置
-        $paginate = [
-            'type' => 'bootstrap',
-            'var_page' => 'page',
-            'list_rows' => ($limit <= 0 || $limit > 20) ? 20 : $limit,
-        ];
-//        $lists = AuthAdmin::where($where)
-////            ->field('id,username,avatar,tel,email,status,last_login_ip,last_login_time,create_time')
-//            ->orderby('id', 'DESC')->get();
-////            ->paginate($paginate);
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $iPage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sUserName = isset(request()->username) ? request()->username : '';
+        $oAuthAdminList = DB::table('auth_admins');
 
-        $oAuthAdminList = AuthAdmin::get();
-//            ->paginate($paginate);
-
-        foreach ($oAuthAdminList as $k => $v) {
-            $v['avatar'] = PublicFileUtils::createUploadUrl($v['avatar']);
-            $roles = AuthRoleAdmin::where('admin_id', $v['id'])->select('role_id')->get();
+        $sTmp = 'DESC';
+        if (substr($iSort, 0, 1) == '-') {
+            $sTmp = 'ASC';
+        }
+        $sOrder = substr($iSort, 1, strlen($iSort));
+        if ($sTmp != '') {
+            $oAuthAdminList->orderby($sOrder, $sTmp);
+        }
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+        $oAuthAdminListCount = $oAuthAdminList->get();
+        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $aTmp = [];
+        $aFinal = [];
+        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['username'] = $oAuthAdmin->username;
+            $aTmp['password'] = $oAuthAdmin->password;
+            $aTmp['tel'] = $oAuthAdmin->tel;
+            $aTmp['email'] = $oAuthAdmin->email;
+            $aTmp['avatar'] = $oAuthAdmin->avatar;
+            $aTmp['sex'] = $oAuthAdmin->sex;
+            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
+            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
+            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['status'] = $oAuthAdmin->status;
+            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+            $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
             $temp_roles = [];
-            if ($roles) {
+            if (is_object($roles)) {
                 $temp_roles = $roles->toArray();
                 $temp_roles = array_column($temp_roles, 'role_id');
             }
-            $v['roles'] = $temp_roles;
-            $lists[$k] = $v;
+            $aTmp['roles'] = $temp_roles;
+            $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminList);
-        $res["list"] = $oAuthAdminList->toArray();
-
+        $res["total"] = count($oAuthAdminListCount);
+        $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -296,6 +314,11 @@ class AdminController extends Controller
     public function adminEdit()
     {
         $data = request()->post();
+
+
+//        Log::info($data);
+        $aRoles = $data['roles'];
+
         if (empty($data['id']) || empty($data['username'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
@@ -337,6 +360,8 @@ class AdminController extends Controller
             $oAuthAdmin->password = $password;
         }
         $oAuthAdmin->status = $status;
+//        $oAuthAdmin->role_id = implode(",", $aRoles);
+
         $result = $oAuthAdmin->save();
 
         $roles = (isset($data['roles']) && is_array($data['roles'])) ? $data['roles'] : [];

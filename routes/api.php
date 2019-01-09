@@ -61,7 +61,7 @@ Route::post('event/permissionRuleDelete', 'PermissionRuleController@permissionRu
 // RoleController.php
 Route::get('event/roleIndex', 'RoleController@roleIndex');
 Route::get('event/roleAuthList', 'RoleController@roleAuthList');
-
+Route::get('event/roleAuthListByUser', 'RoleController@roleAuthListByUser');
 Route::post('event/roleAuth', 'RoleController@roleAuth');
 Route::post('event/roleSave', 'RoleController@roleSave');
 Route::post('event/roleEdit', 'RoleController@roleEdit');
@@ -70,6 +70,7 @@ Route::post('event/roleDelete', 'RoleController@roleDelete');
 
 // AdminController.php
 Route::get('event/adminIndex', 'AdminController@adminIndex');
+Route::get('event/getJson', 'AdminController@getJson');
 Route::get('event/adminList', 'AdminController@adminList');
 Route::post('event/adminSave', 'AdminController@adminSave');
 Route::post('event/adminEdit', 'AdminController@adminEdit');

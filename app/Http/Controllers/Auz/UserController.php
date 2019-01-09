@@ -105,7 +105,10 @@ class UserController extends Controller
         if (!$user_name || !$pwd) {
 //            return ResultVo::error(ErrorCode::VALIDATION_FAILED, "username 不能为空。 password 不能为空。");
         }
-        $user_name = 'admin';
+
+//        Log::info(request()->all());
+//        $user_name = 'admin';
+        $user_name = request()->all()['userName'];
         $admin = AuthAdmin::where('username', $user_name)
             ->first();
         if (empty($admin) || PassWordUtils::create($pwd) != $admin->password) {
@@ -121,19 +124,33 @@ class UserController extends Controller
         if ($user_name == 'admin') {
             $authRules = ['admin'];
         } else {
-            $oAuthRoleAdminList = AuthRoleAdmin::where('admin_id', $admin->id)->select('role_id')->get();
-            if (count($oAuthRoleAdminList) > 0) {
-                $oAuthPermissionList = AuthPermission::where('role_id', 'in', $oAuthRoleAdminList->role_id)
-                    ->select(['permission_rule_id'])
+
+            Log::info($admin);
+
+//            $oAuthRoleAdminList = AuthRoleAdmin::where('admin_id', $admin->id)->select('role_id')->get();
+            $oAuthRoleAdminList = AuthRoleAdmin::where('admin_id', $admin->id)->first();
+            if (is_object($oAuthRoleAdminList)) {
+//                $oAuthPermissionList = AuthPermission::where('role_id', 'in', $oAuthRoleAdminList->role_id)
+//                    ->select(['permission_rule_id'])
+//                    ->get();
+
+                Log::info('111111111111111111======='.$oAuthRoleAdminList->role_id);
+//                $aTmp =
+                $oAuthPermissionList = AuthPermission::where('role_id', '=', $oAuthRoleAdminList->role_id)
                     ->get();
                 foreach ($oAuthPermissionList as $oAuthPermission) {
-                    $oAuthPermissionRule = AuthPermissionRule::where('id', $oAuthPermission->permission_rule_id)->select('name')->first();
+                    Log::info('222222222222222');
+//                    $oAuthPermissionRule = AuthPermissionRule::where('id', $oAuthPermission->permission_rule_id)->select('name')->first();
+                    $oAuthPermissionRule = AuthPermissionRule::where('id', $oAuthPermission->permission_rule_id)->first();
                     if (is_object($oAuthPermissionRule)) {
+                        Log::info('33333333333333333333333333333');
                         $authRules[] = $oAuthPermissionRule->name;
                     }
                 }
             }
         }
+
+        Log::info($authRules);
         $info['authRules'] = $authRules;
         // $info['authRules'] = [
         //     'user_manage',

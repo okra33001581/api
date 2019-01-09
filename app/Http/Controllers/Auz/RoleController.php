@@ -121,7 +121,7 @@ class RoleController extends Controller
      *       avatar: 'uploads/20178989.png'
      *     }
      *
-     * @apiSuccessExample 新建用户成功
+     * @apiSuccessExample 取得角色信息相关
      * HTTP/1.1 201 OK
      * {
      * "status": "success",
@@ -137,9 +137,74 @@ class RoleController extends Controller
      */
     public function roleAuthList()
     {
-        $id = request()->get('id/d', '');
+//        $id = request()->get('id/d', '');
+//        Log::info(request()->all());
+        $id1 = isset(request()->id) ? request()->id : '';
+
         $checked_keys = [];
-        $auth_permission = AuthPermission::where('role_id', $id)
+        Log::info('id=========='.$id1);
+//        $auth_permission = AuthPermission::where('role_id', $id)
+//            ->select(['permission_rule_id'])
+//            ->get();
+
+        $oAuthPermissionList = AuthPermission::where('role_id', $id1)
+            ->get();
+
+        foreach ($oAuthPermissionList as $oAuthPermission) {
+            $checked_keys[] = $oAuthPermission->permission_rule_id;
+        }
+
+        $rule_list = AuthPermissionRule::getLists([], 'id ASC');
+
+        $merge_list = AuthPermissionRule::cateMerge($rule_list, 'id', 'pid', 0);
+        $res['auth_list'] = $merge_list;
+        $res['checked_keys'] = $checked_keys;
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+    /**
+     * @api {post} /api/roleAuthListByUser  取得用户角色信息相关
+     * @apiGroup role
+     * @apiParam {string} name 用户昵称
+     * @apiParam {string} email 用户登陆名　email格式 必须唯一
+     * @apiParam {string} password 用户登陆密码
+     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
+     * @apiParam {string} [avatar] 用户头像地址
+     * @apiParamExample {json} 请求的参数例子:
+     *     {
+     *       name: 'test',
+     *       email: '1111@qq.com',
+     *       password: '123456',
+     *       role: 'editor',
+     *       avatar: 'uploads/20178989.png'
+     *     }
+     *
+     * @apiSuccessExample 取得用户角色信息相关
+     * HTTP/1.1 201 OK
+     * {
+     * "status": "success",
+     * "status_code": 201
+     * }
+     * @apiErrorExample 数据验证出错
+     * HTTP/1.1 404 Not Found
+     * {
+     * "status": "error",
+     * "status_code": 404,
+     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
+     * }
+     */
+    public function roleAuthListByUser()
+    {
+        $id = request()->get('id/d', '');
+        Log::info(request()->all());
+        $checked_keys = [];
+        $auth_permission = AuthPermission::where('role_id', 16)
             ->select(['permission_rule_id'])
             ->get();
         foreach ($auth_permission as $k => $v) {
@@ -206,24 +271,29 @@ class RoleController extends Controller
             $rule_access[$key]['type'] = 'admin';
         }
 
+
+
         //先删除
         $auth_permission = new AuthPermission();
         $auth_permission->where(['role_id' => $role_id])->delete();
 
 
-        if (!$rule_access) {
+//        print_r('aaaaaaaaaaaaaaa');
+//        if (!$rule_access) {
             if (count($rule_access) > 0) {
-
+//                print_r('bbbbbbbbbbbbbbbbbbbb');
                 foreach ($rule_access as $k => $v) {
-                    $auth_permission = new AuthPermission();
-                    $auth_permission['role_id'] = $v['role_id'];
-                    $auth_permission['permission_rule_id'] = $v['permission_rule_id'];
-                    $auth_permission['type'] = $v['type'];
-                    $iRet = $auth_permission->save();
+                    $oAuthPermission = new AuthPermission();
+                    $oAuthPermission->role_id = $v['role_id'];
+                    $oAuthPermission->permission_rule_id = $v['permission_rule_id'];
+                    $oAuthPermission->type = $v['type'];
+                    $iRet = $oAuthPermission->save();
+                    print_r('ret============='.$iRet);
+
                 }
             }
 //            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
+//        }
 
 
 //        if (!$rule_access || !$auth_permission->saveAll($rule_access)){
