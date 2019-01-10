@@ -20,6 +20,18 @@ return array(
     'App\\Http\\Controllers\\PermissionRuleController' => $baseDir . '/app/Http/Controllers/Auz/PermissionRuleController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/Auz/RoleController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/Auz/UserController.php',
+    'App\\Http\\Controllers\\BasisController' => $baseDir . '/app/Http/Controllers/Auz/BasisController.php',
+    'App\\Http\\Controllers\\BetController' => $baseDir . '/app/Http/Controllers/Auz/BetController.php',
+    'App\\Http\\Controllers\\DevelopController' => $baseDir . '/app/Http/Controllers/Auz/DevelopController.php',
+    'App\\Http\\Controllers\\EventsController' => $baseDir . '/app/Http/Controllers/Auz/EventsController.php',
+    'App\\Http\\Controllers\\LogController' => $baseDir . '/app/Http/Controllers/Auz/LogController.php',
+    'App\\Http\\Controllers\\LotteryController' => $baseDir . '/app/Http/Controllers/Auz/LotteryController.php',
+    'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
+    'App\\Http\\Controllers\\TransactionController' => $baseDir . '/app/Http/Controllers/Auz/TransactionController.php',
+
+
+
+
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\EnableCrossRequestMiddleware' => $baseDir . '/app/Http/Middleware/EnableCrossRequestMiddleware.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

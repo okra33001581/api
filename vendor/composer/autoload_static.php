@@ -386,6 +386,20 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Http\\Controllers\\PermissionRuleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PermissionRuleController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/RoleController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/UserController.php',
+        'App\\Http\\Controllers\\BasisController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/BasisController.php',
+        'App\\Http\\Controllers\\BetController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/BetController.php',
+        'App\\Http\\Controllers\\DevelopController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/DevelopController.php',
+        'App\\Http\\Controllers\\EventsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/EventsController.php',
+        'App\\Http\\Controllers\\LogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LogController.php',
+        'App\\Http\\Controllers\\LotteryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LotteryController.php',
+        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
+        'App\\Http\\Controllers\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/TransactionController.php',
+
+
+
+
+
+  
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EnableCrossRequestMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/EnableCrossRequestMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
