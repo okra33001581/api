@@ -16,7 +16,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-    'App\\Http\\Controllers\\EventsController' => $baseDir . '/app/Http/Controllers/EventsController.php',
+    'App\\Http\\Controllers\\EventsController' => $baseDir . '/app/Http/Controllers/Auz/EventsController.php',
     'App\\Http\\Controllers\\PermissionRuleController' => $baseDir . '/app/Http/Controllers/Auz/PermissionRuleController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/Auz/RoleController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/Auz/UserController.php',
@@ -28,7 +28,8 @@ return array(
     'App\\Http\\Controllers\\LotteryController' => $baseDir . '/app/Http/Controllers/Auz/LotteryController.php',
     'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
     'App\\Http\\Controllers\\TransactionController' => $baseDir . '/app/Http/Controllers/Auz/TransactionController.php',
-
+    'App\\Http\\Controllers\\AdController' => $baseDir . '/app/Http/Controllers/Auz/AdController.php',
+    'App\\Http\\Controllers\\FundController' => $baseDir . '/app/Http/Controllers/Auz/FundController.php',
 
 
 

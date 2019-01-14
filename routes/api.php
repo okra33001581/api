@@ -48,6 +48,33 @@ Route::post('event/userinfo', 'UserController@userinfo');
 
 Route::post('event/loginIndex', 'UserController@loginIndex');
 Route::get('event/loginInfo', 'UserController@loginInfo');
+Route::get('event/userIndex', 'UserController@userIndex');
+Route::get('event/userLoginIpsIndex', 'UserController@userLoginIpsIndex');
+Route::get('event/userPrizeSetsIndex', 'UserController@userPrizeSetsIndex');
+
+
+
+Route::get('event/profitIndex', 'ReportController@profitIndex');
+Route::get('event/issueProfitsIndex', 'ReportController@issueProfitsIndex');
+Route::get('event/lotteryProfitsIndex', 'ReportController@lotteryProfitsIndex');
+Route::get('event/monthProfitsIndex', 'ReportController@monthProfitsIndex');
+Route::get('event/lotteryMonthProfitsIndex', 'ReportController@lotteryMonthProfitsIndex');
+Route::get('event/teamProfitsIndex', 'ReportController@teamProfitsIndex');
+Route::get('event/userProfitsIndex', 'ReportController@userProfitsIndex');
+Route::get('event/userMonthProfitsIndex', 'ReportController@userMonthProfitsIndex');
+Route::get('event/teamMonthProfitsIndex', 'ReportController@teamMonthProfitsIndex');
+Route::get('event/userLotteryProfitsIndex', 'ReportController@userLotteryProfitsIndex');
+Route::get('event/teamLotteryProfitsIndex', 'ReportController@teamLotteryProfitsIndex');
+Route::get('event/wayProfitsIndex', 'ReportController@wayProfitsIndex');
+Route::get('event/lotteryWayProfitsIndex', 'ReportController@lotteryWayProfitsIndex');
+Route::get('event/userLotteryWayProfitsIndex', 'ReportController@userLotteryWayProfitsIndex');
+Route::get('event/teamLotteryWayProfitsIndex', 'ReportController@teamLotteryWayProfitsIndex');
+Route::get('event/terminalProfitsIndex', 'ReportController@terminalProfitsIndex');
+
+
+
+
+
 
 
 // PermissionRuleController.php
@@ -79,6 +106,51 @@ Route::get('event/adminRoleList', 'AdminController@adminRoleList');
 
 
 
+
+Route::get('event/eventIndex', 'EventsController@eventIndex');
+Route::get('event/eventUserPrizeIndex', 'EventsController@eventUserPrizeIndex');
+Route::get('event/eventPrizeIndex', 'EventsController@eventPrizeIndex');
+Route::get('event/eventConditonsIndex', 'EventsController@eventConditonsIndex');
+
+
+Route::get('event/adTypeIndex', 'AdController@adTypeIndex');
+Route::get('event/adLocationIndex', 'AdController@adLocationIndex');
+Route::get('event/adInfosIndex', 'AdController@adInfosIndex');
+
+Route::get('event/adminLogIndex', 'LogController@adminLogIndex');
+Route::get('event/userLogIndex', 'LogController@userLogIndex');
+
+
+
+Route::get('event/sysConfigIndex', 'DevelopController@sysConfigIndex');
+
+
+
+
+Route::get('event/accoundIndex', 'FundController@accoundIndex');
+
+Route::get('event/transactionIndex', 'FundController@transactionIndex');
+Route::get('event/dispositIndex', 'FundController@dispositIndex');
+Route::get('event/bankDepositIndex', 'FundController@bankDepositIndex');
+Route::get('event/exceptionDepositIndex', 'FundController@exceptionDepositIndex');
+Route::get('event/menuDepositIndex', 'FundController@manuDepositIndex');
+Route::get('event/manuWithdrawalsIndex', 'FundController@manuWithdrawalsIndex');
+Route::get('event/manuDividends', 'FundController@manuDividends');
+Route::get('event/loseCommissionsIndex', 'FundController@loseCommissionsIndex');
+Route::get('event/commissionsStatisticsIndex', 'FundController@commissionsStatisticsIndex');
+Route::get('event/platTransferRecordsIndex', 'FundController@platTransferRecordsIndex');
+Route::get('event/withdrawalsIndex', 'FundController@withdrawalsIndex');
+
+
+
+
+
+
+
+
+
+
+
 //AdController.php
 //siteDelete siteEdit siteSave siteList siteIndex
 Route::get('event/siteIndex', 'EventsController@siteIndex');
@@ -100,4 +172,7 @@ Route::post('event/adDelete', 'EventsController@adDelete');
 Route::get('event/resourceIndex', 'EventsController@resourceIndex');
 Route::get('event/resourceTagIndex', 'EventsController@resourceTagIndex');
 Route::post('event/resourceTagAdd', 'EventsController@resourceTagAdd');
+
+
+
 

@@ -382,7 +382,7 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\EventsController' => __DIR__ . '/../..' . '/app/Http/Controllers/EventsController.php',
+        'App\\Http\\Controllers\\EventsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/EventsController.php',
         'App\\Http\\Controllers\\PermissionRuleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PermissionRuleController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/RoleController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/UserController.php',
@@ -394,10 +394,9 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Http\\Controllers\\LotteryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LotteryController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
         'App\\Http\\Controllers\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/TransactionController.php',
-
-
-
-
+        'App\\Http\\Controllers\\AdController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/AdController.php',
+        'App\\Http\\Controllers\\FundController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/FundController.php',
+        
 
   
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

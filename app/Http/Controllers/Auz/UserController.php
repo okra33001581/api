@@ -232,4 +232,351 @@ class UserController extends Controller
         return ResultVo::success($res);
     }
 
+
+
+
+
+    /**
+     * @api {get} /api/admin 显示商户列表
+     * @apiGroup admin
+     *
+     *
+     * @apiSuccessExample 返回商户信息列表
+     * HTTP/1.1 200 OK
+     * {
+     *  "data": [
+     *     {
+     *       "id": 2 // 整数型  用户标识
+     *       "name": "test"  //字符型 用户昵称
+     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
+     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
+     *       "avatar": "" // 字符型 用户的头像图片
+     *     }
+     *   ],
+     * "status": "success",
+     * "status_code": 200,
+     * "links": {
+     * "first": "http://manger.test/api/admin?page=1",
+     * "last": "http://manger.test/api/admin?page=19",
+     * "prev": null,
+     * "next": "http://manger.test/api/admin?page=2"
+     * },
+     * "meta": {adminDelete
+     * "current_page": 1, // 当前页
+     * "from": 1, //当前页开始的记录
+     * "last_page": 19, //总页数
+     * "path": "http://manger.test/api/admin",
+     * "per_page": 15,
+     * "to": 15, //当前页结束的记录
+     * "total": 271  // 总条数
+     * }
+     * }
+     *
+     */
+    public function userIndex()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+//        $iLimit = isset(request()->limit) ? request()->limit : '';
+//        $iPage = isset(request()->page) ? request()->page : '';
+//        // +id -id
+//        $iSort = isset(request()->sort) ? request()->sort : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+        $oAuthAdminList = DB::table('users');
+
+        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+        $oAuthAdminListCount = $oAuthAdminList->take(2)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->take(2)->get();
+        $aTmp = [];
+        $aFinal = [];
+        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['is_agent'] = $oAuthAdmin->is_agent;
+            $aTmp['username'] = $oAuthAdmin->username;
+            $aTmp['password'] = $oAuthAdmin->password;
+            $aTmp['fund_password'] = $oAuthAdmin->fund_password;
+            $aTmp['parent_id'] = $oAuthAdmin->parent_id;
+            $aTmp['forefather_ids'] = $oAuthAdmin->forefather_ids;
+            $aTmp['parent'] = $oAuthAdmin->parent;
+            $aTmp['forefathers'] = $oAuthAdmin->forefathers;
+            $aTmp['user_level'] = $oAuthAdmin->user_level;
+            $aTmp['vip_level'] = $oAuthAdmin->vip_level;
+            $aTmp['account_id'] = $oAuthAdmin->account_id;
+            $aTmp['prize_group'] = $oAuthAdmin->prize_group;
+            $aTmp['role_id'] = $oAuthAdmin->role_id;
+            $aTmp['role_ids'] = $oAuthAdmin->role_ids;
+            $aTmp['blocked'] = $oAuthAdmin->blocked;
+            $aTmp['portrait_code'] = $oAuthAdmin->portrait_code;
+            $aTmp['name'] = $oAuthAdmin->name;
+            $aTmp['nickname'] = $oAuthAdmin->nickname;
+            $aTmp['email'] = $oAuthAdmin->email;
+            $aTmp['mobile'] = $oAuthAdmin->mobile;
+            $aTmp['is_tester'] = $oAuthAdmin->is_tester;
+            $aTmp['qq'] = $oAuthAdmin->qq;
+            $aTmp['skype'] = $oAuthAdmin->skype;
+            $aTmp['bet_multiple'] = $oAuthAdmin->bet_multiple;
+            $aTmp['bet_coefficient'] = $oAuthAdmin->bet_coefficient;
+            $aTmp['is_from_link'] = $oAuthAdmin->is_from_link;
+            $aTmp['has_ag_account'] = $oAuthAdmin->has_ag_account;
+            $aTmp['login_ip'] = $oAuthAdmin->login_ip;
+            $aTmp['register_ip'] = $oAuthAdmin->register_ip;
+            $aTmp['remember_token'] = $oAuthAdmin->remember_token;
+            $aTmp['signin_at'] = $oAuthAdmin->signin_at;
+            $aTmp['activated_at'] = $oAuthAdmin->activated_at;
+            $aTmp['register_at'] = $oAuthAdmin->register_at;
+            $aTmp['deleted_at'] = $oAuthAdmin->deleted_at;
+            $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+
+
+
+            $aFinal[] = $aTmp;
+        }
+
+        $res = [];
+        $res["total"] = count($oAuthAdminListCount);
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+
+
+    /**
+     * @api {get} /api/admin 显示商户列表
+     * @apiGroup admin
+     *
+     *
+     * @apiSuccessExample 返回商户信息列表
+     * HTTP/1.1 200 OK
+     * {
+     *  "data": [
+     *     {
+     *       "id": 2 // 整数型  用户标识
+     *       "name": "test"  //字符型 用户昵称
+     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
+     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
+     *       "avatar": "" // 字符型 用户的头像图片
+     *     }
+     *   ],
+     * "status": "success",
+     * "status_code": 200,
+     * "links": {
+     * "first": "http://manger.test/api/admin?page=1",
+     * "last": "http://manger.test/api/admin?page=19",
+     * "prev": null,
+     * "next": "http://manger.test/api/admin?page=2"
+     * },
+     * "meta": {adminDelete
+     * "current_page": 1, // 当前页
+     * "from": 1, //当前页开始的记录
+     * "last_page": 19, //总页数
+     * "path": "http://manger.test/api/admin",
+     * "per_page": 15,
+     * "to": 15, //当前页结束的记录
+     * "total": 271  // 总条数
+     * }
+     * }
+     *
+     */
+    public function userLoginIpsIndex()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+//        $iLimit = isset(request()->limit) ? request()->limit : '';
+//        $iPage = isset(request()->page) ? request()->page : '';
+//        // +id -id
+//        $iSort = isset(request()->sort) ? request()->sort : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+        $oAuthAdminList = DB::table('user_login_ips');
+
+        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+        $oAuthAdminListCount = $oAuthAdminList->take(2)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->take(2)->get();
+        $aTmp = [];
+        $aFinal = [];
+        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
+            $aTmp['username'] = $oAuthAdmin->username;
+            $aTmp['is_tester'] = $oAuthAdmin->is_tester;
+            $aTmp['parent_user'] = $oAuthAdmin->parent_user;
+            $aTmp['parent_user_id'] = $oAuthAdmin->parent_user_id;
+            $aTmp['top_agent_id'] = $oAuthAdmin->top_agent_id;
+            $aTmp['top_agent'] = $oAuthAdmin->top_agent;
+            $aTmp['forefather_ids'] = $oAuthAdmin->forefather_ids;
+            $aTmp['forefathers'] = $oAuthAdmin->forefathers;
+            $aTmp['nickname'] = $oAuthAdmin->nickname;
+            $aTmp['ip'] = $oAuthAdmin->ip;
+            $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+
+
+
+
+            $aFinal[] = $aTmp;
+        }
+
+        $res = [];
+        $res["total"] = count($oAuthAdminListCount);
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+
+
+
+    /**
+     * @api {get} /api/admin 显示商户列表
+     * @apiGroup admin
+     *
+     *
+     * @apiSuccessExample 返回商户信息列表
+     * HTTP/1.1 200 OK
+     * {
+     *  "data": [
+     *     {
+     *       "id": 2 // 整数型  用户标识
+     *       "name": "test"  //字符型 用户昵称
+     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
+     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
+     *       "avatar": "" // 字符型 用户的头像图片
+     *     }
+     *   ],
+     * "status": "success",
+     * "status_code": 200,
+     * "links": {
+     * "first": "http://manger.test/api/admin?page=1",
+     * "last": "http://manger.test/api/admin?page=19",
+     * "prev": null,
+     * "next": "http://manger.test/api/admin?page=2"
+     * },
+     * "meta": {adminDelete
+     * "current_page": 1, // 当前页
+     * "from": 1, //当前页开始的记录
+     * "last_page": 19, //总页数
+     * "path": "http://manger.test/api/admin",
+     * "per_page": 15,
+     * "to": 15, //当前页结束的记录
+     * "total": 271  // 总条数
+     * }
+     * }
+     *
+     */
+    public function userPrizeSetsIndex()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+//        $iLimit = isset(request()->limit) ? request()->limit : '';
+//        $iPage = isset(request()->page) ? request()->page : '';
+//        // +id -id
+//        $iSort = isset(request()->sort) ? request()->sort : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+        $oAuthAdminList = DB::table('user_prize_sets');
+
+        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+        $oAuthAdminListCount = $oAuthAdminList->take(2)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->take(2)->get();
+        $aTmp = [];
+        $aFinal = [];
+        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
+            $aTmp['user_parent_id'] = $oAuthAdmin->user_parent_id;
+            $aTmp['user_parent'] = $oAuthAdmin->user_parent;
+            $aTmp['username'] = $oAuthAdmin->username;
+            $aTmp['series_id'] = $oAuthAdmin->series_id;
+            $aTmp['lottery_id'] = $oAuthAdmin->lottery_id;
+            $aTmp['group_id'] = $oAuthAdmin->group_id;
+            $aTmp['prize_group'] = $oAuthAdmin->prize_group;
+            $aTmp['classic_prize'] = $oAuthAdmin->classic_prize;
+            $aTmp['valid'] = $oAuthAdmin->valid;
+            $aTmp['is_agent'] = $oAuthAdmin->is_agent;
+            $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+
+
+
+
+
+            $aFinal[] = $aTmp;
+        }
+
+        $res = [];
+        $res["total"] = count($oAuthAdminListCount);
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+
+
+
 }
