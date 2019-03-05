@@ -17,6 +17,7 @@ return array(
     'App\\Http\\Controllers\\PlayController' => $baseDir . '/app/Http/Controllers/Auz/PlayController.php',
     'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
     'App\\Http\\Controllers\\SiteController' => $baseDir . '/app/Http/Controllers/Auz/SiteController.php',
+    'App\\Http\\Controllers\\EventController' => $baseDir . '/app/Http/Controllers/Auz/EventController.php',
 
 
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',

@@ -383,6 +383,7 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Http\\Controllers\\PlayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PlayController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
         'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/SiteController.php',
+        'App\\Http\\Controllers\\EventController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/EventController.php',
 
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
