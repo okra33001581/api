@@ -375,7 +375,15 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/AdminController.php',
-        'App\\Http\\Controllers\\ArticleController' => __DIR__ . '/../..' . '/app/Http/Controllers/ArticleController.php',
+
+        'App\\Http\\Controllers\\DelegateController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/DelegateController.php',
+        'App\\Http\\Controllers\\FundController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/FundController.php',
+        'App\\Http\\Controllers\\LogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LogController.php',
+        'App\\Http\\Controllers\\NoticeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/NoticeController.php',
+        'App\\Http\\Controllers\\PlayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PlayController.php',
+        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
+        'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/SiteController.php',
+
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -386,17 +394,8 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Http\\Controllers\\PermissionRuleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PermissionRuleController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/RoleController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/UserController.php',
-        'App\\Http\\Controllers\\BasisController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/BasisController.php',
-        'App\\Http\\Controllers\\BetController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/BetController.php',
-        'App\\Http\\Controllers\\DevelopController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/DevelopController.php',
-        'App\\Http\\Controllers\\EventsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/EventsController.php',
-        'App\\Http\\Controllers\\LogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LogController.php',
-        'App\\Http\\Controllers\\LotteryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LotteryController.php',
-        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
-        'App\\Http\\Controllers\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/TransactionController.php',
-        'App\\Http\\Controllers\\AdController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/AdController.php',
-        'App\\Http\\Controllers\\FundController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/FundController.php',
-        
+
+
 
   
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

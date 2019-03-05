@@ -9,7 +9,16 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/Auz/AdminController.php',
-    'App\\Http\\Controllers\\ArticleController' => $baseDir . '/app/Http/Controllers/ArticleController.php',
+
+    'App\\Http\\Controllers\\DelegateController' => $baseDir . '/app/Http/Controllers/Auz/DelegateController.php',
+    'App\\Http\\Controllers\\FundController' => $baseDir . '/app/Http/Controllers/Auz/FundController.php',
+    'App\\Http\\Controllers\\LogController' => $baseDir . '/app/Http/Controllers/Auz/LogController.php',
+    'App\\Http\\Controllers\\NoticeController' => $baseDir . '/app/Http/Controllers/Auz/NoticeController.php',
+    'App\\Http\\Controllers\\PlayController' => $baseDir . '/app/Http/Controllers/Auz/PlayController.php',
+    'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
+    'App\\Http\\Controllers\\SiteController' => $baseDir . '/app/Http/Controllers/Auz/SiteController.php',
+
+
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -20,17 +29,6 @@ return array(
     'App\\Http\\Controllers\\PermissionRuleController' => $baseDir . '/app/Http/Controllers/Auz/PermissionRuleController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/Auz/RoleController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/Auz/UserController.php',
-    'App\\Http\\Controllers\\BasisController' => $baseDir . '/app/Http/Controllers/Auz/BasisController.php',
-    'App\\Http\\Controllers\\BetController' => $baseDir . '/app/Http/Controllers/Auz/BetController.php',
-    'App\\Http\\Controllers\\DevelopController' => $baseDir . '/app/Http/Controllers/Auz/DevelopController.php',
-    'App\\Http\\Controllers\\EventsController' => $baseDir . '/app/Http/Controllers/Auz/EventsController.php',
-    'App\\Http\\Controllers\\LogController' => $baseDir . '/app/Http/Controllers/Auz/LogController.php',
-    'App\\Http\\Controllers\\LotteryController' => $baseDir . '/app/Http/Controllers/Auz/LotteryController.php',
-    'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
-    'App\\Http\\Controllers\\TransactionController' => $baseDir . '/app/Http/Controllers/Auz/TransactionController.php',
-    'App\\Http\\Controllers\\AdController' => $baseDir . '/app/Http/Controllers/Auz/AdController.php',
-    'App\\Http\\Controllers\\FundController' => $baseDir . '/app/Http/Controllers/Auz/FundController.php',
-
 
 
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
