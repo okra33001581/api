@@ -65,6 +65,8 @@ Route::get('event/proxycommissionProxylist', 'DelegateController@proxycommission
 //event-management
 //activity_list.vue
 Route::get('event/activityList', 'EventController@activityList');
+//activity_list.vue
+Route::get('event/activitySubList', 'EventController@activitySubList');
 //fund-management
 //cash_orderlist.vue
 Route::get('event/cashOrderlist', 'FundController@cashOrderlist');

@@ -85,51 +85,163 @@ class EventController extends Controller
         $sUserName = isset(request()->username) ? request()->username : '';
         $oAuthAdminList = DB::table('auth_admins');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+
+        $oAuthAdminList = DB::table('eventNew');
+
+
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
+//            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['event_id'] = $oAuthAdmin->event_id;
+            $aTmp['event_name'] = $oAuthAdmin->event_name;
+            $aTmp['begin_date'] = $oAuthAdmin->begin_date;
+            $aTmp['end_date'] = $oAuthAdmin->end_date;
+            $aTmp['event_object'] = $oAuthAdmin->event_object;
+            $aTmp['receive_type'] = $oAuthAdmin->receive_type;
+            $aTmp['event_desc'] = $oAuthAdmin->event_desc;
+            $aTmp['pic1'] = $oAuthAdmin->pic1;
+            $aTmp['pic2'] = $oAuthAdmin->pic2;
+            $aTmp['pic3'] = $oAuthAdmin->pic3;
+            $aTmp['pic4'] = $oAuthAdmin->pic4;
+            $aTmp['pic5'] = $oAuthAdmin->pic5;
+            $aTmp['pic6'] = $oAuthAdmin->pic6;
+            $aTmp['termial_display'] = $oAuthAdmin->termial_display;
+            $aTmp['send_type'] = $oAuthAdmin->send_type;
+            $aTmp['deposit'] = $oAuthAdmin->deposit;
+            $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['turnover'] = $oAuthAdmin->turnover;
+            $aTmp['deposit_request'] = $oAuthAdmin->deposit_request;
+            $aTmp['range_begin'] = $oAuthAdmin->range_begin;
+            $aTmp['range_end'] = $oAuthAdmin->range_end;
+            $aTmp['platform_whitelist'] = $oAuthAdmin->platform_whitelist;
+            $aTmp['platform_blacklist'] = $oAuthAdmin->platform_blacklist;
+            $aTmp['game_whitelist'] = $oAuthAdmin->game_whitelist;
+            $aTmp['game_blacklist'] = $oAuthAdmin->game_blacklist;
+            $aTmp['pay_account'] = $oAuthAdmin->pay_account;
+            $aTmp['rakeback'] = $oAuthAdmin->rakeback;
+            $aTmp['rescue_gold'] = $oAuthAdmin->rescue_gold;
             $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+            $aTmp['creator'] = $oAuthAdmin->creator;
             $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['updator'] = $oAuthAdmin->updator;
+            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+
             $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+        $res["total"] = 12;
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+    public function activitySubList()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $iPage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sUserName = isset(request()->username) ? request()->username : '';
+        $oAuthAdminList = DB::table('auth_admins');
+
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+
+        $oAuthAdminFinalList = DB::table('eventNew')->whereIn('id', [1,2,3])->get();
+
+
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+        $aTmp = [];
+        $aFinal = [];
+        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+//            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['event_id'] = $oAuthAdmin->event_id;
+            $aTmp['event_name'] = $oAuthAdmin->event_name;
+            $aTmp['begin_date'] = $oAuthAdmin->begin_date;
+            $aTmp['end_date'] = $oAuthAdmin->end_date;
+            $aTmp['event_object'] = $oAuthAdmin->event_object;
+            $aTmp['receive_type'] = $oAuthAdmin->receive_type;
+            $aTmp['event_desc'] = $oAuthAdmin->event_desc;
+            $aTmp['pic1'] = $oAuthAdmin->pic1;
+            $aTmp['pic2'] = $oAuthAdmin->pic2;
+            $aTmp['pic3'] = $oAuthAdmin->pic3;
+            $aTmp['pic4'] = $oAuthAdmin->pic4;
+            $aTmp['pic5'] = $oAuthAdmin->pic5;
+            $aTmp['pic6'] = $oAuthAdmin->pic6;
+            $aTmp['termial_display'] = $oAuthAdmin->termial_display;
+            $aTmp['send_type'] = $oAuthAdmin->send_type;
+            $aTmp['deposit'] = $oAuthAdmin->deposit;
+            $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['turnover'] = $oAuthAdmin->turnover;
+            $aTmp['deposit_request'] = $oAuthAdmin->deposit_request;
+            $aTmp['range_begin'] = $oAuthAdmin->range_begin;
+            $aTmp['range_end'] = $oAuthAdmin->range_end;
+            $aTmp['platform_whitelist'] = $oAuthAdmin->platform_whitelist;
+            $aTmp['platform_blacklist'] = $oAuthAdmin->platform_blacklist;
+            $aTmp['game_whitelist'] = $oAuthAdmin->game_whitelist;
+            $aTmp['game_blacklist'] = $oAuthAdmin->game_blacklist;
+            $aTmp['pay_account'] = $oAuthAdmin->pay_account;
+            $aTmp['rakeback'] = $oAuthAdmin->rakeback;
+            $aTmp['rescue_gold'] = $oAuthAdmin->rescue_gold;
+            $aTmp['status'] = $oAuthAdmin->status;
+            $aTmp['creator'] = $oAuthAdmin->creator;
+            $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $aTmp['updator'] = $oAuthAdmin->updator;
+            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+
+            $aFinal[] = $aTmp;
+        }
+
+        $res = [];
+        $res["total"] = 12;
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
