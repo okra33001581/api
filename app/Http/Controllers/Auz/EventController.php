@@ -113,12 +113,14 @@ class EventController extends Controller
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
 //            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aTmp['event_id'] = $oAuthAdmin->event_id;
             $aTmp['event_name'] = $oAuthAdmin->event_name;
             $aTmp['begin_date'] = $oAuthAdmin->begin_date;
             $aTmp['end_date'] = $oAuthAdmin->end_date;
             $aTmp['event_object'] = $oAuthAdmin->event_object;
-            $aTmp['receive_type'] = $oAuthAdmin->receive_type;
+            $aReceiveTypeList = explode(",", $oAuthAdmin->receive_type);
+            $aTmp['receive_type'] = $aReceiveTypeList;
             $aTmp['event_desc'] = $oAuthAdmin->event_desc;
             $aTmp['pic1'] = $oAuthAdmin->pic1;
             $aTmp['pic2'] = $oAuthAdmin->pic2;
@@ -126,19 +128,37 @@ class EventController extends Controller
             $aTmp['pic4'] = $oAuthAdmin->pic4;
             $aTmp['pic5'] = $oAuthAdmin->pic5;
             $aTmp['pic6'] = $oAuthAdmin->pic6;
-            $aTmp['termial_display'] = $oAuthAdmin->termial_display;
-            $aTmp['send_type'] = $oAuthAdmin->send_type;
+            $aTerminalDisplayList = explode(",", $oAuthAdmin->terminal_display);
+            $aTmp['terminal_display'] = $aTerminalDisplayList;
+            $aSendTypeList = explode(",", $oAuthAdmin->send_type);
+            $aTmp['send_type'] = $aSendTypeList;
+
+            $aAuditModeList = explode(",", $oAuthAdmin->audit_mode);
+            $aTmp['audit_mode'] = $aAuditModeList;
+            $aTmp['frequency'] = $oAuthAdmin->frequency;
+            $aTmp['times'] = $oAuthAdmin->times;
+
             $aTmp['deposit'] = $oAuthAdmin->deposit;
             $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['benefit_ratio'] = $oAuthAdmin->benefit_ratio;
+            $aTmp['benefit_min'] = $oAuthAdmin->benefit_min;
+            $aTmp['benefit_max'] = $oAuthAdmin->benefit_max;
+
             $aTmp['turnover'] = $oAuthAdmin->turnover;
             $aTmp['deposit_request'] = $oAuthAdmin->deposit_request;
             $aTmp['range_begin'] = $oAuthAdmin->range_begin;
             $aTmp['range_end'] = $oAuthAdmin->range_end;
-            $aTmp['platform_whitelist'] = $oAuthAdmin->platform_whitelist;
-            $aTmp['platform_blacklist'] = $oAuthAdmin->platform_blacklist;
-            $aTmp['game_whitelist'] = $oAuthAdmin->game_whitelist;
-            $aTmp['game_blacklist'] = $oAuthAdmin->game_blacklist;
-            $aTmp['pay_account'] = $oAuthAdmin->pay_account;
+            $aTmpTmp= [];
+            $aPlatfromWhiteList = explode(",", $oAuthAdmin->platform_whitelist);
+            $aTmp['platform_whitelist'] = $aPlatfromWhiteList;
+            $aPlatfromblackList = explode(",", $oAuthAdmin->platform_blacklist);
+            $aTmp['platform_blacklist'] = $aPlatfromblackList;
+            $aGamewhiteList = explode(",", $oAuthAdmin->game_whitelist);
+            $aTmp['game_whitelist'] = $aGamewhiteList;
+            $aGameblackList = explode(",", $oAuthAdmin->game_blacklist);
+            $aTmp['game_blacklist'] = $aGameblackList;
+            $aPayAccountList = explode(",", $oAuthAdmin->pay_account);
+            $aTmp['pay_account'] = $aPayAccountList;
             $aTmp['rakeback'] = $oAuthAdmin->rakeback;
             $aTmp['rescue_gold'] = $oAuthAdmin->rescue_gold;
             $aTmp['status'] = $oAuthAdmin->status;
@@ -203,6 +223,7 @@ class EventController extends Controller
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
 //            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aTmp['event_id'] = $oAuthAdmin->event_id;
             $aTmp['event_name'] = $oAuthAdmin->event_name;
             $aTmp['begin_date'] = $oAuthAdmin->begin_date;
@@ -220,6 +241,9 @@ class EventController extends Controller
             $aTmp['send_type'] = $oAuthAdmin->send_type;
             $aTmp['deposit'] = $oAuthAdmin->deposit;
             $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['benefit_ratio'] = $oAuthAdmin->benefit_ratio;
+            $aTmp['benefit_min'] = $oAuthAdmin->benefit_min;
+            $aTmp['benefit_max'] = $oAuthAdmin->benefit_max;
             $aTmp['turnover'] = $oAuthAdmin->turnover;
             $aTmp['deposit_request'] = $oAuthAdmin->deposit_request;
             $aTmp['range_begin'] = $oAuthAdmin->range_begin;
