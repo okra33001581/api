@@ -20,6 +20,8 @@ use App\model\FileResource;
 use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
+use Storage;
+
 
 class EventController extends Controller
 {
@@ -495,6 +497,10 @@ class EventController extends Controller
 
     public function eventSave()
     {
+
+
+      /*  print_r('ddddddddddddddd');
+        die;*/
         $data = request()->post();
        /* if (empty($data['username']) || empty($data['password'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
@@ -572,15 +578,10 @@ class EventController extends Controller
         $withdraw_max = isset($data['withdraw_max']) ? $data['withdraw_max'] : '0';
         $withdraw_min = isset($data['withdraw_min']) ? $data['withdraw_min'] : '0';
 
-
-
-
-//        Log::info(Event::arrTostr($receive_type));
-
-//        $aReceiveTypeList = [];
-//        foreach ($receive_type as $k=>$v) {
-//            $aReceiveTypeList = $aReceiveTypeList . $v . ',';
-//        }
+        $register_domain = isset($data['register_domain']) ? $data['register_domain'] : '0';
+        $register_domain_begin = isset($data['register_domain_begin']) ? $data['register_domain_begin'] : '0';
+        $register_domain_end = isset($data['register_domain_end']) ? $data['register_domain_end'] : '0';
+        $user_layers = isset($data['user_layers']) ? $data['user_layers'] : '0';
 
         $auth_role_admin = Event::find(1);
 
@@ -655,6 +656,42 @@ class EventController extends Controller
         return ResultVo::success($auth_admin);
     }
 
+
+    public function fileSave()
+    {
+//        $aInputs = Input::all();
+//        $data = request()->post();
+        Log::info(request()->all());
+        $input=request()->all();  #获取所有参数
+        Log::info($input['file']);
+
+
+        $fileCharater = $input['file'];
+
+        if ($fileCharater->isValid()) { //括号里面的是必须加的哦
+            //如果括号里面的不加上的话，下面的方法也无法调用的
+
+            //获取文件的扩展名
+            $ext = $fileCharater->getClientOriginalExtension();
+
+            //获取文件的绝对路径
+            $path = $fileCharater->getRealPath();
+
+            //定义文件名
+            $filename = date('Y-m-d-h-i-s').'.'.$ext;
+
+            //存储文件。disk里面的public。总的来说，就是调用disk模块里的public配置
+            Log::info($filename);
+            Log::info($path);
+            // 路径保存地址：/home/ok/api/storage/app/public
+            \Storage::disk('public')->put($filename, file_get_contents($path));
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '/home/ok/api/storage/app/public/'.$filename;
+            return response()->json($aFinal);
+
+        }
+    }
 
     /**
      * @api {get} /api/adminRoleList 取得角色列表

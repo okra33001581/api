@@ -77,6 +77,9 @@ Route::get('event/eventProcessList', 'EventController@eventProcessList');
 //activity_list.vue
 Route::post('event/eventSave', 'EventController@eventSave');
 
+//activity_list.vue
+Route::post('event/fileSave', 'EventController@fileSave');
+
 //fund-management
 //cash_orderlist.vue
 Route::get('event/cashOrderlist', 'FundController@cashOrderlist');
