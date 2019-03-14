@@ -162,6 +162,39 @@ class EventController extends Controller
             $aTmp['rakeback'] = $oAuthAdmin->rakeback;
             $aTmp['rescue_gold'] = $oAuthAdmin->rescue_gold;
             $aTmp['status'] = $oAuthAdmin->status;
+
+
+            $bFlag = $oAuthAdmin->bind_bankcard_flag == 1? true : false;
+            $aTmp['bind_bankcard_flag'] = $bFlag;
+            $aTmp['bind_bankcard_benefit'] = $oAuthAdmin->bind_bankcard_benefit;
+            $bFlag = $oAuthAdmin->perfect_username_flag == 1? true : false;
+            $aTmp['perfect_username_flag'] = $bFlag;
+            $aTmp['perfect_username_benefit'] = $oAuthAdmin->perfect_username_benefit;
+            $bFlag = $oAuthAdmin->verify_email_flag == 1? true : false;
+            $aTmp['verify_email_flag'] = $bFlag;
+            $aTmp['verify_email_benefit'] = $oAuthAdmin->verify_email_benefit;
+            $bFlag = $oAuthAdmin->verify_phone_flag == 1? true : false;
+            $aTmp['verify_phone_flag'] = $bFlag;
+            $aTmp['verify_phone_benefit'] = $oAuthAdmin->verify_phone_benefit;
+
+
+            $aTmp['history_deposit'] = $oAuthAdmin->history_deposit;
+            $aTmp['history_deposit_begin'] = $oAuthAdmin->history_deposit_begin;
+            $aTmp['history_deposit_end'] = $oAuthAdmin->history_deposit_end;
+
+            $aTmp['withdraw_min'] = $oAuthAdmin->withdraw_min;
+            $aTmp['withdraw_max'] = $oAuthAdmin->withdraw_max;
+
+
+            $aTmp['user_ids'] = $oAuthAdmin->user_ids;
+
+            $aUserLayers = explode(",", $oAuthAdmin->user_layers);
+            $aTmp['user_layers'] = $aUserLayers;
+            $aTmp['register_domain'] = $oAuthAdmin->register_domain;
+            $aTmp['register_domain_begin'] = $oAuthAdmin->register_domain_begin;
+            $aTmp['register_domain_end'] = $oAuthAdmin->register_domain_end;
+
+
             $aTmp['creator'] = $oAuthAdmin->creator;
             $aTmp['created_at'] = $oAuthAdmin->created_at;
             $aTmp['updator'] = $oAuthAdmin->updator;
@@ -260,6 +293,77 @@ class EventController extends Controller
             $aTmp['created_at'] = $oAuthAdmin->created_at;
             $aTmp['updator'] = $oAuthAdmin->updator;
             $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+
+            $aFinal[] = $aTmp;
+        }
+
+        $res = [];
+        $res["total"] = 12;
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+
+    public function eventUserPrizeList()
+    {
+//        $sWhere = [];
+//        $sOrder = 'id DESC';
+//        $iLimit = isset(request()->limit) ? request()->limit : '';
+//        $iPage = isset(request()->page) ? request()->page : '';
+//        // +id -id
+//        $iSort = isset(request()->sort) ? request()->sort : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+//        $oAuthAdminList = DB::table('auth_admins');
+
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+
+        $oAuthAdminList = DB::table('event_user_prize');
+
+
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
+        $aTmp = [];
+        $aFinal = [];
+        Log::info('huangqiu');
+        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
+            $aTmp['username'] = $oAuthAdmin->username;
+            $aTmp['event_model'] = $oAuthAdmin->event_model;
+            $aTmp['event_name'] = $oAuthAdmin->event_name;
+            $aTmp['deposit'] = $oAuthAdmin->deposit;
+            $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['auditor'] = $oAuthAdmin->auditor;
+            $aTmp['audit_date'] = $oAuthAdmin->audit_date;
+            $aTmp['request_date'] = $oAuthAdmin->request_date;
+            $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
         }
