@@ -71,6 +71,11 @@ Route::get('event/activitySubList', 'EventController@activitySubList');
 //activity_list.vue
 Route::get('event/eventUserPrizeList', 'EventController@eventUserPrizeList');
 
+//activity_list.vue
+Route::get('event/eventProcessList', 'EventController@eventProcessList');
+
+//activity_list.vue
+Route::post('event/eventSave', 'EventController@eventSave');
 
 //fund-management
 //cash_orderlist.vue

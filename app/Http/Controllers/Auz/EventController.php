@@ -379,6 +379,283 @@ class EventController extends Controller
         return ResultVo::success($res);
     }
 
+
+    public function eventProcessList()
+    {
+//        $sWhere = [];
+//        $sOrder = 'id DESC';
+//        $iLimit = isset(request()->limit) ? request()->limit : '';
+//        $iPage = isset(request()->page) ? request()->page : '';
+//        // +id -id
+//        $iSort = isset(request()->sort) ? request()->sort : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+//        $oAuthAdminList = DB::table('auth_admins');
+
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+
+        $oAuthAdminList = DB::table('event_user_prize');
+
+
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
+        $aTmp = [];
+        $aFinal = [];
+        Log::info('huangqiu');
+
+
+
+        $aTmp['bodyData1'] = '活动组';
+        $aTmp['bodyData2'] = '22%';
+        $aTmp['bodyData3'] = ["user0001"];
+        $aTmp['bodyData4'] = ["随机红包", "存送100%", "常态存款"];
+        $aTmp['bodyData5'] = ["0", "100", "100"];
+        $aTmp['bodyData6'] = ["20", "100", "0"];
+        $aTmp['bodyData7'] = ["20%", "11%", "2%"];
+        $aTmp['bodyData8'] = ["2018-05-12 11:11:11", "2018-05-12 11:11:11", "2018-05-12 11:11:11"];
+        $aTmp['bodyData9'] = ["进行中", "进行中", "进行中"];
+        $aFinal[] = $aTmp;
+
+        $bodyData = '[
+                        {
+                            city: "活动组#A0001",city1: "22%",food: ["user0001"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["0", "100", "100"], fun2: ["20", "100", "0"], fun3: ["20%", "11%", "2%"], fun4: ["2018-05-12 11:11:11", "2018-05-12 11:11:11", "2018-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        },
+                        {
+                            city: "活动组#A0002",city1: "33%",food: ["user0002"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["10", "33", "44"], fun2: ["55", "66", "77"], fun3: ["11%", "22%", "3%"], fun4: ["2012-1-12 11:11:11", "2013-05-12 11:11:11", "2014-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        },
+                        {
+                            city: "活动组#A0003",city1: "33%",food: ["user0003"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["11", "34", "44"], fun2: ["55", "66", "77"], fun3: ["22%", "33%", "44%"], fun4: ["2012-2-12 11:11:11", "2013-05-12 11:11:11", "2014-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        },
+                        {
+                            city: "活动组#A0004",city1: "33%",food: ["user0004"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["13", "35", "44"], fun2: ["55", "66", "77"], fun3: ["33%", "44%", "55%"], fun4: ["2012-3-12 11:11:11", "2013-05-12 11:11:11", "2014-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        },
+                        {
+                            city: "活动组#A0005",city1: "33%",food: ["user0005"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["14", "13", "44"], fun2: ["55", "66", "77"], fun3: ["44%", "55%", "66%"], fun4: ["2012-4-12 11:11:11", "2013-05-12 11:11:11", "2014-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        },
+                        {
+                            city: "活动组#A0006",city1: "33%",food: ["user0006"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["15", "14", "44"], fun2: ["55", "66", "77"], fun3: ["55%", "66%", "77%"], fun4: ["2012-5-12 11:11:11", "2013-05-12 11:11:11", "2014-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        },
+                        {
+                            city: "活动组#A0007",city1: "33%",food: ["user0007"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["16", "15", "44"], fun2: ["55", "66", "77"], fun3: ["66%", "77%", "88%"], fun4: ["2012-6-12 11:11:11", "2013-05-12 11:11:11", "2014-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        },
+                        {
+                            city: "活动组#A0008",city1: "33%",food: ["user0008"],fun: ["随机红包", "存送100%", "常态存款"], fun1: ["17", "16", "44"], fun2: ["55", "66", "77"], fun3: ["77%", "88%", "99%"], fun4: ["2012-7-12 11:11:11", "2013-05-12 11:11:11", "2014-05-12 11:11:11"], fun5: ["进行中", "进行中", "进行中"]
+                        }
+
+                    ]';
+
+
+        /*foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
+            $aTmp['username'] = $oAuthAdmin->username;
+            $aTmp['event_model'] = $oAuthAdmin->event_model;
+            $aTmp['event_name'] = $oAuthAdmin->event_name;
+            $aTmp['deposit'] = $oAuthAdmin->deposit;
+            $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['auditor'] = $oAuthAdmin->auditor;
+            $aTmp['audit_date'] = $oAuthAdmin->audit_date;
+            $aTmp['request_date'] = $oAuthAdmin->request_date;
+            $aTmp['status'] = $oAuthAdmin->status;
+
+            $aFinal[] = $aTmp;
+        }*/
+
+        $res = [];
+        $res["total"] = 12;
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+    public function eventSave()
+    {
+        $data = request()->post();
+       /* if (empty($data['username']) || empty($data['password'])) {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+        $username = $data['username'];*/
+        // 模型
+//        $info = AuthAdmin::where('username',$username)
+//            ->field('username')
+//            ->find();
+
+//        $oAuthAdmin = AuthAdmin::where('username', $username)
+//            ->first();
+
+//        if ($oAuthAdmin){
+//            return ResultVo::error(ErrorCode::DATA_REPEAT);
+//        }
+
+        $audit_mode = isset($data['audit_mode']) ? $data['audit_mode'] : '0';
+        $begin_date = isset($data['begin_date']) ? $data['begin_date'] : '0';
+        $benefit  = isset($data['benefit']) ? $data['benefit'] : '0';
+        $benefit_max  = isset($data['benefit_max']) ? $data['benefit_max'] : '0';
+        $benefit_min  = isset($data['benefit_min']) ? $data['benefit_min'] : '0';
+        $benefit_ratio  = isset($data['benefit_ratio']) ? $data['benefit_ratio'] : '0';
+        $bind_bankcard_benefit  = isset($data['bind_bankcard_benefit']) ? $data['bind_bankcard_benefit'] : '0';
+        $bind_bankcard_flag = isset($data['bind_bankcard_flag']) ? $data['bind_bankcard_flag'] : '0';
+        $created_at = isset($data['created_at']) ? $data['created_at'] : '0';
+        $creator  = isset($data['creator']) ? $data['creator'] : '0';
+        $deposit  = isset($data['deposit']) ? $data['deposit'] : '0';
+        $deposit_request  = isset($data['deposit_request']) ? $data['deposit_request'] : '0';
+        $end_date = isset($data['end_date']) ? $data['end_date'] : '0';
+        $event_desc = isset($data['event_desc']) ? $data['event_desc'] : '0';
+        $event_id = isset($data['event_id']) ? $data['event_id'] : '0';
+        $event_name = isset($data['event_name']) ? $data['event_name'] : '0';
+        $event_object = isset($data['event_object']) ? $data['event_object'] : '0';
+        $frequency  = isset($data['frequency']) ? $data['frequency'] : '0';
+        $game_blacklist = isset($data['game_blacklist']) ? $data['game_blacklist'] : '0';
+        $game_whitelist = isset($data['game_whitelist']) ? $data['game_whitelist'] : '0';
+        $history_deposit  = isset($data['history_deposit']) ? $data['history_deposit'] : '0';
+        $history_deposit_begin  = isset($data['history_deposit_begin']) ? $data['history_deposit_begin'] : '0';
+        $history_deposit_end  = isset($data['history_deposit_end']) ? $data['history_deposit_end'] : '0';
+        $id = isset($data['id']) ? $data['id'] : '0';
+        $merchant_name  = isset($data['merchant_name']) ? $data['merchant_name'] : '0';
+        $pay_account  = isset($data['pay_account']) ? $data['pay_account'] : '0';
+        $perfect_username_benefit = isset($data['perfect_username_benefit']) ? $data['perfect_username_benefit'] : '0';
+        $perfect_username_flag  = isset($data['perfect_username_flag']) ? $data['perfect_username_flag'] : '0';
+        $pic1 = isset($data['pic1']) ? $data['pic1'] : '0';
+        $pic2 = isset($data['pic2']) ? $data['pic2'] : '0';
+        $pic3 = isset($data['pic3']) ? $data['pic3'] : '0';
+        $pic4 = isset($data['pic4']) ? $data['pic4'] : '0';
+        $pic5 = isset($data['pic5']) ? $data['pic5'] : '0';
+        $pic6 = isset($data['pic6']) ? $data['pic6'] : '0';
+        $platform_blacklist = isset($data['platform_blacklist']) ? $data['platform_blacklist'] : '0';
+        $platform_whitelist = isset($data['platform_whitelist']) ? $data['platform_whitelist'] : '0';
+        $rakeback = isset($data['rakeback']) ? $data['rakeback'] : '0';
+        $range_begin  = isset($data['range_begin']) ? $data['range_begin'] : '';
+        $range_end  = isset($data['range_end']) ? $data['range_end'] : '';
+        $receive_type = isset($data['receive_type']) ? $data['receive_type'] : '0';
+        $register_domain  = isset($data['register_domain']) ? $data['register_domain'] : '0';
+        $register_domain_begin  = isset($data['register_domain_begin']) ? $data['register_domain_begin'] : '0';
+        $register_domain_end  = isset($data['register_domain_end']) ? $data['register_domain_end'] : '0';
+        $rescue_gold  = isset($data['rescue_gold']) ? $data['rescue_gold'] : '0';
+        $send_type  = isset($data['send_type']) ? $data['send_type'] : '0';
+        $status = isset($data['status']) ? $data['status'] : '0';
+        $terminal_display = isset($data['terminal_display']) ? $data['terminal_display'] : '0';
+        $times  = isset($data['times']) ? $data['times'] : '0';
+        $turnover = isset($data['turnover']) ? $data['turnover'] : '0';
+        $updated_at = isset($data['updated_at']) ? $data['updated_at'] : '0';
+        $updator  = isset($data['updator']) ? $data['updator'] : '0';
+        $user_ids = isset($data['user_ids']) ? $data['user_ids'] : '0';
+        $user_layers  = isset($data['user_layers']) ? $data['user_layers'] : '0';
+        $verify_email_benefit = isset($data['verify_email_benefit']) ? $data['verify_email_benefit'] : '0';
+        $verify_email_flag  = isset($data['verify_email_flag']) ? $data['verify_email_flag'] : '0';
+        $verify_phone_benefit = isset($data['verify_phone_benefit']) ? $data['verify_phone_benefit'] : '0';
+        $verify_phone_flag  = isset($data['verify_phone_flag']) ? $data['verify_phone_flag'] : '0';
+        $withdraw_max = isset($data['withdraw_max']) ? $data['withdraw_max'] : '0';
+        $withdraw_min = isset($data['withdraw_min']) ? $data['withdraw_min'] : '0';
+
+
+
+
+//        Log::info(Event::arrTostr($receive_type));
+
+//        $aReceiveTypeList = [];
+//        foreach ($receive_type as $k=>$v) {
+//            $aReceiveTypeList = $aReceiveTypeList . $v . ',';
+//        }
+
+        $auth_role_admin = Event::find(1);
+
+//        $auth_role_admin = new Event();
+//        $auth_role_admin->id =$id;
+        $auth_role_admin->merchant_name =$merchant_name;
+        $auth_role_admin->event_id =$event_id;
+        $auth_role_admin->event_name =$event_name;
+        $auth_role_admin->begin_date =$begin_date;
+        $auth_role_admin->end_date =$end_date;
+        $auth_role_admin->event_object =$event_object;
+        $auth_role_admin->receive_type =Event::arrTostr($receive_type);
+        $auth_role_admin->event_desc =$event_desc;
+        $auth_role_admin->pic1 =$pic1;
+        $auth_role_admin->pic2 =$pic2;
+        $auth_role_admin->pic3 =$pic3;
+        $auth_role_admin->pic4 =$pic4;
+        $auth_role_admin->pic5 =$pic5;
+        $auth_role_admin->pic6 =$pic6;
+        $auth_role_admin->terminal_display = Event::arrTostr($terminal_display);
+        $auth_role_admin->send_type = Event::arrTostr($send_type);
+        $auth_role_admin->audit_mode = Event::arrTostr($audit_mode);
+        $auth_role_admin->frequency =$frequency;
+        $auth_role_admin->times =$times;
+        $auth_role_admin->deposit =$deposit;
+        $auth_role_admin->benefit_ratio =$benefit_ratio;
+        $auth_role_admin->benefit =$benefit;
+        $auth_role_admin->benefit_min =$benefit_min;
+        $auth_role_admin->benefit_max =$benefit_max;
+        $auth_role_admin->turnover =$turnover;
+        $auth_role_admin->deposit_request =$deposit_request;
+        $auth_role_admin->range_begin =$range_begin;
+        $auth_role_admin->range_end =$range_end;
+        $auth_role_admin->platform_whitelist = Event::arrTostr($platform_whitelist);
+        $auth_role_admin->platform_blacklist = Event::arrTostr($platform_blacklist);
+        $auth_role_admin->game_whitelist = Event::arrTostr($game_whitelist);
+        $auth_role_admin->game_blacklist = Event::arrTostr($game_blacklist);
+        $auth_role_admin->pay_account = Event::arrTostr($pay_account);
+        $auth_role_admin->rakeback =$rakeback;
+        $auth_role_admin->rescue_gold =$rescue_gold;
+        $auth_role_admin->status =$status;
+        $auth_role_admin->bind_bankcard_flag =$bind_bankcard_flag;
+        $auth_role_admin->bind_bankcard_benefit =$bind_bankcard_benefit;
+        $auth_role_admin->creator =$creator;
+        $auth_role_admin->created_at =$created_at;
+        $auth_role_admin->updator =$updator;
+        $auth_role_admin->updated_at = "2001-03-14 06:21:08";
+        $auth_role_admin->perfect_username_flag =$perfect_username_flag;
+        $auth_role_admin->perfect_username_benefit =$perfect_username_benefit;
+        $auth_role_admin->verify_email_flag =$verify_email_flag;
+        $auth_role_admin->verify_email_benefit =$verify_email_benefit;
+        $auth_role_admin->verify_phone_flag =$verify_phone_flag;
+        $auth_role_admin->verify_phone_benefit =$verify_phone_benefit;
+        $auth_role_admin->history_deposit =$history_deposit;
+        $auth_role_admin->history_deposit_begin =$history_deposit_begin;
+        $auth_role_admin->history_deposit_end =$history_deposit_end;
+        $auth_role_admin->withdraw_min =$withdraw_min;
+        $auth_role_admin->withdraw_max =$withdraw_max;
+        $auth_role_admin->user_ids =$user_ids;
+        $auth_role_admin->user_layers = Event::arrTostr($user_layers);
+        $auth_role_admin->register_domain =$register_domain;
+        $auth_role_admin->register_domain_begin =$register_domain_begin;
+        $auth_role_admin->register_domain_end =$register_domain_end;
+
+        $iRet = $auth_role_admin->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $auth_role_admin;
+
+        return response()->json($aFinal);
+        return ResultVo::success($auth_admin);
+    }
+
+
     /**
      * @api {get} /api/adminRoleList 取得角色列表
      * @apiGroup admin
