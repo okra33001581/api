@@ -4,19 +4,25 @@ namespace App\model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Event - 活动表
+ * @author zebra
+ */
 class Event extends Model
 {
-    //
-    protected $table                   = 'eventNew';
+    // table name
+    protected $table = 'eventNew';
 
     public $timestamps = false;
 
-    /*public function fromDateTime($value){
-        return strtotime(parent::fromDateTime($value));
-    }*/
-
-
-    static function arrTostr ($array)
+    /**
+     * 根据数据返回字符串
+     * @date 2019-3-15
+     * @param string $sPath
+     *
+     * @return string,逗号间隔
+     */
+    static function arrTostr($array)
     {
         // 定义存储所有字符串的数组
         static $r_arr = array();
@@ -39,6 +45,22 @@ class Event extends Model
         $string = implode(",", $r_arr);
 
         return $string;
+    }
+
+    /**
+     * 根据文件名称取得对应的数据数组
+     * @date 2019-3-15
+     * @param string $sPath
+     *
+     * @return string
+     */
+    static function getFromTxt($sPath)
+    {
+        $aFinal = [];
+        foreach (file($sPath) as $line) {
+            $aFinal[] = $line;
+        }
+        return static::arrTostr($aFinal);
     }
 
 }
