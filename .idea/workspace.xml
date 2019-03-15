@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php" afterDir="false" />
-    </list>
+    <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="703" column="55" lean-forward="true" selection-start-line="703" selection-start-column="55" selection-end-line="703" selection-end-column="55" />
+            <state relative-caret-position="458">
+              <caret line="1104" column="9" lean-forward="true" selection-start-line="1104" selection-start-column="9" selection-end-line="1104" selection-end-column="9" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -434,7 +431,7 @@
       <workItem from="1546854267883" duration="26042000" />
       <workItem from="1547197944498" duration="25824000" />
       <workItem from="1551760618777" duration="9672000" />
-      <workItem from="1552372437203" duration="43591000" />
+      <workItem from="1552372437203" duration="44265000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1551759021580</created>
@@ -562,11 +559,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552634138077</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="update">
+      <created>1552635997553</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1552635997553</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156884000" />
+    <option name="totallyTimeSpent" value="157558000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="984" extended-state="6" />
@@ -907,8 +911,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="703" column="55" lean-forward="true" selection-start-line="703" selection-start-column="55" selection-end-line="703" selection-end-column="55" />
+        <state relative-caret-position="458">
+          <caret line="1104" column="9" lean-forward="true" selection-start-line="1104" selection-start-column="9" selection-end-line="1104" selection-end-column="9" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
