@@ -58,7 +58,8 @@ class Event extends Model
     {
         $aFinal = [];
         foreach (file($sPath) as $line) {
-            $aFinal[] = $line;
+            $str = str_replace(array("/r/n", "/r", "/n"), "", $line);
+            $aFinal[] = $str;
         }
         return static::arrTostr($aFinal);
     }

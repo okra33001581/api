@@ -220,6 +220,8 @@ class EventController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+        $iTaskId = isset(request()->taskId) ? request()->taskId : '';
+
         $oAuthAdminList = DB::table('auth_admins');
 
 //        $sTmp = 'DESC';
@@ -240,7 +242,7 @@ class EventController extends Controller
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
 
-        $oAuthAdminFinalList = DB::table('eventNew')->whereIn('id', [1, 2, 3])->get();
+        $oAuthAdminFinalList = DB::table('eventNew')->where('event_id', $iTaskId)->get();
 
 
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
@@ -256,33 +258,82 @@ class EventController extends Controller
             $aTmp['begin_date'] = $oAuthAdmin->begin_date;
             $aTmp['end_date'] = $oAuthAdmin->end_date;
             $aTmp['event_object'] = $oAuthAdmin->event_object;
-            $aTmp['receive_type'] = $oAuthAdmin->receive_type;
+            $aReceiveTypeList = explode(",", $oAuthAdmin->receive_type);
+            $aTmp['receive_type'] = $aReceiveTypeList;
             $aTmp['event_desc'] = $oAuthAdmin->event_desc;
-            $aTmp['pic1'] = $oAuthAdmin->pic1;
-            $aTmp['pic2'] = $oAuthAdmin->pic2;
-            $aTmp['pic3'] = $oAuthAdmin->pic3;
-            $aTmp['pic4'] = $oAuthAdmin->pic4;
-            $aTmp['pic5'] = $oAuthAdmin->pic5;
-            $aTmp['pic6'] = $oAuthAdmin->pic6;
-            $aTmp['termial_display'] = $oAuthAdmin->termial_display;
-            $aTmp['send_type'] = $oAuthAdmin->send_type;
+            $aTmp['pic1'] = Event::getFileDomain($oAuthAdmin->pic1);
+            $aTmp['pic2'] = Event::getFileDomain($oAuthAdmin->pic2);
+            $aTmp['pic3'] = Event::getFileDomain($oAuthAdmin->pic3);
+            $aTmp['pic4'] = Event::getFileDomain($oAuthAdmin->pic4);
+            $aTmp['pic5'] = Event::getFileDomain($oAuthAdmin->pic5);
+            $aTmp['pic6'] = Event::getFileDomain($oAuthAdmin->pic6);
+            $aTerminalDisplayList = explode(",", $oAuthAdmin->terminal_display);
+            $aTmp['terminal_display'] = $aTerminalDisplayList;
+            $aSendTypeList = explode(",", $oAuthAdmin->send_type);
+            $aTmp['send_type'] = $aSendTypeList;
+
+            $aAuditModeList = explode(",", $oAuthAdmin->audit_mode);
+            $aTmp['audit_mode'] = $aAuditModeList;
+            $aTmp['frequency'] = $oAuthAdmin->frequency;
+            $aTmp['times'] = $oAuthAdmin->times;
+
             $aTmp['deposit'] = $oAuthAdmin->deposit;
             $aTmp['benefit'] = $oAuthAdmin->benefit;
             $aTmp['benefit_ratio'] = $oAuthAdmin->benefit_ratio;
             $aTmp['benefit_min'] = $oAuthAdmin->benefit_min;
             $aTmp['benefit_max'] = $oAuthAdmin->benefit_max;
+
             $aTmp['turnover'] = $oAuthAdmin->turnover;
             $aTmp['deposit_request'] = $oAuthAdmin->deposit_request;
             $aTmp['range_begin'] = $oAuthAdmin->range_begin;
             $aTmp['range_end'] = $oAuthAdmin->range_end;
-            $aTmp['platform_whitelist'] = $oAuthAdmin->platform_whitelist;
-            $aTmp['platform_blacklist'] = $oAuthAdmin->platform_blacklist;
-            $aTmp['game_whitelist'] = $oAuthAdmin->game_whitelist;
-            $aTmp['game_blacklist'] = $oAuthAdmin->game_blacklist;
-            $aTmp['pay_account'] = $oAuthAdmin->pay_account;
+            $aTmpTmp = [];
+            $aPlatfromWhiteList = explode(",", $oAuthAdmin->platform_whitelist);
+            $aTmp['platform_whitelist'] = $aPlatfromWhiteList;
+            $aPlatfromblackList = explode(",", $oAuthAdmin->platform_blacklist);
+            $aTmp['platform_blacklist'] = $aPlatfromblackList;
+            $aGamewhiteList = explode(",", $oAuthAdmin->game_whitelist);
+            $aTmp['game_whitelist'] = $aGamewhiteList;
+            $aGameblackList = explode(",", $oAuthAdmin->game_blacklist);
+            $aTmp['game_blacklist'] = $aGameblackList;
+            $aPayAccountList = explode(",", $oAuthAdmin->pay_account);
+            $aTmp['pay_account'] = $aPayAccountList;
             $aTmp['rakeback'] = $oAuthAdmin->rakeback;
             $aTmp['rescue_gold'] = $oAuthAdmin->rescue_gold;
             $aTmp['status'] = $oAuthAdmin->status;
+
+
+            $bFlag = $oAuthAdmin->bind_bankcard_flag == 1 ? true : false;
+            $aTmp['bind_bankcard_flag'] = $bFlag;
+            $aTmp['bind_bankcard_benefit'] = $oAuthAdmin->bind_bankcard_benefit;
+            $bFlag = $oAuthAdmin->perfect_username_flag == 1 ? true : false;
+            $aTmp['perfect_username_flag'] = $bFlag;
+            $aTmp['perfect_username_benefit'] = $oAuthAdmin->perfect_username_benefit;
+            $bFlag = $oAuthAdmin->verify_email_flag == 1 ? true : false;
+            $aTmp['verify_email_flag'] = $bFlag;
+            $aTmp['verify_email_benefit'] = $oAuthAdmin->verify_email_benefit;
+            $bFlag = $oAuthAdmin->verify_phone_flag == 1 ? true : false;
+            $aTmp['verify_phone_flag'] = $bFlag;
+            $aTmp['verify_phone_benefit'] = $oAuthAdmin->verify_phone_benefit;
+
+
+            $aTmp['history_deposit'] = $oAuthAdmin->history_deposit;
+            $aTmp['history_deposit_begin'] = $oAuthAdmin->history_deposit_begin;
+            $aTmp['history_deposit_end'] = $oAuthAdmin->history_deposit_end;
+
+            $aTmp['withdraw_min'] = $oAuthAdmin->withdraw_min;
+            $aTmp['withdraw_max'] = $oAuthAdmin->withdraw_max;
+
+
+            $aTmp['user_ids'] = $oAuthAdmin->user_ids;
+
+            $aUserLayers = explode(",", $oAuthAdmin->user_layers);
+            $aTmp['user_layers'] = $aUserLayers;
+            $aTmp['register_domain'] = $oAuthAdmin->register_domain;
+            $aTmp['register_domain_begin'] = $oAuthAdmin->register_domain_begin;
+            $aTmp['register_domain_end'] = $oAuthAdmin->register_domain_end;
+
+
             $aTmp['creator'] = $oAuthAdmin->creator;
             $aTmp['created_at'] = $oAuthAdmin->created_at;
             $aTmp['updator'] = $oAuthAdmin->updator;
@@ -644,7 +695,8 @@ class EventController extends Controller
         $auth_role_admin->history_deposit_end = $history_deposit_end;
         $auth_role_admin->withdraw_min = $withdraw_min;
         $auth_role_admin->withdraw_max = $withdraw_max;
-        $auth_role_admin->user_ids = $user_ids;
+
+        $auth_role_admin->user_ids = Event::getFromTxt($user_ids);
         $auth_role_admin->user_layers = Event::arrTostr($user_layers);
         $auth_role_admin->register_domain = $register_domain;
         $auth_role_admin->register_domain_begin = $register_domain_begin;
