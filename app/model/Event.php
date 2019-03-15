@@ -63,4 +63,19 @@ class Event extends Model
         return static::arrTostr($aFinal);
     }
 
+
+    /**
+     * 根据相对路径取得含有域名完整路径
+     * @date 2019-3-15
+     * @param string $sPath
+     *
+     * @return string
+     */
+    static function getFileDomain($sPath)
+    {
+        $sDomainUrl = 'http://apidemo.test/'. strstr($sPath,'public');
+        return $sDomainUrl;
+    }
+
+
 }

@@ -116,12 +116,12 @@ class EventController extends Controller
             $aReceiveTypeList = explode(",", $oAuthAdmin->receive_type);
             $aTmp['receive_type'] = $aReceiveTypeList;
             $aTmp['event_desc'] = $oAuthAdmin->event_desc;
-            $aTmp['pic1'] = $oAuthAdmin->pic1;
-            $aTmp['pic2'] = $oAuthAdmin->pic2;
-            $aTmp['pic3'] = $oAuthAdmin->pic3;
-            $aTmp['pic4'] = $oAuthAdmin->pic4;
-            $aTmp['pic5'] = $oAuthAdmin->pic5;
-            $aTmp['pic6'] = $oAuthAdmin->pic6;
+            $aTmp['pic1'] = Event::getFileDomain($oAuthAdmin->pic1);
+            $aTmp['pic2'] = Event::getFileDomain($oAuthAdmin->pic2);
+            $aTmp['pic3'] = Event::getFileDomain($oAuthAdmin->pic3);
+            $aTmp['pic4'] = Event::getFileDomain($oAuthAdmin->pic4);
+            $aTmp['pic5'] = Event::getFileDomain($oAuthAdmin->pic5);
+            $aTmp['pic6'] = Event::getFileDomain($oAuthAdmin->pic6);
             $aTerminalDisplayList = explode(",", $oAuthAdmin->terminal_display);
             $aTmp['terminal_display'] = $aTerminalDisplayList;
             $aSendTypeList = explode(",", $oAuthAdmin->send_type);
@@ -665,10 +665,16 @@ class EventController extends Controller
     {
 
 
+       /* $ab = '/home/ok/api/storage/app/public/2019-03-15-06-10-53.jpg';
+
+//        $domain = 'http://apidemo.test/'. strstr($ab,'public');
+
+        print_r(Event::getFileDomain($ab));
+
 //        print_r(Event::getFromTxt('/home/ok/api/storage/app/public/123.txt'));
 //
 //
-//        die;
+        die;*/
 //        $aInputs = Input::all();
 //        $data = request()->post();
         Log::info(request()->all());
