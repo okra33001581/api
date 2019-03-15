@@ -139,7 +139,7 @@ class UserController extends Controller
 //                    ->select(['permission_rule_id'])
 //                    ->get();
 
-                Log::info('111111111111111111======='.$oAuthRoleAdminList->role_id);
+                Log::info('111111111111111111=======' . $oAuthRoleAdminList->role_id);
 //                $aTmp =
                 $oAuthPermissionList = AuthPermission::where('role_id', '=', $oAuthRoleAdminList->role_id)
                     ->get();
@@ -181,7 +181,6 @@ class UserController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
 
 
     /**
@@ -245,6 +244,7 @@ class UserController extends Controller
         return $json_string;
 
     }
+
     /**
      * @api {get} /api/admin 显示商户列表
      * @apiGroup admin

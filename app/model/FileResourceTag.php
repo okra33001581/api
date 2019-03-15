@@ -21,7 +21,8 @@ class FileResourceTag extends Model
     /*
      * 获取类型的path
      */
-    public static function getTypePath($type = 0) {
+    public static function getTypePath($type = 0)
+    {
         $types = [
             0 => 'image' . DIRECTORY_SEPARATOR
         ];

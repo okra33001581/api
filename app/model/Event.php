@@ -74,7 +74,7 @@ class Event extends Model
      */
     static function getFileDomain($sPath)
     {
-        $sDomainUrl = 'http://apidemo.test/'. strstr($sPath,'public');
+        $sDomainUrl = 'http://apidemo.test/' . strstr($sPath, 'public');
         return $sDomainUrl;
     }
 

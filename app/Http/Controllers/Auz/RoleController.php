@@ -146,7 +146,7 @@ class RoleController extends Controller
         $id1 = isset(request()->id) ? request()->id : '';
 
         $checked_keys = [];
-        Log::info('id=========='.$id1);
+        Log::info('id==========' . $id1);
 //        $auth_permission = AuthPermission::where('role_id', $id)
 //            ->select(['permission_rule_id'])
 //            ->get();
@@ -276,7 +276,6 @@ class RoleController extends Controller
         }
 
 
-
         //先删除
         $auth_permission = new AuthPermission();
         $auth_permission->where(['role_id' => $role_id])->delete();
@@ -284,18 +283,18 @@ class RoleController extends Controller
 
 //        print_r('aaaaaaaaaaaaaaa');
 //        if (!$rule_access) {
-            if (count($rule_access) > 0) {
+        if (count($rule_access) > 0) {
 //                print_r('bbbbbbbbbbbbbbbbbbbb');
-                foreach ($rule_access as $k => $v) {
-                    $oAuthPermission = new AuthPermission();
-                    $oAuthPermission->role_id = $v['role_id'];
-                    $oAuthPermission->permission_rule_id = $v['permission_rule_id'];
-                    $oAuthPermission->type = $v['type'];
-                    $iRet = $oAuthPermission->save();
-                    print_r('ret============='.$iRet);
+            foreach ($rule_access as $k => $v) {
+                $oAuthPermission = new AuthPermission();
+                $oAuthPermission->role_id = $v['role_id'];
+                $oAuthPermission->permission_rule_id = $v['permission_rule_id'];
+                $oAuthPermission->type = $v['type'];
+                $iRet = $oAuthPermission->save();
+                print_r('ret=============' . $iRet);
 
-                }
             }
+        }
 //            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
 

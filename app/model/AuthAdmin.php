@@ -18,8 +18,9 @@ class AuthAdmin extends Model
     //
 
 
-    public static function objectToArray(&$object) {
-        $object = json_decode( json_encode( $object),true);
+    public static function objectToArray(&$object)
+    {
+        $object = json_decode(json_encode($object), true);
         return $object;
     }
 
@@ -30,14 +31,15 @@ class AuthAdmin extends Model
      * @param bool $is_login 是否验证用户是否登录
      * @return array|bool 成功返回用户信息，否则返回 false
      */
-    public static function loginInfo($id, $values,$is_login = true){
+    public static function loginInfo($id, $values, $is_login = true)
+    {
 //        $redis = RedisUtils::init();
         $key = 'admin:login:' . $id;
 //        $key = "456";
         // 判断缓存类是否为 redis
         $redis = false;
-        if ($redis){
-            if ($values && is_array($values)){
+        if ($redis) {
+            if ($values && is_array($values)) {
                 $values['id'] = $id;
                 $values['token'] = TokenUtils::create("admin" . $id);
                 $values['authRules'] = isset($values['authRules']) ? json_encode($values['authRules']) : '';
@@ -45,19 +47,19 @@ class AuthAdmin extends Model
                 $values = $values['token'];
             }
             $info = $redis->hGetAll($key);
-            if ($is_login === false){
-                if (isset($info['token']))  unset($info['token']);
+            if ($is_login === false) {
+                if (isset($info['token'])) unset($info['token']);
                 return $info;
             }
-            if (!empty($info['id']) && !empty($info['token']) && $info['token'] == $values){
+            if (!empty($info['id']) && !empty($info['token']) && $info['token'] == $values) {
                 $info['authRules'] = isset($info['authRules']) ? json_decode($info['authRules']) : '';
                 return $info;
             }
-        }else{
+        } else {
 
 //            Log::info('1111111111111111111111111111111111111');
 
-            if ($values && is_array($values)){
+            if ($values && is_array($values)) {
 
 //                return response()->json(123);
 //
@@ -67,14 +69,13 @@ class AuthAdmin extends Model
                 $values['token'] = TokenUtils::create("admin" . $id);
 
 
-
 //                Log::info('789');
 //                $res = Cache::set($key, $values);
 //                $key = 'user1';
 //                $key = 'admin:login:' . $id;
 //                Log::info('44444======'.$key);
 //                Redis::set($key,'34343');
-                Redis::set($key,json_encode($values));
+                Redis::set($key, json_encode($values));
 //                $res = Redis::set($key,$values);
 
                 $values = $values['token'];
@@ -89,11 +90,11 @@ class AuthAdmin extends Model
             if ($info != '') {
                 $aFinal = get_object_vars(json_decode($info));
                 if (count($aFinal) > 0) {
-                    if ($is_login === false){
-                        if (isset($aFinal['token']))  unset($aFinal['token']);
+                    if ($is_login === false) {
+                        if (isset($aFinal['token'])) unset($aFinal['token']);
                         return $aFinal;
                     }
-                    if (!empty($aFinal['id']) && !empty($aFinal['token']) && $aFinal['token'] == $values){
+                    if (!empty($aFinal['id']) && !empty($aFinal['token']) && $aFinal['token'] == $values) {
                         return $aFinal;
                     }
                 }
