@@ -80,6 +80,9 @@ Route::post('event/eventSave', 'EventController@eventSave');
 //activity_list.vue
 Route::post('event/fileSave', 'EventController@fileSave');
 
+//activity_list.vue
+Route::post('event/eventStatusSave', 'EventController@eventStatusSave');
+
 //fund-management
 //cash_orderlist.vue
 Route::get('event/cashOrderlist', 'FundController@cashOrderlist');

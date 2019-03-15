@@ -518,72 +518,86 @@ class EventController extends Controller
 //            return ResultVo::error(ErrorCode::DATA_REPEAT);
 //        }
 
-        $audit_mode = isset($data['audit_mode']) ? $data['audit_mode'] : '0';
-        $begin_date = isset($data['begin_date']) ? $data['begin_date'] : '0';
-        $benefit  = isset($data['benefit']) ? $data['benefit'] : '0';
-        $benefit_max  = isset($data['benefit_max']) ? $data['benefit_max'] : '0';
-        $benefit_min  = isset($data['benefit_min']) ? $data['benefit_min'] : '0';
-        $benefit_ratio  = isset($data['benefit_ratio']) ? $data['benefit_ratio'] : '0';
-        $bind_bankcard_benefit  = isset($data['bind_bankcard_benefit']) ? $data['bind_bankcard_benefit'] : '0';
-        $bind_bankcard_flag = isset($data['bind_bankcard_flag']) ? $data['bind_bankcard_flag'] : '0';
-        $created_at = isset($data['created_at']) ? $data['created_at'] : '0';
-        $creator  = isset($data['creator']) ? $data['creator'] : '0';
-        $deposit  = isset($data['deposit']) ? $data['deposit'] : '0';
-        $deposit_request  = isset($data['deposit_request']) ? $data['deposit_request'] : '0';
-        $end_date = isset($data['end_date']) ? $data['end_date'] : '0';
-        $event_desc = isset($data['event_desc']) ? $data['event_desc'] : '0';
-        $event_id = isset($data['event_id']) ? $data['event_id'] : '0';
-        $event_name = isset($data['event_name']) ? $data['event_name'] : '0';
-        $event_object = isset($data['event_object']) ? $data['event_object'] : '0';
-        $frequency  = isset($data['frequency']) ? $data['frequency'] : '0';
-        $game_blacklist = isset($data['game_blacklist']) ? $data['game_blacklist'] : '0';
-        $game_whitelist = isset($data['game_whitelist']) ? $data['game_whitelist'] : '0';
-        $history_deposit  = isset($data['history_deposit']) ? $data['history_deposit'] : '0';
-        $history_deposit_begin  = isset($data['history_deposit_begin']) ? $data['history_deposit_begin'] : '0';
-        $history_deposit_end  = isset($data['history_deposit_end']) ? $data['history_deposit_end'] : '0';
-        $id = isset($data['id']) ? $data['id'] : '0';
-        $merchant_name  = isset($data['merchant_name']) ? $data['merchant_name'] : '0';
-        $pay_account  = isset($data['pay_account']) ? $data['pay_account'] : '0';
-        $perfect_username_benefit = isset($data['perfect_username_benefit']) ? $data['perfect_username_benefit'] : '0';
-        $perfect_username_flag  = isset($data['perfect_username_flag']) ? $data['perfect_username_flag'] : '0';
-        $pic1 = isset($data['pic1']) ? $data['pic1'] : '0';
-        $pic2 = isset($data['pic2']) ? $data['pic2'] : '0';
-        $pic3 = isset($data['pic3']) ? $data['pic3'] : '0';
-        $pic4 = isset($data['pic4']) ? $data['pic4'] : '0';
-        $pic5 = isset($data['pic5']) ? $data['pic5'] : '0';
-        $pic6 = isset($data['pic6']) ? $data['pic6'] : '0';
-        $platform_blacklist = isset($data['platform_blacklist']) ? $data['platform_blacklist'] : '0';
-        $platform_whitelist = isset($data['platform_whitelist']) ? $data['platform_whitelist'] : '0';
-        $rakeback = isset($data['rakeback']) ? $data['rakeback'] : '0';
-        $range_begin  = isset($data['range_begin']) ? $data['range_begin'] : '';
-        $range_end  = isset($data['range_end']) ? $data['range_end'] : '';
-        $receive_type = isset($data['receive_type']) ? $data['receive_type'] : '0';
-        $register_domain  = isset($data['register_domain']) ? $data['register_domain'] : '0';
-        $register_domain_begin  = isset($data['register_domain_begin']) ? $data['register_domain_begin'] : '0';
-        $register_domain_end  = isset($data['register_domain_end']) ? $data['register_domain_end'] : '0';
-        $rescue_gold  = isset($data['rescue_gold']) ? $data['rescue_gold'] : '0';
-        $send_type  = isset($data['send_type']) ? $data['send_type'] : '0';
-        $status = isset($data['status']) ? $data['status'] : '0';
-        $terminal_display = isset($data['terminal_display']) ? $data['terminal_display'] : '0';
-        $times  = isset($data['times']) ? $data['times'] : '0';
-        $turnover = isset($data['turnover']) ? $data['turnover'] : '0';
-        $updated_at = isset($data['updated_at']) ? $data['updated_at'] : '0';
-        $updator  = isset($data['updator']) ? $data['updator'] : '0';
-        $user_ids = isset($data['user_ids']) ? $data['user_ids'] : '0';
-        $user_layers  = isset($data['user_layers']) ? $data['user_layers'] : '0';
-        $verify_email_benefit = isset($data['verify_email_benefit']) ? $data['verify_email_benefit'] : '0';
-        $verify_email_flag  = isset($data['verify_email_flag']) ? $data['verify_email_flag'] : '0';
-        $verify_phone_benefit = isset($data['verify_phone_benefit']) ? $data['verify_phone_benefit'] : '0';
-        $verify_phone_flag  = isset($data['verify_phone_flag']) ? $data['verify_phone_flag'] : '0';
-        $withdraw_max = isset($data['withdraw_max']) ? $data['withdraw_max'] : '0';
-        $withdraw_min = isset($data['withdraw_min']) ? $data['withdraw_min'] : '0';
+        $audit_mode = isset($data['audit_mode']) ? $data['audit_mode'] : '';
+        $begin_date = isset($data['begin_date']) ? $data['begin_date'] : date('Y-m-d');
+        $benefit  = isset($data['benefit']) ? $data['benefit'] : '';
+        $benefit_max  = isset($data['benefit_max']) ? $data['benefit_max'] : '';
+        $benefit_min  = isset($data['benefit_min']) ? $data['benefit_min'] : '';
+        $benefit_ratio  = isset($data['benefit_ratio']) ? $data['benefit_ratio'] : '';
+        $bind_bankcard_benefit  = isset($data['bind_bankcard_benefit']) ? $data['bind_bankcard_benefit'] : '';
+        $bind_bankcard_flag = isset($data['bind_bankcard_flag']) ? $data['bind_bankcard_flag'] : '';
+        $created_at = isset($data['created_at']) ? $data['created_at'] : date('Y-m-d');
+        $creator  = isset($data['creator']) ? $data['creator'] : '';
+        $deposit  = isset($data['deposit']) ? $data['deposit'] : '';
+        $deposit_request  = isset($data['deposit_request']) ? $data['deposit_request'] : '';
+        $end_date = isset($data['end_date']) ? $data['end_date'] : date('Y-m-d');
+        $event_desc = isset($data['event_desc']) ? $data['event_desc'] : '';
+        $event_id = isset($data['event_id']) ? $data['event_id'] : '';
+        $event_name = isset($data['event_name']) ? $data['event_name'] : '';
+        $event_object = isset($data['event_object']) ? $data['event_object'] : '';
+        $frequency  = isset($data['frequency']) ? $data['frequency'] : '';
+        $game_blacklist = isset($data['game_blacklist']) ? $data['game_blacklist'] : '';
+        $game_whitelist = isset($data['game_whitelist']) ? $data['game_whitelist'] : '';
+        $history_deposit  = isset($data['history_deposit']) ? $data['history_deposit'] : '';
+        $history_deposit_begin  = isset($data['history_deposit_begin']) ? $data['history_deposit_begin'] : date('Y-m-d');
+        $history_deposit_end  = isset($data['history_deposit_end']) ? $data['history_deposit_end'] : date('Y-m-d');
+        $id = isset($data['id']) ? $data['id'] : '';
+        $addSubFlage = isset($data['addSubFlage']) ? $data['addSubFlage'] : '';
 
-        $register_domain = isset($data['register_domain']) ? $data['register_domain'] : '0';
-        $register_domain_begin = isset($data['register_domain_begin']) ? $data['register_domain_begin'] : '0';
-        $register_domain_end = isset($data['register_domain_end']) ? $data['register_domain_end'] : '0';
-        $user_layers = isset($data['user_layers']) ? $data['user_layers'] : '0';
+        $merchant_name  = isset($data['merchant_name']) ? $data['merchant_name'] : '';
+        $pay_account  = isset($data['pay_account']) ? $data['pay_account'] : '';
+        $perfect_username_benefit = isset($data['perfect_username_benefit']) ? $data['perfect_username_benefit'] : '';
+        $perfect_username_flag  = isset($data['perfect_username_flag']) ? $data['perfect_username_flag'] : '';
+        $pic1 = isset($data['pic1']) ? $data['pic1'] : '';
+        $pic2 = isset($data['pic2']) ? $data['pic2'] : '';
+        $pic3 = isset($data['pic3']) ? $data['pic3'] : '';
+        $pic4 = isset($data['pic4']) ? $data['pic4'] : '';
+        $pic5 = isset($data['pic5']) ? $data['pic5'] : '';
+        $pic6 = isset($data['pic6']) ? $data['pic6'] : '';
+        $platform_blacklist = isset($data['platform_blacklist']) ? $data['platform_blacklist'] : '';
+        $platform_whitelist = isset($data['platform_whitelist']) ? $data['platform_whitelist'] : '';
+        $rakeback = isset($data['rakeback']) ? $data['rakeback'] : '';
+        $range_begin  = isset($data['range_begin']) ? $data['range_begin'] : date('Y-m-d');
+        $range_end  = isset($data['range_end']) ? $data['range_end'] : date('Y-m-d');
+        $receive_type = isset($data['receive_type']) ? $data['receive_type'] : '';
+        $register_domain  = isset($data['register_domain']) ? $data['register_domain'] : '';
+        $register_domain_begin  = isset($data['register_domain_begin']) ? $data['register_domain_begin'] : date('Y-m-d');
+        $register_domain_end  = isset($data['register_domain_end']) ? $data['register_domain_end'] : date('Y-m-d');
+        $rescue_gold  = isset($data['rescue_gold']) ? $data['rescue_gold'] : '';
+        $send_type  = isset($data['send_type']) ? $data['send_type'] : '';
+        $status = isset($data['status']) ? $data['status'] : '';
+        $terminal_display = isset($data['terminal_display']) ? $data['terminal_display'] : '';
+        $times  = isset($data['times']) ? $data['times'] : '';
+        $turnover = isset($data['turnover']) ? $data['turnover'] : '';
+        $updated_at = isset($data['updated_at']) ? $data['updated_at'] : '';
+        $updator  = isset($data['updator']) ? $data['updator'] : '';
+        $user_ids = isset($data['user_ids']) ? $data['user_ids'] : '';
+        $user_layers  = isset($data['user_layers']) ? $data['user_layers'] : '';
+        $verify_email_benefit = isset($data['verify_email_benefit']) ? $data['verify_email_benefit'] : '';
+        $verify_email_flag  = isset($data['verify_email_flag']) ? $data['verify_email_flag'] : '';
+        $verify_phone_benefit = isset($data['verify_phone_benefit']) ? $data['verify_phone_benefit'] : '';
+        $verify_phone_flag  = isset($data['verify_phone_flag']) ? $data['verify_phone_flag'] : '';
+        $withdraw_max = isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
+        $withdraw_min = isset($data['withdraw_min']) ? $data['withdraw_min'] : '';
 
-        $auth_role_admin = Event::find(1);
+        $register_domain = isset($data['register_domain']) ? $data['register_domain'] : '';
+        $register_domain_begin = isset($data['register_domain_begin']) ? $data['register_domain_begin'] : date('Y-m-d');
+        $register_domain_end = isset($data['register_domain_end']) ? $data['register_domain_end'] : date('Y-m-d');
+        $user_layers = isset($data['user_layers']) ? $data['user_layers'] : '';
+
+        if ($id != '') {
+            if ($addSubFlage == 1) {
+                $event_id = $id;
+                $auth_role_admin = new Event();
+            } else {
+                $auth_role_admin = Event::find(1);
+            }
+        } else {
+            $auth_role_admin = new Event();
+        }
+
+        // tmp
+//        $auth_role_admin = new Event();
 
 //        $auth_role_admin = new Event();
 //        $auth_role_admin->id =$id;
@@ -691,6 +705,30 @@ class EventController extends Controller
             return response()->json($aFinal);
 
         }
+    }
+
+
+
+    public function eventStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+        $id = isset($data['id']) ? $data['id'] : '';
+
+        $oEvent = Event::find($id);
+        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iRet;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
     }
 
     /**
