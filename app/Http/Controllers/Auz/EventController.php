@@ -704,7 +704,12 @@ class EventController extends Controller
         $auth_role_admin->withdraw_min = $withdraw_min;
         $auth_role_admin->withdraw_max = $withdraw_max;
 
-        $auth_role_admin->user_ids = Event::getFromTxt($user_ids);
+
+        $fFileFlag = strstr($user_ids, 'public');
+        if ($fFileFlag) {
+            $auth_role_admin->user_ids = Event::getFromTxt($user_ids);
+        }
+
         $auth_role_admin->user_layers = Event::arrTostr($user_layers);
         $auth_role_admin->register_domain = $register_domain;
         $auth_role_admin->register_domain_begin = $register_domain_begin;
