@@ -21,6 +21,7 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 use Storage;
+use App\model\EventUserPrize;
 
 /**
  * Class Event - 活动控制器
@@ -639,12 +640,21 @@ class EventController extends Controller
                 $event_id = $id;
                 $auth_role_admin = new Event();
             } else {
-                $auth_role_admin = Event::find(1);
+                $auth_role_admin = Event::find($id);
             }
         } else {
             $auth_role_admin = new Event();
         }
 
+
+
+       /* if ($id != '' && $event_id != '') {
+            $auth_role_admin = Event::find($id);
+        }
+
+        die;*/
+
+//        Log::info();
         // tmp
 //        $auth_role_admin = new Event();
 
@@ -787,6 +797,28 @@ class EventController extends Controller
         $id = isset($data['id']) ? $data['id'] : '';
 
         $oEvent = Event::find($id);
+        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iRet;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function eventUserPrizeStatusSave($id = null)
+    {
+        $data = request()->post();
+
+        $id = isset($data['id']) ? $data['id'] : '';
+
+        $oEvent = EventUserPrize::find($id);
         $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;

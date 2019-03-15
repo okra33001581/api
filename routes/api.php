@@ -72,6 +72,9 @@ Route::post('event/fileSave', 'EventController@fileSave');
 //activity_list.vue
 Route::post('event/eventStatusSave', 'EventController@eventStatusSave');
 
+//activity_list.vue
+Route::post('event/eventUserPrizeStatusSave', 'EventController@eventUserPrizeStatusSave');
+
 Route::get('event/getJson', 'AdminController@getJson');
 Route::get('event/adminList', 'AdminController@adminList');
 Route::post('event/adminSave', 'AdminController@adminSave');
