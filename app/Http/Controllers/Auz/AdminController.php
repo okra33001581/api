@@ -21,20 +21,13 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
+/**
+ * Class Event - 管理员相关控制器
+ * @author zebra
+ */
 class AdminController extends Controller
 {
 
-// AdminController.php
-
-
-
-    public function getJson()
-    {
-        // 从文件中读取数据到PHP变量
-        $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
-        return $json_string;
-
-    }
     /**
      * @api {get} /api/admin 显示商户列表
      * @apiGroup admin

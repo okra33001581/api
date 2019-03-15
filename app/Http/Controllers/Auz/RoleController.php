@@ -21,6 +21,10 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
+/**
+ * Class Event - 角色相关控制器
+ * @author zebra
+ */
 class RoleController extends Controller
 {
 

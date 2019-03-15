@@ -21,6 +21,10 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
+/**
+ * Class Event - 用户登录相关控制器
+ * @author zebra
+ */
 class UserController extends Controller
 {
 

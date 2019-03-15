@@ -21,6 +21,10 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
+/**
+ * Class Event - 权限列表相关控制器
+ * @author zebra
+ */
 class PermissionRuleController extends Controller
 {
 // PermissionRuleController.php
