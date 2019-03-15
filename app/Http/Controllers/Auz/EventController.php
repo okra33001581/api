@@ -187,6 +187,8 @@ class EventController extends Controller
             $aTmp['register_domain'] = $oAuthAdmin->register_domain;
             $aTmp['register_domain_begin'] = $oAuthAdmin->register_domain_begin;
             $aTmp['register_domain_end'] = $oAuthAdmin->register_domain_end;
+            $aTmp['plus_profit'] = $oAuthAdmin->plus_profit;
+            $aTmp['minus_profit'] = $oAuthAdmin->minus_profit;
 
 
             $aTmp['creator'] = $oAuthAdmin->creator;
@@ -332,6 +334,9 @@ class EventController extends Controller
             $aTmp['register_domain'] = $oAuthAdmin->register_domain;
             $aTmp['register_domain_begin'] = $oAuthAdmin->register_domain_begin;
             $aTmp['register_domain_end'] = $oAuthAdmin->register_domain_end;
+
+            $aTmp['plus_profit'] = $oAuthAdmin->plus_profit;
+            $aTmp['minus_profit'] = $oAuthAdmin->minus_profit;
 
 
             $aTmp['creator'] = $oAuthAdmin->creator;
@@ -625,6 +630,9 @@ class EventController extends Controller
         $register_domain_begin = isset($data['register_domain_begin']) ? $data['register_domain_begin'] : date('Y-m-d');
         $register_domain_end = isset($data['register_domain_end']) ? $data['register_domain_end'] : date('Y-m-d');
         $user_layers = isset($data['user_layers']) ? $data['user_layers'] : '';
+        $plus_profit = isset($data['plus_profit']) ? $data['plus_profit'] : '';
+        $minus_profit = isset($data['minus_profit']) ? $data['minus_profit'] : '';
+
 
         if ($id != '') {
             if ($addSubFlage == 1) {
@@ -701,6 +709,11 @@ class EventController extends Controller
         $auth_role_admin->register_domain = $register_domain;
         $auth_role_admin->register_domain_begin = $register_domain_begin;
         $auth_role_admin->register_domain_end = $register_domain_end;
+
+
+        $auth_role_admin->plus_profit = $plus_profit;
+        $auth_role_admin->minus_profit = $minus_profit;
+
 
         $iRet = $auth_role_admin->save();
 
