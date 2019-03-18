@@ -816,19 +816,26 @@ class EventController extends Controller
     {
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $sId = isset($data['id']) ? $data['id'] : '';
+        $aTmp = Event::getArrayFromString($sId);
 
-        $oEvent = EventUserPrize::find($id);
-        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => 1]) > 0) {
+
         }
-        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
+
+//        $iFlag = 0;
+//        if (is_object($oEvent)) {
+//            $iStatue = $oEvent->status;
+//        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+//        $oEvent->status = $iFlag;
+//        $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
-        $aFinal['code'] = $iRet;
-        $aFinal['data'] = $oEvent;
+        $aFinal['code'] = $bSucc;
+//        $aFinal['data'] = $oEvent;
 
         return response()->json($aFinal);
     }

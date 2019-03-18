@@ -79,4 +79,22 @@ class Event extends Model
     }
 
 
+
+    /**
+     * 数组按指定方式分割为字符串
+     * @date 2019-3-15
+     * @param string $sTmp
+     *
+     * @return array
+     */
+    static function getArrayFromString($sTmp)
+    {
+        //数组按指定方式分割为字符串
+        return explode(",",$sTmp);
+    }
+
+
+
+
+
 }
