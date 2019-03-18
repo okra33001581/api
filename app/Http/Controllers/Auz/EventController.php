@@ -1225,7 +1225,7 @@ class EventController extends Controller
      * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
      * }
      */
-    public function adminDelete()
+    public function eventDelete()
     {
 //        $id = request()->post('id/d');
         $id = request()->all()['id'];
@@ -1233,12 +1233,15 @@ class EventController extends Controller
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
 //        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
-        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
-//            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
+        $oAuthAdmin = Event::where('id', $id)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
         // 删除权限
-        AuthRoleAdmin::where('admin_id', $id)->delete();
+        Event::where('id', $id)->delete();
+
+        Event::where('event_id', $id)->delete();
+
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
