@@ -75,30 +75,31 @@ class EventController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $iEventObject = isset(request()->event_object) ? request()->event_object : '';
+        $sEventName = isset(request()->event_name) ? request()->event_name : '';
+        $oAuthAdminList = DB::table('eventNew');
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
 //            $sTmp = 'ASC';
 //        }
 //        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus !== '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName !== '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
+        if ($iEventObject != '') {
+            $oAuthAdminList->where('event_object', $iEventObject);
+        }
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+        if ($sEventName !== '') {
+            $oAuthAdminList->where('event_name', 'like', '%' . $sEventName . '%');
+        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
 
-        $oAuthAdminList = DB::table('eventNew');
+        $oAuthAdminList = $oAuthAdminList->where('event_id', '=','');
 
 
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
@@ -362,6 +363,32 @@ class EventController extends Controller
 
     public function eventUserPrizeList()
     {
+
+
+
+//        username: 12121212
+//status: 1
+//page: 1
+//limit: 20
+//role_id:
+//sort: +id
+//beginDate: 2019-03-20T16:00:00.000Z
+//endDate: 2019-03-28T16:00:00.000Z
+//event_object: 9
+//event_name: 12121
+//eventUserPrizeList?username=12121212&status=1&page…-28T16:00:00.000Z&event_object=9&event_name=12121
+//apidemo.test/api/event
+//eventUserPrizeList?username=12121212&status=1&page…-28T16:00:00.000Z&event_object=9&event_name=12121
+//apidemo.test/api/event
+
+
+
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//
+//        $oAuthAdminList = DB::table('eventNew');
+
+
+
 //        $sWhere = [];
 //        $sOrder = 'id DESC';
 //        $iLimit = isset(request()->limit) ? request()->limit : '';
@@ -369,9 +396,16 @@ class EventController extends Controller
 //        // +id -id
 //        $iSort = isset(request()->sort) ? request()->sort : '';
 //        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-//        $iStatus = isset(request()->status) ? request()->status : '';
-//        $sUserName = isset(request()->username) ? request()->username : '';
-//        $oAuthAdminList = DB::table('auth_admins');
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sUserName = isset(request()->username) ? request()->username : '';
+        $iEventObject = isset(request()->event_object) ? request()->event_object : '';
+        $sEventName = isset(request()->event_name) ? request()->event_name : '';
+
+        $sBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $sEndDate = isset(request()->endDate) ? request()->endDate : '';
+
+
+        $oAuthAdminList = DB::table('event_user_prize');
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -381,17 +415,41 @@ class EventController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName !== '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
+
+        if ($iEventObject != '') {
+            $oAuthAdminList->where('event_object', $iEventObject);
+        }
+        if ($sEventName !== '') {
+            $oAuthAdminList->where('event_name', 'like', '%' . $sEventName . '%');
+        }
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+
+
+        if ($sBeginDate !== '') {
+            $oAuthAdminList->where("request_date", ">=", $sBeginDate);
+        }
+
+        if ($sEndDate !== '') {
+            $oAuthAdminList->where("request_date", "<", $sEndDate);
+        }
+
+
+//        ->where("created_at", ">=", $dDateStart)
+//        ->where("created_at", "<", $dDateEnd)
+//
+//        static::whereBetween('bought_at',[ $dBeginTime,$dEndTime ])
+
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
 
-        $oAuthAdminList = DB::table('event_user_prize');
+//        $oAuthAdminList = DB::table('event_user_prize');
 
 
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
@@ -399,14 +457,14 @@ class EventController extends Controller
 
         $aTmp = [];
         $aFinal = [];
-        Log::info('huangqiu');
+//        Log::info('huangqiu');
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
 
             $aTmp['id'] = $oAuthAdmin->id;
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['event_model'] = $oAuthAdmin->event_model;
+            $aTmp['event_object'] = $oAuthAdmin->event_object;
             $aTmp['event_name'] = $oAuthAdmin->event_name;
             $aTmp['deposit'] = $oAuthAdmin->deposit;
             $aTmp['benefit'] = $oAuthAdmin->benefit;
@@ -635,17 +693,31 @@ class EventController extends Controller
         $minus_profit = isset($data['minus_profit']) ? $data['minus_profit'] : '';
 
 
+        $bFlag = false;
         if ($id != '') {
-            if ($addSubFlage == 1) {
-                $event_id = $id;
-                $auth_role_admin = new Event();
+            if ($event_id != '') {
+                $bFlag = true;
             } else {
-                $auth_role_admin = Event::find($id);
+                // 有下级活动
+                if ($addSubFlage == 1) {
+                    $event_id = $id;
+//                $bFlag = true;
+                } else {
+                    $bFlag = true;
+                }
             }
-        } else {
+        }
+
+        if ($bFlag) {
+            $auth_role_admin = Event::find($id);
+        } else{
             $auth_role_admin = new Event();
         }
 
+
+
+//        Log::info('$bFlag====================='.$bFlag);
+//        die;
 
 
        /* if ($id != '' && $event_id != '') {
@@ -794,18 +866,30 @@ class EventController extends Controller
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
 
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
         $oEvent = Event::find($id);
-        $iFlag = 0;
+//        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
         }
-        $iFlag = $iStatue == 0 ? 1 : 0;
+//        $iFlag = $iStatue == 0 ? 1 : 0;
         $oEvent->status = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
-        $aFinal['code'] = $iRet;
+        $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
         return response()->json($aFinal);
@@ -817,12 +901,13 @@ class EventController extends Controller
         $data = request()->post();
 
         $sId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
         $aTmp = Event::getArrayFromString($sId);
 
 
         Log::info($aTmp);
 
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => 1]) > 0) {
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
 
         }
 
