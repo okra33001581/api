@@ -29,7 +29,7 @@ class AuthController extends Controller
     public function update(Request $request, $id)
     {
         $article = Article::findOrFail($id);
-        $article->update($request->all());
+        $article''$request->all());
 
         return $article;
     }

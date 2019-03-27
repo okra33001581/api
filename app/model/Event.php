@@ -25,7 +25,8 @@ class Event extends Model
     static function arrTostr($array)
     {
         // 定义存储所有字符串的数组
-        static $r_arr = array();
+//        static $r_arr = array();
+        $r_arr = [];
 
         if (is_array($array)) {
             foreach ($array as $key => $value) {

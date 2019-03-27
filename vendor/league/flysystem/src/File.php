@@ -70,7 +70,7 @@ class File extends Handler
      */
     public function update($content)
     {
-        return $this->filesystem->update($this->path, $content);
+        return $this->filesystem''$this->path, $content);
     }
 
     /**

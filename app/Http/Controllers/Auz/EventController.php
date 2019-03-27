@@ -185,7 +185,8 @@ class EventController extends Controller
             $aTmp['user_ids'] = $oAuthAdmin->user_ids;
 
             $aUserLayers = explode(",", $oAuthAdmin->user_layers);
-            $aTmp['user_layers'] = $aUserLayers;
+
+            $aTmp['user_layers'] = preg_replace("/\s/","",$oAuthAdmin->user_layers);
             $aTmp['register_domain'] = $oAuthAdmin->register_domain;
             $aTmp['register_domain_begin'] = $oAuthAdmin->register_domain_begin;
             $aTmp['register_domain_end'] = $oAuthAdmin->register_domain_end;
@@ -468,7 +469,7 @@ class EventController extends Controller
             $aTmp['event_name'] = $oAuthAdmin->event_name;
             $aTmp['deposit'] = $oAuthAdmin->deposit;
             $aTmp['benefit'] = $oAuthAdmin->benefit;
-            $aTmp['auditor'] = $oAuthAdmin->auditor;
+            $aTmp['auditor'] = 'admin';
             $aTmp['audit_date'] = $oAuthAdmin->audit_date;
             $aTmp['request_date'] = $oAuthAdmin->request_date;
             $aTmp['status'] = $oAuthAdmin->status;
@@ -670,7 +671,7 @@ class EventController extends Controller
         $register_domain_end = isset($data['register_domain_end']) ? $data['register_domain_end'] : date('Y-m-d');
         $rescue_gold = isset($data['rescue_gold']) ? $data['rescue_gold'] : '';
         $send_type = isset($data['send_type']) ? $data['send_type'] : '';
-        $status = isset($data['status']) ? $data['status'] : '';
+        $status = isset($data['status']) ? $data['status'] : '0';
         $terminal_display = isset($data['terminal_display']) ? $data['terminal_display'] : '';
         $times = isset($data['times']) ? $data['times'] : '';
         $turnover = isset($data['turnover']) ? $data['turnover'] : '';
@@ -732,7 +733,7 @@ class EventController extends Controller
 
 //        $auth_role_admin = new Event();
 //        $auth_role_admin->id =$id;
-        $auth_role_admin->merchant_name = $merchant_name;
+        $auth_role_admin->merchant_name = 'admin';
         $auth_role_admin->event_id = $event_id;
         $auth_role_admin->event_name = $event_name;
         $auth_role_admin->begin_date = $begin_date;
@@ -770,10 +771,10 @@ class EventController extends Controller
         $auth_role_admin->status = $status;
         $auth_role_admin->bind_bankcard_flag = $bind_bankcard_flag;
         $auth_role_admin->bind_bankcard_benefit = $bind_bankcard_benefit;
-        $auth_role_admin->creator = $creator;
-        $auth_role_admin->created_at = $created_at;
-        $auth_role_admin->updator = $updator;
-        $auth_role_admin->updated_at = "2001-03-14 06:21:08";
+        $auth_role_admin->creator = 'admin';;
+        $auth_role_admin->created_at = date('Y-m-d H:i:s');
+        $auth_role_admin->updator = 'admin';;
+        $auth_role_admin->updated_at = date('Y-m-d H:i:s');
         $auth_role_admin->perfect_username_flag = $perfect_username_flag;
         $auth_role_admin->perfect_username_benefit = $perfect_username_benefit;
         $auth_role_admin->verify_email_flag = $verify_email_flag;
@@ -815,7 +816,18 @@ class EventController extends Controller
 
     public function fileSave()
     {
-
+//        $oEvent = Event::find(57);
+//
+//        $myString = $oEvent->user_ids;
+//
+//
+//        $content=preg_replace("/\s/","",$myString);
+//
+////        echo $content;
+//
+//        print_r($content);
+//
+//        die;
 
        /* $ab = '/home/ok/api/storage/app/public/2019-03-15-06-10-53.jpg';
 
@@ -826,7 +838,7 @@ class EventController extends Controller
 //        print_r(Event::getFromTxt('/home/ok/api/storage/app/public/123.txt'));
 //
 //
-        die;*/
+//        die;*/
 //        $aInputs = Input::all();
 //        $data = request()->post();
         Log::info(request()->all());
@@ -924,51 +936,6 @@ class EventController extends Controller
 
         return response()->json($aFinal);
     }
-
-    /**
-     * @api {get} /api/adminRoleList 取得角色列表
-     * @apiGroup admin
-     * @apiParam {string} null 不需要参数
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       null: 'null',
-     *     }
-     *
-     * @apiSuccessExample 取得角色列表成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
-    public function adminRoleList()
-    {
-        $sWhere = [];
-        $limit = request()->get('limit/d', 20);
-        //分页配置
-//        $paginate = [
-//            'type' => 'bootstrap',
-//            'var_page' => 'page',
-//            'list_rows' => ($limit <= 0 || $limit > 20) ? 20 : $limit,
-//        ];
-        $iTmp = ($limit <= 0 || $limit > 20) ? 20 : $limit;
-        $lists = AuthRole::where($sWhere)
-            ->paginate($iTmp);
-
-        $res = [];
-        $res["total"] = $lists->total();
-        $res["list"] = $lists->items();
-        return response()->json($res);
-        return ResultVo::success($res);
-    }
-
 
     /**
      * @api {post} /api/adminSave  建立新的商户
