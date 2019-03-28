@@ -10,7 +10,16 @@ return array(
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/Auz/AdminController.php',
 
-     'App\\Http\\Controllers\\EventController' => $baseDir . '/app/Http/Controllers/Auz/EventController.php',
+
+    'App\\Http\\Controllers\\DelegateController' => $baseDir . '/app/Http/Controllers/Auz/DelegateController.php',
+    'App\\Http\\Controllers\\FundController' => $baseDir . '/app/Http/Controllers/Auz/FundController.php',
+    'App\\Http\\Controllers\\LogController' => $baseDir . '/app/Http/Controllers/Auz/LogController.php',
+    'App\\Http\\Controllers\\NoticeController' => $baseDir . '/app/Http/Controllers/Auz/NoticeController.php',
+    'App\\Http\\Controllers\\PlayController' => $baseDir . '/app/Http/Controllers/Auz/PlayController.php',
+    'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
+    'App\\Http\\Controllers\\SiteController' => $baseDir . '/app/Http/Controllers/Auz/SiteController.php',
+
+    'App\\Http\\Controllers\\EventController' => $baseDir . '/app/Http/Controllers/Auz/EventController.php',
 
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

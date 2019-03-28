@@ -83,3 +83,122 @@ Route::post('event/adminSave', 'AdminController@adminSave');
 Route::post('event/adminEdit', 'AdminController@adminEdit');
 Route::post('event/adminDelete', 'AdminController@adminDelete');
 Route::get('event/adminRoleList', 'AdminController@adminRoleList');
+
+
+
+
+//delegate-management
+//proxycommission_list.vue
+Route::get('event/proxycommissionList', 'DelegateController@proxycommissionList');
+//proxycommission_proxylist.vue
+Route::get('event/proxycommissionProxylist', 'DelegateController@proxycommissionProxylist');
+//event-management
+//activity_list.vue
+Route::get('event/activityList', 'EventController@activityList');
+//fund-management
+//cash_orderlist.vue
+Route::get('event/cashOrderlist', 'FundController@cashOrderlist');
+//cash_paysetting.vue
+Route::get('event/cashPaysetting', 'FundController@cashPaysetting');
+//cash_rakeback.vue
+Route::get('event/cashRakeback', 'FundController@cashRakeback');
+//cash_withdrawlist.vue
+Route::get('event/cashWithdrawlist', 'FundController@cashWithdrawlist');
+//companymoney_list.vue
+Route::get('event/companymoneyList', 'FundController@companymoneyList');
+//fastpaymoney_list.vue
+Route::get('event/fastpaymoneyList', 'FundController@fastpaymoneyList');
+//layerchart_index.vue
+Route::get('event/layerchartIndex', 'FundController@layerchartIndex');
+//manualpay_save.vue
+Route::get('event/manualpaySave', 'FundController@manualpaySave');
+//manualpayconfirm_list.vue
+Route::get('event/manualpayconfirmList', 'FundController@manualpayconfirmList');
+//payaccount_list.vue
+Route::get('event/payaccountList', 'FundController@payaccountList');
+//paygroup_list.vue
+Route::get('event/paygroupList', 'FundController@paygroupList');
+//transferorder_list.vue
+Route::get('event/transferorderList', 'FundController@transferorderList');
+//tripartite_list.vue
+Route::get('event/tripartiteList', 'FundController@tripartiteList');
+//userbetscheck_list.vue
+Route::get('event/userbetscheckList', 'FundController@userbetscheckList');
+//log-management
+//log_adminlog.vue
+Route::get('event/logAdminlog', 'LogController@logAdminlog');
+//log_domainlog.vue
+Route::get('event/logDomainlog', 'LogController@logDomainlog');
+//log_loginlog.vue
+Route::get('event/logLoginlog', 'LogController@logLoginlog');
+//merchant-management
+//proxy_grouplist.vue
+Route::get('event/proxyGrouplist', 'MerchantController@proxyGrouplist');
+//proxy_memberlist.vue
+Route::get('event/proxyMemberlist', 'MerchantController@proxyMemberlist');
+//notice-management
+//marquee_list.vue
+Route::get('event/marqueeList', 'NoticeController@marqueeList');
+//message_list.vue
+Route::get('event/messageList', 'NoticeController@messageList');
+//notice_list.vue
+Route::get('event/noticeList', 'NoticeController@noticeList');
+//push_list.vue
+Route::get('event/pushList', 'NoticeController@pushList');
+//play-management
+//betlimit_list.vue
+Route::get('event/betlimitList', 'PlayController@betlimitList');
+//lotteryrisk_list.vue
+Route::get('event/lotteryriskList', 'PlayController@lotteryriskList');
+//pgame_list.vue
+Route::get('event/pgameList', 'PlayController@pgameList');
+//proxygames_list.vue
+Route::get('event/proxygamesList', 'PlayController@proxygamesList');
+//report-management
+//finance_index.vue
+Route::get('event/financeIndex', 'ReportController@financeIndex');
+//operation_profit.vue
+Route::get('event/operationProfit', 'ReportController@operationProfit');
+//pgame_playlist.vue
+Route::get('event/pgamePlaylist', 'ReportController@pgamePlaylist');
+//preport_profit.vue
+Route::get('event/preportProfit', 'ReportController@preportProfit');
+//user_report.vue
+Route::get('event/userReport', 'ReportController@userReport');
+//site-management
+//floatwindowconfig_list.vue
+Route::get('event/floatwindowconfigList', 'SiteController@floatwindowconfigList');
+//information_companylist.vue
+Route::get('event/informationCompanylist', 'SiteController@informationCompanylist');
+//information_list.vue
+Route::get('event/informationList', 'SiteController@informationList');
+//lotterygroup_sort.vue
+Route::get('event/lotterygroupSort', 'SiteController@lotterygroupSort');
+//proxyiptables_blackcontainlist.vue
+Route::get('event/proxyiptablesBlackcontainlist', 'SiteController@proxyiptablesBlackcontainlist');
+//qrconfig_list.vue
+Route::get('event/qrconfigList', 'SiteController@qrconfigList');
+//rotationconfig_list.vue
+Route::get('event/rotationconfigList', 'SiteController@rotationconfigList');
+//systemconfig_imagelist.vue
+Route::get('event/systemconfigImagelist', 'SiteController@systemconfigImagelist');
+//systemconfig_set.vue
+Route::get('event/systemconfigSet', 'SiteController@systemconfigSet');
+//user-management
+//user_infolist.vue
+Route::get('event/userInfolist', 'UserController@userInfolist');
+//user_inoutcash.vue
+Route::get('event/userInoutcash', 'UserController@userInoutcash');
+//user_mainlist.vue
+Route::get('event/userMainlist', 'UserController@userMainlist');
+//user_monitor.vue
+Route::get('event/userMonitor', 'UserController@userMonitor');
+//user_reviewlist.vue
+Route::get('event/userReviewlist', 'UserController@userReviewlist');
+//user_usercard.vue
+Route::get('event/userUsercard', 'UserController@userUsercard');
+//user_userlayer.vue
+Route::get('event/userUserlayer', 'UserController@userUserlayer');
+//user_validuser.vue
+Route::get('event/userValiduser', 'UserController@userValiduser');
+

@@ -375,6 +375,13 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/AdminController.php',
+        'App\\Http\\Controllers\\DelegateController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/DelegateController.php',
+        'App\\Http\\Controllers\\FundController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/FundController.php',
+        'App\\Http\\Controllers\\LogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LogController.php',
+        'App\\Http\\Controllers\\NoticeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/NoticeController.php',
+        'App\\Http\\Controllers\\PlayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PlayController.php',
+        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
+        'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/SiteController.php',
 
         'App\\Http\\Controllers\\EventController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/EventController.php',
 

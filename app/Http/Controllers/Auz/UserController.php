@@ -102,6 +102,11 @@ class UserController extends Controller
      */
     public function loginIndex()
     {
+
+
+
+//        print_r('dddddddddddddddddddd');
+//        die;
 //        if(!request()->isMethod('post')){
 //            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
 //        }
