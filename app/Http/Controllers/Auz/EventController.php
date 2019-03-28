@@ -607,7 +607,7 @@ class EventController extends Controller
 
         /*  print_r('ddddddddddddddd');
           die;*/
-        $data = request()->post();
+
         /* if (empty($data['username']) || empty($data['password'])) {
              return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
          }
@@ -623,7 +623,7 @@ class EventController extends Controller
 //        if ($oAuthAdmin){
 //            return ResultVo::error(ErrorCode::DATA_REPEAT);
 //        }
-
+        $data = request()->post();
         $audit_mode = isset($data['audit_mode']) ? $data['audit_mode'] : '';
         $begin_date = isset($data['begin_date']) ? $data['begin_date'] : date('Y-m-d');
         $benefit = isset($data['benefit']) ? $data['benefit'] : '';

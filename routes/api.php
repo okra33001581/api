@@ -176,6 +176,11 @@ Route::get('event/informationList', 'SiteController@informationList');
 Route::get('event/lotterygroupSort', 'SiteController@lotterygroupSort');
 //proxyiptables_blackcontainlist.vue
 Route::get('event/proxyiptablesBlackcontainlist', 'SiteController@proxyiptablesBlackcontainlist');
+
+Route::post('event/proxyiptablesBlackSave', 'SiteController@proxyiptablesBlackSave');
+
+Route::post('event/systemConfigSave', 'SiteController@systemConfigSave');
+
 //qrconfig_list.vue
 Route::get('event/qrconfigList', 'SiteController@qrconfigList');
 //rotationconfig_list.vue
