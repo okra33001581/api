@@ -21,13 +21,20 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
-/**
- * Class Event - 管理员相关控制器
- * @author zebra
- */
-class AdminController extends Controller
+class MerchantController extends Controller
 {
 
+// AdminController.php
+
+
+
+    public function getJson()
+    {
+        // 从文件中读取数据到PHP变量
+        $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
+        return $json_string;
+
+    }
     /**
      * @api {get} /api/admin 显示商户列表
      * @apiGroup admin
@@ -65,7 +72,7 @@ class AdminController extends Controller
      * }
      *
      */
-    public function adminIndex()
+    public function proxyGrouplist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
@@ -131,6 +138,112 @@ class AdminController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
+
+    /**
+     * @api {get} /api/admin 显示商户列表
+     * @apiGroup admin
+     *
+     *
+     * @apiSuccessExample 返回商户信息列表
+     * HTTP/1.1 200 OK
+     * {
+     *  "data": [
+     *     {
+     *       "id": 2 // 整数型  用户标识
+     *       "name": "test"  //字符型 用户昵称
+     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
+     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
+     *       "avatar": "" // 字符型 用户的头像图片
+     *     }
+     *   ],
+     * "status": "success",
+     * "status_code": 200,
+     * "links": {
+     * "first": "http://manger.test/api/admin?page=1",
+     * "last": "http://manger.test/api/admin?page=19",
+     * "prev": null,
+     * "next": "http://manger.test/api/admin?page=2"
+     * },
+     * "meta": {adminDelete
+     * "current_page": 1, // 当前页
+     * "from": 1, //当前页开始的记录
+     * "last_page": 19, //总页数
+     * "path": "http://manger.test/api/admin",
+     * "per_page": 15,
+     * "to": 15, //当前页结束的记录
+     * "total": 271  // 总条数
+     * }
+     * }
+     *
+     */
+    public function proxyMemberlist()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $iPage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sUserName = isset(request()->username) ? request()->username : '';
+        $oAuthAdminList = DB::table('auth_admins');
+
+        $sTmp = 'DESC';
+        if (substr($iSort, 0, 1) == '-') {
+            $sTmp = 'ASC';
+        }
+        $sOrder = substr($iSort, 1, strlen($iSort));
+        if ($sTmp != '') {
+            $oAuthAdminList->orderby($sOrder, $sTmp);
+        }
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+        $oAuthAdminListCount = $oAuthAdminList->get();
+        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $aTmp = [];
+        $aFinal = [];
+        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
+            $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['username'] = $oAuthAdmin->username;
+            $aTmp['password'] = $oAuthAdmin->password;
+            $aTmp['tel'] = $oAuthAdmin->tel;
+            $aTmp['email'] = $oAuthAdmin->email;
+            $aTmp['avatar'] = $oAuthAdmin->avatar;
+            $aTmp['sex'] = $oAuthAdmin->sex;
+            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
+            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
+            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['status'] = $oAuthAdmin->status;
+            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+            $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
+            $temp_roles = [];
+            if (is_object($roles)) {
+                $temp_roles = $roles->toArray();
+                $temp_roles = array_column($temp_roles, 'role_id');
+            }
+            $aTmp['roles'] = $temp_roles;
+            $aFinal[] = $aTmp;
+        }
+
+        $res = [];
+        $res["total"] = count($oAuthAdminListCount);
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
 
     /**
      * @api {get} /api/adminRoleList 取得角色列表
