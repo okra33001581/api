@@ -181,6 +181,20 @@ Route::post('event/proxyiptablesBlackSave', 'SiteController@proxyiptablesBlackSa
 
 Route::post('event/systemConfigSave', 'SiteController@systemConfigSave');
 
+Route::post('event/webIconSave', 'SiteController@webIconSave');
+
+Route::post('event/qrCodeSave', 'SiteController@qrCodeSave');
+
+
+Route::post('event/rotatePlaySave', 'SiteController@rotatePlaySave');
+
+Route::post('event/floatWindowSave', 'SiteController@floatWindowSave');
+
+Route::post('event/informationSave', 'SiteController@informationSave');
+
+Route::post('event/companySave', 'SiteController@companySave');
+
+
 //qrconfig_list.vue
 Route::get('event/qrconfigList', 'SiteController@qrconfigList');
 //rotationconfig_list.vue

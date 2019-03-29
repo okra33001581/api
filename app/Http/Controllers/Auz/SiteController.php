@@ -22,6 +22,12 @@ use App\model\FileResourceTag;
 use Illuminate\Support\Facades\Redis;
 use App\model\IpBlack;
 use App\model\SystemConfig;
+use App\model\WebIcon;
+use App\model\QrCode;
+use App\model\RotatePlay;
+use App\model\FloatWindow;
+use App\model\Information;
+use App\model\Company;
 
 class SiteController extends Controller
 {
@@ -707,6 +713,217 @@ class SiteController extends Controller
 
         return response()->json($aFinal);
     }
+
+
+
+
+
+    public function webIconSave()
+    {
+        $data = request()->post();
+
+        $icon = isset($data['icon']) ? $data['icon'] : '';
+        $id = isset($data['id']) ? $data['id'] : '';
+        $pic = isset($data['pic']) ? $data['pic'] : '';
+//        $memo = isset($data['memo']) ? $data['memo'] : '';
+//        $type = isset($data['type']) ? $data['type'] : '';
+
+        $oWebIcon = new WebIcon();
+
+        $oWebIcon->icon = $icon;
+        $oWebIcon->pic = $pic;
+
+
+        $iRet = $oWebIcon->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oWebIcon;
+
+        return response()->json($aFinal);
+    }
+
+
+
+    public function qrCodeSave()
+    {
+        $data = request()->post();
+
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $h5_address = isset($data['h5_address']) ? $data['h5_address'] : '';
+        $android_address = isset($data['android_address']) ? $data['android_address'] : '';
+        $ios_address = isset($data['ios_address']) ? $data['ios_address'] : '';
+        $pic = isset($data['pic']) ? $data['pic'] : '';
+
+        $oQrCode = new QrCode();
+
+        $oQrCode->h5_address = $h5_address;
+        $oQrCode->android_address = $android_address;
+        $oQrCode->ios_address = $ios_address;
+
+        $oQrCode->pic = $pic;
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+    public function rotatePlaySave()
+    {
+        $data = request()->post();
+
+
+        $id = isset($data['id']) ? $data['id'] : '';
+
+        $title = isset($data['title']) ? $data['title'] : '';
+        $pc_pic = isset($data['pc_pic']) ? $data['pc_pic'] : '';
+        $mobile_pic = isset($data['mobile_pic']) ? $data['mobile_pic'] : '';
+        $link_type = isset($data['link_type']) ? $data['link_type'] : '';
+        $link = isset($data['link']) ? $data['link'] : '';
+        $status = isset($data['status']) ? $data['status'] : '';
+        $squence = isset($data['squence']) ? $data['squence'] : '';
+
+
+
+        $oQrCode = new RotatePlay();
+
+        $oQrCode->title = $title;
+        $oQrCode->pc_pic = $pc_pic;
+        $oQrCode->mobile_pic = $mobile_pic;
+        $oQrCode->link_type = $link_type;
+        $oQrCode->link = $link;
+        $oQrCode->status = $status;
+
+        $oQrCode->squence = $squence;
+
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+    public function floatWindowSave()
+    {
+        $data = request()->post();
+
+
+        $id=isset($data['id'])?$data['id']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
+        $position=isset($data['position'])?$data['position']:'';
+        $title=isset($data['title'])?$data['title']:'';
+        $pic=isset($data['pic'])?$data['pic']:'';
+        $link_type=isset($data['link_type'])?$data['link_type']:'';
+        $link=isset($data['link'])?$data['link']:'';
+        $width=isset($data['width'])?$data['width']:'';
+        $right_margin=isset($data['right_margin'])?$data['right_margin']:'';
+        $expand_flag=isset($data['expand_flag'])?$data['expand_flag']:'';
+        $expand_pic=isset($data['expand_pic'])?$data['expand_pic']:'';
+        $expand_pic_desc=isset($data['expand_pic_desc'])?$data['expand_pic_desc']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $status=isset($data['status'])?$data['status']:'';
+
+
+        $oQrCode = new FloatWindow();
+
+        $oQrCode->id = $id;
+//        $oQrCode->merchant_id = $merchant_id;
+        $oQrCode->position = $position;
+        $oQrCode->title = $title;
+        $oQrCode->pic = $pic;
+        $oQrCode->link_type = $link_type;
+        $oQrCode->link = $link;
+        $oQrCode->width = $width;
+        $oQrCode->right_margin = $right_margin;
+        $oQrCode->expand_flag = $expand_flag;
+        $oQrCode->expand_pic = $expand_pic;
+        $oQrCode->expand_pic_desc = $expand_pic_desc;
+        $oQrCode->sequence = $sequence;
+        $oQrCode->status = $status;
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+    public function informationSave()
+    {
+        $data = request()->post();
+
+
+        $id=isset($data['id'])?$data['id']:'';
+        $title=isset($data['title'])?$data['title']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $status=isset($data['status'])?$data['status']:'';
+        $type=isset($data['type'])?$data['type']:'';
+        $content=isset($data['content'])?$data['content']:'';
+
+        $oQrCode = new Information();
+
+        $oQrCode->id = $id;
+//        $oQrCode->merchant_id = $merchant_id;
+        $oQrCode->title = $title;
+        $oQrCode->sequence = $sequence;
+        $oQrCode->status = $status;
+        $oQrCode->type = $type;
+
+        $oQrCode->content = $content;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+    public function companySave()
+    {
+        $data = request()->post();
+
+
+        $id=isset($data['id'])?$data['id']:'';
+        $display_status=isset($data['display_status'])?$data['display_status']:'';
+        $display_style=isset($data['display_style'])?$data['display_style']:'';
+        $content=isset($data['content'])?$data['content']:'';
+
+
+        $oQrCode = new Company();
+
+        $oQrCode->id = $id;
+//        $oQrCode->merchant_id = $merchant_id;
+        $oQrCode->display_status = $display_status;
+        $oQrCode->display_style = $display_style;
+        $oQrCode->content = $content;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
 
     /**
      * @api {get} /api/admin 显示商户列表
