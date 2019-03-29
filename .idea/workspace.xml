@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/model/Company.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/FloatWindow.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/Information.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/QrCode.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/RotatePlay.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/WebIcon.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/DepositAccount.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Marquee.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Message.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Notice.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/PaySetting.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/ThirdAccount.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/UserBankCard.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/UserLevel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="177" column="18" lean-forward="true" selection-start-line="177" selection-start-column="18" selection-end-line="177" selection-end-column="18" />
+            <state relative-caret-position="428">
+              <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
               <folding>
                 <element signature="e#7#35#0#PHP" expanded="true" />
               </folding>
@@ -36,67 +41,46 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/RotatePlay.php">
+        <entry file="file://$PROJECT_DIR$/app/model/ThirdAccount.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" column="16" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="16" />
+              <caret line="10" column="18" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/IpBlack.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+            <state relative-caret-position="420">
+              <caret line="28" selection-start-line="28" selection-end-line="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/WebIcon.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+            <state relative-caret-position="390">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/QrCode.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="36" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9705">
-              <caret line="666" column="69" selection-start-line="666" selection-start-column="69" selection-end-line="666" selection-end-column="69" />
+            <state relative-caret-position="172">
+              <caret line="769" selection-start-line="769" selection-end-line="769" />
               <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
+                <element signature="e#40#61#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13080">
-              <caret line="897" column="31" selection-start-line="897" selection-start-column="20" selection-end-line="897" selection-end-column="31" />
-              <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/Company.php">
+        <entry file="file://$PROJECT_DIR$/app/model/Marquee.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
               <caret line="10" column="13" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="13" />
@@ -105,19 +89,37 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/Information.php">
+        <entry file="file://$PROJECT_DIR$/app/model/Notice.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="17" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="17" />
+            <state relative-caret-position="285">
+              <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/FloatWindow.php">
+        <entry file="file://$PROJECT_DIR$/app/model/Message.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" column="17" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="17" />
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/DepositAccount.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="20" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/PaySetting.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -134,14 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>event/adminIndex</find>
-      <find>event/out</find>
-      <find>systemconfigSet</find>
-      <find>EventController.php</find>
-      <find>throttle</find>
-      <find>activityList</find>
-      <find>header</find>
-      <find>] :</find>
       <find>mod</find>
       <find>pay_account</find>
       <find>'';</find>
@@ -163,7 +157,15 @@
       <find>adminSave</find>
       <find>main</find>
       <find>site</find>
-      <find>']</find>
+      <find>UserLevel</find>
+      <find>FloatWindow</find>
+      <find>date(</find>
+      <find>UserBankCard</find>
+      <find>PaySetting</find>
+      <find>DepositAccount</find>
+      <find>ThirdAccount</find>
+      <find>Notice</find>
+      <find>Message</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -185,15 +187,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/LoginController.php" />
-        <option value="$PROJECT_DIR$/app/model/AuthPermissionRule.php" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/example.js" />
-        <option value="$PROJECT_DIR$/public/apidoc/main.js" />
-        <option value="$PROJECT_DIR$/public/apidoc/vendor/require.min.js" />
-        <option value="$PROJECT_DIR$/public/apidoc/index.html" />
-        <option value="$PROJECT_DIR$/public/apidoc/api_project.js" />
         <option value="$PROJECT_DIR$/apidoc.json" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/data.json" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/TransController.php" />
@@ -215,12 +208,9 @@
         <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
         <option value="$PROJECT_DIR$/app/model/Event.php" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/DelegateController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/MerchantController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/PlayController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" />
         <option value="$PROJECT_DIR$/vendor/composer/autoload_static.php" />
@@ -235,6 +225,18 @@
         <option value="$PROJECT_DIR$/app/model/Information.php" />
         <option value="$PROJECT_DIR$/app/model/Company.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" />
+        <option value="$PROJECT_DIR$/app/model/User.php" />
+        <option value="$PROJECT_DIR$/app/model/UserLevel.php" />
+        <option value="$PROJECT_DIR$/app/model/UserBankCard.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
+        <option value="$PROJECT_DIR$/app/model/PaySetting.php" />
+        <option value="$PROJECT_DIR$/app/model/DepositAccount.php" />
+        <option value="$PROJECT_DIR$/app/model/ThirdAccount.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" />
+        <option value="$PROJECT_DIR$/app/model/Message.php" />
+        <option value="$PROJECT_DIR$/app/model/Notice.php" />
+        <option value="$PROJECT_DIR$/app/model/Marquee.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
       </list>
     </option>
@@ -475,7 +477,7 @@
       <workItem from="1552372437203" duration="58873000" />
       <workItem from="1552897801921" duration="2670000" />
       <workItem from="1553739801711" duration="17869000" />
-      <workItem from="1553826223790" duration="381000" />
+      <workItem from="1553826223790" duration="9859000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1551759021580</created>
@@ -680,14 +682,22 @@
       <option name="project" value="LOCAL" />
       <updated>1553758245596</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="update">
+      <created>1553826607593</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1553826607593</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193086000" />
+    <option name="totallyTimeSpent" value="202564000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="984" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.275843" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -701,10 +711,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.498618" visible="true" weight="0.07888349" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.498618" weight="0.07888349" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" visible="true" weight="0.07888349" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.21723302" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50082916" side_tool="true" visible="true" weight="0.21723302" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4991708" visible="true" weight="0.21723302" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -751,27 +761,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/LotteryController.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/BetController.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/BasisController.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/DevelopController.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/EventsController.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/AdController.php" />
-    <entry file="file://$PROJECT_DIR$/public/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1491">
-          <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EventsController.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/storage/app/public/123.txt" />
     <entry file="file://$PROJECT_DIR$/storage/app/public/2019-03-15-03-40-26.jpg" />
     <entry file="file://$PROJECT_DIR$/storage/app/public/2019-03-15-03-29-18.jpg" />
@@ -883,23 +872,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="101" column="7" lean-forward="true" selection-start-line="101" selection-start-column="7" selection-end-line="101" selection-end-column="7" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26045">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
@@ -911,16 +883,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="551" column="24" lean-forward="true" selection-start-line="551" selection-start-column="24" selection-end-line="551" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="760" column="9" lean-forward="true" selection-start-line="760" selection-start-column="9" selection-end-line="760" selection-end-column="9" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -992,16 +954,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="177" column="18" lean-forward="true" selection-start-line="177" selection-start-column="18" selection-end-line="177" selection-end-column="18" />
-          <folding>
-            <element signature="e#7#35#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/RotatePlay.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1040,16 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13080">
-          <caret line="897" column="31" selection-start-line="897" selection-start-column="20" selection-end-line="897" selection-end-column="31" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/Company.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1068,6 +1010,113 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="17" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="10" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/UserLevel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="15" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/UserBankCard.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="1444" column="55" lean-forward="true" selection-start-line="1444" selection-start-column="35" selection-end-line="1444" selection-end-column="55" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/PaySetting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" selection-start-line="28" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/DepositAccount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="20" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/ThirdAccount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/Message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/Notice.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/Marquee.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="769" selection-start-line="769" selection-end-line="769" />
+          <folding>
+            <element signature="e#40#61#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+          <folding>
+            <element signature="e#7#35#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

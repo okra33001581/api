@@ -124,6 +124,16 @@ Route::get('event/transferorderList', 'FundController@transferorderList');
 Route::get('event/tripartiteList', 'FundController@tripartiteList');
 //userbetscheck_list.vue
 Route::get('event/userbetscheckList', 'FundController@userbetscheckList');
+
+Route::post('event/paysettingSave', 'FundController@paysettingSave');
+Route::post('event/depositAccountSave', 'FundController@depositAccountSave');
+
+Route::post('event/thirdAccountSave', 'FundController@thirdAccountSave');
+
+
+
+
+
 //log-management
 //log_adminlog.vue
 Route::get('event/logAdminlog', 'LogController@logAdminlog');
@@ -145,6 +155,14 @@ Route::get('event/messageList', 'NoticeController@messageList');
 Route::get('event/noticeList', 'NoticeController@noticeList');
 //push_list.vue
 Route::get('event/pushList', 'NoticeController@pushList');
+
+Route::post('event/messageSave', 'NoticeController@messageSave');
+
+Route::post('event/noticeSave', 'NoticeController@noticeSave');
+
+Route::post('event/marqueeSave', 'NoticeController@marqueeSave');
+
+
 //play-management
 //betlimit_list.vue
 Route::get('event/betlimitList', 'PlayController@betlimitList');
@@ -220,4 +238,9 @@ Route::get('event/userUsercard', 'UserController@userUsercard');
 Route::get('event/userUserlayer', 'UserController@userUserlayer');
 //user_validuser.vue
 Route::get('event/userValiduser', 'UserController@userValiduser');
+
+
+Route::post('event/userSave', 'UserController@userSave');
+Route::post('event/userLevelSave', 'UserController@userLevelSave');
+Route::post('event/bankCardSave', 'UserController@bankCardSave');
 

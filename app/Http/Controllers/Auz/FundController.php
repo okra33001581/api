@@ -21,6 +21,11 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
+use App\model\PaySetting;
+use App\model\DepositAccount;
+
+use App\model\ThirdAccount;
+
 class FundController extends Controller
 {
 
@@ -448,6 +453,236 @@ class FundController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
+
+
+
+
+
+    public function paysettingSave()
+    {
+        $data = request()->post();
+
+
+
+        $name=isset($data['name'])?$data['name']:'';
+        $no_project_flag=isset($data['no_project_flag'])?$data['no_project_flag']:'';
+        $no_charge_times=isset($data['no_charge_times'])?$data['no_charge_times']:'';
+        $fee=isset($data['fee'])?$data['fee']:'';
+        $fee_type=isset($data['fee_type'])?$data['fee_type']:'';
+
+        $withdraw_times=isset($data['withdraw_times'])?$data['withdraw_times']:'';
+        $withdraw_max=isset($data['withdraw_max'])?$data['withdraw_max']:'';
+
+        $withdraw_min=isset($data['withdraw_min'])?$data['withdraw_min']:'';
+        $web_deposit_benefit=isset($data['web_deposit_benefit'])?$data['web_deposit_benefit']:'';
+        $web_benefit_standard=isset($data['web_benefit_standard'])?$data['web_benefit_standard']:'';
+        $web_benefit_ratio=isset($data['web_benefit_ratio'])?$data['web_benefit_ratio']:'';
+        $web_benefit_max=isset($data['web_benefit_max'])?$data['web_benefit_max']:'';
+        $web_max=isset($data['web_max'])?$data['web_max']:'';
+        $web_min=isset($data['web_min'])?$data['web_min']:'';
+        $web_general_turnover_audit=isset($data['web_general_turnover_audit'])?$data['web_general_turnover_audit']:'';
+        $web_general_turnover_audit_flag=isset($data['web_general_turnover_audit_flag'])?$data['web_general_turnover_audit_flag']:'';
+        $web_turnover_audit=isset($data['web_turnover_audit'])?$data['web_turnover_audit']:'';
+        $web_turnover_audit_flag=isset($data['web_turnover_audit_flag'])?$data['web_turnover_audit_flag']:'';
+        $web_turnover_quota=isset($data['web_turnover_quota'])?$data['web_turnover_quota']:'';
+        $web_turnover_managefee_ratio=isset($data['web_turnover_managefee_ratio'])?$data['web_turnover_managefee_ratio']:'';
+        $company_deposit_benefit=isset($data['company_deposit_benefit'])?$data['company_deposit_benefit']:'';
+        $company_benefit_standard=isset($data['company_benefit_standard'])?$data['company_benefit_standard']:'';
+        $company_benefit_ratio=isset($data['company_benefit_ratio'])?$data['company_benefit_ratio']:'';
+        $company_benefit_max=isset($data['company_benefit_max'])?$data['company_benefit_max']:'';
+        $company_max=isset($data['company_max'])?$data['company_max']:'';
+        $company_min=isset($data['company_min'])?$data['company_min']:'';
+        $company_general_turnover_audit=isset($data['company_general_turnover_audit'])?$data['company_general_turnover_audit']:'';
+        $company_general_turnover_audit_flag=isset($data['company_general_turnover_audit_flag'])?$data['company_general_turnover_audit_flag']:'';
+        $company_turnover_audit=isset($data['company_turnover_audit'])?$data['company_turnover_audit']:'';
+        $company_turnover_audit_flag=isset($data['company_turnover_audit_flag'])?$data['company_turnover_audit_flag']:'';
+        $company_turnover_quota=isset($data['company_turnover_quota'])?$data['company_turnover_quota']:'';
+        $company_turnover_managefee_ratio=isset($data['company_turnover_managefee_ratio'])?$data['company_turnover_managefee_ratio']:'';
+
+
+        $oQrCode = new PaySetting();
+
+
+//        $oQrCode->id = $id;
+
+
+
+
+        $oQrCode->name=$name;
+        $oQrCode->no_project_flag=$no_project_flag;
+        $oQrCode->no_charge_times=$no_charge_times;
+        $oQrCode->fee=$fee;
+        $oQrCode->fee_type=$fee_type;
+
+        $oQrCode->withdraw_times=$withdraw_times;
+        $oQrCode->withdraw_max=$withdraw_max;
+
+        $oQrCode->withdraw_min=$withdraw_min;
+        $oQrCode->web_deposit_benefit=$web_deposit_benefit;
+        $oQrCode->web_benefit_standard=$web_benefit_standard;
+        $oQrCode->web_benefit_ratio=$web_benefit_ratio;
+        $oQrCode->web_benefit_max=$web_benefit_max;
+        $oQrCode->web_max=$web_max;
+        $oQrCode->web_min=$web_min;
+        $oQrCode->web_general_turnover_audit=$web_general_turnover_audit;
+        $oQrCode->web_general_turnover_audit_flag=$web_general_turnover_audit_flag;
+        $oQrCode->web_turnover_audit=$web_turnover_audit;
+        $oQrCode->web_turnover_audit_flag=$web_turnover_audit_flag;
+        $oQrCode->web_turnover_quota=$web_turnover_quota;
+        $oQrCode->web_turnover_managefee_ratio=$web_turnover_managefee_ratio;
+        $oQrCode->company_deposit_benefit=$company_deposit_benefit;
+        $oQrCode->company_benefit_standard=$company_benefit_standard;
+        $oQrCode->company_benefit_ratio=$company_benefit_ratio;
+        $oQrCode->company_benefit_max=$company_benefit_max;
+        $oQrCode->company_max=$company_max;
+        $oQrCode->company_min=$company_min;
+        $oQrCode->company_general_turnover_audit=$company_general_turnover_audit;
+        $oQrCode->company_general_turnover_audit_flag=$company_general_turnover_audit_flag;
+        $oQrCode->company_turnover_audit=$company_turnover_audit;
+        $oQrCode->company_turnover_audit_flag=$company_turnover_audit_flag;
+        $oQrCode->company_turnover_quota=$company_turnover_quota;
+        $oQrCode->company_turnover_managefee_ratio=$company_turnover_managefee_ratio;
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+
+
+
+    public function depositAccountSave()
+    {
+        $data = request()->post();
+
+
+
+        $user_levels=isset($data['user_levels'])?$data['user_levels']:'';
+        $pay_type=isset($data['pay_type'])?$data['pay_type']:'';
+        $bank=isset($data['bank'])?$data['bank']:'';
+        $account=isset($data['account'])?$data['account']:'';
+        $min=isset($data['min'])?$data['min']:'';
+        $max=isset($data['max'])?$data['max']:'';
+        $account_alias=isset($data['account_alias'])?$data['account_alias']:'';
+        $display_flag=isset($data['display_flag'])?$data['display_flag']:'';
+        $qr_code=isset($data['qr_code'])?$data['qr_code']:'';
+        $postscript_flag=isset($data['postscript_flag'])?$data['postscript_flag']:'';
+        $receiver=isset($data['receiver'])?$data['receiver']:'';
+        $alert=isset($data['alert'])?$data['alert']:'';
+        $order_flag=isset($data['order_flag'])?$data['order_flag']:'';
+
+        $oQrCode = new DepositAccount();
+
+
+//        $oQrCode->id = $id;
+
+
+        $oQrCode->user_levels=$user_levels;
+        $oQrCode->pay_type=$pay_type;
+        $oQrCode->bank=$bank;
+        $oQrCode->account=$account;
+        $oQrCode->min=$min;
+        $oQrCode->max=$max;
+        $oQrCode->account_alias=$account_alias;
+        $oQrCode->display_flag=$display_flag;
+        $oQrCode->qr_code=$qr_code;
+        $oQrCode->postscript_flag=$postscript_flag;
+        $oQrCode->receiver=$receiver;
+        $oQrCode->alert=$alert;
+        $oQrCode->order_flag=$order_flag;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+    public function thirdAccountSave()
+    {
+        $data = request()->post();
+
+
+        $layers=isset($data['layers'])?$data['layers']:'';
+        $third_company=isset($data['third_company'])?$data['third_company']:'';
+        $pay_type=isset($data['pay_type'])?$data['pay_type']:'';
+        $mobile_display_flag=isset($data['mobile_display_flag'])?$data['mobile_display_flag']:'';
+        $decimal_flag=isset($data['decimal_flag'])?$data['decimal_flag']:'';
+        $deposit_type=isset($data['deposit_type'])?$data['deposit_type']:'';
+        $min=isset($data['min'])?$data['min']:'';
+        $max=isset($data['max'])?$data['max']:'';
+        $quota=isset($data['quota'])?$data['quota']:'';
+        $query_flag=isset($data['query_flag'])?$data['query_flag']:'';
+        $merchant_code=isset($data['merchant_code'])?$data['merchant_code']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
+        $private_key=isset($data['private_key'])?$data['private_key']:'';
+        $public_key=isset($data['public_key'])?$data['public_key']:'';
+        $pay_domain=isset($data['pay_domain'])?$data['pay_domain']:'';
+        $gateway=isset($data['gateway'])?$data['gateway']:'';
+        $query_url=isset($data['query_url'])?$data['query_url']:'';
+
+        $oQrCode = new ThirdAccount();
+
+
+//        $oQrCode->id = $id;
+
+
+        $oQrCode->layers=$layers;
+        $oQrCode->third_company=$third_company;
+        $oQrCode->pay_type=$pay_type;
+        $oQrCode->mobile_display_flag=$mobile_display_flag;
+        $oQrCode->decimal_flag=$decimal_flag;
+        $oQrCode->deposit_type=$deposit_type;
+        $oQrCode->min=$min;
+        $oQrCode->max=$max;
+        $oQrCode->quota=$quota;
+        $oQrCode->query_flag=$query_flag;
+        $oQrCode->merchant_code=$merchant_code;
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->private_key=$private_key;
+        $oQrCode->public_key=$public_key;
+        $oQrCode->pay_domain=$pay_domain;
+        $oQrCode->gateway=$gateway;
+        $oQrCode->query_url=$query_url;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * @api {get} /api/admin 显示商户列表
      * @apiGroup admin

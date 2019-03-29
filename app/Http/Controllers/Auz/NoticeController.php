@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\model\Notice;
 use Illuminate\Http\Request;
 use App\model\Event;
 use DB;
@@ -20,6 +21,10 @@ use App\model\FileResource;
 use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
+
+use App\model\Message;
+
+use App\model\Marquee;
 
 class NoticeController extends Controller
 {
@@ -728,6 +733,124 @@ class NoticeController extends Controller
 
         return ResultVo::success();
     }
+
+
+
+    public function messageSave()
+    {
+        $data = request()->post();
+
+
+        $type=isset($data['type'])?$data['type']:'';
+        $title=isset($data['title'])?$data['title']:'';
+        $receive_flag=isset($data['receive_flag'])?$data['receive_flag']:'';
+        $receivers=isset($data['receivers'])?$data['receivers']:'';
+        $content=isset($data['content'])?$data['content']:'';
+
+
+        $oQrCode = new Message();
+
+        $oQrCode->type=$type;
+        $oQrCode->title=$title;
+        $oQrCode->receive_flag=$receive_flag;
+        $oQrCode->receivers=$receivers;
+        $oQrCode->content=$content;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+    public function marqueeSave()
+    {
+        $data = request()->post();
+
+
+        $title=isset($data['title'])?$data['title']:'';
+        $terminal=isset($data['terminal'])?$data['terminal']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $content=isset($data['content'])?$data['content']:'';
+
+
+        $oQrCode = new Marquee();
+
+
+        $oQrCode->title=$title;
+        $oQrCode->terminal=$terminal;
+        $oQrCode->sequence=$sequence;
+        $oQrCode->content=$content;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function noticeSave()
+    {
+        $data = request()->post();
+
+
+        $title=isset($data['title'])?$data['title']:'';
+        $type=isset($data['type'])?$data['type']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $pop_flag=isset($data['pop_flag'])?$data['pop_flag']:'';
+        $send_terminal=isset($data['send_terminal'])?$data['send_terminal']:'';
+        $send_range=isset($data['send_range'])?$data['send_range']:'';
+        $layers=isset($data['layers'])?$data['layers']:'';
+        $content=isset($data['content'])?$data['content']:'';
+
+
+        $oQrCode = new Notice();
+
+        $oQrCode->title=$title;
+        $oQrCode->type=$type;
+        $oQrCode->sequence=$sequence;
+        $oQrCode->pop_flag=$pop_flag;
+        $oQrCode->send_terminal=$send_terminal;
+        $oQrCode->send_range=$send_range;
+        $oQrCode->layers=$layers;
+        $oQrCode->content=$content;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
 
     /**
      * @api {post} /api/adminDelete  删除商户

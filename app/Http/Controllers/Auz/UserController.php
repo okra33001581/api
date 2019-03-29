@@ -19,7 +19,18 @@ use App\model\AdSite;
 use App\model\FileResource;
 use App\model\FileResourceTag;
 
+
+
 use Illuminate\Support\Facades\Redis;
+
+
+use App\model\UserLevel;
+use App\model\User;
+use App\model\UserBankCard;
+
+
+
+
 
 /**
  * Class Event - 用户登录相关控制器
@@ -353,6 +364,151 @@ class UserController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
+
+    public function userSave()
+    {
+        $data = request()->post();
+
+
+        $icon=isset($data['icon'])?$data['icon']:'';
+        $account_type=isset($data['account_type'])?$data['account_type']:'';
+        $top_level=isset($data['top_level'])?$data['top_level']:'';
+        $account=isset($data['account'])?$data['account']:'';
+        $password=isset($data['password'])?$data['password']:'';
+        $nickname=isset($data['nickname'])?$data['nickname']:'';
+        $memo=isset($data['memo'])?$data['memo']:'';
+        $rake_setting=isset($data['rake_setting'])?$data['rake_setting']:'';
+        $user_level=isset($data['user_level'])?$data['user_level']:'';
+
+
+
+        $oQrCode = new User();
+
+
+//        $oQrCode->id = $id;
+
+        $oQrCode->icon=$icon;
+        $oQrCode->account_type=$account_type;
+        $oQrCode->top_level=$top_level;
+        $oQrCode->account=$account;
+        $oQrCode->password=$password;
+        $oQrCode->nickname=$nickname;
+        $oQrCode->memo=$memo;
+        $oQrCode->rake_setting=$rake_setting;
+        $oQrCode->user_level=$user_level;
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function userLevelSave()
+    {
+        $data = request()->post();
+
+
+        $level_name=isset($data['level_name'])?$data['level_name']:'';
+        $deposit_times=isset($data['deposit_times'])?$data['deposit_times']:'';
+        $deposit_amount=isset($data['deposit_amount'])?$data['deposit_amount']:'';
+        $deposit_max=isset($data['deposit_max'])?$data['deposit_max']:'';
+        $withdraw_times=isset($data['withdraw_times'])?$data['withdraw_times']:'';
+        $withdraw_amount=isset($data['withdraw_amount'])?$data['withdraw_amount']:'';
+        $prior=isset($data['prior'])?$data['prior']:'';
+        $memo=isset($data['memo'])?$data['memo']:'';
+        $pay_setting=isset($data['pay_setting'])?$data['pay_setting']:'';
+        $project_limit=isset($data['project_limit'])?$data['project_limit']:'';
+
+
+        $oQrCode = new UserLevel();
+
+
+//        $oQrCode->id = $id;
+
+
+        $oQrCode->level_name=$level_name;
+        $oQrCode->deposit_times=$deposit_times;
+        $oQrCode->deposit_amount=$deposit_amount;
+        $oQrCode->deposit_max=$deposit_max;
+        $oQrCode->withdraw_times=$withdraw_times;
+        $oQrCode->withdraw_amount=$withdraw_amount;
+        $oQrCode->prior=$prior;
+        $oQrCode->memo=$memo;
+        $oQrCode->pay_setting=$pay_setting;
+        $oQrCode->project_limit=$project_limit;
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+    public function bankCardSave()
+    {
+        $data = request()->post();
+
+
+        $status=isset($data['status'])?$data['status']:'';
+        $account=isset($data['account'])?$data['account']:'';
+        $top_name=isset($data['top_name'])?$data['top_name']:'';
+        $bank=isset($data['bank'])?$data['bank']:'';
+        $province_city=isset($data['province_city'])?$data['province_city']:'';
+        $card_number=isset($data['card_number'])?$data['card_number']:'0';
+        $branch_name=isset($data['branch_name'])?$data['branch_name']:'';
+        $real_name=isset($data['real_name'])?$data['real_name']:'';
+        $is_black=isset($data['is_black'])?$data['is_black']:'';
+        $total_amount=isset($data['total_amount'])?$data['total_amount']:'';
+        $created_at=isset($data['created_at'])?$data['created_at']:'';
+
+        $oQrCode = new UserBankCard();
+
+
+//        $oQrCode->id = $id;
+
+
+
+        $oQrCode->status=$status;
+        $oQrCode->account=$account;
+        $oQrCode->top_name=$top_name;
+        $oQrCode->bank=$bank;
+        $oQrCode->province_city=$province_city;
+        $oQrCode->card_number=$card_number;
+        $oQrCode->branch_name=$branch_name;
+        $oQrCode->real_name=$real_name;
+        $oQrCode->is_black=$is_black;
+        $oQrCode->total_amount=$total_amount;
+        $oQrCode->created_at=date("Y-m-d H:i:s");;
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+
+
+
+
+
 
     /**
      * @api {get} /api/admin 显示商户列表
