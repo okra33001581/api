@@ -379,7 +379,11 @@ class UserController extends Controller
         $memo=isset($data['memo'])?$data['memo']:'';
         $rake_setting=isset($data['rake_setting'])?$data['rake_setting']:'';
         $user_level=isset($data['user_level'])?$data['user_level']:'';
-
+        $email=isset($data['email'])?$data['email']:'';
+        $tel=isset($data['tel'])?$data['tel']:'';
+        $weixin=isset($data['weixin'])?$data['weixin']:'';
+        $fund_password=isset($data['fund_password'])?$data['fund_password']:'';
+        $realname=isset($data['realname'])?$data['realname']:'';
 
 
         $oQrCode = new User();
@@ -396,6 +400,11 @@ class UserController extends Controller
         $oQrCode->memo=$memo;
         $oQrCode->rake_setting=$rake_setting;
         $oQrCode->user_level=$user_level;
+        $oQrCode->email=$email;
+        $oQrCode->tel=$tel;
+        $oQrCode->weixin=$weixin;
+        $oQrCode->fund_password=$fund_password;
+        $oQrCode->realname=$realname;
 
 
         $iRet = $oQrCode->save();
