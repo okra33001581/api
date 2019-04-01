@@ -123,6 +123,7 @@ class LogController extends Controller
 //        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
+
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 

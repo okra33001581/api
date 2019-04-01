@@ -253,4 +253,5 @@ Route::get('event/userValiduser', 'UserController@userValiduser');
 Route::post('event/userSave', 'UserController@userSave');
 Route::post('event/userLevelSave', 'UserController@userLevelSave');
 Route::post('event/bankCardSave', 'UserController@bankCardSave');
+Route::post('event/bankcardStatusSave', 'UserController@bankcardStatusSave');
 
