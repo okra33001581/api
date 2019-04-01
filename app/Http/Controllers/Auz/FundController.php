@@ -26,6 +26,12 @@ use App\model\DepositAccount;
 
 use App\model\ThirdAccount;
 
+use App\model\PayGroup;
+use App\model\CashWithdraw;
+
+
+
+
 class FundController extends Controller
 {
 
@@ -414,53 +420,56 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_cashwithdraw');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['layer'] = $oAuthAdmin->layer;
+            $aTmp['order_no'] = $oAuthAdmin->order_no;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['account'] = $oAuthAdmin->account;
+            $aTmp['out_type'] = $oAuthAdmin->out_type;
+            $aTmp['fee'] = $oAuthAdmin->fee;
+            $aTmp['final_out_amount'] = $oAuthAdmin->final_out_amount;
+            $aTmp['out_status'] = $oAuthAdmin->out_status;
+            $aTmp['request_date'] = $oAuthAdmin->request_date;
+            $aTmp['confirm_date'] = $oAuthAdmin->confirm_date;
+            $aTmp['risk'] = $oAuthAdmin->risk;
+            $aTmp['risk_operator'] = $oAuthAdmin->risk_operator;
+            $aTmp['out_operate'] = $oAuthAdmin->out_operate;
+            $aTmp['operator'] = $oAuthAdmin->operator;
+            $aTmp['front_memo'] = $oAuthAdmin->front_memo;
+            $aTmp['back_memo'] = $oAuthAdmin->back_memo;
+
             $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+//        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -2042,4 +2051,82 @@ class FundController extends Controller
         return ResultVo::success();
 
     }
+
+
+
+
+    public function payGroupStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = PayGroup::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
+    public function cashwithdrawStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = CashWithdraw::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->out_status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
 }

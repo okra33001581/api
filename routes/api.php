@@ -130,9 +130,9 @@ Route::post('event/depositAccountSave', 'FundController@depositAccountSave');
 
 Route::post('event/thirdAccountSave', 'FundController@thirdAccountSave');
 
+Route::post('event/payGroupStatusSave', 'FundController@payGroupStatusSave');
 
-
-
+Route::post('event/cashwithdrawStatusSave', 'FundController@cashwithdrawStatusSave');
 
 //log-management
 //log_adminlog.vue
@@ -218,10 +218,7 @@ Route::post('event/blackDelete', 'SiteController@blackDelete');
 
 Route::get('event/systemconfiglist', 'SiteController@systemconfiglist');
 
-
-
-
-
+Route::post('event/informationStatusSave', 'SiteController@informationStatusSave');
 
 //qrconfig_list.vue
 Route::get('event/qrconfigList', 'SiteController@qrconfigList');
@@ -254,4 +251,8 @@ Route::post('event/userSave', 'UserController@userSave');
 Route::post('event/userLevelSave', 'UserController@userLevelSave');
 Route::post('event/bankCardSave', 'UserController@bankCardSave');
 Route::post('event/bankcardStatusSave', 'UserController@bankcardStatusSave');
+
+Route::post('event/userStatusSave', 'UserController@userStatusSave');
+Route::post('event/usersafetyStatusSave', 'UserController@usersafetyStatusSave');
+
 

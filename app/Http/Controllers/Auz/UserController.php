@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Redis;
 use App\model\UserLevel;
 use App\model\User;
 use App\model\UserBankCard;
+use App\model\UserSafetyAudit;
 
 
 
@@ -674,6 +675,7 @@ class UserController extends Controller
             $aTmp['weixin'] = $oAuthAdmin->weixin;
             $aTmp['fund_password'] = $oAuthAdmin->fund_password;
             $aTmp['realname'] = $oAuthAdmin->realname;
+            $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
         }
@@ -1027,6 +1029,40 @@ class UserController extends Controller
     }
 
 
+
+    public function userStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = User::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
 
     /**
      * @api {get} /api/admin 显示商户列表
@@ -1544,4 +1580,43 @@ class UserController extends Controller
         return ResultVo::success();
 
     }
+
+
+
+
+
+    public function usersafetyStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = UserSafetyAudit::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
 }
