@@ -83,53 +83,50 @@ class ReportController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('report_finance');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['date'] = $oAuthAdmin->date;
+            $aTmp['company_in'] = $oAuthAdmin->company_in;
+            $aTmp['third_in'] = $oAuthAdmin->third_in;
+            $aTmp['deposit'] = $oAuthAdmin->deposit;
+            $aTmp['common_deposit'] = $oAuthAdmin->common_deposit;
+            $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['total_rebate'] = $oAuthAdmin->total_rebate;
+            $aTmp['day_salary'] = $oAuthAdmin->day_salary;
+            $aTmp['bankcard_out'] = $oAuthAdmin->bankcard_out;
+            $aTmp['third_out'] = $oAuthAdmin->third_out;
+            $aTmp['user_subtraction'] = $oAuthAdmin->user_subtraction;
+            $aTmp['artifical_withdraw'] = $oAuthAdmin->artifical_withdraw;
+            $aTmp['total'] = $oAuthAdmin->total;
+
             $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+//        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -187,53 +184,53 @@ class ReportController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('report_operation_profit');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['group'] = $oAuthAdmin->group;
+            $aTmp['in_total_amount'] = $oAuthAdmin->in_total_amount;
+            $aTmp['total_out_amount'] = $oAuthAdmin->total_out_amount;
+            $aTmp['valid_profit'] = $oAuthAdmin->valid_profit;
+            $aTmp['sum_turnover'] = $oAuthAdmin->sum_turnover;
+            $aTmp['prize_amount'] = $oAuthAdmin->prize_amount;
+            $aTmp['rebate_amount'] = $oAuthAdmin->rebate_amount;
+            $aTmp['game_profit_loss'] = $oAuthAdmin->game_profit_loss;
+            $aTmp['benefit_amount'] = $oAuthAdmin->benefit_amount;
+            $aTmp['day_salary'] = $oAuthAdmin->day_salary;
+            $aTmp['system_subtraction'] = $oAuthAdmin->system_subtraction;
+            $aTmp['final_amount'] = $oAuthAdmin->final_amount;
+
             $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+//        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -291,53 +288,53 @@ class ReportController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('report_pgame_playlist');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['project'] = $oAuthAdmin->project;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
+            $aTmp['uername'] = $oAuthAdmin->uername;
+            $aTmp['date'] = $oAuthAdmin->date;
+            $aTmp['lottery'] = $oAuthAdmin->lottery;
+            $aTmp['issue_count'] = $oAuthAdmin->issue_count;
+            $aTmp['prize_number'] = $oAuthAdmin->prize_number;
+            $aTmp['way'] = $oAuthAdmin->way;
+            $aTmp['dynamic_prize'] = $oAuthAdmin->dynamic_prize;
+            $aTmp['project_content'] = $oAuthAdmin->project_content;
+            $aTmp['multiple'] = $oAuthAdmin->multiple;
+            $aTmp['total_amount'] = $oAuthAdmin->total_amount;
+            $aTmp['mode'] = $oAuthAdmin->mode;
+            $aTmp['prize_amount'] = $oAuthAdmin->prize_amount;
+            $aTmp['prize_status'] = $oAuthAdmin->prize_status;
             $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+
             $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+//        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -396,53 +393,50 @@ class ReportController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('report_platform');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['group'] = $oAuthAdmin->group;
+            $aTmp['total_project'] = $oAuthAdmin->total_project;
+            $aTmp['valid_project'] = $oAuthAdmin->valid_project;
+            $aTmp['prize_total_amount'] = $oAuthAdmin->prize_total_amount;
+            $aTmp['rebate_amount'] = $oAuthAdmin->rebate_amount;
+            $aTmp['game_profit_loss'] = $oAuthAdmin->game_profit_loss;
+            $aTmp['profit_ratio'] = $oAuthAdmin->profit_ratio;
+            $aTmp['project_count'] = $oAuthAdmin->project_count;
+            $aTmp['active_count'] = $oAuthAdmin->active_count;
+
             $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+//        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -501,53 +495,46 @@ class ReportController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('report_user');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
+//        $oAuthAdminListCount = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['date'] = $oAuthAdmin->date;
+            $aTmp['ip_count'] = $oAuthAdmin->ip_count;
+            $aTmp['register_count'] = $oAuthAdmin->register_count;
+            $aTmp['active_count'] = $oAuthAdmin->active_count;
+            $aTmp['first_deposit_count'] = $oAuthAdmin->first_deposit_count;
+            $aTmp['first_deposit_amount'] = $oAuthAdmin->first_deposit_amount;
+            $aTmp['in_people_count'] = $oAuthAdmin->in_people_count;
+            $aTmp['in_times'] = $oAuthAdmin->in_times;
+            $aTmp['out_times'] = $oAuthAdmin->out_times;
+
             $aFinal[] = $aTmp;
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+//        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;

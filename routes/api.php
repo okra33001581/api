@@ -212,6 +212,16 @@ Route::post('event/informationSave', 'SiteController@informationSave');
 
 Route::post('event/companySave', 'SiteController@companySave');
 
+Route::get('event/blacklist', 'SiteController@blacklist');
+
+Route::post('event/blackDelete', 'SiteController@blackDelete');
+
+Route::get('event/systemconfiglist', 'SiteController@systemconfiglist');
+
+
+
+
+
 
 //qrconfig_list.vue
 Route::get('event/qrconfigList', 'SiteController@qrconfigList');
