@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/model/CompanyMoney.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/FastPayMoney.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/ManualPay.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/ManualPayConfirm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/RakeBack.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/TransferOrder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/UserBetsCheck.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="989" column="33" selection-start-line="989" selection-start-column="20" selection-end-line="989" selection-end-column="33" />
+            <state relative-caret-position="457">
+              <caret line="999" column="63" lean-forward="true" selection-start-line="999" selection-start-column="63" selection-end-line="999" selection-end-column="63" />
               <folding>
                 <element signature="e#40#61#0#PHP" expanded="true" />
               </folding>
@@ -51,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="356" column="9" lean-forward="true" selection-start-line="356" selection-start-column="9" selection-end-line="356" selection-end-column="9" />
+            <state relative-caret-position="677">
+              <caret line="2420" column="34" lean-forward="true" selection-start-line="2420" selection-start-column="34" selection-end-line="2420" selection-end-column="34" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -135,8 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>authAdminDelete</find>
-      <find>session</find>
       <find>ession-&gt;get</find>
       <find>eventUserPrizeList</find>
       <find>loginIndex</find>
@@ -165,6 +154,8 @@
       <find>fundcon</find>
       <find>noticec</find>
       <find>fundc</find>
+      <find>eventUserPrizeStatusSave</find>
+      <find>$aTmp</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -484,7 +475,7 @@
       <workItem from="1552897801921" duration="2670000" />
       <workItem from="1553739801711" duration="17869000" />
       <workItem from="1553826223790" duration="33657000" />
-      <workItem from="1554171861882" duration="14128000" />
+      <workItem from="1554171861882" duration="15691000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1551759021580</created>
@@ -780,15 +771,21 @@
       <option name="project" value="LOCAL" />
       <updated>1554187963653</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="update">
+      <created>1554191343780</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1554191343780</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="240490000" />
+    <option name="totallyTimeSpent" value="242053000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="984" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27860695" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1159,16 +1156,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="989" column="33" selection-start-line="989" selection-start-column="20" selection-end-line="989" selection-end-column="33" />
-          <folding>
-            <element signature="e#40#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/UserBetsCheck.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1228,10 +1215,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="999" column="63" lean-forward="true" selection-start-line="999" selection-start-column="63" selection-end-line="999" selection-end-column="63" />
+          <folding>
+            <element signature="e#40#61#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="356" column="9" lean-forward="true" selection-start-line="356" selection-start-column="9" selection-end-line="356" selection-end-column="9" />
+        <state relative-caret-position="677">
+          <caret line="2420" column="34" lean-forward="true" selection-start-line="2420" selection-start-column="34" selection-end-line="2420" selection-end-column="34" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
