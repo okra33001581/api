@@ -92,7 +92,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_transaction');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -113,27 +113,22 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['order_number'] = $oAuthAdmin->order_number;
+            $aTmp['date'] = $oAuthAdmin->date;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['account'] = $oAuthAdmin->account;
+            $aTmp['type'] = $oAuthAdmin->type;
+            $aTmp['platform'] = $oAuthAdmin->platform;
+            $aTmp['income'] = $oAuthAdmin->income;
+            $aTmp['outcome'] = $oAuthAdmin->outcome;
+            $aTmp['avaiable_amount'] = $oAuthAdmin->avaiable_amount;
+            $aTmp['ip_address'] = $oAuthAdmin->ip_address;
+            $aTmp['message'] = $oAuthAdmin->message;
+
             $aFinal[] = $aTmp;
         }
 
@@ -315,7 +310,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_rebate');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -336,27 +331,20 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['project_date'] = $oAuthAdmin->project_date;
+            $aTmp['project_amount'] = $oAuthAdmin->project_amount;
+            $aTmp['rebate_ratio'] = $oAuthAdmin->rebate_ratio;
+            $aTmp['rebate_amount'] = $oAuthAdmin->rebate_amount;
+            $aTmp['send_date'] = $oAuthAdmin->send_date;
+            $aTmp['sender'] = $oAuthAdmin->sender;
+            $aTmp['audit_memo'] = $oAuthAdmin->audit_memo;
+            $aTmp['memo'] = $oAuthAdmin->memo;
+
             $aFinal[] = $aTmp;
         }
 
@@ -754,7 +742,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_companymoney');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -775,27 +763,23 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['order_number'] = $oAuthAdmin->order_number;
+            $aTmp['account'] = $oAuthAdmin->account;
+            $aTmp['depositor_name'] = $oAuthAdmin->depositor_name;
+            $aTmp['request_amount'] = $oAuthAdmin->request_amount;
+            $aTmp['in_benefit'] = $oAuthAdmin->in_benefit;
+            $aTmp['postscript'] = $oAuthAdmin->postscript;
+            $aTmp['deposit_order_no'] = $oAuthAdmin->deposit_order_no;
+            $aTmp['in_bank_account'] = $oAuthAdmin->in_bank_account;
+            $aTmp['request_date'] = $oAuthAdmin->request_date;
+            $aTmp['confirm_date'] = $oAuthAdmin->confirm_date;
+            $aTmp['operator'] = $oAuthAdmin->operator;
             $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['memo'] = $oAuthAdmin->memo;
+
             $aFinal[] = $aTmp;
         }
 
@@ -857,7 +841,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_fastpaymoney');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -878,27 +862,24 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['layer'] = $oAuthAdmin->layer;
+            $aTmp['order_number'] = $oAuthAdmin->order_number;
+            $aTmp['receive_account'] = $oAuthAdmin->receive_account;
+            $aTmp['pay_type'] = $oAuthAdmin->pay_type;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['account'] = $oAuthAdmin->account;
+            $aTmp['desposit_amount'] = $oAuthAdmin->desposit_amount;
+            $aTmp['real_in_amount'] = $oAuthAdmin->real_in_amount;
+            $aTmp['request_date'] = $oAuthAdmin->request_date;
+            $aTmp['confirm_date'] = $oAuthAdmin->confirm_date;
+            $aTmp['operator'] = $oAuthAdmin->operator;
             $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['memo'] = $oAuthAdmin->memo;
+
             $aFinal[] = $aTmp;
         }
 
@@ -1063,7 +1044,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_manualpay');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -1084,27 +1065,20 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['avaible_amount'] = $oAuthAdmin->avaible_amount;
+            $aTmp['in_project'] = $oAuthAdmin->in_project;
+            $aTmp['in_amount'] = $oAuthAdmin->in_amount;
+            $aTmp['in_benefit'] = $oAuthAdmin->in_benefit;
+            $aTmp['general_project_audit'] = $oAuthAdmin->general_project_audit;
+            $aTmp['common_audit'] = $oAuthAdmin->common_audit;
+            $aTmp['memo'] = $oAuthAdmin->memo;
+            $aTmp['user_memo'] = $oAuthAdmin->user_memo;
+
             $aFinal[] = $aTmp;
         }
 
@@ -1166,7 +1140,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_manualpayconfirm');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -1187,27 +1161,25 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['account'] = $oAuthAdmin->account;
+            $aTmp['in_amount'] = $oAuthAdmin->in_amount;
+            $aTmp['out_amount'] = $oAuthAdmin->out_amount;
+            $aTmp['benefit_amount'] = $oAuthAdmin->benefit_amount;
+            $aTmp['out_in_amount'] = $oAuthAdmin->out_in_amount;
+            $aTmp['out_bankcardnumber'] = $oAuthAdmin->out_bankcardnumber;
+            $aTmp['general_project'] = $oAuthAdmin->general_project;
+            $aTmp['common_audit'] = $oAuthAdmin->common_audit;
+            $aTmp['request_date'] = $oAuthAdmin->request_date;
+            $aTmp['confirm_date'] = $oAuthAdmin->confirm_date;
+            $aTmp['submitor'] = $oAuthAdmin->submitor;
+            $aTmp['deposit_type'] = $oAuthAdmin->deposit_type;
+            $aTmp['auditor'] = $oAuthAdmin->auditor;
+            $aTmp['audit_memo'] = $oAuthAdmin->audit_memo;
             $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+
             $aFinal[] = $aTmp;
         }
 
@@ -1464,7 +1436,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_transferorder');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -1485,27 +1457,21 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['order_number'] = $oAuthAdmin->order_number;
+            $aTmp['date'] = $oAuthAdmin->date;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
+            $aTmp['transfer_platform'] = $oAuthAdmin->transfer_platform;
+            $aTmp['transfer_amount'] = $oAuthAdmin->transfer_amount;
+            $aTmp['main_avaibleamount_pre'] = $oAuthAdmin->main_avaibleamount_pre;
+            $aTmp['main_avaibleamount_after'] = $oAuthAdmin->main_avaibleamount_after;
+            $aTmp['platform_amount_pre'] = $oAuthAdmin->platform_amount_pre;
+            $aTmp['platform_amount_after'] = $oAuthAdmin->platform_amount_after;
             $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+
             $aFinal[] = $aTmp;
         }
 
@@ -1671,7 +1637,7 @@ class FundController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('fund_userbetscheck');
 
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
@@ -1692,27 +1658,24 @@ class FundController extends Controller
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['user_id'] = $oAuthAdmin->user_id;
             $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['deposit_date'] = $oAuthAdmin->deposit_date;
+            $aTmp['depoist_amount'] = $oAuthAdmin->depoist_amount;
+            $aTmp['benefit'] = $oAuthAdmin->benefit;
+            $aTmp['valid_project'] = $oAuthAdmin->valid_project;
+            $aTmp['general_project'] = $oAuthAdmin->general_project;
+            $aTmp['general_is_obtain'] = $oAuthAdmin->general_is_obtain;
+            $aTmp['common_project'] = $oAuthAdmin->common_project;
+            $aTmp['quota'] = $oAuthAdmin->quota;
+            $aTmp['commin_is_obtain'] = $oAuthAdmin->commin_is_obtain;
+            $aTmp['no_subtraction_fee'] = $oAuthAdmin->no_subtraction_fee;
+            $aTmp['subtraction_fee'] = $oAuthAdmin->subtraction_fee;
+            $aTmp['memo'] = $oAuthAdmin->memo;
+
             $aFinal[] = $aTmp;
         }
 
