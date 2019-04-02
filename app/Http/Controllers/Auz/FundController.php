@@ -30,8 +30,6 @@ use App\model\PayGroup;
 use App\model\CashWithdraw;
 
 
-
-
 class FundController extends Controller
 {
 
@@ -2126,6 +2124,77 @@ class FundController extends Controller
         return response()->json($aFinal);
     }
 
+    public function paysettingDelete()
+    {
+//        $id = request()->post('id/d');
+        $id = request()->all()['id'];
+        if ($id == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        PaySetting::where('id', '=', $id)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+    public function payaccountDelete()
+    {
+//        $id = request()->post('id/d');
+        $id = request()->all()['id'];
+        if ($id == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        DepositAccount::where('id', '=', $id)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+
+    public function tripartiteDelete()
+    {
+//        $id = request()->post('id/d');
+        $id = request()->all()['id'];
+        if ($id == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        ThirdAccount::where('id', '=', $id)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
 
 
 

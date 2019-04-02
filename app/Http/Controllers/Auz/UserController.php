@@ -1619,4 +1619,56 @@ class UserController extends Controller
         return response()->json($aFinal);
     }
 
+
+
+    public function userlayerDelete()
+    {
+//        $id = request()->post('id/d');
+        $id = request()->all()['id'];
+        if ($id == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        UserLevel::where('id', '=', $id)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    public function usercardDelete()
+    {
+//        $id = request()->post('id/d');
+        $id = request()->all()['id'];
+        if ($id == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        UserBankCard::where('id', '=', $id)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+
+
 }

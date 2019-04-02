@@ -42,6 +42,8 @@ Route::post('event/permissionRuleSave', 'PermissionRuleController@permissionRule
 Route::post('event/permissionRuleEdit', 'PermissionRuleController@permissionRuleEdit');
 Route::post('event/permissionRuleDelete', 'PermissionRuleController@permissionRuleDelete');
 
+Route::post('event/ruleStatusSave', 'PermissionRuleController@ruleStatusSave');
+
 // RoleController.php
 Route::get('event/roleIndex', 'RoleController@roleIndex');
 Route::get('event/roleAuthList', 'RoleController@roleAuthList');
@@ -83,7 +85,7 @@ Route::post('event/adminSave', 'AdminController@adminSave');
 Route::post('event/adminEdit', 'AdminController@adminEdit');
 Route::post('event/adminDelete', 'AdminController@adminDelete');
 Route::get('event/adminRoleList', 'AdminController@adminRoleList');
-
+Route::post('event/adminStatusSave', 'AdminController@adminStatusSave');
 
 
 
@@ -134,6 +136,12 @@ Route::post('event/payGroupStatusSave', 'FundController@payGroupStatusSave');
 
 Route::post('event/cashwithdrawStatusSave', 'FundController@cashwithdrawStatusSave');
 
+Route::post('event/paysettingDelete', 'FundController@paysettingDelete');
+
+Route::post('event/payaccountDelete', 'FundController@payaccountDelete');
+
+Route::post('event/tripartiteDelete', 'FundController@tripartiteDelete');
+
 //log-management
 //log_adminlog.vue
 Route::get('event/logAdminlog', 'LogController@logAdminlog');
@@ -165,6 +173,13 @@ Route::post('event/marqueeSave', 'NoticeController@marqueeSave');
 Route::post('event/noticeStatusSave', 'NoticeController@noticeStatusSave');
 
 Route::post('event/noticeTopSave', 'NoticeController@noticeTopSave');
+
+Route::post('event/messageDelete', 'NoticeController@messageDelete');
+
+
+Route::post('event/noticeDelete', 'NoticeController@noticeDelete');
+
+Route::post('event/marqueeDelete', 'NoticeController@marqueeDelete');
 
 //play-management
 //betlimit_list.vue
@@ -231,6 +246,14 @@ Route::get('event/rotationconfigList', 'SiteController@rotationconfigList');
 Route::get('event/systemconfigImagelist', 'SiteController@systemconfigImagelist');
 //systemconfig_set.vue
 Route::get('event/systemconfigSet', 'SiteController@systemconfigSet');
+
+Route::post('event/rotationconfigDelete', 'SiteController@rotationconfigDelete');
+
+Route::post('event/floatwindowconfigDelete', 'SiteController@floatwindowconfigDelete');
+
+Route::post('event/informationDelete', 'SiteController@informationDelete');
+
+
 //user-management
 //user_infolist.vue
 Route::get('event/userInfolist', 'UserController@userInfolist');
@@ -257,5 +280,8 @@ Route::post('event/bankcardStatusSave', 'UserController@bankcardStatusSave');
 
 Route::post('event/userStatusSave', 'UserController@userStatusSave');
 Route::post('event/usersafetyStatusSave', 'UserController@usersafetyStatusSave');
+Route::post('event/userlayerDelete', 'UserController@userlayerDelete');
+
+Route::post('event/usercardDelete', 'UserController@usercardDelete');
 
 
