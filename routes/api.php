@@ -162,6 +162,9 @@ Route::post('event/noticeSave', 'NoticeController@noticeSave');
 
 Route::post('event/marqueeSave', 'NoticeController@marqueeSave');
 
+Route::post('event/noticeStatusSave', 'NoticeController@noticeStatusSave');
+
+Route::post('event/noticeTopSave', 'NoticeController@noticeTopSave');
 
 //play-management
 //betlimit_list.vue

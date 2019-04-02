@@ -305,6 +305,8 @@ class NoticeController extends Controller
             $aTmp['send_range'] = $oAuthAdmin->send_range;
             $aTmp['layers'] = $oAuthAdmin->layers;
             $aTmp['content'] = $oAuthAdmin->content;
+            $aTmp['status'] = $oAuthAdmin->status;
+            $aTmp['is_top'] = $oAuthAdmin->is_top;
 
             $aFinal[] = $aTmp;
         }
@@ -867,4 +869,76 @@ class NoticeController extends Controller
         return ResultVo::success();
 
     }
+
+    public function noticeTopSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = Notice::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->is_top = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+    public function noticeStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = Notice::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+
+
 }
