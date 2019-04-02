@@ -2402,17 +2402,26 @@ class FundController extends Controller
         $id = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = RakeBack::find($id);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+
+        $aTmp = explode(",", $id);
+
+        if ($bSucc = RakeBack::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
+
+
+//
+//        $oEvent = RakeBack::find($id);
+////        $iFlag = 0;
+//        if (is_object($oEvent)) {
+//            $iStatue = $oEvent->status;
+//        }
+////        $iFlag = $iStatue == 0 ? 1 : 0;
+//        $oEvent->status = $iFlag;
+//        $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+//        $aFinal['data'] = $oEvent;
 
         return response()->json($aFinal);
     }
