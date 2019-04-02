@@ -28,7 +28,14 @@ use App\model\ThirdAccount;
 
 use App\model\PayGroup;
 use App\model\CashWithdraw;
+use App\model\UserBetsCheck;
+use App\model\TransferOrder;
+use App\model\ManualPay;
+use App\model\ManualPayConfirm;
 
+use App\model\CompanyMoney;
+use App\model\FastPayMoney;
+use App\model\RakeBack;
 
 class FundController extends Controller
 {
@@ -344,6 +351,7 @@ class FundController extends Controller
             $aTmp['sender'] = $oAuthAdmin->sender;
             $aTmp['audit_memo'] = $oAuthAdmin->audit_memo;
             $aTmp['memo'] = $oAuthAdmin->memo;
+            $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
         }
@@ -1078,6 +1086,7 @@ class FundController extends Controller
             $aTmp['common_audit'] = $oAuthAdmin->common_audit;
             $aTmp['memo'] = $oAuthAdmin->memo;
             $aTmp['user_memo'] = $oAuthAdmin->user_memo;
+            $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
         }
@@ -1675,6 +1684,7 @@ class FundController extends Controller
             $aTmp['no_subtraction_fee'] = $oAuthAdmin->no_subtraction_fee;
             $aTmp['subtraction_fee'] = $oAuthAdmin->subtraction_fee;
             $aTmp['memo'] = $oAuthAdmin->memo;
+            $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
         }
@@ -2158,6 +2168,256 @@ class FundController extends Controller
         return ResultVo::success();
 
     }
+
+
+
+
+
+    public function userbetscheckStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = UserBetsCheck::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function transferorderStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = TransferOrder::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+    public function manualpayStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = ManualPay::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function manualpayconfirmStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = ManualPayConfirm::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function companymoneyStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = CompanyMoney::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+
+    public function fastpaymoneyStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = FastPayMoney::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function rakebackStatusSave($id = null)
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+//
+        $oEvent = RakeBack::find($id);
+//        $iFlag = 0;
+        if (is_object($oEvent)) {
+            $iStatue = $oEvent->status;
+        }
+//        $iFlag = $iStatue == 0 ? 1 : 0;
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
 
 
 

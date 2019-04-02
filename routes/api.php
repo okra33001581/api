@@ -142,6 +142,21 @@ Route::post('event/payaccountDelete', 'FundController@payaccountDelete');
 
 Route::post('event/tripartiteDelete', 'FundController@tripartiteDelete');
 
+Route::post('event/userbetscheckStatusSave', 'FundController@userbetscheckStatusSave');
+
+Route::post('event/transferorderStatusSave', 'FundController@transferorderStatusSave');
+
+Route::post('event/manualpayStatusSave', 'FundController@manualpayStatusSave');
+
+Route::post('event/manualpayconfirmStatusSave', 'FundController@manualpayconfirmStatusSave');
+
+Route::post('event/companymoneyStatusSave', 'FundController@companymoneyStatusSave');
+
+Route::post('event/fastpaymoneyStatusSave', 'FundController@fastpaymoneyStatusSave');
+
+Route::post('event/rakebackStatusSave', 'FundController@rakebackStatusSave');
+
+
 //log-management
 //log_adminlog.vue
 Route::get('event/logAdminlog', 'LogController@logAdminlog');
