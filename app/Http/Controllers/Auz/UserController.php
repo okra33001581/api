@@ -28,10 +28,7 @@ use App\model\UserLevel;
 use App\model\User;
 use App\model\UserBankCard;
 use App\model\UserSafetyAudit;
-
-
-
-
+use App\model\Quota;
 
 /**
  * Class Event - 用户登录相关控制器
@@ -1669,6 +1666,65 @@ class UserController extends Controller
 
     }
 
+    public function userQuotaSave()
+    {
+
+        $data = request()->post();
+
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+
+//        {"rules":{"name":{"type":"string","required":true,"message":"必填字段","trigger":"change"},"input":{"type":"string","required":true,"message":"必填字段","trigger":"change"},"supplier":{"type":"string","required":true,"message":"必填字段","trigger":"change"},"goodstatus":{"type":"string","required":true,"message":"必填字段","trigger":"change"},"producedate.start":{"type":"string","required":true,"message":"必填字段","trigger":"change"},"expireddate.start":{"type":"string","required":true,"message":"必填字段","trigger":"change"}},"tableData":[{"rebate_level":"00","topallen_valid_count":"11","topallen_left_count":"22","left_count":"33","quota":"44"},{"rebate_level":"55","topallen_valid_count":"66","topallen_left_count":"77","left_count":"88","quota":"99"}]}
+
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+
+        $aTableData = isset($data['tableData']) ? $data['tableData'] : '';
+
+
+        /*[2019-04-03 07:01:25] local.INFO: array (
+        0 =>
+            array (
+                'rebate_level' => '00',
+                'topallen_valid_count' => '11',
+                'topallen_left_count' => '22',
+                'left_count' => '33',
+                'quota' => '44',
+            ),
+        1 =>
+            array (
+                'rebate_level' => '55',
+                'topallen_valid_count' => '66',
+                'topallen_left_count' => '77',
+                'left_count' => '88',
+                'quota' => '99',
+            ),
+        )  */
+
+        foreach ($aTableData as $k=>$v) {
+            $rebate_level = $v['rebate_level'];
+            $topallen_valid_count = $v['topallen_valid_count'];
+            $topallen_left_count = $v['topallen_left_count'];
+            $left_count = $v['left_count'];
+            $quota = $v['quota'];
+            $Quota = new Quota();
+            $Quota->rebate_level = $rebate_level;
+            $Quota->topallen_valid_count = $topallen_valid_count;
+            $Quota->topallen_left_count = $topallen_left_count;
+            $Quota->edit_count = $left_count;
+            $Quota->quota = $quota;
+            $iRet = $Quota->save();
+
+        }
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 1;
+
+        return response()->json($aFinal);
+    }
 
 
 }
