@@ -88,7 +88,6 @@ Route::get('event/adminRoleList', 'AdminController@adminRoleList');
 Route::post('event/adminStatusSave', 'AdminController@adminStatusSave');
 
 
-
 //delegate-management
 //proxycommission_list.vue
 Route::get('event/proxycommissionList', 'DelegateController@proxycommissionList');
