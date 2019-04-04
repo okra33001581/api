@@ -315,4 +315,6 @@ Route::post('event/userlayerDelete', 'UserController@userlayerDelete');
 Route::post('event/usercardDelete', 'UserController@usercardDelete');
 
 Route::post('event/userQuotaSave', 'UserController@userQuotaSave');
+Route::post('event/userTopParentSave', 'UserController@userTopParentSave');
+Route::post('event/userRebateSave', 'UserController@userRebateSave');
 

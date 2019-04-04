@@ -1683,27 +1683,11 @@ class UserController extends Controller
 
         }*/
 
+        $iUserId = isset($data['user_id']) ? $data['user_id'] : '';
         $aTableData = isset($data['tableData']) ? $data['tableData'] : '';
 
 
-        /*[2019-04-03 07:01:25] local.INFO: array (
-        0 =>
-            array (
-                'rebate_level' => '00',
-                'topallen_valid_count' => '11',
-                'topallen_left_count' => '22',
-                'left_count' => '33',
-                'quota' => '44',
-            ),
-        1 =>
-            array (
-                'rebate_level' => '55',
-                'topallen_valid_count' => '66',
-                'topallen_left_count' => '77',
-                'left_count' => '88',
-                'quota' => '99',
-            ),
-        )  */
+        $oUser = User::find($iUserId);
 
         foreach ($aTableData as $k=>$v) {
             $rebate_level = $v['rebate_level'];
@@ -1712,6 +1696,9 @@ class UserController extends Controller
             $left_count = $v['left_count'];
             $quota = $v['quota'];
             $Quota = new Quota();
+            $Quota->user_id = $iUserId;
+            $Quota->username = $oUser->realname;
+            $Quota->rebate_level = $rebate_level;
             $Quota->rebate_level = $rebate_level;
             $Quota->topallen_valid_count = $topallen_valid_count;
             $Quota->topallen_left_count = $topallen_left_count;
@@ -1726,5 +1713,36 @@ class UserController extends Controller
         return response()->json($aFinal);
     }
 
+
+
+
+    public function userTopParentSave($id = null)
+    {
+        $data = request()->post();
+        $id = isset($data['id']) ? $data['id'] : '';
+        $top_parent_new = isset($data['top_parent_new']) ? $data['top_parent_new'] : '';
+        $oEvent = User::find($id);
+        $oEvent->top_level = $top_parent_new;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $oEvent;
+        return response()->json($aFinal);
+    }
+
+
+    public function userRebateSave($id = null)
+    {
+        $data = request()->post();
+        $id = isset($data['id']) ? $data['id'] : '';
+        $rake_setting = isset($data['rake_setting']) ? $data['rake_setting'] : '';
+        $oEvent = User::find($id);
+        $oEvent->rake_setting = $rake_setting;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $oEvent;
+        return response()->json($aFinal);
+    }
 
 }
