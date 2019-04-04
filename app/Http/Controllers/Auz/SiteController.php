@@ -28,6 +28,10 @@ use App\model\RotatePlay;
 use App\model\FloatWindow;
 use App\model\Information;
 use App\model\Company;
+use App\model\LotteryGroup;
+
+
+
 
 class SiteController extends Controller
 {
@@ -422,7 +426,9 @@ class SiteController extends Controller
             $aTmp['type'] = $oAuthAdmin->type;
             $aTmp['name'] = $oAuthAdmin->name;
             $aTmp['sequence'] = $oAuthAdmin->sequence;
-            $aTmp['property'] = $oAuthAdmin->property;
+            $aTmp['hot'] = $oAuthAdmin->hot;
+            $aTmp['recommand'] = $oAuthAdmin->recommand;
+            $aTmp['new'] = $oAuthAdmin->new;
 
             $aFinal[] = $aTmp;
         }
@@ -1667,5 +1673,122 @@ class SiteController extends Controller
     }
 
 
+    public function updateLotterygroupSequence($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = LotteryGroup::find($id);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+    public function updateInformationSequence($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = Information::find($id);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function updateLotteryGroupPropertySave($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $hot = isset($data['hot']) ? $data['hot'] : '';
+        $recommand = isset($data['recommand']) ? $data['recommand'] : '';
+        $new = isset($data['new']) ? $data['new'] : '';
+
+//        Log::info($data);
+        $sFirst1 = substr($hot, 0, 1);
+        $sFirst2 = substr($recommand, 0, 1);
+        $sFirst3 = substr($new, 0, 1);
+        $bFlag1 = false;
+        $bFlag2 = false;
+        $bFlag3 = false;
+        if ($sFirst1 == '+') {
+            $bFlag1 = true;
+        }
+        if ($sFirst2 == '+') {
+            $bFlag2 = true;
+        }
+        if ($sFirst3 == '+') {
+            $bFlag3 = true;
+        }
+
+        $oEvent = LotteryGroup::find($id);
+
+        if ($hot != '') {
+            if ($bFlag1) {
+                $oEvent->hot = substr($hot, 1, strlen($hot));
+            } else {
+                $oEvent->hot = '';
+            }
+
+        }
+
+        if ($recommand != '') {
+            if ($bFlag2) {
+                $oEvent->recommand = substr($recommand, 1, strlen($recommand));
+            } else {
+                $oEvent->recommand = '';
+            }
+        }
+
+        if ($new != '') {
+            if ($bFlag3) {
+                $oEvent->new = substr($new, 1, strlen($new));
+            } else {
+                $oEvent->new = '';
+            }
+        }
+
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 1;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
 
 }

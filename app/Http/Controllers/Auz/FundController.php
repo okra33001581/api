@@ -911,6 +911,7 @@ class FundController extends Controller
             $aTmp['receiver'] = $oAuthAdmin->receiver;
             $aTmp['alert'] = $oAuthAdmin->alert;
             $aTmp['order_flag'] = $oAuthAdmin->order_flag;
+            $aTmp['sequence'] = $oAuthAdmin->sequence;
 
             $aFinal[] = $aTmp;
         }
@@ -1798,7 +1799,101 @@ class FundController extends Controller
     }
 
 
+    public function sequenceSave($id = null)
+    {
 
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = PayGroup::find($id);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+    public function propertySave($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['property']) ? $data['property'] : '';
+        $oEvent = PayGroup::find($id);
+        $oEvent->property = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+    public function paytypeAliasSave($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['paytype_alias']) ? $data['paytype_alias'] : '';
+        $oEvent = PayGroup::find($id);
+        $oEvent->pay_type_alias = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function payAccountSequence($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = DepositAccount::find($id);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
 
 
 }

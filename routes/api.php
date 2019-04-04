@@ -154,6 +154,13 @@ Route::post('event/companymoneyStatusSave', 'FundController@companymoneyStatusSa
 Route::post('event/fastpaymoneyStatusSave', 'FundController@fastpaymoneyStatusSave');
 
 Route::post('event/rakebackStatusSave', 'FundController@rakebackStatusSave');
+Route::post('event/paytypeAliasSave', 'FundController@paytypeAliasSave');
+
+Route::post('event/propertySave', 'FundController@propertySave');
+
+Route::post('event/sequenceSave', 'FundController@sequenceSave');
+
+Route::post('event/payAccountSequence', 'FundController@payAccountSequence');
 
 
 //log-management
@@ -267,6 +274,11 @@ Route::post('event/floatwindowconfigDelete', 'SiteController@floatwindowconfigDe
 
 Route::post('event/informationDelete', 'SiteController@informationDelete');
 
+Route::post('event/updateLotterygroupSequence', 'SiteController@updateLotterygroupSequence');
+
+Route::post('event/updateInformationSequence', 'SiteController@updateInformationSequence');
+
+Route::post('event/updateLotteryGroupPropertySave', 'SiteController@updateLotteryGroupPropertySave');
 
 //user-management
 //user_infolist.vue
