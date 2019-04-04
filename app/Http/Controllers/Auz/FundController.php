@@ -1837,8 +1837,23 @@ class FundController extends Controller
         }*/
         $id = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['property']) ? $data['property'] : '';
+
+        $sFirst1 = substr($iFlag, 0, 1);
+        $bFlag1 = false;
+        if ($sFirst1 == '+') {
+            $bFlag1 = true;
+        }
+
         $oEvent = PayGroup::find($id);
-        $oEvent->property = $iFlag;
+
+        if ($iFlag != '') {
+            if ($bFlag1) {
+                $oEvent->property = substr($iFlag, 1, strlen($iFlag));
+            } else {
+                $oEvent->property = '';
+            }
+
+        }
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;

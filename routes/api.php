@@ -202,6 +202,10 @@ Route::post('event/noticeDelete', 'NoticeController@noticeDelete');
 
 Route::post('event/marqueeDelete', 'NoticeController@marqueeDelete');
 
+
+Route::post('event/marqueeSequence', 'NoticeController@marqueeSequence');
+Route::post('event/noticeSequence', 'NoticeController@noticeSequence');
+
 //play-management
 //betlimit_list.vue
 Route::get('event/betlimitList', 'PlayController@betlimitList');

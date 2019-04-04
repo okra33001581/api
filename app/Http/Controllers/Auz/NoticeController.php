@@ -1012,4 +1012,54 @@ class NoticeController extends Controller
     }
 
 
+    public function noticeSequence($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = Notice::find($id);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function marqueeSequence($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = Marquee::find($id);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
 }
