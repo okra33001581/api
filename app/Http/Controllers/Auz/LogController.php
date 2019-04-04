@@ -151,6 +151,7 @@ class LogController extends Controller
      * "status": "success",
      * "status_code": 200,
      * "links": {
+     *
      * "first": "http://manger.test/api/admin?page=1",
      * "last": "http://manger.test/api/admin?page=19",
      * "prev": null,
@@ -161,7 +162,7 @@ class LogController extends Controller
      * "from": 1, //当前页开始的记录
      * "last_page": 19, //总页数
      * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
+     * "per_page": 15,d
      * "to": 15, //当前页结束的记录
      * "total": 271  // 总条数
      * }
