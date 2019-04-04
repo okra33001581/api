@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="318" column="33" selection-start-line="318" selection-start-column="19" selection-end-line="318" selection-end-column="33" />
+            <state relative-caret-position="157">
+              <caret line="295" column="21" lean-forward="true" selection-start-line="295" selection-start-column="21" selection-end-line="295" selection-end-column="21" />
               <folding>
                 <element signature="e#7#35#0#PHP" expanded="true" />
               </folding>
@@ -43,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="572" column="73" selection-start-line="572" selection-start-column="72" selection-end-line="572" selection-end-column="73" />
+            <state relative-caret-position="45">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -64,8 +64,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="1735" column="34" lean-forward="true" selection-start-line="1735" selection-start-column="34" selection-end-line="1735" selection-end-column="34" />
+            <state relative-caret-position="533">
+              <caret line="1799" lean-forward="true" selection-start-line="1799" selection-end-line="1799" />
+              <folding>
+                <element signature="e#40#68#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="203" lean-forward="true" selection-start-line="108" selection-start-column="8" selection-end-line="203" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -111,15 +123,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
               <caret line="10" column="18" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/DepositAccount.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -232,11 +235,11 @@
         <option value="$PROJECT_DIR$/app/model/Quota.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" />
         <option value="$PROJECT_DIR$/app/model/LotteryGroup.php" />
-        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
       </list>
     </option>
@@ -486,21 +489,7 @@
       <workItem from="1553739801711" duration="17869000" />
       <workItem from="1553826223790" duration="33657000" />
       <workItem from="1554171861882" duration="15799000" />
-      <workItem from="1554195910577" duration="20279000" />
-    </task>
-    <task id="LOCAL-00004" summary="update">
-      <created>1551773371765</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1551773371765</updated>
-    </task>
-    <task id="LOCAL-00005" summary="update">
-      <created>1552388460754</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1552388460754</updated>
+      <workItem from="1554195910577" duration="23200000" />
     </task>
     <task id="LOCAL-00006" summary="update">
       <created>1552445508765</created>
@@ -831,11 +820,25 @@
       <option name="project" value="LOCAL" />
       <updated>1554360684237</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="update">
+      <created>1554366155342</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1554366155343</updated>
+    </task>
+    <task id="LOCAL-00054" summary="update">
+      <created>1554366177133</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1554366177133</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="262440000" />
+    <option name="totallyTimeSpent" value="265361000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="984" extended-state="6" />
@@ -1086,16 +1089,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="875" column="3" selection-start-line="875" selection-start-column="3" selection-end-line="908" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/AuthPermissionRule.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
@@ -1228,13 +1221,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="572" column="73" selection-start-line="572" selection-start-column="72" selection-end-line="572" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
@@ -1274,18 +1260,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="318" column="33" selection-start-line="318" selection-start-column="19" selection-end-line="318" selection-end-column="33" />
+        <state relative-caret-position="157">
+          <caret line="295" column="21" lean-forward="true" selection-start-line="295" selection-start-column="21" selection-end-line="295" selection-end-column="21" />
           <folding>
             <element signature="e#7#35#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="203" lean-forward="true" selection-start-line="108" selection-start-column="8" selection-end-line="203" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="1735" column="34" lean-forward="true" selection-start-line="1735" selection-start-column="34" selection-end-line="1735" selection-end-column="34" />
+        <state relative-caret-position="533">
+          <caret line="1799" lean-forward="true" selection-start-line="1799" selection-end-line="1799" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
