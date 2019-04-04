@@ -1745,4 +1745,70 @@ class UserController extends Controller
         return response()->json($aFinal);
     }
 
+
+
+    public function getUserQuota()
+    {
+
+        $data = request()->post();
+
+        $iUserId = isset($data['0']) ? $data['0'] : '';
+
+        Log::info($data);
+
+        $oAuthAdminList = DB::table('user_quota');
+
+        if ($iUserId !== '') {
+            $oAuthAdminList->where('user_id','=', $iUserId);
+        }
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+
+
+        if (count($oAuthAdminFinalList) > 0) {
+            foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+                $aTmp['id']=$oAuthAdmin->id;
+                $aTmp['user_id']=$oAuthAdmin->user_id;
+                $aTmp['username']=$oAuthAdmin->username;
+                $aTmp['rebate_level']=$oAuthAdmin->rebate_level;
+                $aTmp['topallen_valid_count']=$oAuthAdmin->topallen_valid_count;
+                $aTmp['topallen_left_count']=$oAuthAdmin->topallen_left_count;
+                $aTmp['edit_count']=$oAuthAdmin->edit_count;
+                $aTmp['quota']=$oAuthAdmin->quota;
+
+                $aFinal[] = $aTmp;
+            }
+        } else {
+
+            $aTmp['rebate_level'] = "00";
+            $aTmp['topallen_valid_count'] = "11";
+            $aTmp['topallen_left_count'] = "22";
+            $aTmp['left_count'] = "33";
+            $aTmp['quota'] = "44";
+
+
+            $aFinal[] = $aTmp;
+
+            $aTmp['rebate_level'] = "22";
+            $aTmp['topallen_valid_count'] = "33";
+            $aTmp['topallen_left_count'] = "44";
+            $aTmp['left_count'] = "55";
+            $aTmp['quota'] = "66";
+
+
+            $aFinal[] = $aTmp;
+        }
+
+
+        $res = [];
+//        $res["total"] = count($oAuthAdminListCount);
+        $res["list"] = $aFinal;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
 }

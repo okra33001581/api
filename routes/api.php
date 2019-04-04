@@ -318,3 +318,5 @@ Route::post('event/userQuotaSave', 'UserController@userQuotaSave');
 Route::post('event/userTopParentSave', 'UserController@userTopParentSave');
 Route::post('event/userRebateSave', 'UserController@userRebateSave');
 
+Route::get('event/getUserQuota', 'UserController@getUserQuota');
+
