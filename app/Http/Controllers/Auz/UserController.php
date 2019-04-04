@@ -30,6 +30,8 @@ use App\model\UserBankCard;
 use App\model\UserSafetyAudit;
 use App\model\Quota;
 
+use App\model\UserLock;
+
 /**
  * Class Event - 用户登录相关控制器
  * @author zebra
@@ -1808,6 +1810,33 @@ class UserController extends Controller
 
         return response()->json($aFinal);
         return ResultVo::success($res);
+    }
+
+
+    public function userLockSave($id = null)
+    {
+        $data = request()->post();
+        $user_id = isset($data['id']) ? $data['id'] : '';
+        $lock_range = isset($data['lock_range']) ? $data['lock_range'] : '';
+        $lock_type = isset($data['lock_type']) ? $data['lock_type'] : '';
+        $online_qq = isset($data['online_qq']) ? $data['online_qq'] : '';
+        $lock_reason = isset($data['lock_reason']) ? $data['lock_reason'] : '';
+
+        $oEvent = new UserLock();
+
+        $oEvent->user_id = $user_id;
+        $oEvent->username = $user_id;
+        $oEvent->lock_range = $lock_range;
+        $oEvent->lock_type = $lock_type;
+        $oEvent->online_qq = $online_qq;
+        $oEvent->lock_reason = $lock_reason;
+
+
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $oEvent;
+        return response()->json($aFinal);
     }
 
 
