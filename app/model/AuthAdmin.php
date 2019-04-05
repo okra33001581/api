@@ -105,4 +105,14 @@ class AuthAdmin extends Model
 
         return false;
     }
+
+
+    public static function getMerchant($iAdminId)
+    {
+
+        $oAuthAdmin = AuthAdmin::find($iAdminId);
+
+        return $iAdminId;
+
+    }
 }

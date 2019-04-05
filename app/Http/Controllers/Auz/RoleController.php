@@ -520,4 +520,57 @@ class RoleController extends Controller
 
         return ResultVo::success();
     }
+
+
+    public function copyGroup()
+    {
+//        $id = request()->post('id/d');
+        $id = request()->all()['id'];
+//        if ($id == '') {
+//            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+//        }
+//        if (!AuthRole::where('id', $id)->delete()) {
+//            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+
+
+
+        $oAuthRole = AuthRole::find($id);
+
+        $oAuthRoleTmp = new $oAuthRole();
+        $oAuthRoleTmp->name = $oAuthRole->name.'copy';
+        $oAuthRoleTmp->pid = $oAuthRole->pid;
+        $oAuthRoleTmp->status = $oAuthRole->status;
+        $oAuthRoleTmp->remark = $oAuthRole->remark.'copy';
+        $oAuthRoleTmp->create_time = $oAuthRole->create_time;
+        $oAuthRoleTmp->update_time = $oAuthRole->update_time;
+        $oAuthRoleTmp->listorder = $oAuthRole->listorder;
+        $oAuthRoleTmp->updated_at = $oAuthRole->updated_at;
+        $oAuthRoleTmp->created_at = $oAuthRole->created_at;
+
+
+        $oAuthRoleTmp->save();
+
+        $idTmp = $oAuthRoleTmp->id;
+
+
+        $sSql = "INSERT INTO auth_permissions (role_id, permission_rule_id, type, updated_at, created_at) 
+                    select ".$idTmp.", permission_rule_id, type, updated_at, created_at
+                    from auth_permissions
+                    where role_id = ".$id;
+
+
+        Log::info($sSql);
+//        die;
+
+        DB::insert($sSql);
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+        return response()->json($aFinal);
+
+        return ResultVo::success();
+    }
+
 }

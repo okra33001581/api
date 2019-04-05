@@ -53,6 +53,8 @@ Route::post('event/roleSave', 'RoleController@roleSave');
 Route::post('event/roleEdit', 'RoleController@roleEdit');
 Route::post('event/roleDelete', 'RoleController@roleDelete');
 
+Route::post('event/copyGroup', 'RoleController@copyGroup');
+
 // AdminController.php
 Route::get('event/adminIndex', 'AdminController@adminIndex');
 
