@@ -164,6 +164,8 @@ Route::post('event/sequenceSave', 'FundController@sequenceSave');
 
 Route::post('event/payAccountSequence', 'FundController@payAccountSequence');
 
+Route::post('event/payAccountStatusSave', 'FundController@payAccountStatusSave');
+
 
 //log-management
 //log_adminlog.vue

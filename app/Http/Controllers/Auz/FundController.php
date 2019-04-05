@@ -37,6 +37,10 @@ use App\model\CompanyMoney;
 use App\model\FastPayMoney;
 use App\model\RakeBack;
 
+use App\model\PayAccount;
+
+
+
 class FundController extends Controller
 {
 
@@ -912,6 +916,7 @@ class FundController extends Controller
             $aTmp['alert'] = $oAuthAdmin->alert;
             $aTmp['order_flag'] = $oAuthAdmin->order_flag;
             $aTmp['sequence'] = $oAuthAdmin->sequence;
+            $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
         }
@@ -1910,5 +1915,30 @@ class FundController extends Controller
         return response()->json($aFinal);
     }
 
+
+
+    public function payAccountStatusSave($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $oEvent = PayAccount::find($id);
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
 
 }
