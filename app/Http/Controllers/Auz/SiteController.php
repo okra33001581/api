@@ -58,10 +58,29 @@ class SiteController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+
+
         $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+
+
         $oAuthAdminList = DB::table('site_float_window');
+
+
+
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -99,6 +118,7 @@ class SiteController extends Controller
             $aTmp['expand_pic_desc'] = $oAuthAdmin->expand_pic_desc;
             $aTmp['sequence'] = $oAuthAdmin->sequence;
             $aTmp['status'] = $oAuthAdmin->status;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -125,6 +145,13 @@ class SiteController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+
+
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sType = isset(request()->type) ? request()->type : '';
+
         $oAuthAdminList = DB::table('site_ip_black');
 
 //        $sTmp = 'DESC';
@@ -132,12 +159,12 @@ class SiteController extends Controller
 //            $sTmp = 'ASC';
 //        }
 //        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus !== '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
+        if ($sType !== '') {
+            $oAuthAdminList->where('type', $sType);
+        }
 //        if ($sUserName !== '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
@@ -160,6 +187,8 @@ class SiteController extends Controller
             $aTmp['updator'] = $oAuthAdmin->updator;
             $aTmp['updated_at'] = $oAuthAdmin->updated_at;
             $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aFinal[] = $aTmp;
         }
 
@@ -185,7 +214,20 @@ class SiteController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
         $oAuthAdminList = DB::table('site_system_config');
+
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -256,6 +298,8 @@ class SiteController extends Controller
             $aTmp['winner_project_rato'] = $oAuthAdmin->winner_project_rato;
             $aTmp['risk_rato'] = $oAuthAdmin->risk_rato;
             $aTmp['transfer_type'] = $oAuthAdmin->transfer_type;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -282,10 +326,28 @@ class SiteController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+
+
         $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+
         $oAuthAdminList = DB::table('site_company');
+
+
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -311,9 +373,10 @@ class SiteController extends Controller
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['display_status'] = $oAuthAdmin->display_status;
+            $aTmp['status'] = $oAuthAdmin->status;
             $aTmp['display_style'] = $oAuthAdmin->display_style;
             $aTmp['content'] = $oAuthAdmin->content;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -341,6 +404,26 @@ class SiteController extends Controller
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
         $oAuthAdminList = DB::table('site_information');
+
+        $iStatus = isset(request()->status) ? request()->status : '';
+
+        $sType = isset(request()->type) ? request()->type : '';
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
+        if ($sType !== '') {
+            $oAuthAdminList->where('type', $sType);
+        }
+
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -371,6 +454,7 @@ class SiteController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
             $aTmp['type'] = $oAuthAdmin->type;
             $aTmp['content'] = $oAuthAdmin->content;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -399,6 +483,24 @@ class SiteController extends Controller
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
         $oAuthAdminList = DB::table('site_lotterygroup');
+
+
+
+        $iStatus = isset(request()->status) ? request()->status : '';
+
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+
+
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -429,6 +531,8 @@ class SiteController extends Controller
             $aTmp['hot'] = $oAuthAdmin->hot;
             $aTmp['recommand'] = $oAuthAdmin->recommand;
             $aTmp['new'] = $oAuthAdmin->new;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -977,7 +1081,15 @@ class SiteController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
         $oAuthAdminList = DB::table('site_qr_code');
+
+
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -1007,6 +1119,8 @@ class SiteController extends Controller
             $aTmp['android_address'] = $oAuthAdmin->android_address;
             $aTmp['ios_address'] = $oAuthAdmin->ios_address;
             $aTmp['pic'] = $oAuthAdmin->pic;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aFinal[] = $aTmp;
         }
 
@@ -1031,10 +1145,27 @@ class SiteController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//
+//        $sUserName = isset(request()->username) ? request()->username : '';
+
+
         $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+
         $oAuthAdminList = DB::table('site_rotate_play');
+
+
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -1044,14 +1175,13 @@ class SiteController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
+
 //        if ($sUserName !== '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+
 
         $oAuthAdminFinalList = $oAuthAdminList->get();
 
@@ -1067,6 +1197,7 @@ class SiteController extends Controller
             $aTmp['link'] = $oAuthAdmin->link;
             $aTmp['status'] = $oAuthAdmin->status;
             $aTmp['squence'] = $oAuthAdmin->squence;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -1090,10 +1221,18 @@ class SiteController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+//        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
         $oAuthAdminList = DB::table('site_web_icon');
+
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -1121,6 +1260,8 @@ class SiteController extends Controller
             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
             $aTmp['icon'] = $oAuthAdmin->icon;
             $aTmp['pic'] = $oAuthAdmin->pic;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aFinal[] = $aTmp;
         }
 
