@@ -180,7 +180,28 @@ class LogController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
         $oAuthAdminList = DB::table('log_domain');
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        }
+
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('created_at', '<=', $endDate);
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -209,6 +230,8 @@ class LogController extends Controller
             $aTmp['total_visit_people_count'] = $oAuthAdmin->total_visit_people_count;
             $aTmp['tatal_visit_count'] = $oAuthAdmin->tatal_visit_count;
             $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }

@@ -230,24 +230,50 @@ class FundController extends Controller
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+
+
+
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $sEndDate = isset(request()->endDate) ? request()->endDate : '';
+
+
         $oAuthAdminList = DB::table('fund_rebate');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+
+
         if ($iStatus !== '') {
             $oAuthAdminList->where('status', $iStatus);
         }
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        }
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+
+
         }
+
+        if ($sBeginDate !== '') {
+            $oAuthAdminList->where('project_date', '>=', $sBeginDate);
+        }
+
+
+        if ($sEndDate !== '') {
+            $oAuthAdminList->where('project_date', '<=', $sEndDate);
+        }
+
+
         $oAuthAdminListCount = $oAuthAdminList->get();
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
@@ -1131,8 +1157,6 @@ class FundController extends Controller
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
 
-
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         $iStatus = isset(request()->status) ? request()->status : '';
@@ -1161,74 +1185,6 @@ class FundController extends Controller
         if ($sThirdType !== '') {
             $oAuthAdminList->where('third_type', $sThirdType);
         }
-
-
-        /*<el-form-item class="query-form-item">
-                <el-input v-model="query.merchant_name" placeholder="商户名称"></el-input>
-            </el-form-item>
-
-            <el-form-item class="query-form-item">
-                <el-select v-model="query.status" placeholder="状态">
-                    <el-option label="全部" value=""></el-option>
-                    <el-option label="正常" value="1"></el-option>
-                    <el-option label="隐藏" value="0"></el-option>
-                </el-select>
-            </el-form-item>
-
-            <el-form-item class="query-form-item">
-                <el-select v-model="query.status" placeholder="三方类型">
-                    <el-option label="全部" value=""></el-option>
-                    <el-option label="入款" value="入款"></el-option>
-                    <el-option label="出款" value="出款"></el-option>
-                </el-select>
-            </el-form-item>
-
-            <el-form-item class="query-form-item">
-                <el-select v-model="query.pay_type" placeholder="支付类型">
-                    <el-option value="" label="全部"></el-option>
-                    <el-option value="网银" label="网银"></el-option>
-                    <el-option value="支付宝" label="支付宝"></el-option>
-                    <el-option value="微信支付" label="微信支付"></el-option>
-                    <el-option value="手机网银" label="手机网银"></el-option>
-                    <el-option value="支付宝WAP" label="支付宝WAP"></el-option>
-                    <el-option value="微信支付WAP" label="微信支付WAP"></el-option>
-                    <el-option value="QQ钱包" label="QQ钱包"></el-option>
-                    <el-option value="QQ钱包WAP" label="QQ钱包WAP"></el-option>
-                    <el-option value="银联" label="银联"></el-option>
-                    <el-option value="京东" label="京东"></el-option>
-                    <el-option value="百度" label="百度"></el-option>
-                    <el-option value="支付宝H5" label="支付宝H5"></el-option>
-                    <el-option value="微信支付H5" label="微信支付H5"></el-option>
-                    <el-option value="银联WAP" label="银联WAP"></el-option>
-                    <el-option value="银联H5" label="银联H5"></el-option>
-                    <el-option value="QQH5" label="QQH5"></el-option>
-                    <el-option value="京东WAP" label="京东WAP"></el-option>
-                    <el-option value="京东H5" label="京东H5"></el-option>
-                    <el-option value="百度WAP" label="百度WAP"></el-option>
-                    <el-option value="百度H5" label="百度H5"></el-option>
-                    <el-option value="快捷支付" label="快捷支付"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item class="query-form-item">
-                <el-input v-model="query.third_company" placeholder="三方公司"></el-input>
-            </el-form-item>*/
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus !== '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName !== '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
         $oAuthAdminFinalList = $oAuthAdminList->get();
 
@@ -1280,27 +1236,31 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
+//        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+//        $iStatus = isset(request()->status) ? request()->status : '';
+
+
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
         $sUserName = isset(request()->username) ? request()->username : '';
         $oAuthAdminList = DB::table('fund_userbetscheck');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        }
+        $oAuthAdminFinalList = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
@@ -1327,7 +1287,7 @@ class FundController extends Controller
         }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
+        $res["total"] = 22222;
         $res["list"] = $aFinal;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -1336,6 +1296,7 @@ class FundController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
+
 
     public function adminRoleList()
     {

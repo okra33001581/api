@@ -85,6 +85,34 @@ class ReportController extends Controller
         $sUserName = isset(request()->username) ? request()->username : '';
         $oAuthAdminList = DB::table('report_finance');
 
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
+
+        $oAuthAdminList = DB::table('report_finance');
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('date', '<=', $endDate);
+        }
+
+
+
+
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
 //            $sTmp = 'ASC';
@@ -121,6 +149,8 @@ class ReportController extends Controller
             $aTmp['user_subtraction'] = $oAuthAdmin->user_subtraction;
             $aTmp['artifical_withdraw'] = $oAuthAdmin->artifical_withdraw;
             $aTmp['total'] = $oAuthAdmin->total;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -183,8 +213,50 @@ class ReportController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
+        $model = isset(request()->model) ? request()->model : '';
+
+        $platform = isset(request()->platform) ? request()->platform : '';
+
         $sUserName = isset(request()->username) ? request()->username : '';
+
         $oAuthAdminList = DB::table('report_operation_profit');
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('date', '<=', $endDate);
+        }
+
+        if ($model !== '') {
+            $oAuthAdminList->where('model', 'like', '%' . $model . '%');
+        }
+
+        if ($platform !== '') {
+            $oAuthAdminList->where('platform', 'like', '%' . $platform . '%');
+        }
+
+
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -225,6 +297,10 @@ class ReportController extends Controller
             $aTmp['day_salary'] = $oAuthAdmin->day_salary;
             $aTmp['system_subtraction'] = $oAuthAdmin->system_subtraction;
             $aTmp['final_amount'] = $oAuthAdmin->final_amount;
+            $aTmp['date'] = $oAuthAdmin->date;
+            $aTmp['platform'] = $oAuthAdmin->platform;
+            $aTmp['model'] = $oAuthAdmin->model;
+
 
             $aFinal[] = $aTmp;
         }
@@ -392,8 +468,38 @@ class ReportController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
+
+
         $sUserName = isset(request()->username) ? request()->username : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
+
         $oAuthAdminList = DB::table('report_platform');
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('date', '<=', $endDate);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -431,6 +537,7 @@ class ReportController extends Controller
             $aTmp['profit_ratio'] = $oAuthAdmin->profit_ratio;
             $aTmp['project_count'] = $oAuthAdmin->project_count;
             $aTmp['active_count'] = $oAuthAdmin->active_count;
+            $aTmp['date'] = $oAuthAdmin->date;
 
             $aFinal[] = $aTmp;
         }
@@ -495,7 +602,49 @@ class ReportController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
+        $model = isset(request()->model) ? request()->model : '';
+
+        $platform = isset(request()->platform) ? request()->platform : '';
+
+        $sUserName = isset(request()->username) ? request()->username : '';
+
         $oAuthAdminList = DB::table('report_user');
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('date', '<=', $endDate);
+        }
+
+        if ($model !== '') {
+            $oAuthAdminList->where('model', 'like', '%' . $model . '%');
+        }
+
+        if ($platform !== '') {
+            $oAuthAdminList->where('platform', 'like', '%' . $platform . '%');
+        }
+
+
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -529,6 +678,14 @@ class ReportController extends Controller
             $aTmp['in_people_count'] = $oAuthAdmin->in_people_count;
             $aTmp['in_times'] = $oAuthAdmin->in_times;
             $aTmp['out_times'] = $oAuthAdmin->out_times;
+
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+
+
+            $aTmp['date'] = $oAuthAdmin->date;
+            $aTmp['platform'] = $oAuthAdmin->platform;
+            $aTmp['model'] = $oAuthAdmin->model;
 
             $aFinal[] = $aTmp;
         }

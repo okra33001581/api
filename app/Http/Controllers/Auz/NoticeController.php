@@ -88,7 +88,26 @@ class NoticeController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+        $title = isset(request()->title) ? request()->title : '';
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $title = isset(request()->title) ? request()->title : '';
+
         $oAuthAdminList = DB::table('info_marquee');
+
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($title !== '') {
+            $oAuthAdminList->where('title', 'like', '%' . $title . '%');
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -117,6 +136,9 @@ class NoticeController extends Controller
             $aTmp['terminal'] = $oAuthAdmin->terminal;
             $aTmp['sequence'] = $oAuthAdmin->sequence;
             $aTmp['content'] = $oAuthAdmin->content;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
         }
@@ -177,9 +199,61 @@ class NoticeController extends Controller
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
+
+
+
+
         $iStatus = isset(request()->status) ? request()->status : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+
         $sUserName = isset(request()->username) ? request()->username : '';
+        $title = isset(request()->title) ? request()->title : '';
+        $receive_flag = isset(request()->receive_flag) ? request()->receive_flag : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $receivers = isset(request()->receivers) ? request()->receivers : '';
+
         $oAuthAdminList = DB::table('info_message');
+
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
+
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($title !== '') {
+            $oAuthAdminList->where('title', 'like', '%' . $title . '%');
+        }
+
+
+        if ($receive_flag !== '') {
+            $oAuthAdminList->where('receive_flag', $receive_flag);
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        }
+
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('created_at', '<=', $endDate);
+        }
+
+        if ($receivers !== '') {
+            $oAuthAdminList->where('receivers', $receivers);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -209,6 +283,10 @@ class NoticeController extends Controller
             $aTmp['receive_flag'] = $oAuthAdmin->receive_flag;
             $aTmp['receivers'] = $oAuthAdmin->receivers;
             $aTmp['content'] = $oAuthAdmin->content;
+            $aTmp['status'] = $oAuthAdmin->status;
+            $aTmp['created_at'] = $oAuthAdmin->created_at;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -272,7 +350,28 @@ class NoticeController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+
+
+        $title = isset(request()->title) ? request()->title : '';
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $title = isset(request()->title) ? request()->title : '';
+
         $oAuthAdminList = DB::table('info_notice');
+
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($title !== '') {
+            $oAuthAdminList->where('title', 'like', '%' . $title . '%');
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -307,6 +406,8 @@ class NoticeController extends Controller
             $aTmp['content'] = $oAuthAdmin->content;
             $aTmp['status'] = $oAuthAdmin->status;
             $aTmp['is_top'] = $oAuthAdmin->is_top;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
 
             $aFinal[] = $aTmp;
         }
