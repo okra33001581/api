@@ -306,9 +306,17 @@ class UserController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $merchant_name= isset(request()->merchant_name) ? request()->merchant_name : '';
+        $user_type= isset(request()->user_type) ? request()->user_type : '';
+        $username= isset(request()->username) ? request()->username : '';
+        $group= isset(request()->group) ? request()->group : '';
+        $user_level= isset(request()->user_level) ? request()->user_level : '';
+        $beginDate= isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate= isset(request()->endDate) ? request()->endDate : '';
+        $operate_type= isset(request()->operate_type) ? request()->operate_type : '';
+        $days= isset(request()->days) ? request()->days : '';
+
         $oAuthAdminList = DB::table('user_user');
 
 //        $sTmp = 'DESC';
@@ -568,9 +576,16 @@ class UserController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $type = isset(request()->type) ? request()->type : '';
+        $select_user_type = isset(request()->select_user_type) ? request()->select_user_type : '';
+        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $user_type = isset(request()->user_type) ? request()->user_type : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
         $oAuthAdminList = DB::table('user_in_out_statics');
 
 //        $sTmp = 'DESC';
@@ -632,9 +647,23 @@ class UserController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name= isset(request()->merchant_name) ? request()->merchant_name : '';
+        $username= isset(request()->username) ? request()->username : '';
+        $group= isset(request()->group) ? request()->group : '';
+        $status= isset(request()->status) ? request()->status : '';
+        $user_level= isset(request()->user_level) ? request()->user_level : '';
+        $select_type_amount= isset(request()->select_type_amount) ? request()->select_type_amount : '';
+        $min= isset(request()->min) ? request()->min : '';
+        $max= isset(request()->max) ? request()->max : '';
+        $beginDate= isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate= isset(request()->endDate) ? request()->endDate : '';
+        $online_status= isset(request()->online_status) ? request()->online_status : '';
+        $select_operate_type= isset(request()->select_operate_type) ? request()->select_operate_type : '';
+        $days= isset(request()->days) ? request()->days : '';
+
+
         $oAuthAdminList = DB::table('user_user');
 
 //        $sTmp = 'DESC';
@@ -736,9 +765,11 @@ class UserController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $select_username_type = isset(request()->select_username_type) ? request()->select_username_type : '';
+        $username = isset(request()->username) ? request()->username : '';
+
         $oAuthAdminList = DB::table('user_monitor');
 
 //        $sTmp = 'DESC';
@@ -832,9 +863,17 @@ class UserController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $type = isset(request()->type) ? request()->type : '';
+        $status = isset(request()->status) ? request()->status : '';
+        $username = isset(request()->username) ? request()->username : '';
+        $select_user_type = isset(request()->select_user_type) ? request()->select_user_type : '';
+        $username2 = isset(request()->username2) ? request()->username2 : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
+
         $oAuthAdminList = DB::table('user_safety_audit');
 
 //        $sTmp = 'DESC';
@@ -934,9 +973,16 @@ class UserController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $status=isset(request()->status)?request()->status:'';
+        $type=isset(request()->type)?request()->type:'';
+        $keywords=isset(request()->keywords)?request()->keywords:'';
+        $realname=isset(request()->realname)?request()->realname:'';
+        $min=isset(request()->min)?request()->min:'';
+        $max=isset(request()->max)?request()->max:'';
+        $is_black=isset(request()->is_black)?request()->is_black:'';
+
+
         $oAuthAdminList = DB::table('user_bankcard');
 
 //        $sTmp = 'DESC';
@@ -1207,9 +1253,12 @@ class UserController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $agent_name = isset(request()->agent_name) ? request()->agent_name : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
         $oAuthAdminList = DB::table('user_validuser');
 
 //        $sTmp = 'DESC';

@@ -82,8 +82,50 @@ class LogController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+
+        $type = isset(request()->type) ? request()->type : '';
+
+        $sub_account = isset(request()->sub_account) ? request()->sub_account : '';
+
+        $ip = isset(request()->ip) ? request()->ip : '';
+
+        $cookies = isset(request()->cookies) ? request()->cookies : '';
+
+        $keywords = isset(request()->keywords) ? request()->keywords : '';
+
         $oAuthAdminList = DB::table('log_admin');
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', $merchant_name);
+        }
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        }
+        if ($endDate !== '') {
+            $oAuthAdminList->where('created_at', '<=', $endDate);
+        }
+        if ($type !== '') {
+            $oAuthAdminList->where('type', $type);
+        }
+        if ($sub_account !== '') {
+            $oAuthAdminList->where('sub_account', 'like', '%' . $sub_account . '%');
+        }
+        if ($ip !== '') {
+            $oAuthAdminList->where('ip', $ip);
+        }
+        if ($cookies !== '') {
+            $oAuthAdminList->where('cookies', $cookies);
+        }
+        if ($keywords !== '') {
+            $oAuthAdminList->where('log_content', $keywords);
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -114,7 +156,8 @@ class LogController extends Controller
             $aTmp['ip'] = $oAuthAdmin->ip;
             $aTmp['cookies'] = $oAuthAdmin->cookies;
             $aTmp['date'] = $oAuthAdmin->date;
-
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
         }
@@ -295,7 +338,50 @@ class LogController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $type = isset(request()->type) ? request()->type : '';
+        $sub_title = isset(request()->sub_title) ? request()->sub_title : '';
+        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $is_check = isset(request()->is_check) ? request()->is_check : '';
+
         $oAuthAdminList = DB::table('log_login');
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('login_date', '>=', $beginDate);
+        }
+
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('login_date', '<=', $endDate);
+        }
+
+        if ($type !== '') {
+            $oAuthAdminList->where('type', '=', $type);
+        }
+
+        $bFlag = 0;
+        if ($is_check) {
+            $bFlag = 1;
+        }
+
+        $oAuthAdminList->where('is_check', '=', $bFlag);
+
+        if ($sub_title == '用户名') {
+            $oAuthAdminList->where('username', 'like', '%' . $keywords . '%');
+        } elseif ($sub_title == 'IP地址') {
+            $oAuthAdminList->where('ip_address', 'like', '%' . $keywords . '%');
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -327,6 +413,9 @@ class LogController extends Controller
             $aTmp['district'] = $oAuthAdmin->district;
             $aTmp['request_url'] = $oAuthAdmin->request_url;
             $aTmp['login_date'] = $oAuthAdmin->login_date;
+            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+            $aTmp['is_check'] = $oAuthAdmin->is_check;
 
             $aFinal[] = $aTmp;
         }
