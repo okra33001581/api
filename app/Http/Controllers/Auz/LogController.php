@@ -21,57 +21,13 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
+/**
+ * Class Event - 日志相关控制器
+ * @author zebra
+ */
 class LogController extends Controller
 {
 
-// AdminController.php
-
-
-
-    public function getJson()
-    {
-        // 从文件中读取数据到PHP变量
-        $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
-        return $json_string;
-
-    }
-    /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
-     */
     public function logAdminlog()
     {
         $sWhere = [];
@@ -174,44 +130,7 @@ class LogController extends Controller
         return ResultVo::success($res);
     }
 
-    /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     *
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,d
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
-     */
+
     public function logDomainlog()
     {
         $sWhere = [];
@@ -290,43 +209,6 @@ class LogController extends Controller
         return ResultVo::success($res);
     }
 
-    /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
-     */
     public function logLoginlog()
     {
         $sWhere = [];
@@ -431,29 +313,6 @@ class LogController extends Controller
         return ResultVo::success($res);
     }
 
-    /**
-     * @api {get} /api/adminRoleList 取得角色列表
-     * @apiGroup admin
-     * @apiParam {string} null 不需要参数
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       null: 'null',
-     *     }
-     *
-     * @apiSuccessExample 取得角色列表成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
     public function adminRoleList()
     {
         $sWhere = [];
@@ -476,37 +335,6 @@ class LogController extends Controller
     }
 
 
-    /**
-     * @api {post} /api/adminSave  建立新的商户
-     * @apiGroup admin
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
     public function adminSave()
     {
         $data = request()->post();
@@ -572,37 +400,6 @@ class LogController extends Controller
         return ResultVo::success($auth_admin);
     }
 
-    /**
-     * @api {post} /api/adminEdit  編輯管理員信息
-     * @apiGroup admin
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
     public function adminEdit()
     {
         $data = request()->post();
@@ -708,29 +505,6 @@ class LogController extends Controller
         return ResultVo::success();
     }
 
-    /**
-     * @api {post} /api/adminDelete  删除商户
-     * @apiGroup admin
-     * @apiParam {string} id 编号
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       id: '111111',
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
     public function adminDelete()
     {
 //        $id = request()->post('id/d');

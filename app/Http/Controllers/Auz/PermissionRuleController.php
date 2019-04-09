@@ -29,43 +29,6 @@ class PermissionRuleController extends Controller
 {
 // PermissionRuleController.php
 
-    /**
-     * @api {get} /api/permissionRuleIndex 权限列表取得
-     * @apiGroup permissionRule
-     *
-     *
-     * @apiSuccessExample 返回管理员信息列表1
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，管理员登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
-     */
     public function permissionRuleIndex()
     {
 
@@ -96,10 +59,6 @@ class PermissionRuleController extends Controller
         return ResultVo::success($res);
 
     }
-
-
-
-
 
     public function ruleStatusSave($id = null)
     {
@@ -136,37 +95,6 @@ class PermissionRuleController extends Controller
     }
 
 
-    /**
-     * @api {get} /api/permissionRuleTree  取得权限树信息
-     * @apiGroup permissionRule
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
     public function permissionRuleTree()
     {
         $where = [];
@@ -181,38 +109,6 @@ class PermissionRuleController extends Controller
         return ResultVo::success($res);
     }
 
-
-    /**
-     * @api {post} /api/permissionRuleSave  权限信息保存
-     * @apiGroup permissionRule
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
     public function permissionRuleSave()
     {
 
@@ -275,37 +171,7 @@ class PermissionRuleController extends Controller
         return ResultVo::success($auth_permission_rule);
     }
 
-    /**
-     * @api {post} /api/permissionRuleEdit  权限信息编辑
-     * @apiGroup permissionRule
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
+
     public function permissionRuleEdit()
     {
         $data = request()->all();
@@ -387,37 +253,6 @@ class PermissionRuleController extends Controller
     }
 
 
-    /**
-     * @api {post} /api/permissionRuleDelete  权限信息删除
-     * @apiGroup permissionRule
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
     public function permissionRuleDelete()
     {
 //        $id = request()->post('id/d');

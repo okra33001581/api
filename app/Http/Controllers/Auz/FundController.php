@@ -39,22 +39,12 @@ use App\model\RakeBack;
 
 use App\model\PayAccount;
 
-
-
+/**
+ * Class Event - 资金相关控制器
+ * @author zebra
+ */
 class FundController extends Controller
 {
-
-// AdminController.php
-
-
-
-    public function getJson()
-    {
-        // 从文件中读取数据到PHP变量
-        $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
-        return $json_string;
-
-    }
 
     public function cashOrderlist()
     {
@@ -64,7 +54,6 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
         $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
@@ -76,8 +65,6 @@ class FundController extends Controller
         $sort_type = isset(request()->sort_type) ? request()->sort_type : '';
         $min = isset(request()->min) ? request()->min : '';
         $max = isset(request()->max) ? request()->max : '';
-
-
 
         $oAuthAdminList = DB::table('fund_transaction');
 
@@ -114,7 +101,6 @@ class FundController extends Controller
         if ($is_has_child !== '') {
             $oAuthAdminList->where('has_child', '=', $is_has_child);
         }
-
 
 
         if ($sort_type == 'DESC') {
@@ -191,8 +177,6 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_paysetting');
 
 
-
-
         $iStatus = isset(request()->status) ? request()->status : '';
 
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
@@ -205,21 +189,6 @@ class FundController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus !== '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName !== '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
@@ -288,7 +257,6 @@ class FundController extends Controller
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-
 
 
         $iStatus = isset(request()->status) ? request()->status : '';
@@ -392,7 +360,6 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_cashwithdraw');
 
 
-
         if ($merchant_name !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
@@ -437,7 +404,6 @@ class FundController extends Controller
         if ($out_status !== '') {
             $oAuthAdminList->where('status', '=', $out_status);
         }
-
 
 
         if ($out_status !== '') {
@@ -512,49 +478,45 @@ class FundController extends Controller
     }
 
 
-
-
-
     public function paysettingSave()
     {
         $data = request()->post();
 
 
+        $name = isset($data['name']) ? $data['name'] : '';
+        $no_project_flag = isset($data['no_project_flag']) ? $data['no_project_flag'] : '';
+        $no_charge_times = isset($data['no_charge_times']) ? $data['no_charge_times'] : '';
+        $fee = isset($data['fee']) ? $data['fee'] : '';
+        $fee_type = isset($data['fee_type']) ? $data['fee_type'] : '';
 
-        $name=isset($data['name'])?$data['name']:'';
-        $no_project_flag=isset($data['no_project_flag'])?$data['no_project_flag']:'';
-        $no_charge_times=isset($data['no_charge_times'])?$data['no_charge_times']:'';
-        $fee=isset($data['fee'])?$data['fee']:'';
-        $fee_type=isset($data['fee_type'])?$data['fee_type']:'';
+        $withdraw_times = isset($data['withdraw_times']) ? $data['withdraw_times'] : '';
+        $withdraw_max = isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
 
-        $withdraw_times=isset($data['withdraw_times'])?$data['withdraw_times']:'';
-        $withdraw_max=isset($data['withdraw_max'])?$data['withdraw_max']:'';
-
-        $withdraw_min=isset($data['withdraw_min'])?$data['withdraw_min']:'';
-        $web_deposit_benefit=isset($data['web_deposit_benefit'])?$data['web_deposit_benefit']:'';
-        $web_benefit_standard=isset($data['web_benefit_standard'])?$data['web_benefit_standard']:'';
-        $web_benefit_ratio=isset($data['web_benefit_ratio'])?$data['web_benefit_ratio']:'';
-        $web_benefit_max=isset($data['web_benefit_max'])?$data['web_benefit_max']:'';
-        $web_max=isset($data['web_max'])?$data['web_max']:'';
-        $web_min=isset($data['web_min'])?$data['web_min']:'';
-        $web_general_turnover_audit=isset($data['web_general_turnover_audit'])?$data['web_general_turnover_audit']:'';
-        $web_general_turnover_audit_flag=isset($data['web_general_turnover_audit_flag'])?$data['web_general_turnover_audit_flag']:'';
-        $web_turnover_audit=isset($data['web_turnover_audit'])?$data['web_turnover_audit']:'';
-        $web_turnover_audit_flag=isset($data['web_turnover_audit_flag'])?$data['web_turnover_audit_flag']:'';
-        $web_turnover_quota=isset($data['web_turnover_quota'])?$data['web_turnover_quota']:'';
-        $web_turnover_managefee_ratio=isset($data['web_turnover_managefee_ratio'])?$data['web_turnover_managefee_ratio']:'';
-        $company_deposit_benefit=isset($data['company_deposit_benefit'])?$data['company_deposit_benefit']:'';
-        $company_benefit_standard=isset($data['company_benefit_standard'])?$data['company_benefit_standard']:'';
-        $company_benefit_ratio=isset($data['company_benefit_ratio'])?$data['company_benefit_ratio']:'';
-        $company_benefit_max=isset($data['company_benefit_max'])?$data['company_benefit_max']:'';
-        $company_max=isset($data['company_max'])?$data['company_max']:'';
-        $company_min=isset($data['company_min'])?$data['company_min']:'';
-        $company_general_turnover_audit=isset($data['company_general_turnover_audit'])?$data['company_general_turnover_audit']:'';
-        $company_general_turnover_audit_flag=isset($data['company_general_turnover_audit_flag'])?$data['company_general_turnover_audit_flag']:'';
-        $company_turnover_audit=isset($data['company_turnover_audit'])?$data['company_turnover_audit']:'';
-        $company_turnover_audit_flag=isset($data['company_turnover_audit_flag'])?$data['company_turnover_audit_flag']:'';
-        $company_turnover_quota=isset($data['company_turnover_quota'])?$data['company_turnover_quota']:'';
-        $company_turnover_managefee_ratio=isset($data['company_turnover_managefee_ratio'])?$data['company_turnover_managefee_ratio']:'';
+        $withdraw_min = isset($data['withdraw_min']) ? $data['withdraw_min'] : '';
+        $web_deposit_benefit = isset($data['web_deposit_benefit']) ? $data['web_deposit_benefit'] : '';
+        $web_benefit_standard = isset($data['web_benefit_standard']) ? $data['web_benefit_standard'] : '';
+        $web_benefit_ratio = isset($data['web_benefit_ratio']) ? $data['web_benefit_ratio'] : '';
+        $web_benefit_max = isset($data['web_benefit_max']) ? $data['web_benefit_max'] : '';
+        $web_max = isset($data['web_max']) ? $data['web_max'] : '';
+        $web_min = isset($data['web_min']) ? $data['web_min'] : '';
+        $web_general_turnover_audit = isset($data['web_general_turnover_audit']) ? $data['web_general_turnover_audit'] : '';
+        $web_general_turnover_audit_flag = isset($data['web_general_turnover_audit_flag']) ? $data['web_general_turnover_audit_flag'] : '';
+        $web_turnover_audit = isset($data['web_turnover_audit']) ? $data['web_turnover_audit'] : '';
+        $web_turnover_audit_flag = isset($data['web_turnover_audit_flag']) ? $data['web_turnover_audit_flag'] : '';
+        $web_turnover_quota = isset($data['web_turnover_quota']) ? $data['web_turnover_quota'] : '';
+        $web_turnover_managefee_ratio = isset($data['web_turnover_managefee_ratio']) ? $data['web_turnover_managefee_ratio'] : '';
+        $company_deposit_benefit = isset($data['company_deposit_benefit']) ? $data['company_deposit_benefit'] : '';
+        $company_benefit_standard = isset($data['company_benefit_standard']) ? $data['company_benefit_standard'] : '';
+        $company_benefit_ratio = isset($data['company_benefit_ratio']) ? $data['company_benefit_ratio'] : '';
+        $company_benefit_max = isset($data['company_benefit_max']) ? $data['company_benefit_max'] : '';
+        $company_max = isset($data['company_max']) ? $data['company_max'] : '';
+        $company_min = isset($data['company_min']) ? $data['company_min'] : '';
+        $company_general_turnover_audit = isset($data['company_general_turnover_audit']) ? $data['company_general_turnover_audit'] : '';
+        $company_general_turnover_audit_flag = isset($data['company_general_turnover_audit_flag']) ? $data['company_general_turnover_audit_flag'] : '';
+        $company_turnover_audit = isset($data['company_turnover_audit']) ? $data['company_turnover_audit'] : '';
+        $company_turnover_audit_flag = isset($data['company_turnover_audit_flag']) ? $data['company_turnover_audit_flag'] : '';
+        $company_turnover_quota = isset($data['company_turnover_quota']) ? $data['company_turnover_quota'] : '';
+        $company_turnover_managefee_ratio = isset($data['company_turnover_managefee_ratio']) ? $data['company_turnover_managefee_ratio'] : '';
 
 
         $oQrCode = new PaySetting();
@@ -563,42 +525,40 @@ class FundController extends Controller
 //        $oQrCode->id = $id;
 
 
+        $oQrCode->name = $name;
+        $oQrCode->no_project_flag = $no_project_flag;
+        $oQrCode->no_charge_times = $no_charge_times;
+        $oQrCode->fee = $fee;
+        $oQrCode->fee_type = $fee_type;
 
+        $oQrCode->withdraw_times = $withdraw_times;
+        $oQrCode->withdraw_max = $withdraw_max;
 
-        $oQrCode->name=$name;
-        $oQrCode->no_project_flag=$no_project_flag;
-        $oQrCode->no_charge_times=$no_charge_times;
-        $oQrCode->fee=$fee;
-        $oQrCode->fee_type=$fee_type;
-
-        $oQrCode->withdraw_times=$withdraw_times;
-        $oQrCode->withdraw_max=$withdraw_max;
-
-        $oQrCode->withdraw_min=$withdraw_min;
-        $oQrCode->web_deposit_benefit=$web_deposit_benefit;
-        $oQrCode->web_benefit_standard=$web_benefit_standard;
-        $oQrCode->web_benefit_ratio=$web_benefit_ratio;
-        $oQrCode->web_benefit_max=$web_benefit_max;
-        $oQrCode->web_max=$web_max;
-        $oQrCode->web_min=$web_min;
-        $oQrCode->web_general_turnover_audit=$web_general_turnover_audit;
-        $oQrCode->web_general_turnover_audit_flag=$web_general_turnover_audit_flag;
-        $oQrCode->web_turnover_audit=$web_turnover_audit;
-        $oQrCode->web_turnover_audit_flag=$web_turnover_audit_flag;
-        $oQrCode->web_turnover_quota=$web_turnover_quota;
-        $oQrCode->web_turnover_managefee_ratio=$web_turnover_managefee_ratio;
-        $oQrCode->company_deposit_benefit=$company_deposit_benefit;
-        $oQrCode->company_benefit_standard=$company_benefit_standard;
-        $oQrCode->company_benefit_ratio=$company_benefit_ratio;
-        $oQrCode->company_benefit_max=$company_benefit_max;
-        $oQrCode->company_max=$company_max;
-        $oQrCode->company_min=$company_min;
-        $oQrCode->company_general_turnover_audit=$company_general_turnover_audit;
-        $oQrCode->company_general_turnover_audit_flag=$company_general_turnover_audit_flag;
-        $oQrCode->company_turnover_audit=$company_turnover_audit;
-        $oQrCode->company_turnover_audit_flag=$company_turnover_audit_flag;
-        $oQrCode->company_turnover_quota=$company_turnover_quota;
-        $oQrCode->company_turnover_managefee_ratio=$company_turnover_managefee_ratio;
+        $oQrCode->withdraw_min = $withdraw_min;
+        $oQrCode->web_deposit_benefit = $web_deposit_benefit;
+        $oQrCode->web_benefit_standard = $web_benefit_standard;
+        $oQrCode->web_benefit_ratio = $web_benefit_ratio;
+        $oQrCode->web_benefit_max = $web_benefit_max;
+        $oQrCode->web_max = $web_max;
+        $oQrCode->web_min = $web_min;
+        $oQrCode->web_general_turnover_audit = $web_general_turnover_audit;
+        $oQrCode->web_general_turnover_audit_flag = $web_general_turnover_audit_flag;
+        $oQrCode->web_turnover_audit = $web_turnover_audit;
+        $oQrCode->web_turnover_audit_flag = $web_turnover_audit_flag;
+        $oQrCode->web_turnover_quota = $web_turnover_quota;
+        $oQrCode->web_turnover_managefee_ratio = $web_turnover_managefee_ratio;
+        $oQrCode->company_deposit_benefit = $company_deposit_benefit;
+        $oQrCode->company_benefit_standard = $company_benefit_standard;
+        $oQrCode->company_benefit_ratio = $company_benefit_ratio;
+        $oQrCode->company_benefit_max = $company_benefit_max;
+        $oQrCode->company_max = $company_max;
+        $oQrCode->company_min = $company_min;
+        $oQrCode->company_general_turnover_audit = $company_general_turnover_audit;
+        $oQrCode->company_general_turnover_audit_flag = $company_general_turnover_audit_flag;
+        $oQrCode->company_turnover_audit = $company_turnover_audit;
+        $oQrCode->company_turnover_audit_flag = $company_turnover_audit_flag;
+        $oQrCode->company_turnover_quota = $company_turnover_quota;
+        $oQrCode->company_turnover_managefee_ratio = $company_turnover_managefee_ratio;
 
 
         $iRet = $oQrCode->save();
@@ -609,11 +569,6 @@ class FundController extends Controller
 
         return response()->json($aFinal);
     }
-
-
-
-
-
 
 
     public function depositAccountSave()
@@ -621,20 +576,19 @@ class FundController extends Controller
         $data = request()->post();
 
 
-
-        $user_levels=isset($data['user_levels'])?$data['user_levels']:'';
-        $pay_type=isset($data['pay_type'])?$data['pay_type']:'';
-        $bank=isset($data['bank'])?$data['bank']:'';
-        $account=isset($data['account'])?$data['account']:'';
-        $min=isset($data['min'])?$data['min']:'';
-        $max=isset($data['max'])?$data['max']:'';
-        $account_alias=isset($data['account_alias'])?$data['account_alias']:'';
-        $display_flag=isset($data['display_flag'])?$data['display_flag']:'';
-        $qr_code=isset($data['qr_code'])?$data['qr_code']:'';
-        $postscript_flag=isset($data['postscript_flag'])?$data['postscript_flag']:'';
-        $receiver=isset($data['receiver'])?$data['receiver']:'';
-        $alert=isset($data['alert'])?$data['alert']:'';
-        $order_flag=isset($data['order_flag'])?$data['order_flag']:'';
+        $user_levels = isset($data['user_levels']) ? $data['user_levels'] : '';
+        $pay_type = isset($data['pay_type']) ? $data['pay_type'] : '';
+        $bank = isset($data['bank']) ? $data['bank'] : '';
+        $account = isset($data['account']) ? $data['account'] : '';
+        $min = isset($data['min']) ? $data['min'] : '';
+        $max = isset($data['max']) ? $data['max'] : '';
+        $account_alias = isset($data['account_alias']) ? $data['account_alias'] : '';
+        $display_flag = isset($data['display_flag']) ? $data['display_flag'] : '';
+        $qr_code = isset($data['qr_code']) ? $data['qr_code'] : '';
+        $postscript_flag = isset($data['postscript_flag']) ? $data['postscript_flag'] : '';
+        $receiver = isset($data['receiver']) ? $data['receiver'] : '';
+        $alert = isset($data['alert']) ? $data['alert'] : '';
+        $order_flag = isset($data['order_flag']) ? $data['order_flag'] : '';
 
         $oQrCode = new DepositAccount();
 
@@ -642,19 +596,19 @@ class FundController extends Controller
 //        $oQrCode->id = $id;
 
 
-        $oQrCode->user_levels=$user_levels;
-        $oQrCode->pay_type=$pay_type;
-        $oQrCode->bank=$bank;
-        $oQrCode->account=$account;
-        $oQrCode->min=$min;
-        $oQrCode->max=$max;
-        $oQrCode->account_alias=$account_alias;
-        $oQrCode->display_flag=$display_flag;
-        $oQrCode->qr_code=$qr_code;
-        $oQrCode->postscript_flag=$postscript_flag;
-        $oQrCode->receiver=$receiver;
-        $oQrCode->alert=$alert;
-        $oQrCode->order_flag=$order_flag;
+        $oQrCode->user_levels = $user_levels;
+        $oQrCode->pay_type = $pay_type;
+        $oQrCode->bank = $bank;
+        $oQrCode->account = $account;
+        $oQrCode->min = $min;
+        $oQrCode->max = $max;
+        $oQrCode->account_alias = $account_alias;
+        $oQrCode->display_flag = $display_flag;
+        $oQrCode->qr_code = $qr_code;
+        $oQrCode->postscript_flag = $postscript_flag;
+        $oQrCode->receiver = $receiver;
+        $oQrCode->alert = $alert;
+        $oQrCode->order_flag = $order_flag;
 
         $iRet = $oQrCode->save();
 
@@ -666,30 +620,28 @@ class FundController extends Controller
     }
 
 
-
-
     public function thirdAccountSave()
     {
         $data = request()->post();
 
 
-        $layers=isset($data['layers'])?$data['layers']:'';
-        $third_company=isset($data['third_company'])?$data['third_company']:'';
-        $pay_type=isset($data['pay_type'])?$data['pay_type']:'';
-        $mobile_display_flag=isset($data['mobile_display_flag'])?$data['mobile_display_flag']:'';
-        $decimal_flag=isset($data['decimal_flag'])?$data['decimal_flag']:'';
-        $deposit_type=isset($data['deposit_type'])?$data['deposit_type']:'';
-        $min=isset($data['min'])?$data['min']:'';
-        $max=isset($data['max'])?$data['max']:'';
-        $quota=isset($data['quota'])?$data['quota']:'';
-        $query_flag=isset($data['query_flag'])?$data['query_flag']:'';
-        $merchant_code=isset($data['merchant_code'])?$data['merchant_code']:'';
-        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
-        $private_key=isset($data['private_key'])?$data['private_key']:'';
-        $public_key=isset($data['public_key'])?$data['public_key']:'';
-        $pay_domain=isset($data['pay_domain'])?$data['pay_domain']:'';
-        $gateway=isset($data['gateway'])?$data['gateway']:'';
-        $query_url=isset($data['query_url'])?$data['query_url']:'';
+        $layers = isset($data['layers']) ? $data['layers'] : '';
+        $third_company = isset($data['third_company']) ? $data['third_company'] : '';
+        $pay_type = isset($data['pay_type']) ? $data['pay_type'] : '';
+        $mobile_display_flag = isset($data['mobile_display_flag']) ? $data['mobile_display_flag'] : '';
+        $decimal_flag = isset($data['decimal_flag']) ? $data['decimal_flag'] : '';
+        $deposit_type = isset($data['deposit_type']) ? $data['deposit_type'] : '';
+        $min = isset($data['min']) ? $data['min'] : '';
+        $max = isset($data['max']) ? $data['max'] : '';
+        $quota = isset($data['quota']) ? $data['quota'] : '';
+        $query_flag = isset($data['query_flag']) ? $data['query_flag'] : '';
+        $merchant_code = isset($data['merchant_code']) ? $data['merchant_code'] : '';
+        $merchant_id = isset($data['merchant_id']) ? $data['merchant_id'] : '';
+        $private_key = isset($data['private_key']) ? $data['private_key'] : '';
+        $public_key = isset($data['public_key']) ? $data['public_key'] : '';
+        $pay_domain = isset($data['pay_domain']) ? $data['pay_domain'] : '';
+        $gateway = isset($data['gateway']) ? $data['gateway'] : '';
+        $query_url = isset($data['query_url']) ? $data['query_url'] : '';
 
         $oQrCode = new ThirdAccount();
 
@@ -697,23 +649,23 @@ class FundController extends Controller
 //        $oQrCode->id = $id;
 
 
-        $oQrCode->layers=$layers;
-        $oQrCode->third_company=$third_company;
-        $oQrCode->pay_type=$pay_type;
-        $oQrCode->mobile_display_flag=$mobile_display_flag;
-        $oQrCode->decimal_flag=$decimal_flag;
-        $oQrCode->deposit_type=$deposit_type;
-        $oQrCode->min=$min;
-        $oQrCode->max=$max;
-        $oQrCode->quota=$quota;
-        $oQrCode->query_flag=$query_flag;
-        $oQrCode->merchant_code=$merchant_code;
-        $oQrCode->merchant_id=$merchant_id;
-        $oQrCode->private_key=$private_key;
-        $oQrCode->public_key=$public_key;
-        $oQrCode->pay_domain=$pay_domain;
-        $oQrCode->gateway=$gateway;
-        $oQrCode->query_url=$query_url;
+        $oQrCode->layers = $layers;
+        $oQrCode->third_company = $third_company;
+        $oQrCode->pay_type = $pay_type;
+        $oQrCode->mobile_display_flag = $mobile_display_flag;
+        $oQrCode->decimal_flag = $decimal_flag;
+        $oQrCode->deposit_type = $deposit_type;
+        $oQrCode->min = $min;
+        $oQrCode->max = $max;
+        $oQrCode->quota = $quota;
+        $oQrCode->query_flag = $query_flag;
+        $oQrCode->merchant_code = $merchant_code;
+        $oQrCode->merchant_id = $merchant_id;
+        $oQrCode->private_key = $private_key;
+        $oQrCode->public_key = $public_key;
+        $oQrCode->pay_domain = $pay_domain;
+        $oQrCode->gateway = $gateway;
+        $oQrCode->query_url = $query_url;
 
         $iRet = $oQrCode->save();
 
@@ -749,8 +701,6 @@ class FundController extends Controller
 
 
         $oAuthAdminList = DB::table('fund_companymoney');
-
-
 
 
         if ($merchant_name !== '') {
@@ -797,7 +747,6 @@ class FundController extends Controller
 //        if ($out_status !== '') {
 //            $oAuthAdminList->where('status', '=', $out_status);
 //        }
-
 
 
         if ($status !== '') {
@@ -888,8 +837,6 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_fastpaymoney');
 
 
-
-
         if ($merchant_name !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
@@ -936,7 +883,6 @@ class FundController extends Controller
         }
 
 
-
         if ($pay_type !== '') {
             $oAuthAdminList->where('pay_type', '=', $pay_type);
         }
@@ -944,7 +890,6 @@ class FundController extends Controller
         if ($in_account !== '') {
             $oAuthAdminList->where('receive_account', '=', $in_account);
         }
-
 
 
         switch ($select_search_type) {
@@ -1148,7 +1093,6 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_manualpayconfirm');
 
 
-
         if ($merchant_name !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
@@ -1296,10 +1240,6 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_deposit_account');
 
 
-
-
-
-
         $iStatus = isset(request()->status) ? request()->status : '';
 
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
@@ -1395,7 +1335,6 @@ class FundController extends Controller
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
 
-
         if ($sMerchantName != '') {
             $oAuthAdminList->where('merchant_name', $sMerchantName);
         }
@@ -1476,10 +1415,7 @@ class FundController extends Controller
         $status = isset(request()->status) ? request()->status : '';
 
 
-
         $oAuthAdminList = DB::table('fund_transferorder');
-
-
 
 
         if ($merchant_name !== '') {
@@ -1926,8 +1862,6 @@ class FundController extends Controller
     }
 
 
-
-
     public function payGroupStatusSave($id = null)
     {
 
@@ -1961,8 +1895,6 @@ class FundController extends Controller
 
         return response()->json($aFinal);
     }
-
-
 
 
     public function cashwithdrawStatusSave($id = null)
@@ -2022,6 +1954,7 @@ class FundController extends Controller
         return ResultVo::success();
 
     }
+
     public function payaccountDelete()
     {
 //        $id = request()->post('id/d');
@@ -2070,9 +2003,6 @@ class FundController extends Controller
         return ResultVo::success();
 
     }
-
-
-
 
 
     public function userbetscheckStatusSave($id = null)
@@ -2249,7 +2179,6 @@ class FundController extends Controller
     }
 
 
-
     public function fastpaymoneyStatusSave($id = null)
     {
 
@@ -2307,7 +2236,7 @@ class FundController extends Controller
 
         $aTmp = explode(",", $id);
 
-        if ($bSucc = RakeBack::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+        if ($bSucc = RakeBack::whereIn('id', $aTmp)->update(['status' => $iFlag]) > 0) {
 
         }
 
@@ -2391,6 +2320,7 @@ class FundController extends Controller
 
         return response()->json($aFinal);
     }
+
     public function paytypeAliasSave($id = null)
     {
 
@@ -2439,7 +2369,6 @@ class FundController extends Controller
 
         return response()->json($aFinal);
     }
-
 
 
     public function payAccountStatusSave($id = null)
