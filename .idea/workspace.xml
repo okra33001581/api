@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="23" selection-start-line="23" selection-end-line="26" selection-end-column="3" />
+            <state relative-caret-position="452">
+              <caret line="158" column="9" lean-forward="true" selection-start-line="158" selection-start-column="9" selection-end-line="158" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -53,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="332">
+              <caret line="41" column="48" lean-forward="true" selection-start-line="41" selection-start-column="48" selection-end-line="41" selection-end-column="48" />
               <folding>
                 <element signature="e#40#61#0#PHP" expanded="true" />
               </folding>
@@ -71,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="1159" column="28" lean-forward="true" selection-start-line="1159" selection-start-column="28" selection-end-line="1159" selection-end-column="28" />
+            <state relative-caret-position="442">
+              <caret line="571" lean-forward="true" selection-start-line="571" selection-end-line="571" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -95,11 +95,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+            <state relative-caret-position="292">
+              <caret line="293" lean-forward="true" selection-start-line="293" selection-end-line="293" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -110,8 +110,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="71" column="33" lean-forward="true" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
+            <state relative-caret-position="392">
+              <caret line="1124" column="54" lean-forward="true" selection-start-line="1124" selection-start-column="54" selection-end-line="1124" selection-end-column="54" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -171,8 +171,8 @@
       <find>lower_register_column</find>
       <find>withdr</find>
       <find>pic2</find>
-      <find>ddddd</find>
       <find>sitecon</find>
+      <find>ddddd</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -239,12 +239,12 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/AdminController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" />
       </list>
     </option>
   </component>
@@ -494,21 +494,7 @@
       <workItem from="1553826223790" duration="33657000" />
       <workItem from="1554171861882" duration="15799000" />
       <workItem from="1554195910577" duration="25693000" />
-      <workItem from="1554689918132" duration="41242000" />
-    </task>
-    <task id="LOCAL-00015" summary="update">
-      <created>1552628824528</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1552628824528</updated>
-    </task>
-    <task id="LOCAL-00016" summary="update">
-      <created>1552632400936</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1552632400937</updated>
+      <workItem from="1554689918132" duration="46666000" />
     </task>
     <task id="LOCAL-00017" summary="update">
       <created>1552633977392</created>
@@ -839,11 +825,25 @@
       <option name="project" value="LOCAL" />
       <updated>1554782219951</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="update">
+      <created>1554797661204</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1554797661204</updated>
+    </task>
+    <task id="LOCAL-00065" summary="update">
+      <created>1554801767197</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1554801767204</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="316354000" />
+    <option name="totallyTimeSpent" value="321778000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="984" extended-state="6" />
@@ -1210,23 +1210,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="23" selection-start-line="23" selection-end-line="26" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="e#40#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -1237,30 +1220,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/RoleController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="23" selection-start-line="23" selection-end-line="26" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="71" column="33" lean-forward="true" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1286,8 +1249,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="1159" column="28" lean-forward="true" selection-start-line="1159" selection-start-column="28" selection-end-line="1159" selection-end-column="28" />
+        <state relative-caret-position="442">
+          <caret line="571" lean-forward="true" selection-start-line="571" selection-end-line="571" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="1124" column="54" lean-forward="true" selection-start-line="1124" selection-start-column="54" selection-end-line="1124" selection-end-column="54" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="41" column="48" lean-forward="true" selection-start-line="41" selection-start-column="48" selection-end-line="41" selection-end-column="48" />
+          <folding>
+            <element signature="e#40#61#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="158" column="9" lean-forward="true" selection-start-line="158" selection-start-column="9" selection-end-line="158" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="293" lean-forward="true" selection-start-line="293" selection-end-line="293" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>

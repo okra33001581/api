@@ -216,10 +216,95 @@ class ReportController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $way_type = isset(request()->way_type) ? request()->way_type : '';
+        $lottery = isset(request()->lottery) ? request()->lottery : '';
+        $way = isset(request()->way) ? request()->way : '';
+        $prize_status = isset(request()->prize_status) ? request()->prize_status : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $sort = isset(request()->sort) ? request()->sort : '';
+        $prize_type = isset(request()->prize_type) ? request()->prize_type : '';
+        $min = isset(request()->min) ? request()->min : '';
+        $max = isset(request()->max) ? request()->max : '';
+        $select_info_type = isset(request()->select_info_type) ? request()->select_info_type : '';
+        $issue = isset(request()->issue) ? request()->issue : '';
+
+
         $oAuthAdminList = DB::table('report_pgame_playlist');
+
+
+        if ($way_type !== '') {
+            $oAuthAdminList->where('way_type', $way_type);
+        }
+
+
+        if ($lottery !== '') {
+            $oAuthAdminList->where('lottery', $lottery);
+        }
+
+
+        if ($way !== '') {
+            $oAuthAdminList->where('way', $way);
+        }
+
+
+
+        if ($prize_status !== '') {
+            $oAuthAdminList->where('prize_status', $prize_status);
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('date', '>=', $endDate);
+        }
+
+        if ($sort == '逆序') {
+            $oAuthAdminList->orderBy('id', 'DESC');
+        }
+
+        if ($sort == '顺序') {
+            $oAuthAdminList->orderBy('id', 'asc');
+        }
+
+        if ($prize_type == '奖金') {
+            if ($min !== '') {
+                $oAuthAdminList->where('prize_amount', '>=', $min);
+            }
+
+            if ($max !== '') {
+                $oAuthAdminList->where('prize_amount', '>=', $max);
+            }
+        }
+
+        if ($prize_type == '倍数') {
+            if ($min !== '') {
+                $oAuthAdminList->where('multiple', '>=', $min);
+            }
+
+            if ($max !== '') {
+                $oAuthAdminList->where('multiple', '>=', $max);
+            }
+        }
+
+
+        if ($select_info_type == '用户名') {
+            if ($issue !== '') {
+                $oAuthAdminList->where('username', 'like', '%' . $issue . '%');
+            }
+
+        }
+
+        if ($select_info_type == '注单') {
+            if ($issue !== '') {
+                $oAuthAdminList->where('project', 'like', '%' . $issue . '%');
+            }
+
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
