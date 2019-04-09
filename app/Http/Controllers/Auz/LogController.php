@@ -143,8 +143,6 @@ class LogController extends Controller
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
 
-
-
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
         $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
