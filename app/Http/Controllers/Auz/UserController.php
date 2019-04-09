@@ -319,6 +319,63 @@ class UserController extends Controller
 
         $oAuthAdminList = DB::table('user_user');
 
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+      if ($user_type !== '') {
+          $oAuthAdminList->where('account_type', '=', $user_type);
+      }
+
+       if ($username !== '') {
+           $oAuthAdminList->where('username', 'like', '%' . $username . '%');
+       }
+
+
+        if ($group !== '') {
+            $oAuthAdminList->where('group', '=', $group);
+        }
+
+
+        if ($user_level !== '') {
+            $oAuthAdminList->where('user_level', '=', $user_level);
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $endDate);
+        }
+
+         if ($days !== '') {
+             $dtTmp = date('Y-m-d', strtotime('- '.$days.' day'));
+         }
+
+        switch ($operate_type) {
+            case '小于':
+                $oAuthAdminList->where('last_login_date', '<=', $dtTmp);
+                break;
+            case '等于':
+                $oAuthAdminList->where('last_login_date', '=', $dtTmp);
+                break;
+            case '大于':
+                $oAuthAdminList->where('last_login_date', '>=', $dtTmp);
+                break;
+        }
+
+        if ($group == '用户名') {
+            if ($username !== '') {
+                $oAuthAdminList->where('username', 'like', '%' . $username . '%');
+            }
+        } elseif ($group == '所属上级') {
+            if ($username !== '') {
+                $oAuthAdminList->where('top_level', 'like', '%' . $username . '%');
+            }
+
+        }
+
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
 //            $sTmp = 'ASC';
@@ -588,6 +645,43 @@ class UserController extends Controller
 
         $oAuthAdminList = DB::table('user_in_out_statics');
 
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($type !== '') {
+            $oAuthAdminList->where('method', '=', $type);
+        }
+
+
+        if ($select_user_type == '用户名') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('username', 'like', '%' . $keywords . '%');
+            }
+        } elseif ($select_user_type == '所属上级') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('top_agent', 'like', '%' . $keywords . '%');
+            }
+
+        }
+
+
+        if ($user_type !== '') {
+            $oAuthAdminList->where('user_type', '=', $user_type);
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('login_date', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('login_date', '>=', $endDate);
+        }
+
+
+
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
 //            $sTmp = 'ASC';
@@ -665,6 +759,131 @@ class UserController extends Controller
 
 
         $oAuthAdminList = DB::table('user_user');
+
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+
+        if ($group == '用户名') {
+            if ($username !== '') {
+                $oAuthAdminList->where('username', 'like', '%' . $username . '%');
+            }
+        } elseif ($group == '所属上级') {
+            if ($username !== '') {
+                $oAuthAdminList->where('top_level', 'like', '%' . $username . '%');
+            }
+
+        }
+
+        if ($group !== '') {
+            $oAuthAdminList->where('group', '=', $group);
+        }
+
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', '=', $status);
+        }
+
+        if ($user_level !== '') {
+            $oAuthAdminList->where('user_level', '=', $user_level);
+        }
+
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $endDate);
+        }
+
+
+        if ($online_status !== '') {
+            $oAuthAdminList->where('online_status', '=', $online_status);
+        }
+
+
+        if ($select_operate_type !== '') {
+            $oAuthAdminList->where('last_login_date', '=', $select_operate_type);
+        }
+
+
+        if ($days !== '') {
+            $dtTmp = date('Y-m-d', strtotime('- '.$days.' day'));
+        }
+
+        switch ($select_operate_type) {
+            case '小于':
+                $oAuthAdminList->where('last_login_date', '<=', $dtTmp);
+                break;
+            case '等于':
+                $oAuthAdminList->where('last_login_date', '=', $dtTmp);
+                break;
+            case '大于':
+                $oAuthAdminList->where('last_login_date', '>=', $dtTmp);
+                break;
+        }
+
+//
+//        if ($confirm_beginDate !== '') {
+//            $oAuthAdminList->where('confirm_date', '>=', $confirm_beginDate);
+//        }
+//
+//        if ($confirm_endDate !== '') {
+//            $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
+//        }
+//
+//        if ($min !== '') {
+//            $oAuthAdminList->where('final_out_amount', '>=', $min);
+//        }
+//
+//        if ($max !== '') {
+//            $oAuthAdminList->where('final_out_amount', '>=', $max);
+//        }
+//
+//
+//        if ($refresh_frequency !== '') {
+//            $oAuthAdminList->where('refresh_frequency', '=', $refresh_frequency);
+//        }
+//
+////
+////        if ($out_type !== '') {
+////            $oAuthAdminList->where('out_type', '=', $out_type);
+////        }
+//
+//
+//        if ($status !== '') {
+//            $oAuthAdminList->where('status', '=', $status);
+//        }
+//
+//
+//
+//        if ($pay_type !== '') {
+//            $oAuthAdminList->where('pay_type', '=', $pay_type);
+//        }
+//
+//        if ($in_account !== '') {
+//            $oAuthAdminList->where('receive_account', '=', $in_account);
+//        }
+//
+//
+//
+//        switch ($operate_type) {
+//            case '会员账号':
+//                $oAuthAdminList->where('account', '=', $account);
+//                break;
+//            case '提交人':
+//                $oAuthAdminList->where('submitor', '=', $account);
+//                break;
+//            case '操作人':
+//                $oAuthAdminList->where('auditor', '=', $account);
+//                break;
+//
+//        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -876,6 +1095,44 @@ class UserController extends Controller
 
         $oAuthAdminList = DB::table('user_safety_audit');
 
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($type !== '') {
+            $oAuthAdminList->where('type', '=', $type);
+        }
+
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', '=', $status);
+        }
+
+
+        if ($username !== '') {
+            $oAuthAdminList->where('account', '=', $username);
+        }
+
+        if ($select_user_type == '提交人') {
+            if ($username2 !== '') {
+                $oAuthAdminList->where('requestor', '=', $username2);
+            }
+        } elseif ($select_user_type == '审核人') {
+            if ($username2 !== '') {
+                $oAuthAdminList->where('auditor', '=', $username2);
+            }
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('submit_date', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('submit_date', '>=', $endDate);
+        }
+
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
 //            $sTmp = 'ASC';
@@ -984,6 +1241,47 @@ class UserController extends Controller
 
 
         $oAuthAdminList = DB::table('user_bankcard');
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', '=', $status);
+        }
+
+
+        if ($type == '卡号') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('account', 'like', '%' . $keywords . '%');
+            }
+        } elseif ($type == '用户名') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('card_number', 'like', '%' . $keywords . '%');
+            }
+
+        }
+
+
+        if ($realname !== '') {
+            $oAuthAdminList->where('real_name', 'like', '%' . $realname . '%');
+        }
+
+        if ($min !== '') {
+            $oAuthAdminList->where('total_amount', '>=', $min);
+        }
+
+        if ($max !== '') {
+            $oAuthAdminList->where('total_amount', '>=', $max);
+        }
+
+
+        if ($is_black !== '') {
+            $oAuthAdminList->where('is_black', '=', $is_black);
+        }
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -1260,6 +1558,28 @@ class UserController extends Controller
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
         $oAuthAdminList = DB::table('user_validuser');
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+        if ($agent_name !== '') {
+            $oAuthAdminList->where('top_agent', 'like', '%' . $agent_name . '%');
+        }
+
+
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $endDate);
+        }
+
+
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {

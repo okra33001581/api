@@ -64,25 +64,83 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
+        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $is_has_child = isset(request()->is_has_child) ? request()->is_has_child : '';
+        $transaction_type = isset(request()->transaction_type) ? request()->transaction_type : '';
+        $sort_type = isset(request()->sort_type) ? request()->sort_type : '';
+        $min = isset(request()->min) ? request()->min : '';
+        $max = isset(request()->max) ? request()->max : '';
+
+
+
         $oAuthAdminList = DB::table('fund_transaction');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $beginDate);
         }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('date', '>=', $endDate);
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+
+
+        if ($select_search_type == '会员账号') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('account', 'like', '%' . $keywords . '%');
+            }
+        } elseif ($select_search_type == '订单号') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('order_number', 'like', '%' . $keywords . '%');
+            }
+
+        } elseif ($select_search_type == 'IP地址') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('ip_address', 'like', '%' . $keywords . '%');
+            }
+
         }
+
+        if ($is_has_child !== '') {
+            $oAuthAdminList->where('has_child', '=', $is_has_child);
+        }
+
+
+
+        if ($sort_type == 'DESC') {
+            $oAuthAdminList->orderBy('id', 'desc');
+        } elseif ($sort_type == 'ASC') {
+            $oAuthAdminList->orderBy('id', 'asc');
+
+        }
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        }
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $endDate);
+        }
+
+        if ($min !== '') {
+            $oAuthAdminList->where('avaiable_amount', '>=', $min);
+        }
+
+        if ($max !== '') {
+            $oAuthAdminList->where('avaiable_amount', '<=', $max);
+        }
+
+
         $oAuthAdminListCount = $oAuthAdminList->get();
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
@@ -316,10 +374,85 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $request_beginDate = isset(request()->request_beginDate) ? request()->request_beginDate : '';
+        $request_endDate = isset(request()->request_endDate) ? request()->request_endDate : '';
+        $confirm_beginDate = isset(request()->confirm_beginDate) ? request()->confirm_beginDate : '';
+        $confirm_endDate = isset(request()->confirm_endDate) ? request()->confirm_endDate : '';
+        $min = isset(request()->min) ? request()->min : '';
+        $max = isset(request()->max) ? request()->max : '';
+        $refresh_frequency = isset(request()->refresh_frequency) ? request()->refresh_frequency : '';
+        $out_type = isset(request()->out_type) ? request()->out_type : '';
+        $out_status = isset(request()->out_status) ? request()->out_status : '';
+        $order_no = isset(request()->order_no) ? request()->order_no : '';
+        $account = isset(request()->account) ? request()->account : '';
+
         $oAuthAdminList = DB::table('fund_cashwithdraw');
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+
+        if ($request_beginDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $request_beginDate);
+        }
+
+        if ($request_endDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $request_endDate);
+        }
+
+
+        if ($confirm_beginDate !== '') {
+            $oAuthAdminList->where('confirm_date', '>=', $confirm_beginDate);
+        }
+
+        if ($confirm_endDate !== '') {
+            $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
+        }
+
+        if ($min !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $min);
+        }
+
+        if ($max !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $max);
+        }
+
+
+        if ($refresh_frequency !== '') {
+            $oAuthAdminList->where('refresh_frequency', '=', $refresh_frequency);
+        }
+
+
+        if ($out_type !== '') {
+            $oAuthAdminList->where('out_type', '=', $out_type);
+        }
+
+
+        if ($out_status !== '') {
+            $oAuthAdminList->where('status', '=', $out_status);
+        }
+
+
+
+        if ($out_status !== '') {
+            $oAuthAdminList->where('status', '=', $out_status);
+        }
+
+
+        if ($order_no !== '') {
+            $oAuthAdminList->where('order_no', '=', $order_no);
+        }
+
+
+        if ($account !== '') {
+            $oAuthAdminList->where('account', '=', $account);
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -599,25 +732,99 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $request_beginDate = isset(request()->request_beginDate) ? request()->request_beginDate : '';
+        $request_endDate = isset(request()->request_endDate) ? request()->request_endDate : '';
+        $confirm_beginDate = isset(request()->confirm_beginDate) ? request()->confirm_beginDate : '';
+        $confirm_endDate = isset(request()->confirm_endDate) ? request()->confirm_endDate : '';
+        $min = isset(request()->min) ? request()->min : '';
+        $max = isset(request()->max) ? request()->max : '';
+        $refresh_frequency = isset(request()->refresh_frequency) ? request()->refresh_frequency : '';
+        $status = isset(request()->status) ? request()->status : '';
+        $in_account = isset(request()->in_account) ? request()->in_account : '';
+        $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
+        $keywords = isset(request()->keywords) ? request()->keywords : '';
+
+
         $oAuthAdminList = DB::table('fund_companymoney');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
+
+
+        if ($request_beginDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $request_beginDate);
         }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+
+        if ($request_endDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $request_endDate);
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+
+
+        if ($confirm_beginDate !== '') {
+            $oAuthAdminList->where('confirm_date', '>=', $confirm_beginDate);
         }
+
+        if ($confirm_endDate !== '') {
+            $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
+        }
+
+        if ($min !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $min);
+        }
+
+        if ($max !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $max);
+        }
+
+
+        if ($refresh_frequency !== '') {
+            $oAuthAdminList->where('refresh_frequency', '=', $refresh_frequency);
+        }
+
+
+//        if ($out_type !== '') {
+//            $oAuthAdminList->where('out_type', '=', $out_type);
+//        }
+//
+//
+//        if ($out_status !== '') {
+//            $oAuthAdminList->where('status', '=', $out_status);
+//        }
+
+
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', '=', $status);
+        }
+
+//
+//        if ($order_no !== '') {
+//            $oAuthAdminList->where('order_no', '=', $order_no);
+//        }
+
+        switch ($select_search_type) {
+            case '会员账号':
+                $oAuthAdminList->where('account', '=', $keywords);
+                break;
+            case '存款人':
+                $oAuthAdminList->where('depositor_name', '=', $keywords);
+                break;
+            case '附言码':
+                $oAuthAdminList->where('postscript', '=', $keywords);
+                break;
+            case '订单号':
+                $oAuthAdminList->where('order_number', '=', $keywords);
+                break;
+
+        }
+
         $oAuthAdminListCount = $oAuthAdminList->get();
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
@@ -662,25 +869,96 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $request_beginDate = isset(request()->request_beginDate) ? request()->request_beginDate : '';
+        $request_endDate = isset(request()->request_endDate) ? request()->request_endDate : '';
+        $confirm_beginDate = isset(request()->confirm_beginDate) ? request()->confirm_beginDate : '';
+        $confirm_endDate = isset(request()->confirm_endDate) ? request()->confirm_endDate : '';
+        $min = isset(request()->min) ? request()->min : '';
+        $max = isset(request()->max) ? request()->max : '';
+        $refresh_frequency = isset(request()->refresh_frequency) ? request()->refresh_frequency : '';
+        $status = isset(request()->status) ? request()->status : '';
+        $pay_type = isset(request()->pay_type) ? request()->pay_type : '';
+        $in_account = isset(request()->in_account) ? request()->in_account : '';
+        $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
+        $keywords = isset(request()->keywords) ? request()->keywords : '';
+
+
         $oAuthAdminList = DB::table('fund_fastpaymoney');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
+
+
+        if ($request_beginDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $request_beginDate);
         }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+
+        if ($request_endDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $request_endDate);
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+
+
+        if ($confirm_beginDate !== '') {
+            $oAuthAdminList->where('confirm_date', '>=', $confirm_beginDate);
         }
+
+        if ($confirm_endDate !== '') {
+            $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
+        }
+
+        if ($min !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $min);
+        }
+
+        if ($max !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $max);
+        }
+
+
+        if ($refresh_frequency !== '') {
+            $oAuthAdminList->where('refresh_frequency', '=', $refresh_frequency);
+        }
+
+//
+//        if ($out_type !== '') {
+//            $oAuthAdminList->where('out_type', '=', $out_type);
+//        }
+
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', '=', $status);
+        }
+
+
+
+        if ($pay_type !== '') {
+            $oAuthAdminList->where('pay_type', '=', $pay_type);
+        }
+
+        if ($in_account !== '') {
+            $oAuthAdminList->where('receive_account', '=', $in_account);
+        }
+
+
+
+        switch ($select_search_type) {
+            case '会员账号':
+                $oAuthAdminList->where('account', '=', $keywords);
+                break;
+            case '提交人':
+                $oAuthAdminList->where('submitor', '=', $keywords);
+                break;
+            case '操作人':
+                $oAuthAdminList->where('auditor', '=', $keywords);
+                break;
+        }
+
         $oAuthAdminListCount = $oAuthAdminList->get();
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
@@ -854,25 +1132,118 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $min = isset(request()->min) ? request()->min : '';
+        $max = isset(request()->max) ? request()->max : '';
+        $type = isset(request()->type) ? request()->type : '';
+        $audit_status = isset(request()->audit_status) ? request()->audit_status : '';
+        $operate_type = isset(request()->operate_type) ? request()->operate_type : '';
+        $account = isset(request()->account) ? request()->account : '';
+        $memo = isset(request()->memo) ? request()->memo : '';
+
+
         $oAuthAdminList = DB::table('fund_manualpayconfirm');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
+
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $beginDate);
         }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $endDate);
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+
+
+//        if ($confirm_beginDate !== '') {
+//            $oAuthAdminList->where('confirm_date', '>=', $confirm_beginDate);
+//        }
+//
+//        if ($confirm_endDate !== '') {
+//            $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
+//        }
+
+        // 查询页面有问题
+        if ($min !== '') {
+            $oAuthAdminList->where('in_amount', '>=', $min);
         }
+
+        if ($max !== '') {
+            $oAuthAdminList->where('in_amount', '>=', $max);
+        }
+
+
+        if ($type !== '') {
+            $oAuthAdminList->where('type', '=', $type);
+        }
+
+
+        if ($audit_status !== '') {
+            $oAuthAdminList->where('status', '=', $audit_status);
+        }
+
+
+        switch ($operate_type) {
+            case '会员账号':
+                $oAuthAdminList->where('account', '=', $account);
+                break;
+            case '提交人':
+                $oAuthAdminList->where('submitor', '=', $account);
+                break;
+            case '操作人':
+                $oAuthAdminList->where('auditor', '=', $account);
+                break;
+
+        }
+
+        if ($memo !== '') {
+            $oAuthAdminList->where('audit_memo', '=', $memo);
+        }
+
+
+//        if ($out_status !== '') {
+//            $oAuthAdminList->where('status', '=', $out_status);
+//        }
+//
+//
+//
+//        if ($out_status !== '') {
+//            $oAuthAdminList->where('status', '=', $out_status);
+//        }
+//
+//
+//        if ($order_no !== '') {
+//            $oAuthAdminList->where('order_no', '=', $order_no);
+//        }
+//
+//
+//        if ($account !== '') {
+//            $oAuthAdminList->where('account', '=', $account);
+//        }
+
+
+//        $sTmp = 'DESC';
+//        if (substr($iSort, 0, 1) == '-') {
+//            $sTmp = 'ASC';
+//        }
+//        $sOrder = substr($iSort, 1, strlen($iSort));
+//        if ($sTmp != '') {
+//            $oAuthAdminList->orderby($sOrder, $sTmp);
+//        }
+//        if ($iStatus !== '') {
+//            $oAuthAdminList->where('status', $iStatus);
+//        }
+//        if ($sUserName !== '') {
+//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+//        }
         $oAuthAdminListCount = $oAuthAdminList->get();
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
@@ -1092,25 +1463,66 @@ class FundController extends Controller
         $iPage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
+
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $min = isset(request()->min) ? request()->min : '';
+        $max = isset(request()->max) ? request()->max : '';
+        $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
+        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $platform = isset(request()->platform) ? request()->platform : '';
+        $status = isset(request()->status) ? request()->status : '';
+
+
+
         $oAuthAdminList = DB::table('fund_transferorder');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
+
+
+
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
+
+        if ($beginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $beginDate);
         }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+
+        if ($endDate !== '') {
+            $oAuthAdminList->where('date', '>=', $endDate);
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+
+        if ($min !== '') {
+            $oAuthAdminList->where('transfer_amount', '>=', $min);
         }
+
+        if ($max !== '') {
+            $oAuthAdminList->where('transfer_amount', '<=', $max);
+        }
+
+
+        if ($select_search_type == '用户名') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('username', 'like', '%' . $keywords . '%');
+            }
+        } elseif ($select_search_type == '订单编号') {
+            if ($keywords !== '') {
+                $oAuthAdminList->where('order_number', 'like', '%' . $keywords . '%');
+            }
+        }
+
+
+        if ($platform !== '') {
+            $oAuthAdminList->where('transfer_platform', '=', $platform);
+        }
+
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', '=', $status);
+        }
+
         $oAuthAdminListCount = $oAuthAdminList->get();
         $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
