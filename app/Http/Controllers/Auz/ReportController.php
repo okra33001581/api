@@ -21,6 +21,8 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 
+use App\common\utils\DateUtils;
+
 /**
  * Class Event - 报表相关控制器
  * @author zebra
@@ -138,6 +140,9 @@ class ReportController extends Controller
 
         $sUserName = isset(request()->username) ? request()->username : '';
 
+
+        $datePeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
+
         $oAuthAdminList = DB::table('report_operation_profit');
 
 
@@ -165,6 +170,13 @@ class ReportController extends Controller
 
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        }
+
+        if ($datePeriod != '') {
+            $aTmp = DateUtils::getDateArray($datePeriod);
+            $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
+            $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
+
         }
 
         $oAuthAdminFinalList = $oAuthAdminList->get();
@@ -380,6 +392,8 @@ class ReportController extends Controller
 
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
+        $datePeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
+
 
         $oAuthAdminList = DB::table('report_platform');
 
@@ -400,6 +414,16 @@ class ReportController extends Controller
 
         if ($endDate !== '') {
             $oAuthAdminList->where('date', '<=', $endDate);
+        }
+
+
+
+
+        if ($datePeriod != '') {
+            $aTmp = DateUtils::getDateArray($datePeriod);
+            $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
+            $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
+
         }
 
 
@@ -508,6 +532,17 @@ class ReportController extends Controller
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
+
+
+
+        if ($datePeriod != '') {
+            $aTmp = DateUtils::getDateArray($datePeriod);
+            $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
+            $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
+
+        }
+
+
 
 
 //        $sTmp = 'DESC';
@@ -780,4 +815,16 @@ class ReportController extends Controller
         return ResultVo::success();
 
     }
+
+    public function getDayBetween()
+    {
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['begin_date'] = '2011-11-11';
+        $aFinal['end_date'] = '2011-11-11';
+
+        return response()->json($aFinal);
+    }
+
+
 }

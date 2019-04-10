@@ -1103,7 +1103,7 @@ class FundController extends Controller
         }
 
         if ($endDate !== '') {
-            $oAuthAdminList->where('request_date', '>=', $endDate);
+            $oAuthAdminList->where('request_date', '<=', $endDate);
         }
 
 
@@ -1427,7 +1427,7 @@ class FundController extends Controller
         }
 
         if ($endDate !== '') {
-            $oAuthAdminList->where('date', '>=', $endDate);
+            $oAuthAdminList->where('date', '<=', $endDate);
         }
 
         if ($min !== '') {

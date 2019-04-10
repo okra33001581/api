@@ -1187,7 +1187,7 @@ class UserController extends Controller
         }
 
         if ($endDate !== '') {
-            $oAuthAdminList->where('created_at', '>=', $endDate);
+            $oAuthAdminList->where('created_at', '<=', $endDate);
         }
 
 

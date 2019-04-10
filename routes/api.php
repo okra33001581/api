@@ -230,6 +230,10 @@ Route::get('event/pgamePlaylist', 'ReportController@pgamePlaylist');
 Route::get('event/preportProfit', 'ReportController@preportProfit');
 //user_report.vue
 Route::get('event/userReport', 'ReportController@userReport');
+
+Route::get('event/getDayBetween', 'ReportController@getDayBetween');
+
+
 //site-management
 //floatwindowconfig_list.vue
 Route::get('event/floatwindowconfigList', 'SiteController@floatwindowconfigList');
