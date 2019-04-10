@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Redis;
 use App\model\Message;
 
 use App\model\Marquee;
+use App\model\AdminLog;
 
 
 /**

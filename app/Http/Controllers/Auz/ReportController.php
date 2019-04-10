@@ -22,6 +22,7 @@ use App\model\FileResourceTag;
 use Illuminate\Support\Facades\Redis;
 
 use App\common\utils\DateUtils;
+use App\model\AdminLog;
 
 /**
  * Class Event - 报表相关控制器

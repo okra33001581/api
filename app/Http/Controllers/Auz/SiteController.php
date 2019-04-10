@@ -30,6 +30,8 @@ use App\model\Information;
 use App\model\Company;
 use App\model\LotteryGroup;
 
+use App\model\AdminLog;
+
 
 /**
  * Class Event - 网站管理相关控制器
@@ -117,6 +119,18 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -185,6 +199,17 @@ class SiteController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -372,6 +397,17 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -448,6 +484,17 @@ class SiteController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -539,6 +586,18 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+
+        $sub_account = '123';
+        $operate_name = 'informationList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -616,6 +675,17 @@ class SiteController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -723,6 +793,17 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -754,6 +835,17 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oIpBlack;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -777,6 +869,17 @@ class SiteController extends Controller
         $aFinal['message'] = $sMessage;
         $aFinal['code'] = 0;
         $aFinal['data'] = $oIpBlack;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
     }
@@ -924,6 +1027,17 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oSystemConfig;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -956,6 +1070,17 @@ class SiteController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oWebIcon;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
     }
@@ -991,6 +1116,16 @@ class SiteController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
     }
@@ -1037,6 +1172,17 @@ class SiteController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
     }

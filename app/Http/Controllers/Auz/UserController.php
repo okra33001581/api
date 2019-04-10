@@ -31,6 +31,7 @@ use App\model\UserSafetyAudit;
 use App\model\Quota;
 
 use App\model\UserLock;
+use App\model\AdminLog;
 
 /**
  * Class Event - 用户登录相关控制器
@@ -124,6 +125,18 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -146,6 +159,18 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -267,6 +292,17 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -325,6 +361,17 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -369,6 +416,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
     }
@@ -418,6 +476,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
     }
@@ -525,6 +594,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -731,6 +811,17 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -807,6 +898,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -919,6 +1021,17 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -933,6 +1046,8 @@ class UserController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
 
         $status=isset(request()->status)?request()->status:'';
+        $merchant_name=isset(request()->merchant_name)?request()->merchant_name:'';
+
         $type=isset(request()->type)?request()->type:'';
         $keywords=isset(request()->keywords)?request()->keywords:'';
         $realname=isset(request()->realname)?request()->realname:'';
@@ -1029,6 +1144,17 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -1069,6 +1195,17 @@ class UserController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -1104,6 +1241,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
     }
@@ -1163,6 +1311,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1246,6 +1405,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1334,6 +1504,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $auth_admin;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
@@ -1439,6 +1620,17 @@ class UserController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
 
         return ResultVo::success();
@@ -1462,6 +1654,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -1503,6 +1706,17 @@ class UserController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -1527,6 +1741,17 @@ class UserController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -1550,6 +1775,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -1600,6 +1836,17 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 1;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -1617,6 +1864,18 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $oEvent;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -1632,6 +1891,18 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $oEvent;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 
@@ -1697,6 +1968,18 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         return response()->json($aFinal);
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return ResultVo::success($res);
     }
 
@@ -1724,6 +2007,19 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $oEvent;
+
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
     }
 

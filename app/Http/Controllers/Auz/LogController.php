@@ -20,6 +20,7 @@ use App\model\FileResource;
 use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
+use App\model\AdminLog;
 
 /**
  * Class Event - 日志相关控制器
@@ -30,6 +31,7 @@ class LogController extends Controller
 
     public function logAdminlog()
     {
+
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
@@ -52,53 +54,37 @@ class LogController extends Controller
 
         $ip = isset(request()->ip) ? request()->ip : '';
 
-        $cookies = isset(request()->cookies) ? request()->cookies : '';
+        $cookies = isset(request()->cookie_content) ? request()->cookie_content : '';
 
         $keywords = isset(request()->keywords) ? request()->keywords : '';
 
         $oAuthAdminList = DB::table('log_admin');
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', $merchant_name);
         }
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $beginDate);
         }
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('created_at', '<=', $endDate);
         }
-        if ($type !== '') {
+        if ($type != '') {
             $oAuthAdminList->where('type', $type);
         }
-        if ($sub_account !== '') {
+        if ($sub_account != '') {
             $oAuthAdminList->where('sub_account', 'like', '%' . $sub_account . '%');
         }
-        if ($ip !== '') {
+        if ($ip != '') {
             $oAuthAdminList->where('ip', $ip);
         }
-        if ($cookies !== '') {
+        if ($cookies != '') {
             $oAuthAdminList->where('cookies', $cookies);
         }
-        if ($keywords !== '') {
+        if ($keywords != '') {
             $oAuthAdminList->where('log_content', $keywords);
         }
 
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus !== '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName !== '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
         $oAuthAdminFinalList = $oAuthAdminList->get();
 
@@ -118,6 +104,10 @@ class LogController extends Controller
             $aFinal[] = $aTmp;
         }
 
+
+
+
+
         $res = [];
 //        $res["total"] = count($oAuthAdminListCount);
         $res["list"] = $aFinal;
@@ -125,6 +115,18 @@ class LogController extends Controller
 
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -150,16 +152,16 @@ class LogController extends Controller
         $oAuthAdminList = DB::table('log_domain');
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $beginDate);
         }
 
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('created_at', '<=', $endDate);
         }
 
@@ -174,10 +176,10 @@ class LogController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -205,6 +207,17 @@ class LogController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -235,20 +248,20 @@ class LogController extends Controller
         $oAuthAdminList = DB::table('log_login');
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('login_date', '>=', $beginDate);
         }
 
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('login_date', '<=', $endDate);
         }
 
-        if ($type !== '') {
+        if ($type != '') {
             $oAuthAdminList->where('type', '=', $type);
         }
 
@@ -274,10 +287,10 @@ class LogController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -309,6 +322,17 @@ class LogController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -396,6 +420,17 @@ class LogController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $auth_admin;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
@@ -501,6 +536,17 @@ class LogController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
 
         return ResultVo::success();
@@ -524,6 +570,17 @@ class LogController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
+
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
 
         return response()->json($aFinal);
         return ResultVo::success();
