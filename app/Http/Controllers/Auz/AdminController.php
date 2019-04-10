@@ -49,10 +49,10 @@ class AdminController extends Controller
         if ($sTmp != '') {
             $oAuthAdminList->orderby($sOrder, $sTmp);
         }
-        if ($iStatus !== '') {
+        if ($iStatus != '') {
             $oAuthAdminList->where('status', $iStatus);
         }
-        if ($sUserName !== '') {
+        if ($sUserName != '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
         $oAuthAdminListCount = $oAuthAdminList->get();

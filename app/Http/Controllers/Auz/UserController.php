@@ -180,37 +180,37 @@ class UserController extends Controller
 
         $oAuthAdminList = DB::table('user_user');
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-      if ($user_type !== '') {
+      if ($user_type != '') {
           $oAuthAdminList->where('account_type', '=', $user_type);
       }
 
-       if ($username !== '') {
+       if ($username != '') {
            $oAuthAdminList->where('username', 'like', '%' . $username . '%');
        }
 
 
-        if ($group !== '') {
+        if ($group != '') {
             $oAuthAdminList->where('group', '=', $group);
         }
 
 
-        if ($user_level !== '') {
+        if ($user_level != '') {
             $oAuthAdminList->where('user_level', '=', $user_level);
         }
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $beginDate);
         }
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('created_at', '>=', $endDate);
         }
 
-         if ($days !== '') {
+         if ($days != '') {
              $dtTmp = date('Y-m-d', strtotime('- '.$days.' day'));
          }
 
@@ -227,11 +227,11 @@ class UserController extends Controller
         }
 
         if ($group == '用户名') {
-            if ($username !== '') {
+            if ($username != '') {
                 $oAuthAdminList->where('username', 'like', '%' . $username . '%');
             }
         } elseif ($group == '所属上级') {
-            if ($username !== '') {
+            if ($username != '') {
                 $oAuthAdminList->where('top_level', 'like', '%' . $username . '%');
             }
 
@@ -444,36 +444,36 @@ class UserController extends Controller
 
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($type !== '') {
+        if ($type != '') {
             $oAuthAdminList->where('method', '=', $type);
         }
 
 
         if ($select_user_type == '用户名') {
-            if ($keywords !== '') {
+            if ($keywords != '') {
                 $oAuthAdminList->where('username', 'like', '%' . $keywords . '%');
             }
         } elseif ($select_user_type == '所属上级') {
-            if ($keywords !== '') {
+            if ($keywords != '') {
                 $oAuthAdminList->where('top_agent', 'like', '%' . $keywords . '%');
             }
 
         }
 
 
-        if ($user_type !== '') {
+        if ($user_type != '') {
             $oAuthAdminList->where('user_type', '=', $user_type);
         }
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('login_date', '>=', $beginDate);
         }
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('login_date', '>=', $endDate);
         }
 
@@ -487,10 +487,10 @@ class UserController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -560,56 +560,56 @@ class UserController extends Controller
 
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
 
         if ($group == '用户名') {
-            if ($username !== '') {
+            if ($username != '') {
                 $oAuthAdminList->where('username', 'like', '%' . $username . '%');
             }
         } elseif ($group == '所属上级') {
-            if ($username !== '') {
+            if ($username != '') {
                 $oAuthAdminList->where('top_level', 'like', '%' . $username . '%');
             }
 
         }
 
-        if ($group !== '') {
+        if ($group != '') {
             $oAuthAdminList->where('group', '=', $group);
         }
 
 
-        if ($status !== '') {
+        if ($status != '') {
             $oAuthAdminList->where('status', '=', $status);
         }
 
-        if ($user_level !== '') {
+        if ($user_level != '') {
             $oAuthAdminList->where('user_level', '=', $user_level);
         }
 
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $beginDate);
         }
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('created_at', '>=', $endDate);
         }
 
 
-        if ($online_status !== '') {
+        if ($online_status != '') {
             $oAuthAdminList->where('online_status', '=', $online_status);
         }
 
 
-        if ($select_operate_type !== '') {
+        if ($select_operate_type != '') {
             $oAuthAdminList->where('last_login_date', '=', $select_operate_type);
         }
 
 
-        if ($days !== '') {
+        if ($days != '') {
             $dtTmp = date('Y-m-d', strtotime('- '.$days.' day'));
         }
 
@@ -626,44 +626,44 @@ class UserController extends Controller
         }
 
 //
-//        if ($confirm_beginDate !== '') {
+//        if ($confirm_beginDate != '') {
 //            $oAuthAdminList->where('confirm_date', '>=', $confirm_beginDate);
 //        }
 //
-//        if ($confirm_endDate !== '') {
+//        if ($confirm_endDate != '') {
 //            $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
 //        }
 //
-//        if ($min !== '') {
+//        if ($min != '') {
 //            $oAuthAdminList->where('final_out_amount', '>=', $min);
 //        }
 //
-//        if ($max !== '') {
+//        if ($max != '') {
 //            $oAuthAdminList->where('final_out_amount', '>=', $max);
 //        }
 //
 //
-//        if ($refresh_frequency !== '') {
+//        if ($refresh_frequency != '') {
 //            $oAuthAdminList->where('refresh_frequency', '=', $refresh_frequency);
 //        }
 //
 ////
-////        if ($out_type !== '') {
+////        if ($out_type != '') {
 ////            $oAuthAdminList->where('out_type', '=', $out_type);
 ////        }
 //
 //
-//        if ($status !== '') {
+//        if ($status != '') {
 //            $oAuthAdminList->where('status', '=', $status);
 //        }
 //
 //
 //
-//        if ($pay_type !== '') {
+//        if ($pay_type != '') {
 //            $oAuthAdminList->where('pay_type', '=', $pay_type);
 //        }
 //
-//        if ($in_account !== '') {
+//        if ($in_account != '') {
 //            $oAuthAdminList->where('receive_account', '=', $in_account);
 //        }
 //
@@ -690,10 +690,10 @@ class UserController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -750,6 +750,22 @@ class UserController extends Controller
 
         $oAuthAdminList = DB::table('user_monitor');
 
+
+        if ($merchant_name != '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        }
+
+
+        if ($select_username_type != '') {
+            $oAuthAdminList->where('type', '=', $select_username_type);
+        }
+
+
+        if ($username != '') {
+            $oAuthAdminList->where('username', 'like', '%' . $username . '%');
+        }
+
+
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
 //            $sTmp = 'ASC';
@@ -758,10 +774,10 @@ class UserController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -819,39 +835,39 @@ class UserController extends Controller
 
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($type !== '') {
+        if ($type != '') {
             $oAuthAdminList->where('type', '=', $type);
         }
 
 
-        if ($status !== '') {
+        if ($status != '') {
             $oAuthAdminList->where('status', '=', $status);
         }
 
 
-        if ($username !== '') {
+        if ($username != '') {
             $oAuthAdminList->where('account', '=', $username);
         }
 
         if ($select_user_type == '提交人') {
-            if ($username2 !== '') {
+            if ($username2 != '') {
                 $oAuthAdminList->where('requestor', '=', $username2);
             }
         } elseif ($select_user_type == '审核人') {
-            if ($username2 !== '') {
+            if ($username2 != '') {
                 $oAuthAdminList->where('auditor', '=', $username2);
             }
         }
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('submit_date', '>=', $beginDate);
         }
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('submit_date', '>=', $endDate);
         }
 
@@ -863,10 +879,10 @@ class UserController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -929,41 +945,41 @@ class UserController extends Controller
 
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($status !== '') {
+        if ($status != '') {
             $oAuthAdminList->where('status', '=', $status);
         }
 
 
         if ($type == '卡号') {
-            if ($keywords !== '') {
+            if ($keywords != '') {
                 $oAuthAdminList->where('account', 'like', '%' . $keywords . '%');
             }
         } elseif ($type == '用户名') {
-            if ($keywords !== '') {
+            if ($keywords != '') {
                 $oAuthAdminList->where('card_number', 'like', '%' . $keywords . '%');
             }
 
         }
 
 
-        if ($realname !== '') {
+        if ($realname != '') {
             $oAuthAdminList->where('real_name', 'like', '%' . $realname . '%');
         }
 
-        if ($min !== '') {
+        if ($min != '') {
             $oAuthAdminList->where('total_amount', '>=', $min);
         }
 
-        if ($max !== '') {
+        if ($max != '') {
             $oAuthAdminList->where('total_amount', '>=', $max);
         }
 
 
-        if ($is_black !== '') {
+        if ($is_black != '') {
             $oAuthAdminList->where('is_black', '=', $is_black);
         }
 
@@ -976,10 +992,10 @@ class UserController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -1113,10 +1129,10 @@ class UserController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -1172,21 +1188,21 @@ class UserController extends Controller
 
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($agent_name !== '') {
+        if ($agent_name != '') {
             $oAuthAdminList->where('top_agent', 'like', '%' . $agent_name . '%');
         }
 
 
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $beginDate);
         }
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('created_at', '<=', $endDate);
         }
 
@@ -1200,10 +1216,10 @@ class UserController extends Controller
 //        if ($sTmp != '') {
 //            $oAuthAdminList->orderby($sOrder, $sTmp);
 //        }
-//        if ($iStatus !== '') {
+//        if ($iStatus != '') {
 //            $oAuthAdminList->where('status', $iStatus);
 //        }
-//        if ($sUserName !== '') {
+//        if ($sUserName != '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
@@ -1632,7 +1648,7 @@ class UserController extends Controller
 
         $oAuthAdminList = DB::table('user_quota');
 
-        if ($iUserId !== '') {
+        if ($iUserId != '') {
             $oAuthAdminList->where('user_id','=', $iUserId);
         }
         $oAuthAdminFinalList = $oAuthAdminList->get();

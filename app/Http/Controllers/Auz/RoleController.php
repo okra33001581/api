@@ -33,7 +33,7 @@ class RoleController extends Controller
         $where = [];
         $order = 'id ASC';
         $status = request()->get('status', '');
-        if ($status !== '') {
+        if ($status != '') {
             $where[] = ['status', '=', intval($status)];
             $order = '';
         }

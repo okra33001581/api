@@ -69,36 +69,36 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_transaction');
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('date', '>=', $beginDate);
         }
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('date', '>=', $endDate);
         }
 
 
         if ($select_search_type == '会员账号') {
-            if ($keywords !== '') {
+            if ($keywords != '') {
                 $oAuthAdminList->where('account', 'like', '%' . $keywords . '%');
             }
         } elseif ($select_search_type == '订单号') {
-            if ($keywords !== '') {
+            if ($keywords != '') {
                 $oAuthAdminList->where('order_number', 'like', '%' . $keywords . '%');
             }
 
         } elseif ($select_search_type == 'IP地址') {
-            if ($keywords !== '') {
+            if ($keywords != '') {
                 $oAuthAdminList->where('ip_address', 'like', '%' . $keywords . '%');
             }
 
         }
 
-        if ($is_has_child !== '') {
+        if ($is_has_child != '') {
             $oAuthAdminList->where('has_child', '=', $is_has_child);
         }
 
@@ -110,19 +110,19 @@ class FundController extends Controller
 
         }
 
-        if ($beginDate !== '') {
+        if ($beginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $beginDate);
         }
 
-        if ($endDate !== '') {
+        if ($endDate != '') {
             $oAuthAdminList->where('created_at', '>=', $endDate);
         }
 
-        if ($min !== '') {
+        if ($min != '') {
             $oAuthAdminList->where('avaiable_amount', '>=', $min);
         }
 
-        if ($max !== '') {
+        if ($max != '') {
             $oAuthAdminList->where('avaiable_amount', '<=', $max);
         }
 
@@ -185,7 +185,7 @@ class FundController extends Controller
             $oAuthAdminList->where('merchant_name', $sMerchantName);
         }
 
-        if ($iStatus !== '') {
+        if ($iStatus != '') {
             $oAuthAdminList->where('status', $iStatus);
         }
 
@@ -278,24 +278,24 @@ class FundController extends Controller
 //        }
 
 
-        if ($iStatus !== '') {
+        if ($iStatus != '') {
             $oAuthAdminList->where('status', $iStatus);
         }
-        if ($sMerchantName !== '') {
+        if ($sMerchantName != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        if ($sUserName !== '') {
+        if ($sUserName != '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 
 
         }
 
-        if ($sBeginDate !== '') {
+        if ($sBeginDate != '') {
             $oAuthAdminList->where('project_date', '>=', $sBeginDate);
         }
 
 
-        if ($sEndDate !== '') {
+        if ($sEndDate != '') {
             $oAuthAdminList->where('project_date', '<=', $sEndDate);
         }
 
@@ -360,7 +360,7 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_cashwithdraw');
 
 
-        if ($merchant_name !== '') {
+        if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 

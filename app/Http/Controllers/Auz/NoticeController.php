@@ -128,6 +128,8 @@ class NoticeController extends Controller
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
 
+        $category = isset(request()->category) ? request()->category : '';
+
         $sUserName = isset(request()->username) ? request()->username : '';
         $title = isset(request()->title) ? request()->title : '';
         $receive_flag = isset(request()->receive_flag) ? request()->receive_flag : '';
@@ -175,6 +177,9 @@ class NoticeController extends Controller
             $oAuthAdminList->where('receivers', $receivers);
         }
 
+        if ($category !== '') {
+            $oAuthAdminList->where('category', $category);
+        }
 
 //        $sTmp = 'DESC';
 //        if (substr($iSort, 0, 1) == '-') {
@@ -208,7 +213,8 @@ class NoticeController extends Controller
             $aTmp['created_at'] = $oAuthAdmin->created_at;
             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
+            $aTmp['sender'] = $oAuthAdmin->sender;
+            $aTmp['category'] = $oAuthAdmin->category;
             $aFinal[] = $aTmp;
         }
 
@@ -579,6 +585,7 @@ class NoticeController extends Controller
         $receive_flag=isset($data['receive_flag'])?$data['receive_flag']:'';
         $receivers=isset($data['receivers'])?$data['receivers']:'';
         $content=isset($data['content'])?$data['content']:'';
+        $category=isset($data['category'])?$data['category']:'';
 
 
         $oQrCode = new Message();
@@ -588,6 +595,7 @@ class NoticeController extends Controller
         $oQrCode->receive_flag=$receive_flag;
         $oQrCode->receivers=$receivers;
         $oQrCode->content=$content;
+        $oQrCode->category=$category;
 
         $iRet = $oQrCode->save();
 
