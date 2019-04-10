@@ -20,6 +20,7 @@ use App\model\FileResource;
 use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
+use App\model\AdminLog;
 
 /**
  * Class Event - 权限列表相关控制器
