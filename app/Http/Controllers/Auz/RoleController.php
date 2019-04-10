@@ -20,6 +20,7 @@ use App\model\FileResource;
 use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
+use App\model\AdminLog;
 
 /**
  * Class Event - 角色相关控制器
@@ -33,6 +34,10 @@ class RoleController extends Controller
         $where = [];
         $order = 'id ASC';
         $status = request()->get('status', '');
+
+        $paginate = isset(request()->page) ? request()->page : '';
+
+
         if ($status != '') {
             $where[] = ['status', '=', intval($status)];
             $order = '';
@@ -52,7 +57,7 @@ class RoleController extends Controller
 //        $lists = AuthRole::where($where)->orderby('id','asc')->get();
 //            ->paginate($paginate);
 
-        $lists = AuthRole::orderby('id', 'asc')->get();
+        $lists = AuthRole::orderby('id', 'asc')->paginate($limit);
 
         $res = [];
         $res["total"] = count($lists);
