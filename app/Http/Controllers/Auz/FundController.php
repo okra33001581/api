@@ -128,9 +128,10 @@ class FundController extends Controller
         }
 
 
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -150,11 +151,11 @@ class FundController extends Controller
             $aTmp['message'] = $oAuthAdmin->message;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -324,9 +325,10 @@ class FundController extends Controller
         }
 
 
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -345,11 +347,11 @@ class FundController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -472,9 +474,11 @@ class FundController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -499,11 +503,11 @@ class FundController extends Controller
             $aTmp['back_memo'] = $oAuthAdmin->back_memo;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -852,9 +856,9 @@ class FundController extends Controller
 
         }
 
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -875,11 +879,11 @@ class FundController extends Controller
             $aTmp['memo'] = $oAuthAdmin->memo;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -993,9 +997,10 @@ class FundController extends Controller
                 break;
         }
 
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1017,11 +1022,11 @@ class FundController extends Controller
             $aTmp['memo'] = $oAuthAdmin->memo;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1146,9 +1151,10 @@ class FundController extends Controller
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1167,11 +1173,11 @@ class FundController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1310,9 +1316,10 @@ class FundController extends Controller
 //        if ($sUserName !== '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1335,11 +1342,11 @@ class FundController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1409,9 +1416,11 @@ class FundController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1434,11 +1443,11 @@ class FundController extends Controller
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1614,9 +1623,10 @@ class FundController extends Controller
             $oAuthAdminList->where('status', '=', $status);
         }
 
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1635,11 +1645,11 @@ class FundController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1700,9 +1710,11 @@ class FundController extends Controller
             $oAuthAdminList->where('third_type', $sThirdType);
         }
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1729,11 +1741,11 @@ class FundController extends Controller
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1784,9 +1796,10 @@ class FundController extends Controller
         if ($sMerchantName !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        $oAuthAdminFinalList = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+       /* $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1809,11 +1822,11 @@ class FundController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = 22222;
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;

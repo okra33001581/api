@@ -48,16 +48,7 @@ class RoleController extends Controller
             $order = '';
         }
         $limit = request()->get('limit/d', 20);
-        //分页配置
-//        $paginate = [
-//            'type' => 'bootstrap',
-//            'var_page' => 'page',
-//            'list_rows' => ($limit <= 0 || $limit > 20) ? 20 : $limit,
-//        ];
-//        $lists = AuthRole::where($where)->orderby('id','asc')->get();
-//            ->paginate($paginate);
-
-        $lists = AuthRole::orderby('id', 'asc')->paginate($limit);
+        $lists = AuthRole::orderby('id', 'desc')->paginate($limit);
 
         $res = [];
         $res["total"] = count($lists);

@@ -56,38 +56,39 @@ class AdminController extends Controller
         if ($sUserName != '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
-            $aFinal[] = $aTmp;
-        }
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+
+//        $aTmp = [];
+//        $aFinal = [];
+//        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+//            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
+//            $aTmp['id'] = $oAuthAdmin->id;
+//            $aTmp['username'] = $oAuthAdmin->username;
+//            $aTmp['password'] = $oAuthAdmin->password;
+//            $aTmp['tel'] = $oAuthAdmin->tel;
+//            $aTmp['email'] = $oAuthAdmin->email;
+//            $aTmp['avatar'] = $oAuthAdmin->avatar;
+//            $aTmp['sex'] = $oAuthAdmin->sex;
+//            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
+//            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
+//            $aTmp['create_time'] = $oAuthAdmin->create_time;
+//            $aTmp['status'] = $oAuthAdmin->status;
+//            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+//            $aTmp['created_at'] = $oAuthAdmin->created_at;
+//            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
+//            $temp_roles = [];
+//            if (is_object($roles)) {
+//                $temp_roles = $roles->toArray();
+//                $temp_roles = array_column($temp_roles, 'role_id');
+//            }
+//            $aTmp['roles'] = $temp_roles;
+//            $aFinal[] = $aTmp;
+//        }
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;

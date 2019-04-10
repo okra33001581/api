@@ -86,31 +86,33 @@ class LogController extends Controller
         }
 
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
-
-        $aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['sub_account'] = $oAuthAdmin->sub_account;
-            $aTmp['operate_name'] = $oAuthAdmin->operate_name;
-            $aTmp['log_content'] = $oAuthAdmin->log_content;
-            $aTmp['ip'] = $oAuthAdmin->ip;
-            $aTmp['cookies'] = $oAuthAdmin->cookies;
-            $aTmp['date'] = $oAuthAdmin->date;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-            $aFinal[] = $aTmp;
-        }
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+//
+//
+//        $aTmp = [];
+//        $aFinal = [];
+//        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+//            $aTmp['id'] = $oAuthAdmin->id;
+//            $aTmp['sub_account'] = $oAuthAdmin->sub_account;
+//            $aTmp['operate_name'] = $oAuthAdmin->operate_name;
+//            $aTmp['log_content'] = $oAuthAdmin->log_content;
+//            $aTmp['ip'] = $oAuthAdmin->ip;
+//            $aTmp['cookies'] = $oAuthAdmin->cookies;
+//            $aTmp['date'] = $oAuthAdmin->date;
+//            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+//            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+//
+//            $aFinal[] = $aTmp;
+//        }
 
 
 
 
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();;
         $aFinal['message'] = 'success';
 
         $aFinal['code'] = 0;
@@ -185,25 +187,26 @@ class LogController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['domain'] = $oAuthAdmin->domain;
-            $aTmp['total_visit_people_count'] = $oAuthAdmin->total_visit_people_count;
-            $aTmp['tatal_visit_count'] = $oAuthAdmin->tatal_visit_count;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-            $aFinal[] = $aTmp;
-        }
+//        $aTmp = [];
+//        $aFinal = [];
+//        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+//            $aTmp['id'] = $oAuthAdmin->id;
+//            $aTmp['domain'] = $oAuthAdmin->domain;
+//            $aTmp['total_visit_people_count'] = $oAuthAdmin->total_visit_people_count;
+//            $aTmp['tatal_visit_count'] = $oAuthAdmin->tatal_visit_count;
+//            $aTmp['created_at'] = $oAuthAdmin->created_at;
+//            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+//            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+//
+//            $aFinal[] = $aTmp;
+//        }
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -296,29 +299,33 @@ class LogController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->get();
 
-        $aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['user_id'] = $oAuthAdmin->user_id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['login_info'] = $oAuthAdmin->login_info;
-            $aTmp['ip_address'] = $oAuthAdmin->ip_address;
-            $aTmp['district'] = $oAuthAdmin->district;
-            $aTmp['request_url'] = $oAuthAdmin->request_url;
-            $aTmp['login_date'] = $oAuthAdmin->login_date;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-            $aTmp['is_check'] = $oAuthAdmin->is_check;
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-            $aFinal[] = $aTmp;
-        }
+
+//        $aTmp = [];
+//        $aFinal = [];
+//        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+//            $aTmp['id'] = $oAuthAdmin->id;
+//            $aTmp['user_id'] = $oAuthAdmin->user_id;
+//            $aTmp['username'] = $oAuthAdmin->username;
+//            $aTmp['login_info'] = $oAuthAdmin->login_info;
+//            $aTmp['ip_address'] = $oAuthAdmin->ip_address;
+//            $aTmp['district'] = $oAuthAdmin->district;
+//            $aTmp['request_url'] = $oAuthAdmin->request_url;
+//            $aTmp['login_date'] = $oAuthAdmin->login_date;
+//            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+//            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+//            $aTmp['is_check'] = $oAuthAdmin->is_check;
+//
+//            $aFinal[] = $aTmp;
+//        }
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;

@@ -88,9 +88,10 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -110,11 +111,11 @@ class SiteController extends Controller
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -172,9 +173,10 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
 //            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
@@ -191,11 +193,12 @@ class SiteController extends Controller
             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
+
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -258,11 +261,12 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
         $aTmp = [];
         $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+        /*foreach ($oAuthAdminFinalList as $oAuthAdmin) {
 //            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
             $aTmp['id'] = $oAuthAdmin->id;
             if ($oAuthAdmin->is_login == '1') {
@@ -388,11 +392,11 @@ class SiteController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -463,9 +467,10 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+/*        $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -476,11 +481,11 @@ class SiteController extends Controller
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -550,9 +555,11 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -577,11 +584,11 @@ class SiteController extends Controller
             $aTmp['updated_at'] = $oAuthAdmin->updated_at;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -651,9 +658,11 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -667,11 +676,11 @@ class SiteController extends Controller
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1349,8 +1358,9 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+/*        $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1363,11 +1373,11 @@ class SiteController extends Controller
             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1424,9 +1434,10 @@ class SiteController extends Controller
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1446,11 +1457,11 @@ class SiteController extends Controller
             $aTmp['updated_at'] = $oAuthAdmin->updated_at;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1497,9 +1508,10 @@ class SiteController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+       /* $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1509,11 +1521,11 @@ class SiteController extends Controller
             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;

@@ -81,9 +81,11 @@ class ReportController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+       /* $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -104,11 +106,11 @@ class ReportController extends Controller
             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -180,9 +182,11 @@ class ReportController extends Controller
 
         }
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -208,11 +212,11 @@ class ReportController extends Controller
 
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -336,9 +340,11 @@ class ReportController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -360,11 +366,11 @@ class ReportController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -445,9 +451,11 @@ class ReportController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -467,11 +475,11 @@ class ReportController extends Controller
             $aTmp['date'] = $oAuthAdmin->date;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -494,6 +502,8 @@ class ReportController extends Controller
 
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+
+        $datePeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
 
         $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
@@ -563,9 +573,11 @@ class ReportController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -588,11 +600,11 @@ class ReportController extends Controller
             $aTmp['model'] = $oAuthAdmin->model;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;

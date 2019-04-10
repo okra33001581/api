@@ -84,26 +84,28 @@ class NoticeController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['title'] = $oAuthAdmin->title;
-            $aTmp['terminal'] = $oAuthAdmin->terminal;
-            $aTmp['sequence'] = $oAuthAdmin->sequence;
-            $aTmp['content'] = $oAuthAdmin->content;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-            $aTmp['status'] = $oAuthAdmin->status;
 
-            $aFinal[] = $aTmp;
-        }
+//        $aTmp = [];
+//        $aFinal = [];
+//        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+//            $aTmp['id'] = $oAuthAdmin->id;
+//            $aTmp['title'] = $oAuthAdmin->title;
+//            $aTmp['terminal'] = $oAuthAdmin->terminal;
+//            $aTmp['sequence'] = $oAuthAdmin->sequence;
+//            $aTmp['content'] = $oAuthAdmin->content;
+//            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
+//            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
+//            $aTmp['status'] = $oAuthAdmin->status;
+//
+//            $aFinal[] = $aTmp;
+//        }
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -199,9 +201,11 @@ class NoticeController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+       /* $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -217,11 +221,11 @@ class NoticeController extends Controller
             $aTmp['sender'] = $oAuthAdmin->sender;
             $aTmp['category'] = $oAuthAdmin->category;
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -281,9 +285,11 @@ class NoticeController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -301,11 +307,11 @@ class NoticeController extends Controller
             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
