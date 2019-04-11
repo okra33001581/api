@@ -28,12 +28,18 @@ use App\model\AdminLog;
  */
 class SiteController extends Controller
 {
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function floatwindowconfigList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
@@ -51,8 +57,8 @@ class SiteController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -83,28 +89,33 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = 'floatwindowconfigList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = 'floatwindowconfigList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function blacklist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
@@ -122,8 +133,8 @@ class SiteController extends Controller
 //        if ($sUserName !== '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -152,27 +163,32 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'blacklist';
-        $log_content = 'blacklist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'blacklist';
+        $sLogContent = 'blacklist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function systemconfiglist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -187,8 +203,8 @@ class SiteController extends Controller
             $oAuthAdminList->where('merchant_name', $sMerchantName);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $aTmp = [];
         $aFinal = [];
@@ -327,16 +343,16 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'systemconfiglist';
-        $log_content = 'systemconfiglist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'systemconfiglist';
+        $sLogContent = 'systemconfiglist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -344,13 +360,17 @@ class SiteController extends Controller
 
 
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function informationCompanylist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iStatus = isset(request()->status) ? request()->status : '';
@@ -367,8 +387,8 @@ class SiteController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 /*        $aTmp = [];
         $aFinal = [];
@@ -390,27 +410,32 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'informationCompanylist';
-        $log_content = 'informationCompanylist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'informationCompanylist';
+        $sLogContent = 'informationCompanylist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function informationList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -436,8 +461,8 @@ class SiteController extends Controller
             $oAuthAdminList->where('type', $sType);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -475,28 +500,32 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sub_account = '123';
-        $operate_name = 'informationList';
-        $log_content = 'informationList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'informationList';
+        $sLogContent = 'informationList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function lotterygroupSort()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $oAuthAdminList = DB::table('site_lotterygroup');
@@ -513,8 +542,8 @@ class SiteController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -539,28 +568,32 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'lotterygroupSort';
-        $log_content = 'lotterygroupSort';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'lotterygroupSort';
+        $sLogContent = 'lotterygroupSort';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function proxyiptablesBlackcontainlist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -582,8 +615,8 @@ class SiteController extends Controller
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
         /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
@@ -618,41 +651,45 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'proxyiptablesBlackcontainlist';
-        $log_content = 'proxyiptablesBlackcontainlist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'proxyiptablesBlackcontainlist';
+        $sLogContent = 'proxyiptablesBlackcontainlist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function proxyiptablesBlackSave()
     {
         $data = request()->post();
 
         $district = isset($data['district']) ? $data['district'] : '';
-        $id = isset($data['id']) ? $data['id'] : '';
-        $ipList = isset($data['ipList']) ? $data['ipList'] : '';
-        $memo = isset($data['memo']) ? $data['memo'] : '';
-        $type = isset($data['type']) ? $data['type'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sIpList = isset($data['ipList']) ? $data['ipList'] : '';
+        $sMemo = isset($data['memo']) ? $data['memo'] : '';
+        $sType = isset($data['type']) ? $data['type'] : '';
 
-        if ($id != '') {
-            $oIpBlack = IpBlack::find($id);
+        if ($iId != '') {
+            $oIpBlack = IpBlack::find($iId);
         } else {
             $oIpBlack = new IpBlack();
         }
         $oIpBlack->district = $district;
-        $oIpBlack->ip_list = $ipList;
-        $oIpBlack->memo = $memo;
-        $oIpBlack->type = $type;
+        $oIpBlack->ip_list = $sIpList;
+        $oIpBlack->memo = $sMemo;
+        $oIpBlack->type = $sType;
 
         $iRet = $oIpBlack->save();
 
@@ -660,28 +697,33 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oIpBlack;
 
-        $sub_account = '123';
-        $operate_name = 'proxyiptablesBlackSave';
-        $log_content = 'proxyiptablesBlackSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'proxyiptablesBlackSave';
+        $sLogContent = 'proxyiptablesBlackSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function blackDelete()
     {
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
 
-        if ($id != '') {
-            $oIpBlack = IpBlack::find($id);
+        if ($iId != '') {
+            $oIpBlack = IpBlack::find($iId);
         } else {
 //            $oIpBlack = new IpBlack();
         }
@@ -695,152 +737,153 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oIpBlack;
 
-        $sub_account = '123';
-        $operate_name = 'blackDelete';
-        $log_content = 'blackDelete';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'blackDelete';
+        $sLogContent = 'blackDelete';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
 
 
-
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function systemConfigSave()
     {
         $data = request()->post();
 
-        $id= isset($data['id']) ? $data['id'] : '';
-        $autoregister_usertype= isset($data['autoregister_usertype']) ? $data['autoregister_usertype'] : '';
+        $iId= isset($data['id']) ? $data['id'] : '';
+        $sAutoregisterUsertype= isset($data['autoregister_usertype']) ? $data['autoregister_usertype'] : '';
         $avatar= isset($data['avatar']) ? $data['avatar'] : '';
-        $bankcard_bind_max= isset($data['bankcard_bind_max']) ? $data['bankcard_bind_max'] : '';
-        $can_deposit_decimal_point= isset($data['can_deposit_decimal_point']) ? $data['can_deposit_decimal_point'] : '';
-        $can_set_rebate= isset($data['can_set_rebate']) ? $data['can_set_rebate'] : '';
-        $create_time= isset($data['create_time']) ? $data['create_time'] : '';
-        $created_at= isset($data['created_at']) ? $data['created_at'] : '';
-        $deposit_max= isset($data['deposit_max']) ? $data['deposit_max'] : '';
+        $iBankcardBindMax= isset($data['bankcard_bind_max']) ? $data['bankcard_bind_max'] : '';
+        $sCanDepositDecimalPoint= isset($data['can_deposit_decimal_point']) ? $data['can_deposit_decimal_point'] : '';
+        $sCanSetRebate= isset($data['can_set_rebate']) ? $data['can_set_rebate'] : '';
+        $dtCreateTime= isset($data['create_time']) ? $data['create_time'] : '';
+        $dtCreatedAt= isset($data['created_at']) ? $data['created_at'] : '';
+        $fDepositMax= isset($data['deposit_max']) ? $data['deposit_max'] : '';
         $email= isset($data['email']) ? $data['email'] : '';
-        $fast_deposit_link= isset($data['fast_deposit_link']) ? $data['fast_deposit_link'] : '';
-        $fast_deposit_link_flag= isset($data['fast_deposit_link_flag']) ? $data['fast_deposit_link_flag'] : '';
-        $favorite_skin= isset($data['favorite_skin']) ? $data['favorite_skin'] : '';
-        $free_play= isset($data['free_play']) ? $data['free_play'] : '';
-        $free_play_rebate= isset($data['free_play_rebate']) ? $data['free_play_rebate'] : '';
-        $google_login_flag= isset($data['google_login_flag']) ? $data['google_login_flag'] : '';
-        $help_link= isset($data['help_link']) ? $data['help_link'] : '';
-        $help_tel= isset($data['help_tel']) ? $data['help_tel'] : '';
-        $id= isset($data['id']) ? $data['id'] : '';
-        $ip_account_login_count= isset($data['ip_account_login_count']) ? $data['ip_account_login_count'] : '';
-        $is_login= isset($data['is_login']) ? $data['is_login'] : '';
-        $is_maintain= isset($data['is_maintain']) ? $data['is_maintain'] : '';
-        $is_mobile_register= isset($data['is_mobile_register']) ? $data['is_mobile_register'] : '';
-        $is_web_register= isset($data['is_web_register']) ? $data['is_web_register'] : '';
-        $last_login_ip= isset($data['last_login_ip']) ? $data['last_login_ip'] : '';
-        $last_login_time= isset($data['last_login_time']) ? $data['last_login_time'] : '';
-        $login_onetime_flag= isset($data['login_onetime_flag']) ? $data['login_onetime_flag'] : '';
-        $login_times= isset($data['login_times']) ? $data['login_times'] : '';
-        $lower_register_column= isset($data['lower_register_column']) ? $data['lower_register_column'] : '';
-        $maintain_date= isset($data['maintain_date']) ? $data['maintain_date'] : '';
-        $maintain_desc = isset($data['maintain_desc']) ? $data['maintain_desc'] : '';
-        $max_rebate= isset($data['max_rebate']) ? $data['max_rebate'] : '';
-        $mobile_default_agent= isset($data['mobile_default_agent']) ? $data['mobile_default_agent'] : '';
-        $mobile_register_rebate= isset($data['mobile_register_rebate']) ? $data['mobile_register_rebate'] : '';
-        $password= isset($data['password']) ? $data['password'] : '';
-        $platform_name= isset($data['platform_name']) ? $data['platform_name'] : '';
-        $qq_help_flag= isset($data['qq_help_flag']) ? $data['qq_help_flag'] : '';
-        $qq_link= isset($data['qq_link']) ? $data['qq_link'] : '';
-        $register_default_agent= isset($data['register_default_agent']) ? $data['register_default_agent'] : '';
-        $register_default_rebate= isset($data['register_default_rebate']) ? $data['register_default_rebate'] : '';
-        $risk_rato= isset($data['risk_rato']) ? $data['risk_rato'] : '';
+        $sFastDepositLink= isset($data['fast_deposit_link']) ? $data['fast_deposit_link'] : '';
+        $sFastDepositLinkFlag= isset($data['fast_deposit_link_flag']) ? $data['fast_deposit_link_flag'] : '';
+        $sFavoriteSkin= isset($data['favorite_skin']) ? $data['favorite_skin'] : '';
+        $sFreePlay= isset($data['free_play']) ? $data['free_play'] : '';
+        $fFreePlayRebate= isset($data['free_play_rebate']) ? $data['free_play_rebate'] : '';
+        $sGoogleLoginFlag= isset($data['google_login_flag']) ? $data['google_login_flag'] : '';
+        $sHelpLink= isset($data['help_link']) ? $data['help_link'] : '';
+        $sHelpTel= isset($data['help_tel']) ? $data['help_tel'] : '';
+        $iId= isset($data['id']) ? $data['id'] : '';
+        $iIpAccountLoginCount= isset($data['ip_account_login_count']) ? $data['ip_account_login_count'] : '';
+        $bIsLogin= isset($data['is_login']) ? $data['is_login'] : '';
+        $sIsMaintain= isset($data['is_maintain']) ? $data['is_maintain'] : '';
+        $bIsMobileRegister= isset($data['is_mobile_register']) ? $data['is_mobile_register'] : '';
+        $bIsWebRegister= isset($data['is_web_register']) ? $data['is_web_register'] : '';
+        $sLastLoginIp= isset($data['last_login_ip']) ? $data['last_login_ip'] : '';
+        $dtLastLoginTime= isset($data['last_login_time']) ? $data['last_login_time'] : '';
+        $sLoginOnetimeFlag= isset($data['login_onetime_flag']) ? $data['login_onetime_flag'] : '';
+        $iLoginTimes= isset($data['login_times']) ? $data['login_times'] : '';
+        $sLowerRegisterColumn= isset($data['lower_register_column']) ? $data['lower_register_column'] : '';
+        $dtMaintainDate= isset($data['maintain_date']) ? $data['maintain_date'] : '';
+        $sMaintainDesc = isset($data['maintain_desc']) ? $data['maintain_desc'] : '';
+        $iMaxRebate= isset($data['max_rebate']) ? $data['max_rebate'] : '';
+        $sMobileDefaultAgent= isset($data['mobile_default_agent']) ? $data['mobile_default_agent'] : '';
+        $fMobileRegisterRebate= isset($data['mobile_register_rebate']) ? $data['mobile_register_rebate'] : '';
+        $sPassword= isset($data['password']) ? $data['password'] : '';
+        $sPlatformName= isset($data['platform_name']) ? $data['platform_name'] : '';
+        $sQqHelpFlag= isset($data['qq_help_flag']) ? $data['qq_help_flag'] : '';
+        $sQqLink= isset($data['qq_link']) ? $data['qq_link'] : '';
+        $sRegisterDefaultAgent= isset($data['register_default_agent']) ? $data['register_default_agent'] : '';
+        $sRegisterDefaultRebate= isset($data['register_default_rebate']) ? $data['register_default_rebate'] : '';
+        $fRiskRato= isset($data['risk_rato']) ? $data['risk_rato'] : '';
         $roles= isset($data['roles']) ? $data['roles'] : '';
         $sex= isset($data['sex']) ? $data['sex'] : '';
-        $spread_rebate= isset($data['spread_rebate']) ? $data['spread_rebate'] : '';
+        $fSpreadRebate= isset($data['spread_rebate']) ? $data['spread_rebate'] : '';
         $status= isset($data['status']) ? $data['status'] : '';
         $tel= isset($data['tel']) ? $data['tel'] : '';
-        $transfer_type= isset($data['transfer_type']) ? $data['transfer_type'] : '';
-        $updated_at= isset($data['updated_at']) ? $data['updated_at'] : '';
-        $user_register_column= isset($data['user_register_column']) ? $data['user_register_column'] : '';
-        $username= isset($data['username']) ? $data['username'] : '';
-        $valid_user_turnover= isset($data['valid_user_turnover']) ? $data['valid_user_turnover'] : '';
-        $web_desc= isset($data['web_desc']) ? $data['web_desc'] : '';
-        $web_keyword= isset($data['web_keyword']) ? $data['web_keyword'] : '';
-        $web_title= isset($data['web_title']) ? $data['web_title'] : '';
-        $winner_project_rato= isset($data['winner_project_rato']) ? $data['winner_project_rato'] : '';
-        $winner_rato= isset($data['winner_rato']) ? $data['winner_rato'] : '';
-        $withdraw_date_begin= isset($data['withdraw_date_begin']) ? $data['withdraw_date_begin'] : '';
-        $withdraw_date_end= isset($data['withdraw_date_end']) ? $data['withdraw_date_end'] : '';
-        $withdraw_max= isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
-        $withdraw_minutes= isset($data['withdraw_minutes']) ? $data['withdraw_minutes'] : '';
-        $withdraw_risk_audit= isset($data['withdraw_risk_audit']) ? $data['withdraw_risk_audit'] : '';
+        $sTransferType= isset($data['transfer_type']) ? $data['transfer_type'] : '';
+        $dtUpdatedAt= isset($data['updated_at']) ? $data['updated_at'] : '';
+        $sUserRegisterColumn= isset($data['user_register_column']) ? $data['user_register_column'] : '';
+        $sUsername= isset($data['username']) ? $data['username'] : '';
+        $fVvalidUserTurnover= isset($data['valid_user_turnover']) ? $data['valid_user_turnover'] : '';
+        $sWebDesc= isset($data['web_desc']) ? $data['web_desc'] : '';
+        $sWebKeyword= isset($data['web_keyword']) ? $data['web_keyword'] : '';
+        $sWebTitle= isset($data['web_title']) ? $data['web_title'] : '';
+        $sWinnerProjectRato= isset($data['winner_project_rato']) ? $data['winner_project_rato'] : '';
+        $sWinnerRato= isset($data['winner_rato']) ? $data['winner_rato'] : '';
+        $sWithdrawDateBegin= isset($data['withdraw_date_begin']) ? $data['withdraw_date_begin'] : '';
+        $sWithdrawDateEnd= isset($data['withdraw_date_end']) ? $data['withdraw_date_end'] : '';
+        $sWithdrawMax= isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
+        $sWithdrawMinutes= isset($data['withdraw_minutes']) ? $data['withdraw_minutes'] : '';
+        $sWithdrawRiskAudit= isset($data['withdraw_risk_audit']) ? $data['withdraw_risk_audit'] : '';
 
 
-
-
-        if ($id != '') {
-            $oSystemConfig = SystemConfig::find($id);
+        if ($iId != '') {
+            $oSystemConfig = SystemConfig::find($iId);
             $oSystemConfig->updated_at= now();
         } else {
             $oSystemConfig = new SystemConfig();
             $oSystemConfig->created_at= now();
         }
 
-        $oSystemConfig->is_login= $is_login;
-        $oSystemConfig->web_title= $web_title;
-        $oSystemConfig->web_keyword= $web_keyword;
-        $oSystemConfig->web_desc= $web_desc;
-        $oSystemConfig->platform_name= $platform_name;
-        $oSystemConfig->free_play= json_encode($free_play);
-        $oSystemConfig->favorite_skin= $favorite_skin;
-        $oSystemConfig->is_maintain= $is_maintain;
-        $oSystemConfig->maintain_desc= $maintain_desc;
+        $oSystemConfig->is_login= $bIsLogin;
+        $oSystemConfig->web_title= $sWebTitle;
+        $oSystemConfig->web_keyword= $sWebKeyword;
+        $oSystemConfig->web_desc= $sWebDesc;
+        $oSystemConfig->platform_name= $sPlatformName;
+        $oSystemConfig->free_play= json_encode($sFreePlay);
+        $oSystemConfig->favorite_skin= $sFavoriteSkin;
+        $oSystemConfig->is_maintain= $sIsMaintain;
+        $oSystemConfig->maintain_desc= $sMaintainDesc;
         $oSystemConfig->maintain_date= date('Y-m-d H:i:s');
-        $oSystemConfig->is_web_register= $is_web_register;
-        $oSystemConfig->register_default_agent= $register_default_agent;
-        $oSystemConfig->register_default_rebate= $register_default_rebate;
-        $oSystemConfig->max_rebate= $max_rebate;
-        $oSystemConfig->spread_rebate= $spread_rebate;
-        $oSystemConfig->is_mobile_register= $is_mobile_register;
-        $oSystemConfig->mobile_default_agent= $mobile_default_agent;
-        $oSystemConfig->mobile_register_rebate= $mobile_register_rebate;
-        $oSystemConfig->autoregister_usertype= $autoregister_usertype;
-        $oSystemConfig->can_set_rebate= $can_set_rebate;
-        $oSystemConfig->free_play_rebate= $free_play_rebate;
+        $oSystemConfig->is_web_register= $bIsWebRegister;
+        $oSystemConfig->register_default_agent= $sRegisterDefaultAgent;
+        $oSystemConfig->register_default_rebate= $sRegisterDefaultRebate;
+        $oSystemConfig->max_rebate= $iMaxRebate;
+        $oSystemConfig->spread_rebate= $fSpreadRebate;
+        $oSystemConfig->is_mobile_register= $bIsMobileRegister;
+        $oSystemConfig->mobile_default_agent= $sMobileDefaultAgent;
+        $oSystemConfig->mobile_register_rebate= $fMobileRegisterRebate;
+        $oSystemConfig->autoregister_usertype= $sAutoregisterUsertype;
+        $oSystemConfig->can_set_rebate= $sCanSetRebate;
+        $oSystemConfig->free_play_rebate= $fFreePlayRebate;
 
 
 
-        $oSystemConfig->user_register_column= json_encode($user_register_column);
-        $oSystemConfig->lower_register_column= json_encode($lower_register_column);
-        $oSystemConfig->withdraw_max= $withdraw_max;
-        $oSystemConfig->deposit_max= $deposit_max;
-        $oSystemConfig->can_deposit_decimal_point= $can_deposit_decimal_point;
-        $oSystemConfig->withdraw_risk_audit= $withdraw_risk_audit;
-        $oSystemConfig->bankcard_bind_max= $bankcard_bind_max;
-        $oSystemConfig->withdraw_minutes= $withdraw_minutes;
-        $oSystemConfig->fast_deposit_link_flag= $fast_deposit_link_flag;
-        $oSystemConfig->fast_deposit_link= $fast_deposit_link;
-        $oSystemConfig->withdraw_date_begin= $withdraw_date_begin;
-        $oSystemConfig->withdraw_date_end= $withdraw_date_end;
+        $oSystemConfig->user_register_column= json_encode($sUserRegisterColumn);
+        $oSystemConfig->lower_register_column= json_encode($sLowerRegisterColumn);
+        $oSystemConfig->withdraw_max= $sWithdrawMax;
+        $oSystemConfig->deposit_max= $fDepositMax;
+        $oSystemConfig->can_deposit_decimal_point= $sCanDepositDecimalPoint;
+        $oSystemConfig->withdraw_risk_audit= $sWithdrawRiskAudit;
+        $oSystemConfig->bankcard_bind_max= $iBankcardBindMax;
+        $oSystemConfig->withdraw_minutes= $sWithdrawMinutes;
+        $oSystemConfig->fast_deposit_link_flag= $sFastDepositLinkFlag;
+        $oSystemConfig->fast_deposit_link= $sFastDepositLink;
+        $oSystemConfig->withdraw_date_begin= $sWithdrawDateBegin;
+        $oSystemConfig->withdraw_date_end= $sWithdrawDateEnd;
 
 //        $oSystemConfig->withdraw_date= $withdraw_date;
-        $oSystemConfig->login_times= $login_times;
-        $oSystemConfig->ip_account_login_count= $ip_account_login_count;
-        $oSystemConfig->google_login_flag= $google_login_flag;
-        $oSystemConfig->valid_user_turnover= $valid_user_turnover;
-        $oSystemConfig->login_onetime_flag= $login_onetime_flag;
-        $oSystemConfig->help_link= $help_link;
-        $oSystemConfig->qq_link= $qq_link;
-        $oSystemConfig->help_tel= $help_tel;
-        $oSystemConfig->qq_help_flag= $qq_help_flag;
-        $oSystemConfig->winner_rato= $winner_rato;
-        $oSystemConfig->winner_project_rato= $winner_project_rato;
-        $oSystemConfig->risk_rato= $risk_rato;
-        $oSystemConfig->transfer_type= json_encode($transfer_type);
+        $oSystemConfig->login_times= $iLoginTimes;
+        $oSystemConfig->ip_account_login_count= $iIpAccountLoginCount;
+        $oSystemConfig->google_login_flag= $sGoogleLoginFlag;
+        $oSystemConfig->valid_user_turnover= $fVvalidUserTurnover;
+        $oSystemConfig->login_onetime_flag= $sLoginOnetimeFlag;
+        $oSystemConfig->help_link= $sHelpLink;
+        $oSystemConfig->qq_link= $sQqLink;
+        $oSystemConfig->help_tel= $sHelpTel;
+        $oSystemConfig->qq_help_flag= $sQqHelpFlag;
+        $oSystemConfig->winner_rato= $sWinnerRato;
+        $oSystemConfig->winner_project_rato= $sWinnerProjectRato;
+        $oSystemConfig->risk_rato= $fRiskRato;
+        $oSystemConfig->transfer_type= json_encode($sTransferType);
 
 
         $iRet = $oSystemConfig->save();
@@ -849,42 +892,45 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oSystemConfig;
 
-        $sub_account = '123';
-        $operate_name = 'systemConfigSave';
-        $log_content = 'systemConfigSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'systemConfigSave';
+        $sLogContent = 'systemConfigSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
 
 
-
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function webIconSave()
     {
         $data = request()->post();
 
-        $icon = isset($data['icon']) ? $data['icon'] : '';
-        $id = isset($data['id']) ? $data['id'] : '';
-        $pic = isset($data['pic']) ? $data['pic'] : '';
-//        $memo = isset($data['memo']) ? $data['memo'] : '';
-//        $type = isset($data['type']) ? $data['type'] : '';
+        $sIcon = isset($data['icon']) ? $data['icon'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sPic = isset($data['pic']) ? $data['pic'] : '';
+//        $sMemo = isset($data['memo']) ? $data['memo'] : '';
+//        $sType = isset($data['type']) ? $data['type'] : '';
 
-        if ($id != '') {
-            $oWebIcon = WebIcon::find($id);
+        if ($iId != '') {
+            $oWebIcon = WebIcon::find($iId);
         } else {
             $oWebIcon = new WebIcon();
         }
 
-        $oWebIcon->icon = $icon;
-        $oWebIcon->pic = $pic;
+        $oWebIcon->icon = $sIcon;
+        $oWebIcon->pic = $sPic;
 
 
         $iRet = $oWebIcon->save();
@@ -893,44 +939,48 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oWebIcon;
 
-        $sub_account = '123';
-        $operate_name = 'webIconSave';
-        $log_content = 'webIconSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'webIconSave';
+        $sLogContent = 'webIconSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
 
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function qrCodeSave()
     {
         $data = request()->post();
 
 
-        $id = isset($data['id']) ? $data['id'] : '';
-        $h5_address = isset($data['h5_address']) ? $data['h5_address'] : '';
-        $android_address = isset($data['android_address']) ? $data['android_address'] : '';
-        $ios_address = isset($data['ios_address']) ? $data['ios_address'] : '';
-        $pic = isset($data['pic']) ? $data['pic'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sH5Address = isset($data['h5_address']) ? $data['h5_address'] : '';
+        $sAndroidAddress = isset($data['android_address']) ? $data['android_address'] : '';
+        $sIosAddress = isset($data['ios_address']) ? $data['ios_address'] : '';
+        $sPic = isset($data['pic']) ? $data['pic'] : '';
 
-        if ($id != '') {
-            $oQrCode = QrCode::find($id);
+        if ($iId != '') {
+            $oQrCode = QrCode::find($iId);
         } else {
             $oQrCode = new QrCode();
         }
 
-        $oQrCode->h5_address = $h5_address;
-        $oQrCode->android_address = $android_address;
-        $oQrCode->ios_address = $ios_address;
+        $oQrCode->h5_address = $sH5Address;
+        $oQrCode->android_address = $sAndroidAddress;
+        $oQrCode->ios_address = $sIosAddress;
 
-        $oQrCode->pic = $pic;
+        $oQrCode->pic = $sPic;
 
 
         $iRet = $oQrCode->save();
@@ -938,30 +988,34 @@ class SiteController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
-        $sub_account = '123';
-        $operate_name = 'qrCodeSave';
-        $log_content = 'qrCodeSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'qrCodeSave';
+        $sLogContent = 'qrCodeSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
 
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function rotatePlaySave()
     {
         $data = request()->post();
 
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
 
-        $title = isset($data['title']) ? $data['title'] : '';
+        $sTitle = isset($data['title']) ? $data['title'] : '';
         $pc_pic = isset($data['pc_pic']) ? $data['pc_pic'] : '';
         $mobile_pic = isset($data['mobile_pic']) ? $data['mobile_pic'] : '';
         $link_type = isset($data['link_type']) ? $data['link_type'] : '';
@@ -970,15 +1024,15 @@ class SiteController extends Controller
         $squence = isset($data['squence']) ? $data['squence'] : '';
 
 
-        if ($id != '') {
-            $oQrCode = RotatePlay::find($id);
+        if ($iId != '') {
+            $oQrCode = RotatePlay::find($iId);
             $oQrCode->created_at = now();
         } else {
             $oQrCode = new RotatePlay();
             $oQrCode->updated_at = now();
         }
 
-        $oQrCode->title = $title;
+        $oQrCode->title = $sTitle;
         $oQrCode->pc_pic = $pc_pic;
         $oQrCode->mobile_pic = $mobile_pic;
         $oQrCode->link_type = $link_type;
@@ -993,29 +1047,33 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sub_account = '123';
-        $operate_name = 'rotatePlaySave';
-        $log_content = 'rotatePlaySave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'rotatePlaySave';
+        $sLogContent = 'rotatePlaySave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function floatWindowSave()
     {
         $data = request()->post();
 
-        $id=isset($data['id'])?$data['id']:'';
-        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
+        $iId=isset($data['id'])?$data['id']:'';
+        $iMerchantId=isset($data['merchant_id'])?$data['merchant_id']:'';
         $position=isset($data['position'])?$data['position']:'';
-        $title=isset($data['title'])?$data['title']:'';
-        $pic=isset($data['pic'])?$data['pic']:'';
+        $sTitle=isset($data['title'])?$data['title']:'';
+        $sPic=isset($data['pic'])?$data['pic']:'';
         $link_type=isset($data['link_type'])?$data['link_type']:'';
         $link=isset($data['link'])?$data['link']:'';
         $width=isset($data['width'])?$data['width']:'';
@@ -1023,21 +1081,21 @@ class SiteController extends Controller
         $expand_flag=isset($data['expand_flag'])?$data['expand_flag']:'';
         $expand_pic=isset($data['expand_pic'])?$data['expand_pic']:'';
         $expand_pic_desc=isset($data['expand_pic_desc'])?$data['expand_pic_desc']:'';
-        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $iSequence=isset($data['sequence'])?$data['sequence']:'';
 //        $status=isset($data['status'])?$data['status']:'';
 
 
-        if ($id != '') {
-            $oQrCode = FloatWindow::find($id);
+        if ($iId != '') {
+            $oQrCode = FloatWindow::find($iId);
         } else {
             $oQrCode = new FloatWindow();
         }
 
-//        $oQrCode->id = $id;
-//        $oQrCode->merchant_id = $merchant_id;
+//        $oQrCode->id = $iId;
+//        $oQrCode->merchant_id = $iMerchantId;
         $oQrCode->position = $position;
-        $oQrCode->title = $title;
-        $oQrCode->pic = $pic;
+        $oQrCode->title = $sTitle;
+        $oQrCode->pic = $sPic;
         $oQrCode->link_type = $link_type;
         $oQrCode->link = $link;
         $oQrCode->width = $width;
@@ -1045,7 +1103,7 @@ class SiteController extends Controller
         $oQrCode->expand_flag = $expand_flag;
         $oQrCode->expand_pic = $expand_pic;
         $oQrCode->expand_pic_desc = $expand_pic_desc;
-        $oQrCode->sequence = $sequence;
+        $oQrCode->sequence = $iSequence;
 //        $oQrCode->status = $status;
 
 
@@ -1055,33 +1113,37 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sub_account = '123';
-        $operate_name = 'floatWindowSave';
-        $log_content = 'floatWindowSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatWindowSave';
+        $sLogContent = 'floatWindowSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function informationSave()
     {
         $data = request()->post();
 
 
-        $id=isset($data['id'])?$data['id']:'';
-        $title=isset($data['title'])?$data['title']:'';
-        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $iId=isset($data['id'])?$data['id']:'';
+        $sTitle=isset($data['title'])?$data['title']:'';
+        $iSequence=isset($data['sequence'])?$data['sequence']:'';
         $status=isset($data['status'])?$data['status']:'';
-        $type=isset($data['type'])?$data['type']:'';
-        $content=isset($data['content'])?$data['content']:'';
+        $sType=isset($data['type'])?$data['type']:'';
+        $sContent=isset($data['content'])?$data['content']:'';
 
-        if ($id != '') {
-            $oQrCode = Information::find($id);
+        if ($iId != '') {
+            $oQrCode = Information::find($iId);
             $oQrCode->updated_at = now();
         } else {
             $oQrCode = new Information();
@@ -1089,13 +1151,13 @@ class SiteController extends Controller
         }
 
 
-//        $oQrCode->merchant_id = $merchant_id;
-        $oQrCode->title = $title;
-        $oQrCode->sequence = $sequence;
+//        $oQrCode->merchant_id = $iMerchantId;
+        $oQrCode->title = $sTitle;
+        $oQrCode->sequence = $iSequence;
         $oQrCode->status = $status;
-        $oQrCode->type = $type;
+        $oQrCode->type = $sType;
 
-        $oQrCode->content = $content;
+        $oQrCode->content = $sContent;
 
         $iRet = $oQrCode->save();
 
@@ -1103,41 +1165,45 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sub_account = '123';
-        $operate_name = 'informationSave';
-        $log_content = 'informationSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'informationSave';
+        $sLogContent = 'informationSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function companySave()
     {
         $data = request()->post();
 
 
-        $id=isset($data['id'])?$data['id']:'';
+        $iId=isset($data['id'])?$data['id']:'';
         $display_status=isset($data['status'])?$data['status']:'';
         $display_style=isset($data['display_style'])?$data['display_style']:'';
-        $content=isset($data['content'])?$data['content']:'';
+        $sContent=isset($data['content'])?$data['content']:'';
 
-        if ($id != '') {
-            $oQrCode = Company::find($id);
+        if ($iId != '') {
+            $oQrCode = Company::find($iId);
         } else {
             $oQrCode = new Company();
         }
 
 
-        $oQrCode->id = $id;
-//        $oQrCode->merchant_id = $merchant_id;
+        $oQrCode->id = $iId;
+//        $oQrCode->merchant_id = $iMerchantId;
         $oQrCode->status = $display_status;
         $oQrCode->display_style = $display_style;
-        $oQrCode->content = $content;
+        $oQrCode->content = $sContent;
 
         $iRet = $oQrCode->save();
 
@@ -1145,27 +1211,31 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sub_account = '123';
-        $operate_name = 'companySave';
-        $log_content = 'companySave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'companySave';
+        $sLogContent = 'companySave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
 
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function qrconfigList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -1182,8 +1252,8 @@ class SiteController extends Controller
         }
 
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 /*        $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
@@ -1206,28 +1276,32 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'qrconfigList';
-        $log_content = 'qrconfigList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'qrconfigList';
+        $sLogContent = 'qrconfigList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function rotationconfigList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
@@ -1248,8 +1322,8 @@ class SiteController extends Controller
         }
 
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -1280,26 +1354,30 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'rotationconfigList';
-        $log_content = 'rotationconfigList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'rotationconfigList';
+        $sLogContent = 'rotationconfigList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function systemconfigImagelist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
@@ -1311,8 +1389,8 @@ class SiteController extends Controller
             $oAuthAdminList->where('merchant_name', $sMerchantName);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
        /* $aTmp = [];
         $aFinal = [];
@@ -1333,26 +1411,30 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'systemconfigImagelist';
-        $log_content = 'systemconfigImagelist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'systemconfigImagelist';
+        $sLogContent = 'systemconfigImagelist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function systemconfigSet()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -1375,7 +1457,7 @@ class SiteController extends Controller
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
         $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
@@ -1410,29 +1492,33 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'systemconfigSet';
-        $log_content = 'systemconfigSet';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'systemconfigSet';
+        $sLogContent = 'systemconfigSet';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
-    public function informationStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function informationStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = Information::find($id);
+        $oEvent = Information::find($iId);
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
         }
@@ -1442,246 +1528,278 @@ class SiteController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'informationStatusSave';
-        $log_content = 'informationStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'informationStatusSave';
+        $sLogContent = 'informationStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
 
-
+    /**
+     * 数据删除
+     * @param request
+     * @return json
+     */
     public function rotationconfigDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
 //        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 ////            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
         // 删除权限
-        RotatePlay::where('id', '=', $id)->delete();
+        RotatePlay::where('id', '=', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'rotationconfigDelete';
-        $log_content = 'rotationconfigDelete';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'rotationconfigDelete';
+        $sLogContent = 'rotationconfigDelete';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success();
 
     }
-
+    /**
+     * 数据删除
+     * @param request
+     * @return json
+     */
     public function floatwindowconfigDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
 //        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 ////            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
         // 删除权限
-        FloatWindow::where('id', '=', $id)->delete();
+        FloatWindow::where('id', '=', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigDelete';
-        $log_content = 'floatwindowconfigDelete';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigDelete';
+        $sLogContent = 'floatwindowconfigDelete';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success();
 
     }
-
+    /**
+     * 数据删除
+     * @param request
+     * @return json
+     */
     public function informationDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
 //        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 ////            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
         // 删除权限
-        Information::where('id', '=', $id)->delete();
+        Information::where('id', '=', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'informationDelete';
-        $log_content = 'informationDelete';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'informationDelete';
+        $sLogContent = 'informationDelete';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success();
 
     }
 
-
-    public function updateLotterygroupSequence($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function updateLotterygroupSequence($iId = null)
     {
 
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = LotteryGroup::find($id);
+        $oEvent = LotteryGroup::find($iId);
         $oEvent->sequence = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'updateLotterygroupSequence';
-        $log_content = 'updateLotterygroupSequence';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'updateLotterygroupSequence';
+        $sLogContent = 'updateLotterygroupSequence';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
-
-    public function updateInformationSequence($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function updateInformationSequence($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = Information::find($id);
+        $oEvent = Information::find($iId);
         $oEvent->sequence = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'updateInformationSequence';
-        $log_content = 'updateInformationSequence';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'updateInformationSequence';
+        $sLogContent = 'updateInformationSequence';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
 
-
-    public function updateRotateSequence($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function updateRotateSequence($iId = null)
     {
 
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = RotatePlay::find($id);
+        $oEvent = RotatePlay::find($iId);
         $oEvent->sequence = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'updateRotateSequence';
-        $log_content = 'updateRotateSequence';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'updateRotateSequence';
+        $sLogContent = 'updateRotateSequence';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
-
-    public function updatefloatwindowSequence($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function updatefloatwindowSequence($iId = null)
     {
 
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = FloatWindow::find($id);
+        $oEvent = FloatWindow::find($iId);
         $oEvent->sequence = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'updatefloatwindowSequence';
-        $log_content = 'updatefloatwindowSequence';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'updatefloatwindowSequence';
+        $sLogContent = 'updatefloatwindowSequence';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
 
 
 
-
-    public function updateLotteryGroupPropertySave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function updateLotteryGroupPropertySave($iId = null)
     {
 
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $hot = isset($data['hot']) ? $data['hot'] : '';
         $recommand = isset($data['recommand']) ? $data['recommand'] : '';
-        $new = isset($data['new']) ? $data['new'] : '';
+        $sNew = isset($data['new']) ? $data['new'] : '';
 
 //        Log::info($data);
         $sFirst1 = substr($hot, 0, 1);
         $sFirst2 = substr($recommand, 0, 1);
-        $sFirst3 = substr($new, 0, 1);
+        $sFirst3 = substr($sNew, 0, 1);
         $bFlag1 = false;
         $bFlag2 = false;
         $bFlag3 = false;
@@ -1695,7 +1813,7 @@ class SiteController extends Controller
             $bFlag3 = true;
         }
 
-        $oEvent = LotteryGroup::find($id);
+        $oEvent = LotteryGroup::find($iId);
 
         if ($hot != '') {
             if ($bFlag1) {
@@ -1714,9 +1832,9 @@ class SiteController extends Controller
             }
         }
 
-        if ($new != '') {
+        if ($sNew != '') {
             if ($bFlag3) {
-                $oEvent->new = substr($new, 1, strlen($new));
+                $oEvent->new = substr($sNew, 1, strlen($sNew));
             } else {
                 $oEvent->new = '';
             }
@@ -1727,28 +1845,32 @@ class SiteController extends Controller
         $aFinal['code'] = 1;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'updateLotteryGroupPropertySave';
-        $log_content = 'updateLotteryGroupPropertySave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'updateLotteryGroupPropertySave';
+        $sLogContent = 'updateLotteryGroupPropertySave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
 
 
-
-    public function informationIsTopSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function informationIsTopSave($iId = null)
     {
 
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oEvent = Information::find($id);
+        $oEvent = Information::find($iId);
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
         }
@@ -1759,16 +1881,16 @@ class SiteController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'informationIsTopSave';
-        $log_content = 'informationIsTopSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'informationIsTopSave';
+        $sLogContent = 'informationIsTopSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
 

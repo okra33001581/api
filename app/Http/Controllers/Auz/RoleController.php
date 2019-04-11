@@ -42,13 +42,13 @@ class RoleController extends Controller
             $where[] = ['status', '=', intval($status)];
             $order = '';
         }
-        $name = request()->get('name', '');
-        if (!empty($name)) {
-            $where[] = ['name', 'like', $name . '%'];
+        $sName = request()->get('name', '');
+        if (!empty($sName)) {
+            $where[] = ['name', 'like', $sName . '%'];
             $order = '';
         }
-        $limit = request()->get('limit/d', 20);
-        $lists = AuthRole::orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $lists = AuthRole::orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
         $res["total"] = count($lists);
@@ -58,16 +58,16 @@ class RoleController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -76,17 +76,17 @@ class RoleController extends Controller
 
     public function roleAuthList()
     {
-//        $id = request()->get('id/d', '');
+//        $iId = request()->get('id/d', '');
 //        Log::info(request()->all());
-        $id1 = isset(request()->id) ? request()->id : '';
+        $iId1 = isset(request()->id) ? request()->id : '';
 
         $checked_keys = [];
-        Log::info('id==========' . $id1);
-//        $auth_permission = AuthPermission::where('role_id', $id)
+        Log::info('id==========' . $iId1);
+//        $auth_permission = AuthPermission::where('role_id', $iId)
 //            ->select(['permission_rule_id'])
 //            ->get();
 
-        $oAuthPermissionList = AuthPermission::where('role_id', $id1)
+        $oAuthPermissionList = AuthPermission::where('role_id', $iId1)
             ->get();
 
         foreach ($oAuthPermissionList as $oAuthPermission) {
@@ -103,16 +103,16 @@ class RoleController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -120,7 +120,7 @@ class RoleController extends Controller
 
     public function roleAuthListByUser()
     {
-        $id = request()->get('id/d', '');
+        $iId = request()->get('id/d', '');
         Log::info(request()->all());
         $checked_keys = [];
         $auth_permission = AuthPermission::where('role_id', 16)
@@ -140,16 +140,16 @@ class RoleController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -203,16 +203,16 @@ class RoleController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
 
@@ -226,13 +226,13 @@ class RoleController extends Controller
         if (empty($data['name']) || empty($data['status'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $name = $data['name'];
+        $sName = $data['name'];
         // 菜单模型
-//        $info = AuthRole::where('name',$name)
+//        $info = AuthRole::where('name',$sName)
 //            ->field('name')
 //            ->find();
 
-        $info = AuthRole::where('name', $name)
+        $info = AuthRole::where('name', $sName)
             ->first();
 
 //        if ($info){
@@ -242,7 +242,7 @@ class RoleController extends Controller
         $now_time = date("Y-m-d H:i:s");
         $status = isset($data['status']) ? $data['status'] : 0;
         $auth_role = new AuthRole();
-        $auth_role->name = $name;
+        $auth_role->name = $sName;
         $auth_role->status = $status;
         $auth_role->remark = isset($data['remark']) ? strip_tags($data['remark']) : '';
         $auth_role->create_time = $now_time;
@@ -258,16 +258,16 @@ class RoleController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
 
@@ -280,33 +280,33 @@ class RoleController extends Controller
         if (empty($data['id']) || empty($data['name'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $id = $data['id'];
-        $name = strip_tags($data['name']);
+        $iId = $data['id'];
+        $sName = strip_tags($data['name']);
         // 模型
-//        $auth_role = AuthRole::where('id',$id)
+//        $auth_role = AuthRole::where('id',$iId)
 //            ->field('id')
 //            ->find();
 
-        $auth_role = AuthRole::where('id', $id)
+        $auth_role = AuthRole::where('id', $iId)
             ->first();
 
         if (!$auth_role) {
             return ResultVo::error(ErrorCode::DATA_NOT, "角色不存在");
         }
 
-//        $info = AuthRole::where('name',$name)
+//        $info = AuthRole::where('name',$sName)
 //            ->field('id')
 //            ->find();
 
-        $info = AuthRole::where('name', $name)
+        $info = AuthRole::where('name', $sName)
             ->first();
 
         // 判断角色名称 是否重名，剔除自己
-//        if (!empty($info['id']) && $info['id'] != $id) {
+//        if (!empty($info['id']) && $info['id'] != $iId) {
 //            return ResultVo::error(ErrorCode::DATA_REPEAT);
 //        }
         $status = isset($data['status']) ? $data['status'] : 0;
-        $auth_role->name = $name;
+        $auth_role->name = $sName;
         $auth_role->status = $status;
         $auth_role->remark = isset($data['remark']) ? strip_tags($data['remark']) : '';
         $auth_role->update_time = date("Y-m-d H:i:s");
@@ -322,16 +322,16 @@ class RoleController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -339,12 +339,12 @@ class RoleController extends Controller
 
     public function roleDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        if (!AuthRole::where('id', $id)->delete()) {
+        if (!AuthRole::where('id', $iId)->delete()) {
             return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
 
@@ -352,16 +352,16 @@ class RoleController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
 
@@ -371,18 +371,18 @@ class RoleController extends Controller
 
     public function copyGroup()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-//        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+//        if ($iId == '') {
 //            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
 //        }
-//        if (!AuthRole::where('id', $id)->delete()) {
+//        if (!AuthRole::where('id', $iId)->delete()) {
 //            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
 
 
 
-        $oAuthRole = AuthRole::find($id);
+        $oAuthRole = AuthRole::find($iId);
 
         $oAuthRoleTmp = new $oAuthRole();
         $oAuthRoleTmp->name = $oAuthRole->name.'copy';
@@ -398,13 +398,13 @@ class RoleController extends Controller
 
         $oAuthRoleTmp->save();
 
-        $idTmp = $oAuthRoleTmp->id;
+        $iIdTmp = $oAuthRoleTmp->id;
 
 
         $sSql = "INSERT INTO auth_permissions (role_id, permission_rule_id, type, updated_at, created_at) 
-                    select ".$idTmp.", permission_rule_id, type, updated_at, created_at
+                    select ".$iIdTmp.", permission_rule_id, type, updated_at, created_at
                     from auth_permissions
-                    where role_id = ".$id;
+                    where role_id = ".$iId;
 
 
         Log::info($sSql);
@@ -417,16 +417,16 @@ class RoleController extends Controller
 //        $aFinal['data'] = $res;
 
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
 

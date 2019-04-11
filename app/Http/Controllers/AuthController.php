@@ -14,11 +14,11 @@ class AuthController extends Controller
         return Article::all();
     }
 
-    public function show($id)
+    public function show($iId)
     {
         print_r('2222222');
         die;
-        return Article::find($id);
+        return Article::find($iId);
     }
 
     public function store(Request $request)
@@ -26,17 +26,17 @@ class AuthController extends Controller
         return Article::create($request->all());
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $iId)
     {
-        $article = Article::findOrFail($id);
-        $article''$request->all());
+        $article = Article::findOrFail($iId);
+//        $article''$request->all());
 
         return $article;
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $iId)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::findOrFail($iId);
         $article->delete();
 
         return 204;

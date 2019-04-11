@@ -18,41 +18,45 @@ use App\model\AdminLog;
 class ReportController extends Controller
 {
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function financeIndex()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
 
         $oAuthAdminList = DB::table('report_finance');
 
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($dtBeginDate !== '') {
             $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
-        if ($endDate !== '') {
-            $oAuthAdminList->where('date', '<=', $endDate);
+        if ($dtEndDate !== '') {
+            $oAuthAdminList->where('date', '<=', $dtEndDate);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
        /* $aTmp = [];
@@ -85,37 +89,41 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'financeIndex';
-        $log_content = 'financeIndex';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'financeIndex';
+        $sLogContent = 'financeIndex';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function operationProfit()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
 
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
         $model = isset(request()->model) ? request()->model : '';
 
@@ -124,22 +132,22 @@ class ReportController extends Controller
         $sUserName = isset(request()->username) ? request()->username : '';
 
 
-        $datePeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
+        $dtPeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
 
         $oAuthAdminList = DB::table('report_operation_profit');
 
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($dtBeginDate !== '') {
             $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
-        if ($endDate !== '') {
-            $oAuthAdminList->where('date', '<=', $endDate);
+        if ($dtEndDate !== '') {
+            $oAuthAdminList->where('date', '<=', $dtEndDate);
         }
 
         if ($model !== '') {
@@ -155,15 +163,15 @@ class ReportController extends Controller
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
 
-        if ($datePeriod != '') {
-            $aTmp = DateUtils::getDateArray($datePeriod);
+        if ($dtPeriod != '') {
+            $aTmp = DateUtils::getDateArray($dtPeriod);
             $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
             $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
 
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -201,26 +209,30 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'operationProfit';
-        $log_content = 'operationProfit';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'operationProfit';
+        $sLogContent = 'operationProfit';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function pgamePlaylist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
@@ -230,11 +242,11 @@ class ReportController extends Controller
         $way = isset(request()->way) ? request()->way : '';
         $prize_status = isset(request()->prize_status) ? request()->prize_status : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
         $sort = isset(request()->sort) ? request()->sort : '';
         $prize_type = isset(request()->prize_type) ? request()->prize_type : '';
-        $min = isset(request()->min) ? request()->min : '';
-        $max = isset(request()->max) ? request()->max : '';
+        $iMin = isset(request()->min) ? request()->min : '';
+        $iMax = isset(request()->max) ? request()->max : '';
         $select_info_type = isset(request()->select_info_type) ? request()->select_info_type : '';
         $issue = isset(request()->issue) ? request()->issue : '';
 
@@ -266,8 +278,8 @@ class ReportController extends Controller
             $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
-        if ($endDate !== '') {
-            $oAuthAdminList->where('date', '>=', $endDate);
+        if ($dtEndDate !== '') {
+            $oAuthAdminList->where('date', '>=', $dtEndDate);
         }
 
         if ($sort == '逆序') {
@@ -279,22 +291,22 @@ class ReportController extends Controller
         }
 
         if ($prize_type == '奖金') {
-            if ($min !== '') {
-                $oAuthAdminList->where('prize_amount', '>=', $min);
+            if ($iMin !== '') {
+                $oAuthAdminList->where('prize_amount', '>=', $iMin);
             }
 
-            if ($max !== '') {
-                $oAuthAdminList->where('prize_amount', '>=', $max);
+            if ($iMax !== '') {
+                $oAuthAdminList->where('prize_amount', '>=', $iMax);
             }
         }
 
         if ($prize_type == '倍数') {
-            if ($min !== '') {
-                $oAuthAdminList->where('multiple', '>=', $min);
+            if ($iMin !== '') {
+                $oAuthAdminList->where('multiple', '>=', $iMin);
             }
 
-            if ($max !== '') {
-                $oAuthAdminList->where('multiple', '>=', $max);
+            if ($iMax !== '') {
+                $oAuthAdminList->where('multiple', '>=', $iMax);
             }
         }
 
@@ -313,8 +325,8 @@ class ReportController extends Controller
 
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -348,46 +360,50 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'pgamePlaylist';
-        $log_content = 'pgamePlaylist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'pgamePlaylist';
+        $sLogContent = 'pgamePlaylist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function preportProfit()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
         $sUserName = isset(request()->username) ? request()->username : '';
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
-        $datePeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
+        $dtPeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
 
 
         $oAuthAdminList = DB::table('report_platform');
 
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
 
@@ -399,22 +415,22 @@ class ReportController extends Controller
             $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
-        if ($endDate !== '') {
-            $oAuthAdminList->where('date', '<=', $endDate);
+        if ($dtEndDate !== '') {
+            $oAuthAdminList->where('date', '<=', $dtEndDate);
         }
 
 
 
 
-        if ($datePeriod != '') {
-            $aTmp = DateUtils::getDateArray($datePeriod);
+        if ($dtPeriod != '') {
+            $aTmp = DateUtils::getDateArray($dtPeriod);
             $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
             $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
 
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -446,35 +462,39 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'preportProfit';
-        $log_content = 'preportProfit';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'preportProfit';
+        $sLogContent = 'preportProfit';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function userReport()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $datePeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
+        $dtPeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
 
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
         $model = isset(request()->model) ? request()->model : '';
 
@@ -486,16 +506,16 @@ class ReportController extends Controller
 
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($dtBeginDate !== '') {
             $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
-        if ($endDate !== '') {
-            $oAuthAdminList->where('date', '<=', $endDate);
+        if ($dtEndDate !== '') {
+            $oAuthAdminList->where('date', '<=', $dtEndDate);
         }
 
         if ($model !== '') {
@@ -513,15 +533,15 @@ class ReportController extends Controller
 
 
 
-        if ($datePeriod != '') {
-            $aTmp = DateUtils::getDateArray($datePeriod);
+        if ($dtPeriod != '') {
+            $aTmp = DateUtils::getDateArray($dtPeriod);
             $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
             $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
 
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -558,21 +578,25 @@ class ReportController extends Controller
 
 
 
-        $sub_account = '123';
-        $operate_name = 'userReport';
-        $log_content = 'userReport';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'userReport';
+        $sLogContent = 'userReport';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function getDayBetween()
     {
         $aFinal['message'] = 'success';
@@ -580,16 +604,16 @@ class ReportController extends Controller
         $aFinal['begin_date'] = '2011-11-11';
         $aFinal['end_date'] = '2011-11-11';
 
-        $sub_account = '123';
-        $operate_name = 'getDayBetween';
-        $log_content = 'getDayBetween';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'getDayBetween';
+        $sLogContent = 'getDayBetween';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
         return response()->json($aFinal);
     }
 

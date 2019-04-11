@@ -15,66 +15,70 @@ use App\model\AdminLog;
  */
 class LogController extends Controller
 {
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function logAdminlog()
     {
 
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
 
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
-        $type = isset(request()->type) ? request()->type : '';
+        $sType = isset(request()->type) ? request()->type : '';
 
-        $sub_account = isset(request()->sub_account) ? request()->sub_account : '';
+        $sSubAccount = isset(request()->sub_account) ? request()->sub_account : '';
 
-        $ip = isset(request()->ip) ? request()->ip : '';
+        $sIp = isset(request()->ip) ? request()->ip : '';
 
-        $cookies = isset(request()->cookie_content) ? request()->cookie_content : '';
+        $sCookies = isset(request()->cookie_content) ? request()->cookie_content : '';
 
-        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $sKeywords = isset(request()->keywords) ? request()->keywords : '';
 
         $oAuthAdminList = DB::table('log_admin');
 
-        if ($merchant_name != '') {
-            $oAuthAdminList->where('merchant_name', $merchant_name);
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', $sMerchantName);
         }
         if ($dtBeginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
-        if ($endDate != '') {
-            $oAuthAdminList->where('created_at', '<=', $endDate);
+        if ($dtEndDate != '') {
+            $oAuthAdminList->where('created_at', '<=', $dtEndDate);
         }
-        if ($type != '') {
-            $oAuthAdminList->where('type', $type);
+        if ($sType != '') {
+            $oAuthAdminList->where('type', $sType);
         }
-        if ($sub_account != '') {
-            $oAuthAdminList->where('sub_account', 'like', '%' . $sub_account . '%');
+        if ($sSubAccount != '') {
+            $oAuthAdminList->where('sub_account', 'like', '%' . $sSubAccount . '%');
         }
-        if ($ip != '') {
-            $oAuthAdminList->where('ip', $ip);
+        if ($sIp != '') {
+            $oAuthAdminList->where('ip', $sIp);
         }
-        if ($cookies != '') {
-            $oAuthAdminList->where('cookies', $cookies);
+        if ($sCookies != '') {
+            $oAuthAdminList->where('cookies', $sCookies);
         }
-        if ($keywords != '') {
-            $oAuthAdminList->where('log_content', $keywords);
+        if ($sKeywords != '') {
+            $oAuthAdminList->where('log_content', $sKeywords);
         }
 
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 //
 //
 //        $aTmp = [];
@@ -101,40 +105,43 @@ class LogController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sub_account = '123';
-        $operate_name = 'logAdminlog';
-        $log_content = 'logAdminlog';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'logAdminlog';
+        $sLogContent = 'logAdminlog';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function logDomainlog()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
         $oAuthAdminList = DB::table('log_domain');
 
 
-        if ($merchant_name != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($dtBeginDate != '') {
@@ -142,12 +149,12 @@ class LogController extends Controller
         }
 
 
-        if ($endDate != '') {
-            $oAuthAdminList->where('created_at', '<=', $endDate);
+        if ($dtEndDate != '') {
+            $oAuthAdminList->where('created_at', '<=', $dtEndDate);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 //        $aTmp = [];
 //        $aFinal = [];
@@ -170,43 +177,47 @@ class LogController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'logDomainlog';
-        $log_content = 'logDomainlog';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'logDomainlog';
+        $sLogContent = 'logDomainlog';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function logLoginlog()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
-        $type = isset(request()->type) ? request()->type : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
+        $sType = isset(request()->type) ? request()->type : '';
         $sub_title = isset(request()->sub_title) ? request()->sub_title : '';
-        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $sKeywords = isset(request()->keywords) ? request()->keywords : '';
         $is_check = isset(request()->is_check) ? request()->is_check : '';
 
         $oAuthAdminList = DB::table('log_login');
 
 
-        if ($merchant_name != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($dtBeginDate != '') {
@@ -214,12 +225,12 @@ class LogController extends Controller
         }
 
 
-        if ($endDate != '') {
-            $oAuthAdminList->where('login_date', '<=', $endDate);
+        if ($dtEndDate != '') {
+            $oAuthAdminList->where('login_date', '<=', $dtEndDate);
         }
 
-        if ($type != '') {
-            $oAuthAdminList->where('type', '=', $type);
+        if ($sType != '') {
+            $oAuthAdminList->where('type', '=', $sType);
         }
 
         $bFlag = 0;
@@ -230,13 +241,13 @@ class LogController extends Controller
         $oAuthAdminList->where('is_check', '=', $bFlag);
 
         if ($sub_title == '用户名') {
-            $oAuthAdminList->where('username', 'like', '%' . $keywords . '%');
+            $oAuthAdminList->where('username', 'like', '%' . $sKeywords . '%');
         } elseif ($sub_title == 'IP地址') {
-            $oAuthAdminList->where('ip_address', 'like', '%' . $keywords . '%');
+            $oAuthAdminList->where('ip_address', 'like', '%' . $sKeywords . '%');
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 //        $aTmp = [];
 //        $aFinal = [];
@@ -262,16 +273,16 @@ class LogController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'logLoginlog';
-        $log_content = 'logLoginlog';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'logLoginlog';
+        $sLogContent = 'logLoginlog';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);

@@ -72,7 +72,7 @@ class EventController extends Controller
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 //        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -96,13 +96,13 @@ class EventController extends Controller
             $oAuthAdminList->where('event_name', 'like', '%' . $sEventName . '%');
         }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 
 
         $oAuthAdminList = $oAuthAdminList->where('event_id', '=','');
 
 
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 
         $aTmp = [];
         $aFinal = [];
@@ -219,7 +219,7 @@ class EventController extends Controller
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -244,13 +244,13 @@ class EventController extends Controller
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 
 
         $oAuthAdminFinalList = DB::table('eventNew')->where('event_id', $iTaskId)->get();
 
 
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 
         $aTmp = [];
         $aFinal = [];
@@ -393,7 +393,7 @@ class EventController extends Controller
 //        $sWhere = [];
 //        $sOrder = 'id DESC';
 //        $iLimit = isset(request()->limit) ? request()->limit : '';
-//        $iPage = isset(request()->page) ? request()->page : '';
+//        $sIpage = isset(request()->page) ? request()->page : '';
 //        // +id -id
 //        $iSort = isset(request()->sort) ? request()->sort : '';
 //        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -447,13 +447,13 @@ class EventController extends Controller
 //        static::whereBetween('bought_at',[ $dBeginTime,$dEndTime ])
 
 //        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 
 
 //        $oAuthAdminList = DB::table('event_user_prize');
 
 
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $oAuthAdminFinalList = $oAuthAdminList->get();
 
         $aTmp = [];
@@ -494,7 +494,7 @@ class EventController extends Controller
 //        $sWhere = [];
 //        $sOrder = 'id DESC';
 //        $iLimit = isset(request()->limit) ? request()->limit : '';
-//        $iPage = isset(request()->page) ? request()->page : '';
+//        $sIpage = isset(request()->page) ? request()->page : '';
 //        // +id -id
 //        $iSort = isset(request()->sort) ? request()->sort : '';
 //        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -517,13 +517,13 @@ class EventController extends Controller
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
 //        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 
 
         $oAuthAdminList = DB::table('event_user_prize');
 
 
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+//        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $oAuthAdminFinalList = $oAuthAdminList->get();
 
         $aTmp = [];
@@ -611,13 +611,13 @@ class EventController extends Controller
         /* if (empty($data['username']) || empty($data['password'])) {
              return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
          }
-         $username = $data['username'];*/
+         $sUsername = $data['username'];*/
         // 模型
-//        $info = AuthAdmin::where('username',$username)
+//        $info = AuthAdmin::where('username',$sUsername)
 //            ->field('username')
 //            ->find();
 
-//        $oAuthAdmin = AuthAdmin::where('username', $username)
+//        $oAuthAdmin = AuthAdmin::where('username', $sUsername)
 //            ->first();
 
 //        if ($oAuthAdmin){
@@ -632,7 +632,7 @@ class EventController extends Controller
         $benefit_ratio = isset($data['benefit_ratio']) ? $data['benefit_ratio'] : '';
         $bind_bankcard_benefit = isset($data['bind_bankcard_benefit']) ? $data['bind_bankcard_benefit'] : '';
         $bind_bankcard_flag = isset($data['bind_bankcard_flag']) ? $data['bind_bankcard_flag'] : '';
-        $created_at = isset($data['created_at']) ? $data['created_at'] : date('Y-m-d');
+        $dtCreatedAt = isset($data['created_at']) ? $data['created_at'] : date('Y-m-d');
         $creator = isset($data['creator']) ? $data['creator'] : '';
         $deposit = isset($data['deposit']) ? $data['deposit'] : '';
         $deposit_request = isset($data['deposit_request']) ? $data['deposit_request'] : '';
@@ -647,19 +647,19 @@ class EventController extends Controller
         $history_deposit = isset($data['history_deposit']) ? $data['history_deposit'] : '';
         $history_deposit_begin = isset($data['history_deposit_begin']) ? $data['history_deposit_begin'] : date('Y-m-d');
         $history_deposit_end = isset($data['history_deposit_end']) ? $data['history_deposit_end'] : date('Y-m-d');
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $addSubFlage = isset($data['addSubFlage']) ? $data['addSubFlage'] : '';
 
-        $merchant_name = isset($data['merchant_name']) ? $data['merchant_name'] : '';
+        $sMerchantName = isset($data['merchant_name']) ? $data['merchant_name'] : '';
         $pay_account = isset($data['pay_account']) ? $data['pay_account'] : '';
         $perfect_username_benefit = isset($data['perfect_username_benefit']) ? $data['perfect_username_benefit'] : '';
         $perfect_username_flag = isset($data['perfect_username_flag']) ? $data['perfect_username_flag'] : '';
-        $pic1 = isset($data['pic1']) ? $data['pic1'] : '';
-        $pic2 = isset($data['pic2']) ? $data['pic2'] : '';
-        $pic3 = isset($data['pic3']) ? $data['pic3'] : '';
-        $pic4 = isset($data['pic4']) ? $data['pic4'] : '';
-        $pic5 = isset($data['pic5']) ? $data['pic5'] : '';
-        $pic6 = isset($data['pic6']) ? $data['pic6'] : '';
+        $sPic1 = isset($data['pic1']) ? $data['pic1'] : '';
+        $sPic2 = isset($data['pic2']) ? $data['pic2'] : '';
+        $sPic3 = isset($data['pic3']) ? $data['pic3'] : '';
+        $sPic4 = isset($data['pic4']) ? $data['pic4'] : '';
+        $sPic5 = isset($data['pic5']) ? $data['pic5'] : '';
+        $sPic6 = isset($data['pic6']) ? $data['pic6'] : '';
         $platform_blacklist = isset($data['platform_blacklist']) ? $data['platform_blacklist'] : '';
         $platform_whitelist = isset($data['platform_whitelist']) ? $data['platform_whitelist'] : '';
         $rakeback = isset($data['rakeback']) ? $data['rakeback'] : '';
@@ -672,18 +672,18 @@ class EventController extends Controller
         $rescue_gold = isset($data['rescue_gold']) ? $data['rescue_gold'] : '';
         $send_type = isset($data['send_type']) ? $data['send_type'] : '';
         $status = isset($data['status']) ? $data['status'] : '0';
-        $terminal_display = isset($data['terminal_display']) ? $data['terminal_display'] : '';
+        $sTerminal_display = isset($data['terminal_display']) ? $data['terminal_display'] : '';
         $times = isset($data['times']) ? $data['times'] : '';
         $turnover = isset($data['turnover']) ? $data['turnover'] : '';
-        $updated_at = isset($data['updated_at']) ? $data['updated_at'] : '';
+        $dtUpdatedAt = isset($data['updated_at']) ? $data['updated_at'] : '';
         $updator = isset($data['updator']) ? $data['updator'] : '';
-        $user_ids = isset($data['user_ids']) ? $data['user_ids'] : '';
+        $iUserIds = isset($data['user_ids']) ? $data['user_ids'] : '';
         $user_layers = isset($data['user_layers']) ? $data['user_layers'] : '';
         $verify_email_benefit = isset($data['verify_email_benefit']) ? $data['verify_email_benefit'] : '';
         $verify_email_flag = isset($data['verify_email_flag']) ? $data['verify_email_flag'] : '';
         $verify_phone_benefit = isset($data['verify_phone_benefit']) ? $data['verify_phone_benefit'] : '';
         $verify_phone_flag = isset($data['verify_phone_flag']) ? $data['verify_phone_flag'] : '';
-        $withdraw_max = isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
+        $sWithdrawMax = isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
         $withdraw_min = isset($data['withdraw_min']) ? $data['withdraw_min'] : '';
 
         $register_domain = isset($data['register_domain']) ? $data['register_domain'] : '';
@@ -691,17 +691,17 @@ class EventController extends Controller
         $register_domain_end = isset($data['register_domain_end']) ? $data['register_domain_end'] : date('Y-m-d');
         $user_layers = isset($data['user_layers']) ? $data['user_layers'] : '';
         $plus_profit = isset($data['plus_profit']) ? $data['plus_profit'] : '';
-        $minus_profit = isset($data['minus_profit']) ? $data['minus_profit'] : '';
+        $iMinus_profit = isset($data['minus_profit']) ? $data['minus_profit'] : '';
 
 
         $bFlag = false;
-        if ($id != '') {
+        if ($iId != '') {
             if ($event_id != '') {
                 $bFlag = true;
             } else {
                 // 有下级活动
                 if ($addSubFlage == 1) {
-                    $event_id = $id;
+                    $event_id = $iId;
 //                $bFlag = true;
                 } else {
                     $bFlag = true;
@@ -710,9 +710,9 @@ class EventController extends Controller
         }
 
         if ($bFlag) {
-            $auth_role_admin = Event::find($id);
+            $oAuthRoleAdmin = Event::find($iId);
         } else{
-            $auth_role_admin = new Event();
+            $oAuthRoleAdmin = new Event();
         }
 
 
@@ -721,93 +721,93 @@ class EventController extends Controller
 //        die;
 
 
-       /* if ($id != '' && $event_id != '') {
-            $auth_role_admin = Event::find($id);
+       /* if ($iId != '' && $event_id != '') {
+            $oAuthRoleAdmin = Event::find($iId);
         }
 
         die;*/
 
 //        Log::info();
         // tmp
-//        $auth_role_admin = new Event();
+//        $oAuthRoleAdmin = new Event();
 
-//        $auth_role_admin = new Event();
-//        $auth_role_admin->id =$id;
-        $auth_role_admin->merchant_name = 'admin';
-        $auth_role_admin->event_id = $event_id;
-        $auth_role_admin->event_name = $event_name;
-        $auth_role_admin->begin_date = $begin_date;
-        $auth_role_admin->end_date = $end_date;
-        $auth_role_admin->event_object = $event_object;
-        $auth_role_admin->receive_type = Event::arrTostr($receive_type);
-        $auth_role_admin->event_desc = $event_desc;
-        $auth_role_admin->pic1 = $pic1;
-        $auth_role_admin->pic2 = $pic2;
-        $auth_role_admin->pic3 = $pic3;
-        $auth_role_admin->pic4 = $pic4;
-        $auth_role_admin->pic5 = $pic5;
-        $auth_role_admin->pic6 = $pic6;
-        $auth_role_admin->terminal_display = Event::arrTostr($terminal_display);
-        $auth_role_admin->send_type = Event::arrTostr($send_type);
-        $auth_role_admin->audit_mode = Event::arrTostr($audit_mode);
-        $auth_role_admin->frequency = $frequency;
-        $auth_role_admin->times = $times;
-        $auth_role_admin->deposit = $deposit;
-        $auth_role_admin->benefit_ratio = $benefit_ratio;
-        $auth_role_admin->benefit = $benefit;
-        $auth_role_admin->benefit_min = $benefit_min;
-        $auth_role_admin->benefit_max = $benefit_max;
-        $auth_role_admin->turnover = $turnover;
-        $auth_role_admin->deposit_request = $deposit_request;
-        $auth_role_admin->range_begin = $range_begin;
-        $auth_role_admin->range_end = $range_end;
-        $auth_role_admin->platform_whitelist = Event::arrTostr($platform_whitelist);
-        $auth_role_admin->platform_blacklist = Event::arrTostr($platform_blacklist);
-        $auth_role_admin->game_whitelist = Event::arrTostr($game_whitelist);
-        $auth_role_admin->game_blacklist = Event::arrTostr($game_blacklist);
-        $auth_role_admin->pay_account = Event::arrTostr($pay_account);
-        $auth_role_admin->rakeback = $rakeback;
-        $auth_role_admin->rescue_gold = $rescue_gold;
-        $auth_role_admin->status = $status;
-        $auth_role_admin->bind_bankcard_flag = $bind_bankcard_flag;
-        $auth_role_admin->bind_bankcard_benefit = $bind_bankcard_benefit;
-        $auth_role_admin->creator = 'admin';;
-        $auth_role_admin->created_at = date('Y-m-d H:i:s');
-        $auth_role_admin->updator = 'admin';;
-        $auth_role_admin->updated_at = date('Y-m-d H:i:s');
-        $auth_role_admin->perfect_username_flag = $perfect_username_flag;
-        $auth_role_admin->perfect_username_benefit = $perfect_username_benefit;
-        $auth_role_admin->verify_email_flag = $verify_email_flag;
-        $auth_role_admin->verify_email_benefit = $verify_email_benefit;
-        $auth_role_admin->verify_phone_flag = $verify_phone_flag;
-        $auth_role_admin->verify_phone_benefit = $verify_phone_benefit;
-        $auth_role_admin->history_deposit = $history_deposit;
-        $auth_role_admin->history_deposit_begin = $history_deposit_begin;
-        $auth_role_admin->history_deposit_end = $history_deposit_end;
-        $auth_role_admin->withdraw_min = $withdraw_min;
-        $auth_role_admin->withdraw_max = $withdraw_max;
+//        $oAuthRoleAdmin = new Event();
+//        $oAuthRoleAdmin->id =$iId;
+        $oAuthRoleAdmin->merchant_name = 'admin';
+        $oAuthRoleAdmin->event_id = $event_id;
+        $oAuthRoleAdmin->event_name = $event_name;
+        $oAuthRoleAdmin->begin_date = $begin_date;
+        $oAuthRoleAdmin->end_date = $end_date;
+        $oAuthRoleAdmin->event_object = $event_object;
+        $oAuthRoleAdmin->receive_type = Event::arrTostr($receive_type);
+        $oAuthRoleAdmin->event_desc = $event_desc;
+        $oAuthRoleAdmin->pic1 = $sPic1;
+        $oAuthRoleAdmin->pic2 = $sPic2;
+        $oAuthRoleAdmin->pic3 = $sPic3;
+        $oAuthRoleAdmin->pic4 = $sPic4;
+        $oAuthRoleAdmin->pic5 = $sPic5;
+        $oAuthRoleAdmin->pic6 = $sPic6;
+        $oAuthRoleAdmin->terminal_display = Event::arrTostr($sTerminal_display);
+        $oAuthRoleAdmin->send_type = Event::arrTostr($send_type);
+        $oAuthRoleAdmin->audit_mode = Event::arrTostr($audit_mode);
+        $oAuthRoleAdmin->frequency = $frequency;
+        $oAuthRoleAdmin->times = $times;
+        $oAuthRoleAdmin->deposit = $deposit;
+        $oAuthRoleAdmin->benefit_ratio = $benefit_ratio;
+        $oAuthRoleAdmin->benefit = $benefit;
+        $oAuthRoleAdmin->benefit_min = $benefit_min;
+        $oAuthRoleAdmin->benefit_max = $benefit_max;
+        $oAuthRoleAdmin->turnover = $turnover;
+        $oAuthRoleAdmin->deposit_request = $deposit_request;
+        $oAuthRoleAdmin->range_begin = $range_begin;
+        $oAuthRoleAdmin->range_end = $range_end;
+        $oAuthRoleAdmin->platform_whitelist = Event::arrTostr($platform_whitelist);
+        $oAuthRoleAdmin->platform_blacklist = Event::arrTostr($platform_blacklist);
+        $oAuthRoleAdmin->game_whitelist = Event::arrTostr($game_whitelist);
+        $oAuthRoleAdmin->game_blacklist = Event::arrTostr($game_blacklist);
+        $oAuthRoleAdmin->pay_account = Event::arrTostr($pay_account);
+        $oAuthRoleAdmin->rakeback = $rakeback;
+        $oAuthRoleAdmin->rescue_gold = $rescue_gold;
+        $oAuthRoleAdmin->status = $status;
+        $oAuthRoleAdmin->bind_bankcard_flag = $bind_bankcard_flag;
+        $oAuthRoleAdmin->bind_bankcard_benefit = $bind_bankcard_benefit;
+        $oAuthRoleAdmin->creator = 'admin';;
+        $oAuthRoleAdmin->created_at = date('Y-m-d H:i:s');
+        $oAuthRoleAdmin->updator = 'admin';;
+        $oAuthRoleAdmin->updated_at = date('Y-m-d H:i:s');
+        $oAuthRoleAdmin->perfect_username_flag = $perfect_username_flag;
+        $oAuthRoleAdmin->perfect_username_benefit = $perfect_username_benefit;
+        $oAuthRoleAdmin->verify_email_flag = $verify_email_flag;
+        $oAuthRoleAdmin->verify_email_benefit = $verify_email_benefit;
+        $oAuthRoleAdmin->verify_phone_flag = $verify_phone_flag;
+        $oAuthRoleAdmin->verify_phone_benefit = $verify_phone_benefit;
+        $oAuthRoleAdmin->history_deposit = $history_deposit;
+        $oAuthRoleAdmin->history_deposit_begin = $history_deposit_begin;
+        $oAuthRoleAdmin->history_deposit_end = $history_deposit_end;
+        $oAuthRoleAdmin->withdraw_min = $withdraw_min;
+        $oAuthRoleAdmin->withdraw_max = $sWithdrawMax;
 
 
-        $fFileFlag = strstr($user_ids, 'public');
+        $fFileFlag = strstr($iUserIds, 'public');
         if ($fFileFlag) {
-            $auth_role_admin->user_ids = Event::getFromTxt($user_ids);
+            $oAuthRoleAdmin->user_ids = Event::getFromTxt($iUserIds);
         }
 
-        $auth_role_admin->user_layers = Event::arrTostr($user_layers);
-        $auth_role_admin->register_domain = $register_domain;
-        $auth_role_admin->register_domain_begin = $register_domain_begin;
-        $auth_role_admin->register_domain_end = $register_domain_end;
+        $oAuthRoleAdmin->user_layers = Event::arrTostr($user_layers);
+        $oAuthRoleAdmin->register_domain = $register_domain;
+        $oAuthRoleAdmin->register_domain_begin = $register_domain_begin;
+        $oAuthRoleAdmin->register_domain_end = $register_domain_end;
 
 
-        $auth_role_admin->plus_profit = $plus_profit;
-        $auth_role_admin->minus_profit = $minus_profit;
+        $oAuthRoleAdmin->plus_profit = $plus_profit;
+        $oAuthRoleAdmin->minus_profit = $iMinus_profit;
 
 
-        $iRet = $auth_role_admin->save();
+        $iRet = $oAuthRoleAdmin->save();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $auth_role_admin;
+        $aFinal['data'] = $oAuthRoleAdmin;
 
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
@@ -821,11 +821,11 @@ class EventController extends Controller
 //        $myString = $oEvent->user_ids;
 //
 //
-//        $content=preg_replace("/\s/","",$myString);
+//        $sContent=preg_replace("/\s/","",$myString);
 //
-////        echo $content;
+////        echo $sContent;
 //
-//        print_r($content);
+//        print_r($sContent);
 //
 //        die;
 
@@ -873,7 +873,7 @@ class EventController extends Controller
     }
 
 
-    public function eventStatusSave($id = null)
+    public function eventStatusSave($iId = null)
     {
 
         $data = request()->post();
@@ -889,10 +889,10 @@ class EventController extends Controller
 
         }*/
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = Event::find($id);
+        $oEvent = Event::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -908,7 +908,7 @@ class EventController extends Controller
     }
 
 
-    public function eventUserPrizeStatusSave($id = null)
+    public function eventUserPrizeStatusSave($iId = null)
     {
         $data = request()->post();
 
@@ -974,13 +974,13 @@ class EventController extends Controller
         if (empty($data['username']) || empty($data['password'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $username = $data['username'];
+        $sUsername = $data['username'];
         // 模型
-//        $info = AuthAdmin::where('username',$username)
+//        $info = AuthAdmin::where('username',$sUsername)
 //            ->field('username')
 //            ->find();
 
-        $oAuthAdmin = AuthAdmin::where('username', $username)
+        $oAuthAdmin = AuthAdmin::where('username', $sUsername)
             ->first();
 
 //        if ($oAuthAdmin){
@@ -989,7 +989,7 @@ class EventController extends Controller
 
         $status = isset($data['status']) ? $data['status'] : 0;
         $auth_admin = new AuthAdmin();
-        $auth_admin->username = $username;
+        $auth_admin->username = $sUsername;
         $auth_admin->password = PassWordUtils::create($data['password']);
         $auth_admin->status = $status;
         $auth_admin->create_time = date("Y-m-d H:i:s");
@@ -1013,13 +1013,13 @@ class EventController extends Controller
 
             if (count($temp) > 0) {
                 foreach ($temp as $k => $v) {
-                    $auth_role_admin = new AuthRoleAdmin();
-                    $auth_role_admin->role_id = $v['role_id'];
-                    $auth_role_admin->admin_id = $v['admin_id'];
-                    $iRet = $auth_role_admin->save();
+                    $oAuthRoleAdmin = new AuthRoleAdmin();
+                    $oAuthRoleAdmin->role_id = $v['role_id'];
+                    $oAuthRoleAdmin->admin_id = $v['admin_id'];
+                    $iRet = $oAuthRoleAdmin->save();
                 }
             }
-//            $auth_role_admin->saveAll($temp);
+//            $oAuthRoleAdmin->saveAll($temp);
         }
 
         $auth_admin['password'] = '';
@@ -1075,13 +1075,13 @@ class EventController extends Controller
         if (empty($data['id']) || empty($data['username'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $id = $data['id'];
-        $username = strip_tags($data['username']);
+        $iId = $data['id'];
+        $sUsername = strip_tags($data['username']);
         // 模型
-//        $auth_admin = AuthAdmin::where('id',$id)
+//        $auth_admin = AuthAdmin::where('id',$iId)
 //            ->field('id,username')
 //            ->find();
-        $oAuthAdmin = AuthAdmin::where('id', $id)
+        $oAuthAdmin = AuthAdmin::where('id', $iId)
             ->first();
 
         if (!$oAuthAdmin) {
@@ -1094,23 +1094,23 @@ class EventController extends Controller
             return ResultVo::error(ErrorCode::DATA_NOT, "最高权限用户，无权修改");
         }
 
-//        $info = AuthAdmin::where('username',$username)
+//        $info = AuthAdmin::where('username',$sUsername)
 //            ->field('id')
 //            ->find();
 
-        $info = AuthAdmin::where('username', $username)
+        $info = AuthAdmin::where('username', $sUsername)
             ->first();
 
         // 判断username 是否重名，剔除自己
-//        if (!empty($info['id']) && $info['id'] != $id){
+//        if (!empty($info['id']) && $info['id'] != $iId){
 //            return ResultVo::error(ErrorCode::DATA_REPEAT, "商户已存在");
 //        }
 
         $status = isset($data['status']) ? $data['status'] : 0;
-        $password = isset($data['password']) ? PassWordUtils::create($data['password']) : '';
-        $oAuthAdmin->username = $username;
-        if ($password) {
-            $oAuthAdmin->password = $password;
+        $sPassword = isset($data['password']) ? PassWordUtils::create($data['password']) : '';
+        $oAuthAdmin->username = $sUsername;
+        if ($sPassword) {
+            $oAuthAdmin->password = $sPassword;
         }
         $oAuthAdmin->status = $status;
 //        $oAuthAdmin->role_id = implode(",", $aRoles);
@@ -1120,7 +1120,7 @@ class EventController extends Controller
         $roles = (isset($data['roles']) && is_array($data['roles'])) ? $data['roles'] : [];
         if (!$result) {
             // 没有做任何更改
-            $oAuthRoleAdmin = AuthRoleAdmin::where('admin_id', $id)->field('role_id')->select();
+            $oAuthRoleAdmin = AuthRoleAdmin::where('admin_id', $iId)->field('role_id')->select();
             if ($oAuthRoleAdmin) {
                 $oAuthRoleAdmin = $oAuthRoleAdmin->toArray();
                 $oAuthRoleAdmin = array_column($oAuthRoleAdmin, 'role_id');
@@ -1134,16 +1134,16 @@ class EventController extends Controller
 
         if ($roles) {
             // 先删除
-            AuthRoleAdmin::where('admin_id', $id)->delete();
+            AuthRoleAdmin::where('admin_id', $iId)->delete();
             $temp = [];
             foreach ($roles as $key => $value) {
                 $temp[$key]['role_id'] = $value;
-                $temp[$key]['admin_id'] = $id;
+                $temp[$key]['admin_id'] = $iId;
             }
 
 
             //添加用户的角色
-            $auth_role_admin = new AuthRoleAdmin();
+            $oAuthRoleAdmin = new AuthRoleAdmin();
 
             if (count($temp) > 0) {
                 foreach ($temp as $k => $v) {
@@ -1194,20 +1194,20 @@ class EventController extends Controller
      */
     public function eventDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-        $oAuthAdmin = Event::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+        $oAuthAdmin = Event::where('id', $iId)->first();
 //        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 ////            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
         // 删除权限
-        Event::where('id', $id)->delete();
+        Event::where('id', $iId)->delete();
 
-        Event::where('event_id', $id)->delete();
+        Event::where('event_id', $iId)->delete();
 
 
         $aFinal['message'] = 'success';

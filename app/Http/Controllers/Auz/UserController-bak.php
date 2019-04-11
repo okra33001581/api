@@ -211,13 +211,13 @@
 //     */
 //    public function loginInfo()
 //    {
-//        $id = request()->header('X-Adminid');
+//        $iId = request()->header('X-Adminid');
 //        $token = request()->header('X-Token');
 //
-//        if (!$id || !$token) {
+//        if (!$iId || !$token) {
 ////            return ResultVo::error(ErrorCode::LOGIN_FAILED);
 //        }
-//        $res = AuthAdmin::loginInfo($id, (string)$token);
+//        $res = AuthAdmin::loginInfo($iId, (string)$token);
 //
 //        $res['id'] = !empty($res['id']) ? intval($res['id']) : 0;
 //        $res['avatar'] = !empty($res['avatar']) ? PublicFileUtils::createUploadUrl($res['avatar']) : '';
@@ -278,7 +278,7 @@
 //        $sWhere = [];
 //        $sOrder = 'id DESC';
 ////        $iLimit = isset(request()->limit) ? request()->limit : '';
-////        $iPage = isset(request()->page) ? request()->page : '';
+////        $sIpage = isset(request()->page) ? request()->page : '';
 ////        // +id -id
 ////        $iSort = isset(request()->sort) ? request()->sort : '';
 ////        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -301,7 +301,7 @@
 ////            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 ////        }
 //        $oAuthAdminListCount = $oAuthAdminList->take(2)->get();
-////        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+////        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->take(2)->get();
 //        $aTmp = [];
 //        $aFinal = [];
@@ -406,7 +406,7 @@
 //        $sWhere = [];
 //        $sOrder = 'id DESC';
 ////        $iLimit = isset(request()->limit) ? request()->limit : '';
-////        $iPage = isset(request()->page) ? request()->page : '';
+////        $sIpage = isset(request()->page) ? request()->page : '';
 ////        // +id -id
 ////        $iSort = isset(request()->sort) ? request()->sort : '';
 ////        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -429,7 +429,7 @@
 ////            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 ////        }
 //        $oAuthAdminListCount = $oAuthAdminList->take(2)->get();
-////        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+////        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->take(2)->get();
 //        $aTmp = [];
 //        $aFinal = [];
@@ -513,7 +513,7 @@
 //        $sWhere = [];
 //        $sOrder = 'id DESC';
 ////        $iLimit = isset(request()->limit) ? request()->limit : '';
-////        $iPage = isset(request()->page) ? request()->page : '';
+////        $sIpage = isset(request()->page) ? request()->page : '';
 ////        // +id -id
 ////        $iSort = isset(request()->sort) ? request()->sort : '';
 ////        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -536,7 +536,7 @@
 ////            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 ////        }
 //        $oAuthAdminListCount = $oAuthAdminList->take(2)->get();
-////        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+////        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->take(2)->get();
 //        $aTmp = [];
 //        $aFinal = [];

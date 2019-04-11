@@ -28,13 +28,17 @@ use App\model\AdminLog;
  */
 class AdminController extends Controller
 {
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function adminIndex()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -56,8 +60,8 @@ class AdminController extends Controller
         if ($sUserName != '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 //        $aTmp = [];
 //        $aFinal = [];
@@ -94,32 +98,36 @@ class AdminController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function adminRoleList()
     {
         $sWhere = [];
-        $limit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit/d', 20);
         //分页配置
 //        $paginate = [
 //            'type' => 'bootstrap',
 //            'var_page' => 'page',
-//            'list_rows' => ($limit <= 0 || $limit > 20) ? 20 : $limit,
+//            'list_rows' => ($iLimit <= 0 || $iLimit > 20) ? 20 : $iLimit,
 //        ];
-        $iTmp = ($limit <= 0 || $limit > 20) ? 20 : $limit;
+        $iTmp = ($iLimit <= 0 || $iLimit > 20) ? 20 : $iLimit;
         $lists = AuthRole::where($sWhere)
             ->paginate($iTmp);
 
@@ -130,20 +138,24 @@ class AdminController extends Controller
         return ResultVo::success($res);
     }
 
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function adminSave()
     {
         $data = request()->post();
         if (empty($data['username']) || empty($data['password'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $username = $data['username'];
+        $sUsername = $data['username'];
         // 模型
-//        $info = AuthAdmin::where('username',$username)
+//        $info = AuthAdmin::where('username',$sUsername)
 //            ->field('username')
 //            ->find();
 
-        $oAuthAdmin = AuthAdmin::where('username', $username)
+        $oAuthAdmin = AuthAdmin::where('username', $sUsername)
             ->first();
 
 //        if ($oAuthAdmin){
@@ -152,7 +164,7 @@ class AdminController extends Controller
 
         $status = isset($data['status']) ? $data['status'] : 0;
         $auth_admin = new AuthAdmin();
-        $auth_admin->username = $username;
+        $auth_admin->username = $sUsername;
         $auth_admin->password = PassWordUtils::create($data['password']);
         $auth_admin->status = $status;
         $auth_admin->create_time = date("Y-m-d H:i:s");
@@ -176,13 +188,13 @@ class AdminController extends Controller
 
             if (count($temp) > 0) {
                 foreach ($temp as $k => $v) {
-                    $auth_role_admin = new AuthRoleAdmin();
-                    $auth_role_admin->role_id = $v['role_id'];
-                    $auth_role_admin->admin_id = $v['admin_id'];
-                    $iRet = $auth_role_admin->save();
+                    $oAuthRoleAdmin = new AuthRoleAdmin();
+                    $oAuthRoleAdmin->role_id = $v['role_id'];
+                    $oAuthRoleAdmin->admin_id = $v['admin_id'];
+                    $iRet = $oAuthRoleAdmin->save();
                 }
             }
-//            $auth_role_admin->saveAll($temp);
+//            $oAuthRoleAdmin->saveAll($temp);
         }
 
         $auth_admin['password'] = '';
@@ -192,21 +204,25 @@ class AdminController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $auth_admin;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function adminEdit()
     {
         $data = request()->post();
@@ -218,13 +234,13 @@ class AdminController extends Controller
         if (empty($data['id']) || empty($data['username'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $id = $data['id'];
-        $username = strip_tags($data['username']);
+        $iId = $data['id'];
+        $sUsername = strip_tags($data['username']);
         // 模型
-//        $auth_admin = AuthAdmin::where('id',$id)
+//        $auth_admin = AuthAdmin::where('id',$iId)
 //            ->field('id,username')
 //            ->find();
-        $oAuthAdmin = AuthAdmin::where('id', $id)
+        $oAuthAdmin = AuthAdmin::where('id', $iId)
             ->first();
 
         if (!$oAuthAdmin) {
@@ -237,23 +253,23 @@ class AdminController extends Controller
             return ResultVo::error(ErrorCode::DATA_NOT, "最高权限用户，无权修改");
         }
 
-//        $info = AuthAdmin::where('username',$username)
+//        $info = AuthAdmin::where('username',$sUsername)
 //            ->field('id')
 //            ->find();
 
-        $info = AuthAdmin::where('username', $username)
+        $info = AuthAdmin::where('username', $sUsername)
             ->first();
 
         // 判断username 是否重名，剔除自己
-//        if (!empty($info['id']) && $info['id'] != $id){
+//        if (!empty($info['id']) && $info['id'] != $iId){
 //            return ResultVo::error(ErrorCode::DATA_REPEAT, "商户已存在");
 //        }
 
         $status = isset($data['status']) ? $data['status'] : 0;
-        $password = isset($data['password']) ? PassWordUtils::create($data['password']) : '';
-        $oAuthAdmin->username = $username;
-        if ($password) {
-            $oAuthAdmin->password = $password;
+        $sPassword = isset($data['password']) ? PassWordUtils::create($data['password']) : '';
+        $oAuthAdmin->username = $sUsername;
+        if ($sPassword) {
+            $oAuthAdmin->password = $sPassword;
         }
         $oAuthAdmin->status = $status;
 //        $oAuthAdmin->role_id = implode(",", $aRoles);
@@ -263,7 +279,7 @@ class AdminController extends Controller
         $roles = (isset($data['roles']) && is_array($data['roles'])) ? $data['roles'] : [];
         if (!$result) {
             // 没有做任何更改
-            $oAuthRoleAdmin = AuthRoleAdmin::where('admin_id', $id)->field('role_id')->select();
+            $oAuthRoleAdmin = AuthRoleAdmin::where('admin_id', $iId)->field('role_id')->select();
             if ($oAuthRoleAdmin) {
                 $oAuthRoleAdmin = $oAuthRoleAdmin->toArray();
                 $oAuthRoleAdmin = array_column($oAuthRoleAdmin, 'role_id');
@@ -277,16 +293,16 @@ class AdminController extends Controller
 
         if ($roles) {
             // 先删除
-            AuthRoleAdmin::where('admin_id', $id)->delete();
+            AuthRoleAdmin::where('admin_id', $iId)->delete();
             $temp = [];
             foreach ($roles as $key => $value) {
                 $temp[$key]['role_id'] = $value;
-                $temp[$key]['admin_id'] = $id;
+                $temp[$key]['admin_id'] = $iId;
             }
 
 
             //添加用户的角色
-            $auth_role_admin = new AuthRoleAdmin();
+            $oAuthRoleAdmin = new AuthRoleAdmin();
 
             if (count($temp) > 0) {
                 foreach ($temp as $k => $v) {
@@ -307,68 +323,76 @@ class AdminController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
 
         return ResultVo::success();
     }
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function adminDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
         if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 //            return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
         // 删除权限
-        AuthRoleAdmin::where('admin_id', $id)->delete();
+        AuthRoleAdmin::where('admin_id', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success();
 
     }
 
-
-    public function adminStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function adminStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = AuthAdmin::find($id);
+        $oEvent = AuthAdmin::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -381,16 +405,16 @@ class AdminController extends Controller
         $aFinal['data'] = $oEvent;
 
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }

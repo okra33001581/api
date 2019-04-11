@@ -40,9 +40,9 @@ class PermissionRuleController extends Controller
             $where[] = ['status', '=', intval($status)];
             $order = '';
         }
-        $name = request()->get('name', '');
-        if (!empty($name)) {
-            $where[] = ['name', 'like', $name . '%'];
+        $sName = request()->get('name', '');
+        if (!empty($sName)) {
+            $where[] = ['name', 'like', $sName . '%'];
             $order = '';
         }
 //        $lists = AuthPermissionRule::getLists($where,$order);
@@ -56,23 +56,23 @@ class PermissionRuleController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
 
     }
 
-    public function ruleStatusSave($id = null)
+    public function ruleStatusSave($iId = null)
     {
 
         $data = request()->post();
@@ -88,10 +88,10 @@ class PermissionRuleController extends Controller
 
         }*/
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = AuthPermissionRule::find($id);
+        $oEvent = AuthPermissionRule::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -103,16 +103,16 @@ class PermissionRuleController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
@@ -141,13 +141,13 @@ class PermissionRuleController extends Controller
         if (empty($data['name']) || empty($data['status'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $name = strtolower(strip_tags($data['name']));
+        $sName = strtolower(strip_tags($data['name']));
         // 菜单模型
-//        $info = AuthPermissionRule::where('name',$name)
+//        $info = AuthPermissionRule::where('name',$sName)
 //            ->field('name')
 //            ->find();
 
-        $info = AuthPermissionRule::where('name', $name)
+        $info = AuthPermissionRule::where('name', $sName)
             ->first();
 
         if ($info) {
@@ -171,7 +171,7 @@ class PermissionRuleController extends Controller
         }
         $auth_permission_rule = new AuthPermissionRule();
         $auth_permission_rule->pid = $pid;
-        $auth_permission_rule->name = $name;
+        $auth_permission_rule->name = $sName;
         $auth_permission_rule->title = !empty($data['title']) ? $data['title'] : ' ';
         $auth_permission_rule->status = $status;
         $auth_permission_rule->condition = !empty($data['condition']) ? $data['condition'] : ' ';
@@ -189,16 +189,16 @@ class PermissionRuleController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $auth_permission_rule;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
 
@@ -214,30 +214,30 @@ class PermissionRuleController extends Controller
         if (empty($data['id']) || empty($data['name'])) {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-        $id = $data['id'];
-        $name = strtolower(strip_tags($data['name']));
+        $iId = $data['id'];
+        $sName = strtolower(strip_tags($data['name']));
         // 模型
-//        $auth_permission_rule = AuthPermissionRule::where('id',$id)
+//        $auth_permission_rule = AuthPermissionRule::where('id',$iId)
 //            ->field('id')
 //            ->find();
 
-        $auth_permission_rule = AuthPermissionRule::where('id', $id)
+        $auth_permission_rule = AuthPermissionRule::where('id', $iId)
             ->first();
 
         if (!$auth_permission_rule) {
             return ResultVo::error(ErrorCode::DATA_NOT, "角色不存在");
         }
 
-//        $idInfo = AuthPermissionRule::where('name',$name)
+//        $iIdInfo = AuthPermissionRule::where('name',$sName)
 //            ->field('id')
 //            ->find();
 
-        $idInfo = AuthPermissionRule::where('name', $name)
+        $iIdInfo = AuthPermissionRule::where('name', $sName)
             ->first();
 
 
         // 判断名称 是否重名，剔除自己
-        if (!empty($idInfo['id']) && $idInfo['id'] != $id) {
+        if (!empty($iIdInfo['id']) && $iIdInfo['id'] != $iId) {
             return ResultVo::error(ErrorCode::DATA_REPEAT, "权限名称已存在");
         }
 
@@ -258,13 +258,13 @@ class PermissionRuleController extends Controller
         $AuthRuleList = AuthPermissionRule::all();
         // 查找当前选择的父级的所有上级
         $parents = AuthPermissionRule::queryParentAll($AuthRuleList, 'id', 'pid', $pid);
-        if (in_array($id, $parents)) {
+        if (in_array($iId, $parents)) {
             return ResultVo::error(ErrorCode::NOT_NETWORK, "不能把自身/子级作为父级");
         }
 
         $status = isset($data['status']) ? $data['status'] : 0;
         $auth_permission_rule->pid = $pid;
-        $auth_permission_rule->name = $name;
+        $auth_permission_rule->name = $sName;
         $auth_permission_rule->title = !empty($data['title']) ? $data['title'] : ' ';
         $auth_permission_rule->status = $status;
         $auth_permission_rule->condition = !empty($data['condition']) ? $data['condition'] : ' ';
@@ -281,16 +281,16 @@ class PermissionRuleController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
 
@@ -300,43 +300,43 @@ class PermissionRuleController extends Controller
 
     public function permissionRuleDelete()
     {
-//        $id = request()->post('id/d');
-//        if (empty($id)){
-        $id = request()->all()['id'];
+//        $iId = request()->post('id/d');
+//        if (empty($iId)){
+        $iId = request()->all()['id'];
 
-        if ($id == '') {
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
 
         // 下面有子节点，不能删除
-//        $sub = AuthPermissionRule::where('pid',$id)->field('id')->find();
-        $sub = AuthPermissionRule::where('pid', $id)->get();
+//        $sub = AuthPermissionRule::where('pid',$iId)->field('id')->find();
+        $sub = AuthPermissionRule::where('pid', $iId)->get();
         if (count($sub) > 0) {
             return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
 
-        if (!AuthPermissionRule::where('id', $id)->delete()) {
+        if (!AuthPermissionRule::where('id', $iId)->delete()) {
             return ResultVo::error(ErrorCode::NOT_NETWORK);
         }
 
         // 删除授权的权限
-        AuthPermission::where('permission_rule_id', $id)->delete();
+        AuthPermission::where('permission_rule_id', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success();

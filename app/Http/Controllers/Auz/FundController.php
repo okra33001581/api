@@ -34,55 +34,59 @@ use App\model\AdminLog;
  */
 class FundController extends Controller
 {
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function cashOrderlist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
         $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
-        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $sKeywords = isset(request()->keywords) ? request()->keywords : '';
         $is_has_child = isset(request()->is_has_child) ? request()->is_has_child : '';
         $transaction_type = isset(request()->transaction_type) ? request()->transaction_type : '';
         $sort_type = isset(request()->sort_type) ? request()->sort_type : '';
-        $min = isset(request()->min) ? request()->min : '';
-        $max = isset(request()->max) ? request()->max : '';
+        $iMin = isset(request()->min) ? request()->min : '';
+        $iMax = isset(request()->max) ? request()->max : '';
 
         $oAuthAdminList = DB::table('fund_transaction');
 
 
-        if ($merchant_name != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($dtBeginDate != '') {
             $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
-        if ($endDate != '') {
-            $oAuthAdminList->where('date', '>=', $endDate);
+        if ($dtEndDate != '') {
+            $oAuthAdminList->where('date', '>=', $dtEndDate);
         }
 
 
         if ($select_search_type == '会员账号') {
-            if ($keywords != '') {
-                $oAuthAdminList->where('account', 'like', '%' . $keywords . '%');
+            if ($sKeywords != '') {
+                $oAuthAdminList->where('account', 'like', '%' . $sKeywords . '%');
             }
         } elseif ($select_search_type == '订单号') {
-            if ($keywords != '') {
-                $oAuthAdminList->where('order_number', 'like', '%' . $keywords . '%');
+            if ($sKeywords != '') {
+                $oAuthAdminList->where('order_number', 'like', '%' . $sKeywords . '%');
             }
 
         } elseif ($select_search_type == 'IP地址') {
-            if ($keywords != '') {
-                $oAuthAdminList->where('ip_address', 'like', '%' . $keywords . '%');
+            if ($sKeywords != '') {
+                $oAuthAdminList->where('ip_address', 'like', '%' . $sKeywords . '%');
             }
 
         }
@@ -103,21 +107,21 @@ class FundController extends Controller
             $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
 
-        if ($endDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $endDate);
+        if ($dtEndDate != '') {
+            $oAuthAdminList->where('created_at', '>=', $dtEndDate);
         }
 
-        if ($min != '') {
-            $oAuthAdminList->where('avaiable_amount', '>=', $min);
+        if ($iMin != '') {
+            $oAuthAdminList->where('avaiable_amount', '>=', $iMin);
         }
 
-        if ($max != '') {
-            $oAuthAdminList->where('avaiable_amount', '<=', $max);
+        if ($iMax != '') {
+            $oAuthAdminList->where('avaiable_amount', '<=', $iMax);
         }
 
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -148,28 +152,32 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'cashOrderlist';
-        $log_content = 'cashOrderlist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'cashOrderlist';
+        $sLogContent = 'cashOrderlist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function cashPaysetting()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $oAuthAdminList = DB::table('fund_paysetting');
@@ -186,8 +194,8 @@ class FundController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
        /* $aTmp = [];
@@ -241,27 +249,31 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sub_account = '123';
-        $operate_name = 'cashPaysetting';
-        $log_content = 'cashPaysetting';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'cashPaysetting';
+        $sLogContent = 'cashPaysetting';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function cashRakeback()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -308,8 +320,8 @@ class FundController extends Controller
         }
 
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -339,49 +351,53 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'cashRakeback';
-        $log_content = 'cashRakeback';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'cashRakeback';
+        $sLogContent = 'cashRakeback';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function cashWithdrawlist()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $request_beginDate = isset(request()->request_beginDate) ? request()->request_beginDate : '';
         $request_endDate = isset(request()->request_endDate) ? request()->request_endDate : '';
         $confirm_beginDate = isset(request()->confirm_beginDate) ? request()->confirm_beginDate : '';
         $confirm_endDate = isset(request()->confirm_endDate) ? request()->confirm_endDate : '';
-        $min = isset(request()->min) ? request()->min : '';
-        $max = isset(request()->max) ? request()->max : '';
+        $iMin = isset(request()->min) ? request()->min : '';
+        $iMax = isset(request()->max) ? request()->max : '';
         $refresh_frequency = isset(request()->refresh_frequency) ? request()->refresh_frequency : '';
         $out_type = isset(request()->out_type) ? request()->out_type : '';
         $out_status = isset(request()->out_status) ? request()->out_status : '';
         $order_no = isset(request()->order_no) ? request()->order_no : '';
-        $account = isset(request()->account) ? request()->account : '';
+        $sAccount = isset(request()->account) ? request()->account : '';
 
         $oAuthAdminList = DB::table('fund_cashwithdraw');
 
 
-        if ($merchant_name != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName != '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
 
@@ -402,12 +418,12 @@ class FundController extends Controller
             $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
         }
 
-        if ($min !== '') {
-            $oAuthAdminList->where('final_out_amount', '>=', $min);
+        if ($iMin !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $iMin);
         }
 
-        if ($max !== '') {
-            $oAuthAdminList->where('final_out_amount', '>=', $max);
+        if ($iMax !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $iMax);
         }
 
 
@@ -436,12 +452,12 @@ class FundController extends Controller
         }
 
 
-        if ($account !== '') {
-            $oAuthAdminList->where('account', '=', $account);
+        if ($sAccount !== '') {
+            $oAuthAdminList->where('account', '=', $sAccount);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -478,35 +494,39 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'cashWithdrawlist';
-        $log_content = 'cashWithdrawlist';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'cashWithdrawlist';
+        $sLogContent = 'cashWithdrawlist';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function paysettingSave()
     {
         $data = request()->post();
 
 
-        $name = isset($data['name']) ? $data['name'] : '';
+        $sName = isset($data['name']) ? $data['name'] : '';
         $no_project_flag = isset($data['no_project_flag']) ? $data['no_project_flag'] : '';
         $no_charge_times = isset($data['no_charge_times']) ? $data['no_charge_times'] : '';
         $fee = isset($data['fee']) ? $data['fee'] : '';
         $fee_type = isset($data['fee_type']) ? $data['fee_type'] : '';
 
-        $withdraw_times = isset($data['withdraw_times']) ? $data['withdraw_times'] : '';
-        $withdraw_max = isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
+        $iWithdrawTimes = isset($data['withdraw_times']) ? $data['withdraw_times'] : '';
+        $sWithdrawMax = isset($data['withdraw_max']) ? $data['withdraw_max'] : '';
 
         $withdraw_min = isset($data['withdraw_min']) ? $data['withdraw_min'] : '';
         $web_deposit_benefit = isset($data['web_deposit_benefit']) ? $data['web_deposit_benefit'] : '';
@@ -538,17 +558,17 @@ class FundController extends Controller
         $oQrCode = new PaySetting();
 
 
-//        $oQrCode->id = $id;
+//        $oQrCode->id = $iId;
 
 
-        $oQrCode->name = $name;
+        $oQrCode->name = $sName;
         $oQrCode->no_project_flag = $no_project_flag;
         $oQrCode->no_charge_times = $no_charge_times;
         $oQrCode->fee = $fee;
         $oQrCode->fee_type = $fee_type;
 
-        $oQrCode->withdraw_times = $withdraw_times;
-        $oQrCode->withdraw_max = $withdraw_max;
+        $oQrCode->withdraw_times = $iWithdrawTimes;
+        $oQrCode->withdraw_max = $sWithdrawMax;
 
         $oQrCode->withdraw_min = $withdraw_min;
         $oQrCode->web_deposit_benefit = $web_deposit_benefit;
@@ -583,33 +603,37 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sub_account = '123';
-        $operate_name = 'paysettingSave';
-        $log_content = 'paysettingSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'paysettingSave';
+        $sLogContent = 'paysettingSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function depositAccountSave()
     {
         $data = request()->post();
 
 
-        $user_levels = isset($data['user_levels']) ? $data['user_levels'] : '';
+        $sUserLevels = isset($data['user_levels']) ? $data['user_levels'] : '';
         $pay_type = isset($data['pay_type']) ? $data['pay_type'] : '';
         $bank = isset($data['bank']) ? $data['bank'] : '';
-        $account = isset($data['account']) ? $data['account'] : '';
-        $min = isset($data['min']) ? $data['min'] : '';
-        $max = isset($data['max']) ? $data['max'] : '';
-        $account_alias = isset($data['account_alias']) ? $data['account_alias'] : '';
+        $sAccount = isset($data['account']) ? $data['account'] : '';
+        $iMin = isset($data['min']) ? $data['min'] : '';
+        $iMax = isset($data['max']) ? $data['max'] : '';
+        $sAccount_alias = isset($data['account_alias']) ? $data['account_alias'] : '';
         $display_flag = isset($data['display_flag']) ? $data['display_flag'] : '';
         $qr_code = isset($data['qr_code']) ? $data['qr_code'] : '';
         $postscript_flag = isset($data['postscript_flag']) ? $data['postscript_flag'] : '';
@@ -620,16 +644,16 @@ class FundController extends Controller
         $oQrCode = new DepositAccount();
 
 
-//        $oQrCode->id = $id;
+//        $oQrCode->id = $iId;
 
 
-        $oQrCode->user_levels = $user_levels;
+        $oQrCode->user_levels = $sUserLevels;
         $oQrCode->pay_type = $pay_type;
         $oQrCode->bank = $bank;
-        $oQrCode->account = $account;
-        $oQrCode->min = $min;
-        $oQrCode->max = $max;
-        $oQrCode->account_alias = $account_alias;
+        $oQrCode->account = $sAccount;
+        $oQrCode->min = $iMin;
+        $oQrCode->max = $iMax;
+        $oQrCode->account_alias = $sAccount_alias;
         $oQrCode->display_flag = $display_flag;
         $oQrCode->qr_code = $qr_code;
         $oQrCode->postscript_flag = $postscript_flag;
@@ -642,38 +666,42 @@ class FundController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
-        $sub_account = '123';
-        $operate_name = 'depositAccountSave';
-        $log_content = 'depositAccountSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'depositAccountSave';
+        $sLogContent = 'depositAccountSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function thirdAccountSave()
     {
         $data = request()->post();
 
 
-        $layers = isset($data['layers']) ? $data['layers'] : '';
+        $sLayers = isset($data['layers']) ? $data['layers'] : '';
         $third_company = isset($data['third_company']) ? $data['third_company'] : '';
         $pay_type = isset($data['pay_type']) ? $data['pay_type'] : '';
         $mobile_display_flag = isset($data['mobile_display_flag']) ? $data['mobile_display_flag'] : '';
         $decimal_flag = isset($data['decimal_flag']) ? $data['decimal_flag'] : '';
         $deposit_type = isset($data['deposit_type']) ? $data['deposit_type'] : '';
-        $min = isset($data['min']) ? $data['min'] : '';
-        $max = isset($data['max']) ? $data['max'] : '';
+        $iMin = isset($data['min']) ? $data['min'] : '';
+        $iMax = isset($data['max']) ? $data['max'] : '';
         $quota = isset($data['quota']) ? $data['quota'] : '';
         $query_flag = isset($data['query_flag']) ? $data['query_flag'] : '';
         $merchant_code = isset($data['merchant_code']) ? $data['merchant_code'] : '';
-        $merchant_id = isset($data['merchant_id']) ? $data['merchant_id'] : '';
+        $iMerchantId = isset($data['merchant_id']) ? $data['merchant_id'] : '';
         $private_key = isset($data['private_key']) ? $data['private_key'] : '';
         $public_key = isset($data['public_key']) ? $data['public_key'] : '';
         $pay_domain = isset($data['pay_domain']) ? $data['pay_domain'] : '';
@@ -681,19 +709,19 @@ class FundController extends Controller
         $query_url = isset($data['query_url']) ? $data['query_url'] : '';
 
         $oQrCode = new ThirdAccount();
-//        $oQrCode->id = $id;
-        $oQrCode->layers = $layers;
+//        $oQrCode->id = $iId;
+        $oQrCode->layers = $sLayers;
         $oQrCode->third_company = $third_company;
         $oQrCode->pay_type = $pay_type;
         $oQrCode->mobile_display_flag = $mobile_display_flag;
         $oQrCode->decimal_flag = $decimal_flag;
         $oQrCode->deposit_type = $deposit_type;
-        $oQrCode->min = $min;
-        $oQrCode->max = $max;
+        $oQrCode->min = $iMin;
+        $oQrCode->max = $iMax;
         $oQrCode->quota = $quota;
         $oQrCode->query_flag = $query_flag;
         $oQrCode->merchant_code = $merchant_code;
-        $oQrCode->merchant_id = $merchant_id;
+        $oQrCode->merchant_id = $iMerchantId;
         $oQrCode->private_key = $private_key;
         $oQrCode->public_key = $public_key;
         $oQrCode->pay_domain = $pay_domain;
@@ -706,49 +734,53 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sub_account = '123';
-        $operate_name = 'thirdAccountSave';
-        $log_content = 'thirdAccountSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'thirdAccountSave';
+        $sLogContent = 'thirdAccountSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function companymoneyList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $request_beginDate = isset(request()->request_beginDate) ? request()->request_beginDate : '';
         $request_endDate = isset(request()->request_endDate) ? request()->request_endDate : '';
         $confirm_beginDate = isset(request()->confirm_beginDate) ? request()->confirm_beginDate : '';
         $confirm_endDate = isset(request()->confirm_endDate) ? request()->confirm_endDate : '';
-        $min = isset(request()->min) ? request()->min : '';
-        $max = isset(request()->max) ? request()->max : '';
+        $iMin = isset(request()->min) ? request()->min : '';
+        $iMax = isset(request()->max) ? request()->max : '';
         $refresh_frequency = isset(request()->refresh_frequency) ? request()->refresh_frequency : '';
         $status = isset(request()->status) ? request()->status : '';
         $in_account = isset(request()->in_account) ? request()->in_account : '';
         $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
-        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $sKeywords = isset(request()->keywords) ? request()->keywords : '';
 
 
         $oAuthAdminList = DB::table('fund_companymoney');
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
 
@@ -769,12 +801,12 @@ class FundController extends Controller
             $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
         }
 
-        if ($min !== '') {
-            $oAuthAdminList->where('final_out_amount', '>=', $min);
+        if ($iMin !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $iMin);
         }
 
-        if ($max !== '') {
-            $oAuthAdminList->where('final_out_amount', '>=', $max);
+        if ($iMax !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $iMax);
         }
 
 
@@ -804,22 +836,22 @@ class FundController extends Controller
 
         switch ($select_search_type) {
             case '会员账号':
-                $oAuthAdminList->where('account', '=', $keywords);
+                $oAuthAdminList->where('account', '=', $sKeywords);
                 break;
             case '存款人':
-                $oAuthAdminList->where('depositor_name', '=', $keywords);
+                $oAuthAdminList->where('depositor_name', '=', $sKeywords);
                 break;
             case '附言码':
-                $oAuthAdminList->where('postscript', '=', $keywords);
+                $oAuthAdminList->where('postscript', '=', $sKeywords);
                 break;
             case '订单号':
-                $oAuthAdminList->where('order_number', '=', $keywords);
+                $oAuthAdminList->where('order_number', '=', $sKeywords);
                 break;
 
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
         /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
@@ -850,50 +882,54 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'companymoneyList';
-        $log_content = 'companymoneyList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'companymoneyList';
+        $sLogContent = 'companymoneyList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function fastpaymoneyList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $request_beginDate = isset(request()->request_beginDate) ? request()->request_beginDate : '';
         $request_endDate = isset(request()->request_endDate) ? request()->request_endDate : '';
         $confirm_beginDate = isset(request()->confirm_beginDate) ? request()->confirm_beginDate : '';
         $confirm_endDate = isset(request()->confirm_endDate) ? request()->confirm_endDate : '';
-        $min = isset(request()->min) ? request()->min : '';
-        $max = isset(request()->max) ? request()->max : '';
+        $iMin = isset(request()->min) ? request()->min : '';
+        $iMax = isset(request()->max) ? request()->max : '';
         $refresh_frequency = isset(request()->refresh_frequency) ? request()->refresh_frequency : '';
         $status = isset(request()->status) ? request()->status : '';
         $pay_type = isset(request()->pay_type) ? request()->pay_type : '';
         $in_account = isset(request()->in_account) ? request()->in_account : '';
         $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
-        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $sKeywords = isset(request()->keywords) ? request()->keywords : '';
 
 
         $oAuthAdminList = DB::table('fund_fastpaymoney');
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
 
@@ -914,12 +950,12 @@ class FundController extends Controller
             $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
         }
 
-        if ($min !== '') {
-            $oAuthAdminList->where('final_out_amount', '>=', $min);
+        if ($iMin !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $iMin);
         }
 
-        if ($max !== '') {
-            $oAuthAdminList->where('final_out_amount', '>=', $max);
+        if ($iMax !== '') {
+            $oAuthAdminList->where('final_out_amount', '>=', $iMax);
         }
 
 
@@ -949,18 +985,18 @@ class FundController extends Controller
 
         switch ($select_search_type) {
             case '会员账号':
-                $oAuthAdminList->where('account', '=', $keywords);
+                $oAuthAdminList->where('account', '=', $sKeywords);
                 break;
             case '提交人':
-                $oAuthAdminList->where('submitor', '=', $keywords);
+                $oAuthAdminList->where('submitor', '=', $sKeywords);
                 break;
             case '操作人':
-                $oAuthAdminList->where('auditor', '=', $keywords);
+                $oAuthAdminList->where('auditor', '=', $sKeywords);
                 break;
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -993,27 +1029,31 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'fastpaymoneyList';
-        $log_content = 'fastpaymoneyList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'fastpaymoneyList';
+        $sLogContent = 'fastpaymoneyList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function layerchartIndex()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -1036,7 +1076,7 @@ class FundController extends Controller
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
         $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
+        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
@@ -1071,27 +1111,31 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'floatwindowconfigList';
+        $sLogContent = '查询';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
     public function manualpaySave()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -1113,8 +1157,8 @@ class FundController extends Controller
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -1144,47 +1188,51 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'manualpaySave';
-        $log_content = 'manualpaySave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'manualpaySave';
+        $sLogContent = 'manualpaySave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function manualpayconfirmList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
-        $min = isset(request()->min) ? request()->min : '';
-        $max = isset(request()->max) ? request()->max : '';
-        $type = isset(request()->type) ? request()->type : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
+        $iMin = isset(request()->min) ? request()->min : '';
+        $iMax = isset(request()->max) ? request()->max : '';
+        $sType = isset(request()->type) ? request()->type : '';
         $audit_status = isset(request()->audit_status) ? request()->audit_status : '';
-        $operate_type = isset(request()->operate_type) ? request()->operate_type : '';
-        $account = isset(request()->account) ? request()->account : '';
-        $memo = isset(request()->memo) ? request()->memo : '';
+        $sOperateType = isset(request()->operate_type) ? request()->operate_type : '';
+        $sAccount = isset(request()->account) ? request()->account : '';
+        $sMemo = isset(request()->memo) ? request()->memo : '';
 
 
         $oAuthAdminList = DB::table('fund_manualpayconfirm');
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
 
@@ -1192,8 +1240,8 @@ class FundController extends Controller
             $oAuthAdminList->where('request_date', '>=', $dtBeginDate);
         }
 
-        if ($endDate !== '') {
-            $oAuthAdminList->where('request_date', '<=', $endDate);
+        if ($dtEndDate !== '') {
+            $oAuthAdminList->where('request_date', '<=', $dtEndDate);
         }
 
 
@@ -1206,17 +1254,17 @@ class FundController extends Controller
 //        }
 
         // 查询页面有问题
-        if ($min !== '') {
-            $oAuthAdminList->where('in_amount', '>=', $min);
+        if ($iMin !== '') {
+            $oAuthAdminList->where('in_amount', '>=', $iMin);
         }
 
-        if ($max !== '') {
-            $oAuthAdminList->where('in_amount', '>=', $max);
+        if ($iMax !== '') {
+            $oAuthAdminList->where('in_amount', '>=', $iMax);
         }
 
 
-        if ($type !== '') {
-            $oAuthAdminList->where('type', '=', $type);
+        if ($sType !== '') {
+            $oAuthAdminList->where('type', '=', $sType);
         }
 
 
@@ -1225,21 +1273,21 @@ class FundController extends Controller
         }
 
 
-        switch ($operate_type) {
+        switch ($sOperateType) {
             case '会员账号':
-                $oAuthAdminList->where('account', '=', $account);
+                $oAuthAdminList->where('account', '=', $sAccount);
                 break;
             case '提交人':
-                $oAuthAdminList->where('submitor', '=', $account);
+                $oAuthAdminList->where('submitor', '=', $sAccount);
                 break;
             case '操作人':
-                $oAuthAdminList->where('auditor', '=', $account);
+                $oAuthAdminList->where('auditor', '=', $sAccount);
                 break;
 
         }
 
-        if ($memo !== '') {
-            $oAuthAdminList->where('audit_memo', '=', $memo);
+        if ($sMemo !== '') {
+            $oAuthAdminList->where('audit_memo', '=', $sMemo);
         }
 
 
@@ -1259,11 +1307,11 @@ class FundController extends Controller
 //        }
 //
 //
-//        if ($account !== '') {
-//            $oAuthAdminList->where('account', '=', $account);
+//        if ($sAccount !== '') {
+//            $oAuthAdminList->where('account', '=', $sAccount);
 //        }
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -1297,27 +1345,31 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'manualpayconfirmList';
-        $log_content = 'manualpayconfirmList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'manualpayconfirmList';
+        $sLogContent = 'manualpayconfirmList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function payaccountList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $oAuthAdminList = DB::table('fund_deposit_account');
@@ -1341,8 +1393,8 @@ class FundController extends Controller
             $oAuthAdminList->where('pay_type', $sPayType);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -1377,27 +1429,31 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'payaccountList';
-        $log_content = 'payaccountList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'payaccountList';
+        $sLogContent = 'payaccountList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function paygroupList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $oAuthAdminList = DB::table('fund_paytype');
@@ -1422,8 +1478,8 @@ class FundController extends Controller
             $oAuthAdminList->where('in_type', $sInType);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -1448,38 +1504,42 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'paygroupList';
-        $log_content = 'paygroupList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'paygroupList';
+        $sLogContent = 'paygroupList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function transferorderList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-        $endDate = isset(request()->endDate) ? request()->endDate : '';
-        $min = isset(request()->min) ? request()->min : '';
-        $max = isset(request()->max) ? request()->max : '';
+        $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
+        $iMin = isset(request()->min) ? request()->min : '';
+        $iMax = isset(request()->max) ? request()->max : '';
         $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
-        $keywords = isset(request()->keywords) ? request()->keywords : '';
+        $sKeywords = isset(request()->keywords) ? request()->keywords : '';
         $platform = isset(request()->platform) ? request()->platform : '';
         $status = isset(request()->status) ? request()->status : '';
 
@@ -1487,34 +1547,34 @@ class FundController extends Controller
         $oAuthAdminList = DB::table('fund_transferorder');
 
 
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($dtBeginDate !== '') {
             $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
-        if ($endDate !== '') {
-            $oAuthAdminList->where('date', '<=', $endDate);
+        if ($dtEndDate !== '') {
+            $oAuthAdminList->where('date', '<=', $dtEndDate);
         }
 
-        if ($min !== '') {
-            $oAuthAdminList->where('transfer_amount', '>=', $min);
+        if ($iMin !== '') {
+            $oAuthAdminList->where('transfer_amount', '>=', $iMin);
         }
 
-        if ($max !== '') {
-            $oAuthAdminList->where('transfer_amount', '<=', $max);
+        if ($iMax !== '') {
+            $oAuthAdminList->where('transfer_amount', '<=', $iMax);
         }
 
 
         if ($select_search_type == '用户名') {
-            if ($keywords !== '') {
-                $oAuthAdminList->where('username', 'like', '%' . $keywords . '%');
+            if ($sKeywords !== '') {
+                $oAuthAdminList->where('username', 'like', '%' . $sKeywords . '%');
             }
         } elseif ($select_search_type == '订单编号') {
-            if ($keywords !== '') {
-                $oAuthAdminList->where('order_number', 'like', '%' . $keywords . '%');
+            if ($sKeywords !== '') {
+                $oAuthAdminList->where('order_number', 'like', '%' . $sKeywords . '%');
             }
         }
 
@@ -1528,8 +1588,8 @@ class FundController extends Controller
             $oAuthAdminList->where('status', '=', $status);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
         $aFinal = [];
@@ -1559,27 +1619,31 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'transferorderList';
-        $log_content = 'transferorderList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'transferorderList';
+        $sLogContent = 'transferorderList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function tripartiteList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
@@ -1615,8 +1679,8 @@ class FundController extends Controller
             $oAuthAdminList->where('third_type', $sThirdType);
         }
 
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
         /*$aTmp = [];
@@ -1655,27 +1719,31 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'tripartiteList';
-        $log_content = 'tripartiteList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'tripartiteList';
+        $sLogContent = 'tripartiteList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function userbetscheckList()
     {
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $iPage = isset(request()->page) ? request()->page : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
 
@@ -1698,8 +1766,8 @@ class FundController extends Controller
         if ($sMerchantName !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        $limit = request()->get('limit/d', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        $iLimit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
        /* $aTmp = [];
         $aFinal = [];
@@ -1733,30 +1801,34 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'userbetscheckList';
-        $log_content = 'userbetscheckList';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'userbetscheckList';
+        $sLogContent = 'userbetscheckList';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-
-    public function payGroupStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function payGroupStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = PayGroup::find($id);
+        $oEvent = PayGroup::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -1768,30 +1840,34 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'payGroupStatusSave';
-        $log_content = 'payGroupStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'payGroupStatusSave';
+        $sLogContent = 'payGroupStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function cashwithdrawStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function cashwithdrawStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = CashWithdraw::find($id);
+        $oEvent = CashWithdraw::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -1804,136 +1880,152 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
 
-        $sub_account = '123';
-        $operate_name = 'cashwithdrawStatusSave';
-        $log_content = 'cashwithdrawStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'cashwithdrawStatusSave';
+        $sLogContent = 'cashwithdrawStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function paysettingDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
 //        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 ////            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
         // 删除权限
-        PaySetting::where('id', '=', $id)->delete();
+        PaySetting::where('id', '=', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'paysettingDelete';
-        $log_content = 'paysettingDelete';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'paysettingDelete';
+        $sLogContent = 'paysettingDelete';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success();
 
     }
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function payaccountDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
 //        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 ////            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
         // 删除权限
-        DepositAccount::where('id', '=', $id)->delete();
+        DepositAccount::where('id', '=', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'payaccountDelete';
-        $log_content = 'payaccountDelete';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'payaccountDelete';
+        $sLogContent = 'payaccountDelete';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success();
 
     }
 
-
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
     public function tripartiteDelete()
     {
-//        $id = request()->post('id/d');
-        $id = request()->all()['id'];
-        if ($id == '') {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
             return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
         }
-//        $auth_admin = AuthAdmin::where('id',$id)->field('username')->find();
-//        $oAuthAdmin = AuthAdmin::where('id', $id)->first();
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
 //        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
 ////            return ResultVo::error(ErrorCode::NOT_NETWORK);
 //        }
         // 删除权限
-        ThirdAccount::where('id', '=', $id)->delete();
+        ThirdAccount::where('id', '=', $iId)->delete();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sub_account = '123';
-        $operate_name = 'tripartiteDelete';
-        $log_content = 'tripartiteDelete';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'tripartiteDelete';
+        $sLogContent = 'tripartiteDelete';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success();
 
     }
 
-
-    public function userbetscheckStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function userbetscheckStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = UserBetsCheck::find($id);
+        $oEvent = UserBetsCheck::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -1945,30 +2037,34 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'userbetscheckStatusSave';
-        $log_content = 'userbetscheckStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'userbetscheckStatusSave';
+        $sLogContent = 'userbetscheckStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function transferorderStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function transferorderStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = TransferOrder::find($id);
+        $oEvent = TransferOrder::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -1980,29 +2076,33 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'transferorderStatusSave';
-        $log_content = 'transferorderStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'transferorderStatusSave';
+        $sLogContent = 'transferorderStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
-
-    public function manualpayStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function manualpayStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = ManualPay::find($id);
+        $oEvent = ManualPay::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -2014,30 +2114,34 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'manualpayStatusSave';
-        $log_content = 'manualpayStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'manualpayStatusSave';
+        $sLogContent = 'manualpayStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function manualpayconfirmStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function manualpayconfirmStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = ManualPayConfirm::find($id);
+        $oEvent = ManualPayConfirm::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -2049,30 +2153,34 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'manualpayconfirmStatusSave';
-        $log_content = 'manualpayconfirmStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'manualpayconfirmStatusSave';
+        $sLogContent = 'manualpayconfirmStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function companymoneyStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function companymoneyStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = CompanyMoney::find($id);
+        $oEvent = CompanyMoney::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -2084,30 +2192,34 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'companymoneyStatusSave';
-        $log_content = 'companymoneyStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'companymoneyStatusSave';
+        $sLogContent = 'companymoneyStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function fastpaymoneyStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function fastpaymoneyStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
-        $oEvent = FastPayMoney::find($id);
+        $oEvent = FastPayMoney::find($iId);
 //        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
@@ -2119,31 +2231,35 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'fastpaymoneyStatusSave';
-        $log_content = 'fastpaymoneyStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'fastpaymoneyStatusSave';
+        $sLogContent = 'fastpaymoneyStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function rakebackStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function rakebackStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
 
-        $aTmp = explode(",", $id);
+        $aTmp = explode(",", $iId);
 
         if ($bSucc = RakeBack::whereIn('id', $aTmp)->update(['status' => $iFlag]) > 0) {
 
@@ -2153,55 +2269,63 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
 //        $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'rakebackStatusSave';
-        $log_content = 'rakebackStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'rakebackStatusSave';
+        $sLogContent = 'rakebackStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function sequenceSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function sequenceSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = PayGroup::find($id);
+        $oEvent = PayGroup::find($iId);
         $oEvent->sequence = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'sequenceSave';
-        $log_content = 'sequenceSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'sequenceSave';
+        $sLogContent = 'sequenceSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
-
-    public function propertySave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function propertySave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['property']) ? $data['property'] : '';
 
         $sFirst1 = substr($iFlag, 0, 1);
@@ -2210,7 +2334,7 @@ class FundController extends Controller
             $bFlag1 = true;
         }
 
-        $oEvent = PayGroup::find($id);
+        $oEvent = PayGroup::find($iId);
 
         if ($iFlag != '') {
             if ($bFlag1) {
@@ -2225,159 +2349,179 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'propertySave';
-        $log_content = 'propertySave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'propertySave';
+        $sLogContent = 'propertySave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
-
-    public function paytypeAliasSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function paytypeAliasSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['paytype_alias']) ? $data['paytype_alias'] : '';
-        $oEvent = PayGroup::find($id);
+        $oEvent = PayGroup::find($iId);
         $oEvent->pay_type_alias = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'paytypeAliasSave';
-        $log_content = 'paytypeAliasSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'paytypeAliasSave';
+        $sLogContent = 'paytypeAliasSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function payAccountSequence($id = null)
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function payAccountSequence($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = DepositAccount::find($id);
+        $oEvent = DepositAccount::find($iId);
         $oEvent->sequence = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'payAccountSequence';
-        $log_content = 'payAccountSequence';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'payAccountSequence';
+        $sLogContent = 'payAccountSequence';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function payAccountStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function payAccountStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oEvent = PayAccount::find($id);
+        $oEvent = PayAccount::find($iId);
         $oEvent->status = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'payAccountStatusSave';
-        $log_content = 'payAccountStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'payAccountStatusSave';
+        $sLogContent = 'payAccountStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
 
-
-    public function thirdAccountStatusSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdAccountStatusSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oEvent = ThirdAccount::find($id);
+        $oEvent = ThirdAccount::find($iId);
         $oEvent->status = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'thirdAccountStatusSave';
-        $log_content = 'thirdAccountStatusSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'thirdAccountStatusSave';
+        $sLogContent = 'thirdAccountStatusSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
-
-    public function thirdAccountIsTopSave($id = null)
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdAccountIsTopSave($iId = null)
     {
 
         $data = request()->post();
 
-        $id = isset($data['id']) ? $data['id'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oEvent = ThirdAccount::find($id);
+        $oEvent = ThirdAccount::find($iId);
         $oEvent->is_top = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sub_account = '123';
-        $operate_name = 'thirdAccountIsTopSave';
-        $log_content = 'thirdAccountIsTopSave';
-        $ip = '123';
-        $cookies = '123';
-        $date = now();
-        $merchant_id = '123';
-        $merchant_name = '123';
+        $sSubAccount = '123';
+        $sOperateName = 'thirdAccountIsTopSave';
+        $sLogContent = 'thirdAccountIsTopSave';
+        $sIp = '123';
+        $sCookies = '123';
+        $dt = now();
+        $iMerchantId = '123';
+        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
     }
