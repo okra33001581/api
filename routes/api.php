@@ -273,8 +273,7 @@ Route::post('event/informationStatusSave', 'SiteController@informationStatusSave
 
 Route::post('event/updatefloatwindowSequence', 'SiteController@updatefloatwindowSequence');
 
-
-
+Route::post('event/updateRotateSequence', 'SiteController@updateRotateSequence');
 
 //qrconfig_list.vue
 Route::get('event/qrconfigList', 'SiteController@qrconfigList');

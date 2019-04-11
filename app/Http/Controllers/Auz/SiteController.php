@@ -1214,7 +1214,7 @@ class SiteController extends Controller
         $expand_pic=isset($data['expand_pic'])?$data['expand_pic']:'';
         $expand_pic_desc=isset($data['expand_pic_desc'])?$data['expand_pic_desc']:'';
         $sequence=isset($data['sequence'])?$data['sequence']:'';
-        $status=isset($data['status'])?$data['status']:'';
+//        $status=isset($data['status'])?$data['status']:'';
 
 
         if ($id != '') {
@@ -1236,7 +1236,7 @@ class SiteController extends Controller
         $oQrCode->expand_pic = $expand_pic;
         $oQrCode->expand_pic_desc = $expand_pic_desc;
         $oQrCode->sequence = $sequence;
-        $oQrCode->status = $status;
+//        $oQrCode->status = $status;
 
 
         $iRet = $oQrCode->save();
@@ -1292,7 +1292,7 @@ class SiteController extends Controller
 
 
         $id=isset($data['id'])?$data['id']:'';
-        $display_status=isset($data['display_status'])?$data['display_status']:'';
+        $display_status=isset($data['status'])?$data['status']:'';
         $display_style=isset($data['display_style'])?$data['display_style']:'';
         $content=isset($data['content'])?$data['content']:'';
 
@@ -1966,6 +1966,31 @@ class SiteController extends Controller
         $id = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
         $oEvent = Information::find($id);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        return response()->json($aFinal);
+    }
+
+
+    public function updateRotateSequence($id = null)
+    {
+
+        $data = request()->post();
+//        $sId = isset($data['id']) ? $data['id'] : '';
+        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $aTmp = Event::getArrayFromString($sId);
+        Log::info($aTmp);
+
+        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+
+        }*/
+        $id = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = RotatePlay::find($id);
         $oEvent->sequence = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';

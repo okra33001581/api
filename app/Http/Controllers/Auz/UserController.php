@@ -252,9 +252,8 @@ class UserController extends Controller
         }
 
         if ($group == '用户名') {
-            if ($username != '') {
-                $oAuthAdminList->where('username', 'like', '%' . $username . '%');
-            }
+            $aUserTmp = explode(",",$username);
+            $oAuthAdminList->whereIn("username", $aUserTmp);
         } elseif ($group == '所属上级') {
             if ($username != '') {
                 $oAuthAdminList->where('top_level', 'like', '%' . $username . '%');
