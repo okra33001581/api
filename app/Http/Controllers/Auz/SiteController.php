@@ -21,6 +21,7 @@ use App\model\Company;
 use App\model\LotteryGroup;
 
 use App\model\AdminLog;
+use App\model\Event;
 
 
 /**
@@ -846,12 +847,14 @@ class SiteController extends Controller
             $oSystemConfig->created_at= now();
         }
 
+        Log::info($sTransferType);
+
         $oSystemConfig->is_login= $bIsLogin;
         $oSystemConfig->web_title= $sWebTitle;
         $oSystemConfig->web_keyword= $sWebKeyword;
         $oSystemConfig->web_desc= $sWebDesc;
         $oSystemConfig->platform_name= $sPlatformName;
-        $oSystemConfig->free_play= json_encode($sFreePlay);
+        $oSystemConfig->free_play= Event::arrTostr($sFreePlay);
         $oSystemConfig->favorite_skin= $sFavoriteSkin;
         $oSystemConfig->is_maintain= $sIsMaintain;
         $oSystemConfig->maintain_desc= $sMaintainDesc;
@@ -870,8 +873,8 @@ class SiteController extends Controller
 
 
 
-        $oSystemConfig->user_register_column= json_encode($sUserRegisterColumn);
-        $oSystemConfig->lower_register_column= json_encode($sLowerRegisterColumn);
+        $oSystemConfig->user_register_column= Event::arrTostr($sUserRegisterColumn);
+        $oSystemConfig->lower_register_column= Event::arrTostr($sLowerRegisterColumn);
         $oSystemConfig->withdraw_max= $sWithdrawMax;
         $oSystemConfig->deposit_max= $fDepositMax;
         $oSystemConfig->can_deposit_decimal_point= $sCanDepositDecimalPoint;
@@ -896,7 +899,7 @@ class SiteController extends Controller
         $oSystemConfig->winner_rato= $sWinnerRato;
         $oSystemConfig->winner_project_rato= $sWinnerProjectRato;
         $oSystemConfig->risk_rato= $fRiskRato;
-        $oSystemConfig->transfer_type= json_encode($sTransferType);
+        $oSystemConfig->transfer_type= Event::arrTostr($sTransferType);
 
 
         $iRet = $oSystemConfig->save();
@@ -1052,7 +1055,7 @@ class SiteController extends Controller
         $oQrCode->link = $link;
         $oQrCode->status = $status;
 
-        $oQrCode->squence = $squence;
+        $oQrCode->sequence = $squence;
 
         $iRet = $oQrCode->save();
 

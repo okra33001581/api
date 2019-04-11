@@ -866,7 +866,9 @@ class EventController extends Controller
             \Storage::disk('public')->put($filename, file_get_contents($path));
             $aFinal['message'] = 'success';
             $aFinal['code'] = 0;
-            $aFinal['data'] = '/home/ok/api/storage/app/public/' . $filename;
+//            $aFinal['data'] = '/home/ok/api/storage/app/public/' . $filename;
+
+            $aFinal['data'] = $filename;
             return response()->json($aFinal);
 
         }
