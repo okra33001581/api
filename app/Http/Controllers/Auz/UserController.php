@@ -640,16 +640,14 @@ class UserController extends Controller
         $oAuthAdminList = DB::table('user_user');
 
 
-
-
         if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-
         if ($group == '用户名') {
             if ($username != '') {
-                $oAuthAdminList->where('username', 'like', '%' . $username . '%');
+                $aUserTmp = explode(",",$username);
+                $oAuthAdminList->whereIn("username", $aUserTmp);
             }
         } elseif ($group == '所属上级') {
             if ($username != '') {
@@ -1845,7 +1843,7 @@ class UserController extends Controller
 
         }
         $aFinal['message'] = 'success';
-        $aFinal['code'] = 1;
+        $aFinal['code'] = 0;
 
         $sub_account = '123';
         $operate_name = 'floatwindowconfigList';
