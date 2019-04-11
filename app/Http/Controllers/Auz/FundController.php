@@ -45,7 +45,7 @@ class FundController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
         $select_search_type = isset(request()->select_search_type) ? request()->select_search_type : '';
         $keywords = isset(request()->keywords) ? request()->keywords : '';
@@ -62,8 +62,8 @@ class FundController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('date', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
         if ($endDate != '') {
@@ -99,8 +99,8 @@ class FundController extends Controller
 
         }
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
 
         if ($endDate != '') {
@@ -1169,7 +1169,7 @@ class FundController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
         $min = isset(request()->min) ? request()->min : '';
         $max = isset(request()->max) ? request()->max : '';
@@ -1188,8 +1188,8 @@ class FundController extends Controller
         }
 
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('request_date', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('request_date', '>=', $dtBeginDate);
         }
 
         if ($endDate !== '') {
@@ -1474,7 +1474,7 @@ class FundController extends Controller
 
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
         $min = isset(request()->min) ? request()->min : '';
         $max = isset(request()->max) ? request()->max : '';
@@ -1491,8 +1491,8 @@ class FundController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
         if ($endDate !== '') {

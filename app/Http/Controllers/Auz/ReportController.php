@@ -30,7 +30,7 @@ class ReportController extends Controller
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
@@ -43,8 +43,8 @@ class ReportController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
         if ($endDate !== '') {
@@ -113,7 +113,7 @@ class ReportController extends Controller
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
@@ -134,8 +134,8 @@ class ReportController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
         if ($endDate !== '') {
@@ -229,7 +229,7 @@ class ReportController extends Controller
         $lottery = isset(request()->lottery) ? request()->lottery : '';
         $way = isset(request()->way) ? request()->way : '';
         $prize_status = isset(request()->prize_status) ? request()->prize_status : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
         $sort = isset(request()->sort) ? request()->sort : '';
         $prize_type = isset(request()->prize_type) ? request()->prize_type : '';
@@ -262,8 +262,8 @@ class ReportController extends Controller
             $oAuthAdminList->where('prize_status', $prize_status);
         }
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
         if ($endDate !== '') {
@@ -375,7 +375,7 @@ class ReportController extends Controller
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
@@ -395,8 +395,8 @@ class ReportController extends Controller
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
         if ($endDate !== '') {
@@ -472,7 +472,7 @@ class ReportController extends Controller
 
         $datePeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
 
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
@@ -490,8 +490,8 @@ class ReportController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('date', '>=', $dtBeginDate);
         }
 
         if ($endDate !== '') {

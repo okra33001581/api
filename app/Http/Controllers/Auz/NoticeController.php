@@ -116,7 +116,7 @@ class NoticeController extends Controller
         $sUserName = isset(request()->username) ? request()->username : '';
         $title = isset(request()->title) ? request()->title : '';
         $receive_flag = isset(request()->receive_flag) ? request()->receive_flag : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
         $receivers = isset(request()->receivers) ? request()->receivers : '';
 
@@ -147,8 +147,8 @@ class NoticeController extends Controller
             $oAuthAdminList->where('receive_flag', $receive_flag);
         }
 
-        if ($beginDate !== '') {
-            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        if ($dtBeginDate !== '') {
+            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
 
 

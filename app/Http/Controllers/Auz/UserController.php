@@ -176,7 +176,7 @@ class UserController extends Controller
         $username= isset(request()->username) ? request()->username : '';
         $group= isset(request()->group) ? request()->group : '';
         $user_level= isset(request()->user_level) ? request()->user_level : '';
-        $beginDate= isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate= isset(request()->beginDate) ? request()->beginDate : '';
         $endDate= isset(request()->endDate) ? request()->endDate : '';
         $operate_type= isset(request()->operate_type) ? request()->operate_type : '';
         $days= isset(request()->days) ? request()->days : '';
@@ -205,8 +205,8 @@ class UserController extends Controller
             $oAuthAdminList->where('user_level', '=', $user_level);
         }
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
 
         if ($endDate != '') {
@@ -484,7 +484,7 @@ class UserController extends Controller
         $select_user_type = isset(request()->select_user_type) ? request()->select_user_type : '';
         $keywords = isset(request()->keywords) ? request()->keywords : '';
         $user_type = isset(request()->user_type) ? request()->user_type : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
         $oAuthAdminList = DB::table('user_in_out_statics');
@@ -516,8 +516,8 @@ class UserController extends Controller
             $oAuthAdminList->where('user_type', '=', $user_type);
         }
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('login_date', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('login_date', '>=', $dtBeginDate);
         }
 
         if ($endDate != '') {
@@ -588,7 +588,7 @@ class UserController extends Controller
         $select_type_amount= isset(request()->select_type_amount) ? request()->select_type_amount : '';
         $min= isset(request()->min) ? request()->min : '';
         $max= isset(request()->max) ? request()->max : '';
-        $beginDate= isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate= isset(request()->beginDate) ? request()->beginDate : '';
         $endDate= isset(request()->endDate) ? request()->endDate : '';
         $online_status= isset(request()->online_status) ? request()->online_status : '';
         $select_operate_type= isset(request()->select_operate_type) ? request()->select_operate_type : '';
@@ -628,8 +628,8 @@ class UserController extends Controller
         }
 
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
 
         if ($endDate != '') {
@@ -798,7 +798,7 @@ class UserController extends Controller
         $username = isset(request()->username) ? request()->username : '';
         $select_user_type = isset(request()->select_user_type) ? request()->select_user_type : '';
         $username2 = isset(request()->username2) ? request()->username2 : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
 
@@ -834,8 +834,8 @@ class UserController extends Controller
             }
         }
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('submit_date', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('submit_date', '>=', $dtBeginDate);
         }
 
         if ($endDate != '') {
@@ -1135,7 +1135,7 @@ class UserController extends Controller
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
         $agent_name = isset(request()->agent_name) ? request()->agent_name : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
         $oAuthAdminList = DB::table('user_validuser');
@@ -1152,8 +1152,8 @@ class UserController extends Controller
 
 
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
 
         if ($endDate != '') {

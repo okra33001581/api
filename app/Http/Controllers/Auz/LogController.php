@@ -31,7 +31,7 @@ class LogController extends Controller
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
 
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
@@ -50,8 +50,8 @@ class LogController extends Controller
         if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', $merchant_name);
         }
-        if ($beginDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
         if ($endDate != '') {
             $oAuthAdminList->where('created_at', '<=', $endDate);
@@ -127,7 +127,7 @@ class LogController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
 
         $oAuthAdminList = DB::table('log_domain');
@@ -137,8 +137,8 @@ class LogController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
         }
 
 
@@ -195,7 +195,7 @@ class LogController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
 
         $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $beginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $endDate = isset(request()->endDate) ? request()->endDate : '';
         $type = isset(request()->type) ? request()->type : '';
         $sub_title = isset(request()->sub_title) ? request()->sub_title : '';
@@ -209,8 +209,8 @@ class LogController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
 
-        if ($beginDate != '') {
-            $oAuthAdminList->where('login_date', '>=', $beginDate);
+        if ($dtBeginDate != '') {
+            $oAuthAdminList->where('login_date', '>=', $dtBeginDate);
         }
 
 
