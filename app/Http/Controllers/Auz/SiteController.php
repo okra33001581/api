@@ -122,7 +122,7 @@ class SiteController extends Controller
 
         $sub_account = '123';
         $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $log_content = 'floatwindowconfigList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -204,8 +204,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'blacklist';
+        $log_content = 'blacklist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -402,8 +402,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'systemconfiglist';
+        $log_content = 'systemconfiglist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -491,8 +491,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'informationCompanylist';
+        $log_content = 'informationCompanylist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -596,7 +596,7 @@ class SiteController extends Controller
 
         $sub_account = '123';
         $operate_name = 'informationList';
-        $log_content = '查询';
+        $log_content = 'informationList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -686,8 +686,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'lotterygroupSort';
+        $log_content = 'lotterygroupSort';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -701,44 +701,6 @@ class SiteController extends Controller
     }
 
 
-
-    /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
-     */
     public function proxyiptablesBlackcontainlist()
     {
         $sWhere = [];
@@ -766,9 +728,9 @@ class SiteController extends Controller
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
@@ -793,18 +755,18 @@ class SiteController extends Controller
             }
             $aTmp['roles'] = $temp_roles;
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'proxyiptablesBlackcontainlist';
+        $log_content = 'proxyiptablesBlackcontainlist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -845,8 +807,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oIpBlack;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'proxyiptablesBlackSave';
+        $log_content = 'proxyiptablesBlackSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -880,8 +842,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oIpBlack;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'blackDelete';
+        $log_content = 'blackDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1037,8 +999,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oSystemConfig;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'systemConfigSave';
+        $log_content = 'systemConfigSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1081,8 +1043,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oWebIcon;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'webIconSave';
+        $log_content = 'webIconSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1126,8 +1088,8 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'qrCodeSave';
+        $log_content = 'qrCodeSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1183,8 +1145,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'rotatePlaySave';
+        $log_content = 'rotatePlaySave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1246,8 +1208,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'floatWindowSave';
+        $log_content = 'floatWindowSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1294,8 +1256,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'informationSave';
+        $log_content = 'informationSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1336,8 +1298,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'companySave';
+        $log_content = 'companySave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1413,8 +1375,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'qrconfigList';
+        $log_content = 'qrconfigList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1507,8 +1469,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'rotationconfigList';
+        $log_content = 'rotationconfigList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1581,8 +1543,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'systemconfigImagelist';
+        $log_content = 'systemconfigImagelist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1658,8 +1620,8 @@ class SiteController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'systemconfigSet';
+        $log_content = 'systemconfigSet';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1671,7 +1633,7 @@ class SiteController extends Controller
         return ResultVo::success($res);
     }
 
-    public function adminRoleList()
+   /* public function adminRoleList()
     {
         $sWhere = [];
         $limit = request()->get('limit/d', 20);
@@ -1688,6 +1650,18 @@ class SiteController extends Controller
         $res = [];
         $res["total"] = $lists->total();
         $res["list"] = $lists->items();
+
+        $sub_account = '123';
+        $operate_name = 'adminRoleList';
+        $log_content = 'adminRoleList';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($res);
         return ResultVo::success($res);
     }
@@ -1915,7 +1889,7 @@ class SiteController extends Controller
         return response()->json($aFinal);
         return ResultVo::success();
 
-    }
+    }*/
 
 
 
@@ -1951,8 +1925,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'informationStatusSave';
+        $log_content = 'informationStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1984,8 +1958,8 @@ class SiteController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'rotationconfigDelete';
+        $log_content = 'rotationconfigDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2018,8 +1992,8 @@ class SiteController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'floatwindowconfigDelete';
+        $log_content = 'floatwindowconfigDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2051,6 +2025,17 @@ class SiteController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'informationDelete';
+        $log_content = 'informationDelete';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -2079,8 +2064,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'updateLotterygroupSequence';
+        $log_content = 'updateLotterygroupSequence';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2113,8 +2098,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'updateInformationSequence';
+        $log_content = 'updateInformationSequence';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2148,8 +2133,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'updateRotateSequence';
+        $log_content = 'updateRotateSequence';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2182,8 +2167,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'updatefloatwindowSequence';
+        $log_content = 'updatefloatwindowSequence';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2264,8 +2249,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'updateLotteryGroupPropertySave';
+        $log_content = 'updateLotteryGroupPropertySave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2310,8 +2295,8 @@ class SiteController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'informationIsTopSave';
+        $log_content = 'informationIsTopSave';
         $ip = '123';
         $cookies = '123';
         $date = now();

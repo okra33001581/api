@@ -111,8 +111,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'marqueeList';
+        $log_content = 'marqueeList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -243,8 +243,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'messageList';
+        $log_content = 'messageList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -341,8 +341,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'noticeList';
+        $log_content = 'noticeList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -419,8 +419,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'pushList';
+        $log_content = 'pushList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -432,7 +432,7 @@ class NoticeController extends Controller
         return ResultVo::success($res);
     }
 
-    public function adminRoleList()
+   /* public function adminRoleList()
     {
         $sWhere = [];
         $limit = request()->get('limit/d', 20);
@@ -449,6 +449,18 @@ class NoticeController extends Controller
         $res = [];
         $res["total"] = $lists->total();
         $res["list"] = $lists->items();
+
+        $sub_account = '123';
+        $operate_name = 'adminRoleList';
+        $log_content = 'adminRoleList';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($res);
         return ResultVo::success($res);
     }
@@ -642,7 +654,7 @@ class NoticeController extends Controller
         return response()->json($aFinal);
 
         return ResultVo::success();
-    }
+    }*/
 
 
 
@@ -675,8 +687,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'messageSave';
+        $log_content = 'messageSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -716,8 +728,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'marqueeSave';
+        $log_content = 'marqueeSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -761,8 +773,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'noticeSave';
+        $log_content = 'noticeSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -793,8 +805,8 @@ class NoticeController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'adminDelete';
+        $log_content = 'adminDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -839,8 +851,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'noticeTopSave';
+        $log_content = 'noticeTopSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -883,8 +895,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'noticeStatusSave';
+        $log_content = 'noticeStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -915,8 +927,8 @@ class NoticeController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'messageDelete';
+        $log_content = 'messageDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -950,8 +962,8 @@ class NoticeController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'noticeDelete';
+        $log_content = 'noticeDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -984,8 +996,8 @@ class NoticeController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'marqueeDelete';
+        $log_content = 'marqueeDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1021,8 +1033,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'noticeSequence';
+        $log_content = 'noticeSequence';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1056,8 +1068,8 @@ class NoticeController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'marqueeSequence';
+        $log_content = 'marqueeSequence';
         $ip = '123';
         $cookies = '123';
         $date = now();

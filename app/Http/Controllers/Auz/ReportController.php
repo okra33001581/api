@@ -116,8 +116,8 @@ class ReportController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'financeIndex';
+        $log_content = 'financeIndex';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -232,8 +232,8 @@ class ReportController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'operationProfit';
+        $log_content = 'operationProfit';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -396,8 +396,8 @@ class ReportController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'pgamePlaylist';
+        $log_content = 'pgamePlaylist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -515,8 +515,8 @@ class ReportController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'preportProfit';
+        $log_content = 'preportProfit';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -649,6 +649,19 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+
+
+        $sub_account = '123';
+        $operate_name = 'userReport';
+        $log_content = 'userReport';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -670,6 +683,20 @@ class ReportController extends Controller
         $res = [];
         $res["total"] = $lists->total();
         $res["list"] = $lists->items();
+
+        $sub_account = '123';
+        $operate_name = 'adminRoleList';
+        $log_content = 'adminRoleList';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
+
+
         return response()->json($res);
         return ResultVo::success($res);
     }
@@ -737,8 +764,8 @@ class ReportController extends Controller
         $aFinal['data'] = $auth_admin;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'adminSave';
+        $log_content = 'adminSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -851,8 +878,8 @@ class ReportController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'adminEdit';
+        $log_content = 'adminEdit';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -885,8 +912,8 @@ class ReportController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'adminDelete';
+        $log_content = 'adminDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -907,8 +934,8 @@ class ReportController extends Controller
         $aFinal['end_date'] = '2011-11-11';
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'getDayBetween';
+        $log_content = 'getDayBetween';
         $ip = '123';
         $cookies = '123';
         $date = now();

@@ -161,8 +161,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'cashOrderlist';
+        $log_content = 'cashOrderlist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -259,8 +259,8 @@ class FundController extends Controller
 
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'cashPaysetting';
+        $log_content = 'cashPaysetting';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -357,8 +357,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'cashRakeback';
+        $log_content = 'cashRakeback';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -513,8 +513,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'cashWithdrawlist';
+        $log_content = 'cashWithdrawlist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -618,8 +618,8 @@ class FundController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'paysettingSave';
+        $log_content = 'paysettingSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -677,8 +677,8 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'depositAccountSave';
+        $log_content = 'depositAccountSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -745,8 +745,8 @@ class FundController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'thirdAccountSave';
+        $log_content = 'thirdAccountSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -889,8 +889,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'companymoneyList';
+        $log_content = 'companymoneyList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1032,8 +1032,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'fastpaymoneyList';
+        $log_content = 'fastpaymoneyList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1183,8 +1183,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'manualpaySave';
+        $log_content = 'manualpaySave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1352,8 +1352,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'manualpayconfirmList';
+        $log_content = 'manualpayconfirmList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1453,8 +1453,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'payaccountList';
+        $log_content = 'payaccountList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1518,9 +1518,10 @@ class FundController extends Controller
 //        $oAuthAdminListCount = $oAuthAdminList->get();
 //        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
-        $oAuthAdminFinalList = $oAuthAdminList->get();
+        $limit = request()->get('limit/d', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
-        $aTmp = [];
+        /*$aTmp = [];
         $aFinal = [];
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
@@ -1534,18 +1535,18 @@ class FundController extends Controller
             $aTmp['status'] = $oAuthAdmin->status;
 
             $aFinal[] = $aTmp;
-        }
+        }*/
 
         $res = [];
-//        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'paygroupList';
+        $log_content = 'paygroupList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1655,8 +1656,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'transferorderList';
+        $log_content = 'transferorderList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1751,8 +1752,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'tripartiteList';
+        $log_content = 'tripartiteList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1832,8 +1833,8 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userbetscheckList';
+        $log_content = 'userbetscheckList';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1847,7 +1848,7 @@ class FundController extends Controller
     }
 
 
-    public function adminRoleList()
+   /* public function adminRoleList()
     {
         $sWhere = [];
         $limit = request()->get('limit/d', 20);
@@ -2093,7 +2094,7 @@ class FundController extends Controller
         return response()->json($aFinal);
         return ResultVo::success();
 
-    }
+    }*/
 
 
     public function payGroupStatusSave($id = null)
@@ -2128,8 +2129,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'payGroupStatusSave';
+        $log_content = 'payGroupStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2175,8 +2176,8 @@ class FundController extends Controller
 
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'cashwithdrawStatusSave';
+        $log_content = 'cashwithdrawStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2208,8 +2209,8 @@ class FundController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'paysettingDelete';
+        $log_content = 'paysettingDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2243,8 +2244,8 @@ class FundController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'payaccountDelete';
+        $log_content = 'payaccountDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2279,8 +2280,8 @@ class FundController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'tripartiteDelete';
+        $log_content = 'tripartiteDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2327,8 +2328,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userbetscheckStatusSave';
+        $log_content = 'userbetscheckStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2373,8 +2374,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'transferorderStatusSave';
+        $log_content = 'transferorderStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2418,8 +2419,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'manualpayStatusSave';
+        $log_content = 'manualpayStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2464,8 +2465,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'manualpayconfirmStatusSave';
+        $log_content = 'manualpayconfirmStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2510,8 +2511,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'companymoneyStatusSave';
+        $log_content = 'companymoneyStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2556,8 +2557,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'fastpaymoneyStatusSave';
+        $log_content = 'fastpaymoneyStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2611,8 +2612,8 @@ class FundController extends Controller
 //        $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'rakebackStatusSave';
+        $log_content = 'rakebackStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2647,8 +2648,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'sequenceSave';
+        $log_content = 'sequenceSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2697,8 +2698,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'propertySave';
+        $log_content = 'propertySave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2732,8 +2733,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'paytypeAliasSave';
+        $log_content = 'paytypeAliasSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2768,8 +2769,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'payAccountSequence';
+        $log_content = 'payAccountSequence';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2804,8 +2805,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'payAccountStatusSave';
+        $log_content = 'payAccountStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2840,8 +2841,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'thirdAccountStatusSave';
+        $log_content = 'thirdAccountStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2875,8 +2876,8 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'thirdAccountIsTopSave';
+        $log_content = 'thirdAccountIsTopSave';
         $ip = '123';
         $cookies = '123';
         $date = now();

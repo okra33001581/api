@@ -120,8 +120,8 @@ class LogController extends Controller
 
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'logAdminlog';
+        $log_content = 'logAdminlog';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -212,8 +212,8 @@ class LogController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'logDomainlog';
+        $log_content = 'logDomainlog';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -331,8 +331,8 @@ class LogController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'logLoginlog';
+        $log_content = 'logLoginlog';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -345,7 +345,7 @@ class LogController extends Controller
         return ResultVo::success($res);
     }
 
-    public function adminRoleList()
+    /*public function adminRoleList()
     {
         $sWhere = [];
         $limit = request()->get('limit/d', 20);
@@ -592,5 +592,5 @@ class LogController extends Controller
         return response()->json($aFinal);
         return ResultVo::success();
 
-    }
+    }*/
 }

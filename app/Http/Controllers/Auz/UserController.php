@@ -127,8 +127,8 @@ class UserController extends Controller
 
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'loginIndex';
+        $log_content = 'loginIndex';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -162,8 +162,8 @@ class UserController extends Controller
 
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'loginInfo';
+        $log_content = 'loginInfo';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -293,8 +293,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userInfolist';
+        $log_content = 'userInfolist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -362,8 +362,8 @@ class UserController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userSave';
+        $log_content = 'userSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -418,8 +418,8 @@ class UserController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userLevelSave';
+        $log_content = 'userLevelSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -478,8 +478,8 @@ class UserController extends Controller
         $aFinal['data'] = $oQrCode;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'bankCardSave';
+        $log_content = 'bankCardSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -597,8 +597,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userInoutcash';
+        $log_content = 'userInoutcash';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -812,8 +812,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userMainlist';
+        $log_content = 'userMainlist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -902,8 +902,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userMonitor';
+        $log_content = 'userMonitor';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1026,8 +1026,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userReviewlist';
+        $log_content = 'userReviewlist';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1150,8 +1150,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userUsercard';
+        $log_content = 'userUsercard';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1201,8 +1201,8 @@ class UserController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'bankcardStatusSave';
+        $log_content = 'bankcardStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1248,8 +1248,8 @@ class UserController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userStatusSave';
+        $log_content = 'userStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1319,8 +1319,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userUserlayer';
+        $log_content = 'userUserlayer';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1415,8 +1415,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userValiduser';
+        $log_content = 'userValiduser';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1514,8 +1514,8 @@ class UserController extends Controller
         $aFinal['data'] = $auth_admin;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'adminSave';
+        $log_content = 'adminSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1629,8 +1629,8 @@ class UserController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'adminEdit';
+        $log_content = 'adminEdit';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1664,8 +1664,8 @@ class UserController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'adminDelete';
+        $log_content = 'adminDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1715,8 +1715,8 @@ class UserController extends Controller
         $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'usersafetyStatusSave';
+        $log_content = 'usersafetyStatusSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1750,8 +1750,8 @@ class UserController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userlayerDelete';
+        $log_content = 'userlayerDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1785,8 +1785,8 @@ class UserController extends Controller
 //        $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'usercardDelete';
+        $log_content = 'usercardDelete';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1845,8 +1845,8 @@ class UserController extends Controller
         $aFinal['code'] = 0;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userQuotaSave';
+        $log_content = 'userQuotaSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1874,8 +1874,8 @@ class UserController extends Controller
 //        $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userTopParentSave';
+        $log_content = 'userTopParentSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1901,8 +1901,8 @@ class UserController extends Controller
 //        $aFinal['data'] = $oEvent;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userRebateSave';
+        $log_content = 'userRebateSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -1976,8 +1976,8 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'getUserQuota';
+        $log_content = 'getUserQuota';
         $ip = '123';
         $cookies = '123';
         $date = now();
@@ -2028,8 +2028,8 @@ class UserController extends Controller
 
 
         $sub_account = '123';
-        $operate_name = 'floatwindowconfigList';
-        $log_content = '查询';
+        $operate_name = 'userLockSave';
+        $log_content = 'userLockSave';
         $ip = '123';
         $cookies = '123';
         $date = now();
