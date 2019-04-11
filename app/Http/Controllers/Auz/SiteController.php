@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\model\AuthAdmin;
 use DB;
 use Log;
 use App\common\vo\ResultVo;
@@ -112,6 +113,17 @@ class SiteController extends Controller
      */
     public function blacklist()
     {
+
+//        $sAdminUserId = request()->header('X-Adminid');
+//        $token = request()->header('X-Token');
+//
+//
+//        $oAuthAdmin = AuthAdmin::getMerchant($sAdminUserId);
+//        if (is_object($oAuthAdmin)) {
+//            $sMerchantName = AuthAdmin::getMerchant($sAdminUserId);
+//        }
+//
+//        Log::info($sAdminUserId.'========='.$token.'+++++++++++++++++++++++++++++++'.$sMerchantName);
         $sWhere = [];
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
@@ -120,6 +132,7 @@ class SiteController extends Controller
         $iSort = isset(request()->sort) ? request()->sort : '';
 
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+
         $sType = isset(request()->type) ? request()->type : '';
 
         $oAuthAdminList = DB::table('site_ip_black');

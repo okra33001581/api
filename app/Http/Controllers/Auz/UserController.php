@@ -112,18 +112,18 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
-
-        $sSubAccount = '123';
-        $sOperateName = 'loginIndex';
-        $sLogContent = 'loginIndex';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
-
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+//
+//
+//        $sSubAccount = '123';
+//        $sOperateName = 'loginIndex';
+//        $sLogContent = 'loginIndex';
+//        $sIp = '123';
+//        $sCookies = '123';
+//        $dt = now();
+//        $iMerchantId = '123';
+//        $sMerchantName = '123';
+//
+//        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -154,16 +154,16 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sSubAccount = '123';
-        $sOperateName = 'loginInfo';
-        $sLogContent = 'loginInfo';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
-
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+//        $sSubAccount = '123';
+//        $sOperateName = 'loginInfo';
+//        $sLogContent = 'loginInfo';
+//        $sIp = '123';
+//        $sCookies = '123';
+//        $dt = now();
+//        $iMerchantId = '123';
+//        $sMerchantName = '123';
+//
+//        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);

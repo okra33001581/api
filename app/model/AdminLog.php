@@ -27,18 +27,32 @@ class AdminLog extends Model
      */
     public static function adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name)
     {
+        $sAdminUserId = request()->header('X-Adminid');
+        $token = request()->header('X-Token');
+        $sOrigin = request()->header('Origin');
+        $sReferer = request()->header('Referer');
+        $sUserAgent = request()->header('User-Agent');
 
-        $oAdminLog = new AdminLog();
-        $oAdminLog->sub_account = $sub_account;
-        $oAdminLog->operate_name = $operate_name;
-        $oAdminLog->log_content = $log_content;
-        $oAdminLog->ip = $ip;
-        $oAdminLog->cookies = $cookies;
-        $oAdminLog->date = $date;
-        $oAdminLog->merchant_id = $merchant_id;
-        $oAdminLog->merchant_name = $merchant_name;
 
-        return $oAdminLog->save();
+
+        $oAuthAdmin = AuthAdmin::getMerchant($sAdminUserId);
+        if (is_object($oAuthAdmin)) {
+            $sMerchantName = $oAuthAdmin->merchant_name;
+
+            $oAdminLog = new AdminLog();
+            $oAdminLog->sub_account = $oAuthAdmin->username;
+            $oAdminLog->operate_name = $operate_name;
+            $oAdminLog->log_content = $log_content;
+            $oAdminLog->ip = $_SERVER["REMOTE_ADDR"];
+            $oAdminLog->cookies = $token;
+            $oAdminLog->date = $date;
+            $oAdminLog->merchant_id = $merchant_id;
+            $oAdminLog->merchant_name = $sMerchantName;
+            $oAdminLog->origin = $sOrigin;
+            $oAdminLog->referer = $sReferer;
+            $oAdminLog->user_agent = $sUserAgent;
+            return $oAdminLog->save();
+        }
     }
 
 }
