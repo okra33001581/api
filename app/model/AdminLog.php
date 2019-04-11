@@ -32,19 +32,15 @@ class AdminLog extends Model
         $sOrigin = request()->header('Origin');
         $sReferer = request()->header('Referer');
         $sUserAgent = request()->header('User-Agent');
-
-
-
         $oAuthAdmin = AuthAdmin::getMerchant($sAdminUserId);
         if (is_object($oAuthAdmin)) {
             $sMerchantName = $oAuthAdmin->merchant_name;
-
             $oAdminLog = new AdminLog();
             $oAdminLog->sub_account = $oAuthAdmin->username;
             $oAdminLog->operate_name = $operate_name;
-            $oAdminLog->log_content = $log_content;
+            $oAdminLog->log_content = config('function.'.$operate_name);
             $oAdminLog->ip = $_SERVER["REMOTE_ADDR"];
-            $oAdminLog->cookies = $token;
+            $oAdminLog->cookies = $sOrigin;
             $oAdminLog->date = $date;
             $oAdminLog->merchant_id = $merchant_id;
             $oAdminLog->merchant_name = $sMerchantName;
