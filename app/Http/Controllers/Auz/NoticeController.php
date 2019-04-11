@@ -83,16 +83,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'marqueeList';
         $sLogContent = 'marqueeList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
 
         return response()->json($aFinal);
@@ -199,16 +199,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'messageList';
         $sLogContent = 'messageList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
 
         return response()->json($aFinal);
@@ -279,16 +279,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'noticeList';
         $sLogContent = 'noticeList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -361,16 +361,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'pushList';
         $sLogContent = 'pushList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -404,16 +404,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'messageSave';
         $sLogContent = 'messageSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
 
@@ -446,16 +446,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'marqueeSave';
         $sLogContent = 'marqueeSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
     /**
@@ -495,16 +495,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'noticeSave';
         $sLogContent = 'noticeSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
     /**
@@ -529,16 +529,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'adminDelete';
         $sLogContent = 'adminDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -566,16 +566,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'noticeTopSave';
         $sLogContent = 'noticeTopSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
     /**
@@ -614,16 +614,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'noticeStatusSave';
         $sLogContent = 'noticeStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
     /**
@@ -650,16 +650,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'messageDelete';
         $sLogContent = 'messageDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -689,16 +689,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'noticeDelete';
         $sLogContent = 'noticeDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -727,16 +727,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'marqueeDelete';
         $sLogContent = 'marqueeDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -761,16 +761,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'noticeSequence';
         $sLogContent = 'noticeSequence';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
 
@@ -792,16 +792,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'marqueeSequence';
         $sLogContent = 'marqueeSequence';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
 

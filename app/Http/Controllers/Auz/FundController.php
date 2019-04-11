@@ -152,16 +152,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'cashOrderlist';
         $sLogContent = 'cashOrderlist';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -249,16 +249,16 @@ class FundController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sSubAccount = '123';
+
         $sOperateName = 'cashPaysetting';
         $sLogContent = 'cashPaysetting';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -351,16 +351,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'cashRakeback';
         $sLogContent = 'cashRakeback';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -494,16 +494,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'cashWithdrawlist';
         $sLogContent = 'cashWithdrawlist';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -603,16 +603,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'paysettingSave';
         $sLogContent = 'paysettingSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -666,16 +666,16 @@ class FundController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
-        $sSubAccount = '123';
+
         $sOperateName = 'depositAccountSave';
         $sLogContent = 'depositAccountSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -734,16 +734,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'thirdAccountSave';
         $sLogContent = 'thirdAccountSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -882,16 +882,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'companymoneyList';
         $sLogContent = 'companymoneyList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1029,16 +1029,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'fastpaymoneyList';
         $sLogContent = 'fastpaymoneyList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1111,16 +1111,10 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
-        $sOperateName = 'floatwindowconfigList';
-        $sLogContent = '查询';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+        $sOperateName = 'floatwindowconfigList';
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1188,16 +1182,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'manualpaySave';
         $sLogContent = 'manualpaySave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1345,16 +1339,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'manualpayconfirmList';
         $sLogContent = 'manualpayconfirmList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1429,16 +1423,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'payaccountList';
         $sLogContent = 'payaccountList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1504,16 +1498,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'paygroupList';
         $sLogContent = 'paygroupList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1619,16 +1613,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'transferorderList';
         $sLogContent = 'transferorderList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1719,16 +1713,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'tripartiteList';
         $sLogContent = 'tripartiteList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1801,16 +1795,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userbetscheckList';
         $sLogContent = 'userbetscheckList';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1840,16 +1834,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'payGroupStatusSave';
         $sLogContent = 'payGroupStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1880,16 +1874,16 @@ class FundController extends Controller
         $aFinal['data'] = $oEvent;
 
 
-        $sSubAccount = '123';
+
         $sOperateName = 'cashwithdrawStatusSave';
         $sLogContent = 'cashwithdrawStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1917,16 +1911,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'paysettingDelete';
         $sLogContent = 'paysettingDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -1956,16 +1950,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'payaccountDelete';
         $sLogContent = 'payaccountDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -1996,16 +1990,16 @@ class FundController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'tripartiteDelete';
         $sLogContent = 'tripartiteDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -2037,16 +2031,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userbetscheckStatusSave';
         $sLogContent = 'userbetscheckStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2076,16 +2070,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'transferorderStatusSave';
         $sLogContent = 'transferorderStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2114,16 +2108,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'manualpayStatusSave';
         $sLogContent = 'manualpayStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2153,16 +2147,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'manualpayconfirmStatusSave';
         $sLogContent = 'manualpayconfirmStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2192,16 +2186,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'companymoneyStatusSave';
         $sLogContent = 'companymoneyStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2231,16 +2225,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'fastpaymoneyStatusSave';
         $sLogContent = 'fastpaymoneyStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2269,16 +2263,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
 //        $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'rakebackStatusSave';
         $sLogContent = 'rakebackStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2302,16 +2296,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'sequenceSave';
         $sLogContent = 'sequenceSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2349,16 +2343,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'propertySave';
         $sLogContent = 'propertySave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2381,16 +2375,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'paytypeAliasSave';
         $sLogContent = 'paytypeAliasSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2414,16 +2408,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'payAccountSequence';
         $sLogContent = 'payAccountSequence';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2447,16 +2441,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'payAccountStatusSave';
         $sLogContent = 'payAccountStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2480,16 +2474,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'thirdAccountStatusSave';
         $sLogContent = 'thirdAccountStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -2512,16 +2506,16 @@ class FundController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'thirdAccountIsTopSave';
         $sLogContent = 'thirdAccountIsTopSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }

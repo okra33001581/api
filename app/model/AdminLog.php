@@ -25,7 +25,7 @@ class AdminLog extends Model
      * @param $iFinalAmount
      * @return static
      */
-    public static function adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name)
+    public static function adminLogSave($operate_name)
     {
         $sAdminUserId = request()->header('X-Adminid');
         $token = request()->header('X-Token');
@@ -41,8 +41,8 @@ class AdminLog extends Model
             $oAdminLog->log_content = config('function.'.$operate_name);
             $oAdminLog->ip = $_SERVER["REMOTE_ADDR"];
             $oAdminLog->cookies = $sOrigin;
-            $oAdminLog->date = $date;
-            $oAdminLog->merchant_id = $merchant_id;
+            $oAdminLog->date = now();
+            $oAdminLog->merchant_id = $sMerchantName;
             $oAdminLog->merchant_name = $sMerchantName;
             $oAdminLog->origin = $sOrigin;
             $oAdminLog->referer = $sReferer;

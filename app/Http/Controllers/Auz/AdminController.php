@@ -98,16 +98,16 @@ class AdminController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sSubAccount = '123';
+
         $sOperateName = 'floatwindowconfigList';
         $sLogContent = '查询';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -204,16 +204,16 @@ class AdminController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $auth_admin;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'floatwindowconfigList';
         $sLogContent = '查询';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
@@ -323,16 +323,16 @@ class AdminController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'floatwindowconfigList';
         $sLogContent = '查询';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
 
@@ -363,16 +363,16 @@ class AdminController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'floatwindowconfigList';
         $sLogContent = '查询';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -405,16 +405,16 @@ class AdminController extends Controller
         $aFinal['data'] = $oEvent;
 
 
-        $sSubAccount = '123';
+
         $sOperateName = 'floatwindowconfigList';
         $sLogContent = '查询';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }

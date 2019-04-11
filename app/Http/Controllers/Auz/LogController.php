@@ -105,16 +105,16 @@ class LogController extends Controller
         $aFinal['data'] = $res;
 
 
-        $sSubAccount = '123';
+
         $sOperateName = 'logAdminlog';
         $sLogContent = 'logAdminlog';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -177,16 +177,16 @@ class LogController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'logDomainlog';
         $sLogContent = 'logDomainlog';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -273,16 +273,16 @@ class LogController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'logLoginlog';
         $sLogContent = 'logLoginlog';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);

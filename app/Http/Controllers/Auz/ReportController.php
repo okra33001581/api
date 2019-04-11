@@ -89,16 +89,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'financeIndex';
         $sLogContent = 'financeIndex';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -209,16 +209,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'operationProfit';
         $sLogContent = 'operationProfit';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -360,16 +360,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'pgamePlaylist';
         $sLogContent = 'pgamePlaylist';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -462,16 +462,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'preportProfit';
         $sLogContent = 'preportProfit';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -578,16 +578,16 @@ class ReportController extends Controller
 
 
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userReport';
         $sLogContent = 'userReport';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -604,16 +604,16 @@ class ReportController extends Controller
         $aFinal['begin_date'] = '2011-11-11';
         $aFinal['end_date'] = '2011-11-11';
 
-        $sSubAccount = '123';
+
         $sOperateName = 'getDayBetween';
         $sLogContent = 'getDayBetween';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
 

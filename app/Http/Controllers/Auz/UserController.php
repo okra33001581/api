@@ -114,16 +114,16 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 //
 //
-//        $sSubAccount = '123';
+//
 //        $sOperateName = 'loginIndex';
 //        $sLogContent = 'loginIndex';
-//        $sIp = '123';
-//        $sCookies = '123';
-//        $dt = now();
-//        $iMerchantId = '123';
-//        $sMerchantName = '123';
 //
-//        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+//
+//        $dt = now();
+//
+//
+//
+//        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -157,13 +157,13 @@ class UserController extends Controller
 //        $sSubAccount = '123';
 //        $sOperateName = 'loginInfo';
 //        $sLogContent = 'loginInfo';
-//        $sIp = '123';
-//        $sCookies = '123';
-//        $dt = now();
-//        $iMerchantId = '123';
-//        $sMerchantName = '123';
 //
-//        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+//
+//        $dt = now();
+//
+//
+//
+//        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -284,13 +284,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userInfolist';
         $sLogContent = 'userInfolist';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -358,13 +358,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userSave';
         $sLogContent = 'userSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -418,13 +418,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userLevelSave';
         $sLogContent = 'userLevelSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -482,13 +482,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'bankCardSave';
         $sLogContent = 'bankCardSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -587,13 +587,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userInoutcash';
         $sLogContent = 'userInoutcash';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -733,13 +733,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userMainlist';
         $sLogContent = 'userMainlist';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -810,13 +810,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userMonitor';
         $sLogContent = 'userMonitor';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -922,13 +922,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userReviewlist';
         $sLogContent = 'userReviewlist';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1031,13 +1031,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userUsercard';
         $sLogContent = 'userUsercard';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1071,13 +1071,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'bankcardStatusSave';
         $sLogContent = 'bankcardStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1109,13 +1109,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userStatusSave';
         $sLogContent = 'userStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1168,13 +1168,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userUserlayer';
         $sLogContent = 'userUserlayer';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1249,13 +1249,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userValiduser';
         $sLogContent = 'userValiduser';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1356,13 +1356,13 @@ class UserController extends Controller
 //        $sSubAccount = '123';
 //        $sOperateName = 'adminSave';
 //        $sLogContent = 'adminSave';
-//        $sIp = '123';
-//        $sCookies = '123';
-//        $dt = now();
-//        $iMerchantId = '123';
-//        $sMerchantName = '123';
 //
-//        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+//
+//        $dt = now();
+//
+//
+//
+//        AdminLog::adminLogSave($sOperateName);
 //
 //        return response()->json($aFinal);
 //        return ResultVo::success($auth_admin);
@@ -1476,13 +1476,13 @@ class UserController extends Controller
 //        $sSubAccount = '123';
 //        $sOperateName = 'adminEdit';
 //        $sLogContent = 'adminEdit';
-//        $sIp = '123';
-//        $sCookies = '123';
-//        $dt = now();
-//        $iMerchantId = '123';
-//        $sMerchantName = '123';
 //
-//        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+//
+//        $dt = now();
+//
+//
+//
+//        AdminLog::adminLogSave($sOperateName);
 //
 //        return response()->json($aFinal);
 //
@@ -1516,13 +1516,13 @@ class UserController extends Controller
 //        $sSubAccount = '123';
 //        $sOperateName = 'adminDelete';
 //        $sLogContent = 'adminDelete';
-//        $sIp = '123';
-//        $sCookies = '123';
-//        $dt = now();
-//        $iMerchantId = '123';
-//        $sMerchantName = '123';
 //
-//        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+//
+//        $dt = now();
+//
+//
+//
+//        AdminLog::adminLogSave($sOperateName);
 //
 //        return response()->json($aFinal);
 //        return ResultVo::success();
@@ -1557,13 +1557,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'usersafetyStatusSave';
         $sLogContent = 'usersafetyStatusSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1596,13 +1596,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userlayerDelete';
         $sLogContent = 'userlayerDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -1636,13 +1636,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'usercardDelete';
         $sLogContent = 'usercardDelete';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success();
@@ -1701,13 +1701,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userQuotaSave';
         $sLogContent = 'userQuotaSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1734,13 +1734,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userTopParentSave';
         $sLogContent = 'userTopParentSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1765,13 +1765,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userRebateSave';
         $sLogContent = 'userRebateSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
@@ -1842,13 +1842,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'getUserQuota';
         $sLogContent = 'getUserQuota';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -1886,13 +1886,13 @@ class UserController extends Controller
         $sSubAccount = '123';
         $sOperateName = 'userLockSave';
         $sLogContent = 'userLockSave';
-        $sIp = '123';
-        $sCookies = '123';
-        $dt = now();
-        $iMerchantId = '123';
-        $sMerchantName = '123';
 
-        AdminLog::adminLogSave($sSubAccount, $sOperateName, $sLogContent, $sIp, $sCookies, $dt, $iMerchantId, $sMerchantName);
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
     }
