@@ -365,17 +365,6 @@ class AdminController extends Controller
 
         $data = request()->post();
 
-//        $sId = isset($data['id']) ? $data['id'] : '';
-        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $aTmp = Event::getArrayFromString($sId);
-
-
-        Log::info($aTmp);
-
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
-
-        }*/
-
         $id = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //

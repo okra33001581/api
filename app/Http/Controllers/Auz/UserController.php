@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\model\Event;
 use DB;
 use Log;
 use App\common\vo\ResultVo;
@@ -16,13 +14,6 @@ use App\common\utils\PublicFileUtils;
 use App\common\utils\PassWordUtils;
 use App\model\Ad;
 use App\model\AdSite;
-use App\model\FileResource;
-use App\model\FileResourceTag;
-
-
-
-use Illuminate\Support\Facades\Redis;
-
 
 use App\model\UserLevel;
 use App\model\User;
@@ -58,7 +49,6 @@ class UserController extends Controller
 //            return ResultVo::error(ErrorCode::VALIDATION_FAILED, "username 不能为空。 password 不能为空。");
         }
 
-//        Log::info(request()->all());
 //        $user_name = 'admin';
         $user_name = request()->all()['userName'];
         $admin = AuthAdmin::where('username', $user_name)
@@ -85,17 +75,13 @@ class UserController extends Controller
 //                $oAuthPermissionList = AuthPermission::where('role_id', 'in', $oAuthRoleAdminList->role_id)
 //                    ->select(['permission_rule_id'])
 //                    ->get();
-
-                Log::info('111111111111111111=======' . $oAuthRoleAdminList->role_id);
 //                $aTmp =
                 $oAuthPermissionList = AuthPermission::where('role_id', '=', $oAuthRoleAdminList->role_id)
                     ->get();
                 foreach ($oAuthPermissionList as $oAuthPermission) {
-                    Log::info('222222222222222');
 //                    $oAuthPermissionRule = AuthPermissionRule::where('id', $oAuthPermission->permission_rule_id)->select('name')->first();
                     $oAuthPermissionRule = AuthPermissionRule::where('id', $oAuthPermission->permission_rule_id)->first();
                     if (is_object($oAuthPermissionRule)) {
-                        Log::info('33333333333333333333333333333');
                         $authRules[] = $oAuthPermissionRule->name;
                     }
                 }
@@ -104,15 +90,7 @@ class UserController extends Controller
 
         Log::info($authRules);
         $info['authRules'] = $authRules;
-        // $info['authRules'] = [
-        //     'user_manage',
-        //     'user_manage/admin_manage',
-        //     'admin/admin/index',
-        //     'admin/role/index',
-        //     'admin/auth_admin/index',
-        // ];
         // 保存用户信息
-
         $loginInfo = AuthAdmin::loginInfo($info['id'], $info);
         $admin->last_login_ip = request()->ip();
         $admin->last_login_time = date("Y-m-d H:i:s");
@@ -546,25 +524,6 @@ class UserController extends Controller
             $oAuthAdminList->where('login_date', '>=', $endDate);
         }
 
-
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus != '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName != '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-
         $limit = request()->get('limit/d', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
@@ -704,80 +663,6 @@ class UserController extends Controller
                 break;
         }
 
-//
-//        if ($confirm_beginDate != '') {
-//            $oAuthAdminList->where('confirm_date', '>=', $confirm_beginDate);
-//        }
-//
-//        if ($confirm_endDate != '') {
-//            $oAuthAdminList->where('confirm_date', '>=', $confirm_endDate);
-//        }
-//
-//        if ($min != '') {
-//            $oAuthAdminList->where('final_out_amount', '>=', $min);
-//        }
-//
-//        if ($max != '') {
-//            $oAuthAdminList->where('final_out_amount', '>=', $max);
-//        }
-//
-//
-//        if ($refresh_frequency != '') {
-//            $oAuthAdminList->where('refresh_frequency', '=', $refresh_frequency);
-//        }
-//
-////
-////        if ($out_type != '') {
-////            $oAuthAdminList->where('out_type', '=', $out_type);
-////        }
-//
-//
-//        if ($status != '') {
-//            $oAuthAdminList->where('status', '=', $status);
-//        }
-//
-//
-//
-//        if ($pay_type != '') {
-//            $oAuthAdminList->where('pay_type', '=', $pay_type);
-//        }
-//
-//        if ($in_account != '') {
-//            $oAuthAdminList->where('receive_account', '=', $in_account);
-//        }
-//
-//
-//
-//        switch ($operate_type) {
-//            case '会员账号':
-//                $oAuthAdminList->where('account', '=', $account);
-//                break;
-//            case '提交人':
-//                $oAuthAdminList->where('submitor', '=', $account);
-//                break;
-//            case '操作人':
-//                $oAuthAdminList->where('auditor', '=', $account);
-//                break;
-//
-//        }
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus != '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName != '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-
         $limit = request()->get('limit/d', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
@@ -855,24 +740,6 @@ class UserController extends Controller
         if ($username != '') {
             $oAuthAdminList->where('username', 'like', '%' . $username . '%');
         }
-
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus != '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName != '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
         $limit = request()->get('limit/d', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
@@ -975,23 +842,6 @@ class UserController extends Controller
             $oAuthAdminList->where('submit_date', '>=', $endDate);
         }
 
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus != '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName != '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
-
         $limit = request()->get('limit/d', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
@@ -1059,10 +909,7 @@ class UserController extends Controller
         $max=isset(request()->max)?request()->max:'';
         $is_black=isset(request()->is_black)?request()->is_black:'';
 
-
         $oAuthAdminList = DB::table('user_bankcard');
-
-
 
         if ($merchant_name != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $merchant_name . '%');
@@ -1102,23 +949,6 @@ class UserController extends Controller
             $oAuthAdminList->where('is_black', '=', $is_black);
         }
 
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus != '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName != '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $limit = request()->get('limit/d', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
 
@@ -1174,17 +1004,6 @@ class UserController extends Controller
 
         $data = request()->post();
 
-//        $sId = isset($data['id']) ? $data['id'] : '';
-        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $aTmp = Event::getArrayFromString($sId);
-
-
-        Log::info($aTmp);
-
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
-
-        }*/
-
         $id = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
@@ -1221,26 +1040,13 @@ class UserController extends Controller
 
         $data = request()->post();
 
-//        $sId = isset($data['id']) ? $data['id'] : '';
-        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $aTmp = Event::getArrayFromString($sId);
-
-
-        Log::info($aTmp);
-
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
-
-        }*/
-
         $id = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
 //
         $oEvent = User::find($id);
-//        $iFlag = 0;
         if (is_object($oEvent)) {
             $iStatue = $oEvent->status;
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
         $oEvent->status = $iFlag;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
@@ -1273,23 +1079,6 @@ class UserController extends Controller
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
         $oAuthAdminList = DB::table('user_level');
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus != '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName != '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
         $limit = request()->get('limit/d', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
@@ -1370,25 +1159,6 @@ class UserController extends Controller
         if ($endDate != '') {
             $oAuthAdminList->where('created_at', '<=', $endDate);
         }
-
-
-
-//        $sTmp = 'DESC';
-//        if (substr($iSort, 0, 1) == '-') {
-//            $sTmp = 'ASC';
-//        }
-//        $sOrder = substr($iSort, 1, strlen($iSort));
-//        if ($sTmp != '') {
-//            $oAuthAdminList->orderby($sOrder, $sTmp);
-//        }
-//        if ($iStatus != '') {
-//            $oAuthAdminList->where('status', $iStatus);
-//        }
-//        if ($sUserName != '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
-//        $oAuthAdminListCount = $oAuthAdminList->get();
-//        $oAuthAdminFinalList = $oAuthAdminList->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
 
         $limit = request()->get('limit/d', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($limit);
@@ -1687,17 +1457,6 @@ class UserController extends Controller
     {
 
         $data = request()->post();
-
-//        $sId = isset($data['id']) ? $data['id'] : '';
-        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $aTmp = Event::getArrayFromString($sId);
-
-
-        Log::info($aTmp);
-
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
-
-        }*/
 
         $id = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
