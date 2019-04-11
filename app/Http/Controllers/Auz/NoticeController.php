@@ -110,6 +110,18 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -230,6 +242,18 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
+
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -316,6 +340,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -384,6 +418,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -471,6 +515,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $auth_admin;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
     }
@@ -575,6 +629,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
 
         return ResultVo::success();
@@ -610,6 +674,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 
@@ -641,6 +715,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 
@@ -676,6 +760,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 
@@ -698,6 +792,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -734,6 +838,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 
@@ -768,6 +882,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 
@@ -790,6 +914,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -815,6 +949,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -839,6 +983,16 @@ class NoticeController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -866,6 +1020,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 
@@ -891,6 +1055,16 @@ class NoticeController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 

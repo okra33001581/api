@@ -1975,6 +1975,16 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
 
         $sub_account = '123';

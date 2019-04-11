@@ -115,6 +115,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -221,6 +231,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -375,6 +395,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -484,6 +514,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -696,6 +736,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $auth_admin;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
     }
@@ -800,6 +850,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
 
         return ResultVo::success();
@@ -824,6 +884,16 @@ class ReportController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
         return ResultVo::success();
 
@@ -836,6 +906,16 @@ class ReportController extends Controller
         $aFinal['begin_date'] = '2011-11-11';
         $aFinal['end_date'] = '2011-11-11';
 
+        $sub_account = '123';
+        $operate_name = 'floatwindowconfigList';
+        $log_content = '查询';
+        $ip = '123';
+        $cookies = '123';
+        $date = now();
+        $merchant_id = '123';
+        $merchant_name = '123';
+
+        AdminLog::adminLogSave($sub_account, $operate_name, $log_content, $ip, $cookies, $date, $merchant_id, $merchant_name);
         return response()->json($aFinal);
     }
 
