@@ -299,6 +299,12 @@ Route::post('event/updateInformationSequence', 'SiteController@updateInformation
 
 Route::post('event/updateLotteryGroupPropertySave', 'SiteController@updateLotteryGroupPropertySave');
 
+
+Route::post('event/informationIsTopSave', 'SiteController@informationIsTopSave');
+
+
+
+
 //user-management
 //user_infolist.vue
 Route::get('event/userInfolist', 'UserController@userInfolist');
