@@ -28,6 +28,7 @@ class DateUtils
      */
     public static function getDateArray($sDataPeriod){
         $aTmp = [];
+
         switch ($sDataPeriod) {
             case 'today':
                 $aTmp['begin_date']=mktime(0,0,0,date('m'),date('d'),date('Y'));
@@ -53,6 +54,7 @@ class DateUtils
                 $aTmp['end_date'] = strtotime(date('Y-m-d H:i:s' , time()));;
                 break;
         }
+        return $aTmp;
     }
 
 

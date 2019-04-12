@@ -163,10 +163,11 @@ class ReportController extends Controller
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
 
+
         if ($dtPeriod != '') {
             $aTmp = DateUtils::getDateArray($dtPeriod);
-            $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
-            $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
+            $oAuthAdminList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
+            $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
 
         }
 
@@ -420,12 +421,10 @@ class ReportController extends Controller
         }
 
 
-
-
         if ($dtPeriod != '') {
             $aTmp = DateUtils::getDateArray($dtPeriod);
-            $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
-            $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
+            $oAuthAdminList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
+            $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
 
         }
 
@@ -531,12 +530,10 @@ class ReportController extends Controller
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
 
-
-
         if ($dtPeriod != '') {
             $aTmp = DateUtils::getDateArray($dtPeriod);
-            $oAuthAdminList->where('date', '>=', $aTmp['begin_date']);
-            $oAuthAdminList->where('date', '<=', $aTmp['end_date']);
+            $oAuthAdminList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
+            $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
 
         }
 
