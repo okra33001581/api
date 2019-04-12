@@ -126,6 +126,9 @@ class NoticeController extends Controller
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
         $sReceivers = isset(request()->receivers) ? request()->receivers : '';
 
+
+        $sType = isset(request()->type) ? request()->type : '';
+
         $oAuthAdminList = DB::table('info_message');
 
 
@@ -152,6 +155,12 @@ class NoticeController extends Controller
         if ($sReceiveFlag !== '') {
             $oAuthAdminList->where('receive_flag', $sReceiveFlag);
         }
+
+
+        if ($sType !== '') {
+            $oAuthAdminList->where('type', $sType);
+        }
+
 
         if ($dtBeginDate !== '') {
             $oAuthAdminList->where('created_at', '>=', $dtBeginDate);

@@ -39,7 +39,9 @@ class LogController extends Controller
 
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
-        $sType = isset(request()->type) ? request()->type : '';
+//        $sType = isset(request()->type) ? request()->type : '';
+        $sLogContent = isset(request()->log_content) ? request()->log_content : '';
+
 
         $sSubAccount = isset(request()->sub_account) ? request()->sub_account : '';
 
@@ -60,8 +62,8 @@ class LogController extends Controller
         if ($dtEndDate != '') {
             $oAuthAdminList->where('created_at', '<=', $dtEndDate);
         }
-        if ($sType != '') {
-            $oAuthAdminList->where('type', $sType);
+        if ($sLogContent != '') {
+            $oAuthAdminList->where('log_content', 'like', '%' . $sLogContent . '%');
         }
         if ($sSubAccount != '') {
             $oAuthAdminList->where('sub_account', 'like', '%' . $sSubAccount . '%');
@@ -209,7 +211,7 @@ class LogController extends Controller
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
         $sType = isset(request()->type) ? request()->type : '';
-        $sub_title = isset(request()->sub_title) ? request()->sub_title : '';
+        $sub_title = isset(request()->sub_type) ? request()->sub_type : '';
         $sKeywords = isset(request()->keywords) ? request()->keywords : '';
         $is_check = isset(request()->is_check) ? request()->is_check : '';
 
