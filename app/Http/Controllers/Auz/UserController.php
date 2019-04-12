@@ -154,7 +154,7 @@ class UserController extends Controller
         $aFinal['data'] = $res;
 
 
-//        $sSubAccount = '123';
+//
 //        $sOperateName = 'loginInfo';
 //        $sLogContent = 'loginInfo';
 //
@@ -281,7 +281,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userInfolist';
         $sLogContent = 'userInfolist';
 
@@ -355,7 +355,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userSave';
         $sLogContent = 'userSave';
 
@@ -415,7 +415,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userLevelSave';
         $sLogContent = 'userLevelSave';
 
@@ -479,7 +479,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $oQrCode;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'bankCardSave';
         $sLogContent = 'bankCardSave';
 
@@ -584,7 +584,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userInoutcash';
         $sLogContent = 'userInoutcash';
 
@@ -730,7 +730,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userMainlist';
         $sLogContent = 'userMainlist';
 
@@ -807,7 +807,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userMonitor';
         $sLogContent = 'userMonitor';
 
@@ -919,7 +919,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userReviewlist';
         $sLogContent = 'userReviewlist';
 
@@ -1028,7 +1028,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userUsercard';
         $sLogContent = 'userUsercard';
 
@@ -1068,7 +1068,7 @@ class UserController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'bankcardStatusSave';
         $sLogContent = 'bankcardStatusSave';
 
@@ -1106,7 +1106,7 @@ class UserController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userStatusSave';
         $sLogContent = 'userStatusSave';
 
@@ -1165,7 +1165,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userUserlayer';
         $sLogContent = 'userUserlayer';
 
@@ -1246,7 +1246,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userValiduser';
         $sLogContent = 'userValiduser';
 
@@ -1353,7 +1353,7 @@ class UserController extends Controller
 //        $aFinal['code'] = 0;
 //        $aFinal['data'] = $auth_admin;
 //
-//        $sSubAccount = '123';
+//
 //        $sOperateName = 'adminSave';
 //        $sLogContent = 'adminSave';
 //
@@ -1473,7 +1473,7 @@ class UserController extends Controller
 //        $aFinal['code'] = 0;
 ////        $aFinal['data'] = $res;
 //
-//        $sSubAccount = '123';
+//
 //        $sOperateName = 'adminEdit';
 //        $sLogContent = 'adminEdit';
 //
@@ -1513,7 +1513,7 @@ class UserController extends Controller
 //        $aFinal['code'] = 0;
 ////        $aFinal['data'] = $res;
 //
-//        $sSubAccount = '123';
+//
 //        $sOperateName = 'adminDelete';
 //        $sLogContent = 'adminDelete';
 //
@@ -1554,7 +1554,7 @@ class UserController extends Controller
         $aFinal['code'] = $iFlag;
         $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'usersafetyStatusSave';
         $sLogContent = 'usersafetyStatusSave';
 
@@ -1593,7 +1593,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userlayerDelete';
         $sLogContent = 'userlayerDelete';
 
@@ -1633,7 +1633,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'usercardDelete';
         $sLogContent = 'usercardDelete';
 
@@ -1698,7 +1698,7 @@ class UserController extends Controller
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userQuotaSave';
         $sLogContent = 'userQuotaSave';
 
@@ -1731,7 +1731,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userTopParentSave';
         $sLogContent = 'userTopParentSave';
 
@@ -1762,7 +1762,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $oEvent;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'userRebateSave';
         $sLogContent = 'userRebateSave';
 
@@ -1839,7 +1839,7 @@ class UserController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sSubAccount = '123';
+
         $sOperateName = 'getUserQuota';
         $sLogContent = 'getUserQuota';
 
@@ -1868,7 +1868,6 @@ class UserController extends Controller
         $sLockReason = isset($data['lock_reason']) ? $data['lock_reason'] : '';
 
         $oEvent = new UserLock();
-
         $oEvent->user_id = $iUserId;
         $oEvent->username = $iUserId;
         $oEvent->lock_range = $sLockRange;
@@ -1876,21 +1875,69 @@ class UserController extends Controller
         $oEvent->online_qq = $sOnlineQq;
         $oEvent->lock_reason = $sLockReason;
 
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $oEvent;
 
+        $sOperateName = 'userLockSave';
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function updateUserlayerPaySetting($iId = null)
+    {
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sRakeSetting = isset($data['pay_setting']) ? $data['pay_setting'] : '';
+        $oEvent = UserLevel::find($iId);
+        $oEvent->pay_setting = $sRakeSetting;
         $iRet = $oEvent->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
 //        $aFinal['data'] = $oEvent;
 
 
-        $sSubAccount = '123';
-        $sOperateName = 'userLockSave';
-        $sLogContent = 'userLockSave';
+        $sOperateName = 'updateUserlayerPaySetting';
+        $sLogContent = 'updateUserlayerPaySetting';
 
 
         $dt = now();
 
 
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function updateUserlayerProjectLimit($iId = null)
+    {
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sRakeSetting = isset($data['project_limit']) ? $data['project_limit'] : '';
+        $oEvent = UserLevel::find($iId);
+        $oEvent->project_limit = $sRakeSetting;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $oEvent;
+
+
+        $sOperateName = 'updateUserlayerProjectLimit';
+        $dt = now();
 
         AdminLog::adminLogSave($sOperateName);
 

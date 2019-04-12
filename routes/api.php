@@ -342,3 +342,7 @@ Route::post('event/userRebateSave', 'UserController@userRebateSave');
 Route::get('event/getUserQuota', 'UserController@getUserQuota');
 Route::post('event/userLockSave', 'UserController@userLockSave');
 
+Route::post('event/updateUserlayerProjectLimit', 'UserController@updateUserlayerProjectLimit');
+
+Route::post('event/updateUserlayerPaySetting', 'UserController@updateUserlayerPaySetting');
+

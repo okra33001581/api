@@ -42,7 +42,7 @@ class AdminLog extends Model
             $oAdminLog->ip = $_SERVER["REMOTE_ADDR"];
             $oAdminLog->cookies = $sOrigin;
             $oAdminLog->date = now();
-            $oAdminLog->merchant_id = $sMerchantName;
+            $oAdminLog->merchant_id = $sAdminUserId;
             $oAdminLog->merchant_name = $sMerchantName;
             $oAdminLog->origin = $sOrigin;
             $oAdminLog->referer = $sReferer;

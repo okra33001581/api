@@ -114,5 +114,7 @@ return [
     'userTopParentSave' => '更改用户上级',
     'userRebateSave' => '用户返利设置',
     'userLockSave' => '用户锁定处理',
+    'updateUserlayerProjectLimit' => '用户投注配额',
+    'updateUserlayerPaySetting' => '支付平台选项设定',
 
 ];
