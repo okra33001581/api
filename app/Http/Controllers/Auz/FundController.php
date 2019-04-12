@@ -698,7 +698,7 @@ class FundController extends Controller
         $deposit_type = isset($data['deposit_type']) ? $data['deposit_type'] : '';
         $iMin = isset($data['min']) ? $data['min'] : '';
         $iMax = isset($data['max']) ? $data['max'] : '';
-        $quota = isset($data['quota']) ? $data['quota'] : '';
+        $oQuota = isset($data['quota']) ? $data['quota'] : '';
         $query_flag = isset($data['query_flag']) ? $data['query_flag'] : '';
         $merchant_code = isset($data['merchant_code']) ? $data['merchant_code'] : '';
         $iMerchantId = isset($data['merchant_id']) ? $data['merchant_id'] : '';
@@ -718,7 +718,7 @@ class FundController extends Controller
         $oQrCode->deposit_type = $deposit_type;
         $oQrCode->min = $iMin;
         $oQrCode->max = $iMax;
-        $oQrCode->quota = $quota;
+        $oQrCode->quota = $oQuota;
         $oQrCode->query_flag = $query_flag;
         $oQrCode->merchant_code = $merchant_code;
         $oQrCode->merchant_id = $iMerchantId;

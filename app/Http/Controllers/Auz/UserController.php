@@ -1682,17 +1682,22 @@ class UserController extends Controller
             $topallen_valid_count = $v['topallen_valid_count'];
             $topallen_left_count = $v['topallen_left_count'];
             $left_count = $v['left_count'];
-            $quota = $v['quota'];
-            $Quota = new Quota();
-            $Quota->user_id = $iUserId;
-            $Quota->username = $oUser->realname;
-            $Quota->rebate_level = $rebate_level;
-            $Quota->rebate_level = $rebate_level;
-            $Quota->topallen_valid_count = $topallen_valid_count;
-            $Quota->topallen_left_count = $topallen_left_count;
-            $Quota->edit_count = $left_count;
-            $Quota->quota = $quota;
-            $iRet = $Quota->save();
+            $oQuotaValue = $v['quota'];
+            $oQuota = Quota::where('user_id', '=', $iUserId)->first();
+            if (is_object($oQuota)) {
+            } else {
+                $oQuota = new Quota();
+                $oQuota->user_id = $iUserId;
+            }
+            $oQuota->username = $oUser->realname;
+            $oQuota->rebate_level = $rebate_level;
+            $oQuota->rebate_level = $rebate_level;
+            $oQuota->topallen_valid_count = $topallen_valid_count;
+            $oQuota->topallen_left_count = $topallen_left_count;
+            $oQuota->edit_count = $left_count;
+            $oQuota->quota = $oQuotaValue;
+
+            $iRet = $oQuota->save();
 
         }
         $aFinal['message'] = 'success';
