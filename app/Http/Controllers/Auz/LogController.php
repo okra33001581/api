@@ -233,12 +233,16 @@ class LogController extends Controller
             $oAuthAdminList->where('type', '=', $sType);
         }
 
-        $bFlag = 0;
+        $bFlag = '';
         if ($is_check) {
             $bFlag = 1;
+        } else {
+            $bFlag = 0;
         }
 
-        $oAuthAdminList->where('is_check', '=', $bFlag);
+        if ($bFlag != '') {
+            $oAuthAdminList->where('is_check', '=', $bFlag);
+        }
 
         if ($sub_title == '用户名') {
             $oAuthAdminList->where('username', 'like', '%' . $sKeywords . '%');
