@@ -54,7 +54,7 @@ class LogController extends Controller
         $oAuthAdminList = DB::table('log_admin');
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
         if ($dtBeginDate != '') {
             $oAuthAdminList->where('created_at', '>=', $dtBeginDate);

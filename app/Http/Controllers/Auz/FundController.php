@@ -187,7 +187,7 @@ class FundController extends Controller
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus != '') {
@@ -395,11 +395,14 @@ class FundController extends Controller
 
         $oAuthAdminList = DB::table('fund_cashwithdraw');
 
+//        $sMerchantName = $sMerchantName.'';
 
         if ($sMerchantName != '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
+//        print_r($sMerchantName);
+//        die;
 
         if ($request_beginDate !== '') {
             $oAuthAdminList->where('request_date', '>=', $request_beginDate);
@@ -1376,7 +1379,7 @@ class FundController extends Controller
         $sPayType = isset(request()->pay_type) ? request()->pay_type : '';
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
 //        if ($iStatus !== '') {
@@ -1461,7 +1464,7 @@ class FundController extends Controller
 
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {

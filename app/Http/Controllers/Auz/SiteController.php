@@ -52,7 +52,7 @@ class SiteController extends Controller
         $oAuthAdminList = DB::table('site_float_window');
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {
@@ -139,7 +139,7 @@ class SiteController extends Controller
         $oAuthAdminList = DB::table('site_ip_black');
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
         if ($sType !== '') {
             $oAuthAdminList->where('type', $sType);
@@ -213,8 +213,9 @@ class SiteController extends Controller
 
         $oAuthAdminList = DB::table('site_system_config');
 
+
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         $iLimit = request()->get('limit/d', 20);
@@ -393,7 +394,7 @@ class SiteController extends Controller
         $oAuthAdminList = DB::table('site_company');
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {
@@ -463,7 +464,7 @@ class SiteController extends Controller
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {
@@ -547,7 +548,7 @@ class SiteController extends Controller
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {
@@ -702,6 +703,7 @@ class SiteController extends Controller
         $oIpBlack->ip_list = $sIpList;
         $oIpBlack->memo = $sMemo;
         $oIpBlack->type = $sType;
+        $oIpBlack->created_at = now();
 
         $iRet = $oIpBlack->save();
 
@@ -1262,7 +1264,7 @@ class SiteController extends Controller
 
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
 
@@ -1328,7 +1330,7 @@ class SiteController extends Controller
 
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {
@@ -1401,7 +1403,7 @@ class SiteController extends Controller
         $oAuthAdminList = DB::table('site_web_icon');
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         $iLimit = request()->get('limit/d', 20);
