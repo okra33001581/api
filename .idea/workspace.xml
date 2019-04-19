@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="318" column="25" lean-forward="true" selection-start-line="318" selection-start-column="25" selection-end-line="318" selection-end-column="25" />
+            <state relative-caret-position="587">
+              <caret line="322" column="33" lean-forward="true" selection-start-line="322" selection-start-column="33" selection-end-line="322" selection-end-column="33" />
               <folding>
                 <element signature="e#40#47#0#PHP" expanded="true" />
               </folding>
@@ -481,14 +479,7 @@
       <workItem from="1554689918132" duration="54489000" />
       <workItem from="1554893376775" duration="5793000" />
       <workItem from="1554949494366" duration="31260000" />
-      <workItem from="1555054481071" duration="7643000" />
-    </task>
-    <task id="LOCAL-00042" summary="update">
-      <created>1554187963653</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1554187963653</updated>
+      <workItem from="1555054481071" duration="8364000" />
     </task>
     <task id="LOCAL-00043" summary="update">
       <created>1554191343780</created>
@@ -826,11 +817,18 @@
       <option name="project" value="LOCAL" />
       <updated>1555060733660</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="update">
+      <created>1555294256579</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1555294256579</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="379319000" />
+    <option name="totallyTimeSpent" value="380040000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1284,8 +1282,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/FundController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="318" column="25" lean-forward="true" selection-start-line="318" selection-start-column="25" selection-end-line="318" selection-end-column="25" />
+        <state relative-caret-position="587">
+          <caret line="322" column="33" lean-forward="true" selection-start-line="322" selection-start-column="33" selection-end-line="322" selection-end-column="33" />
           <folding>
             <element signature="e#40#47#0#PHP" expanded="true" />
           </folding>
