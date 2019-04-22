@@ -16,10 +16,11 @@ use App\model\Ad;
 use App\model\AdSite;
 use App\model\FileResource;
 use App\model\FileResourceTag;
+use App\model\ProxyConfiguration;
+use App\model\AdminLog;
 use Illuminate\Support\Facades\Redis;
 class DelegateController extends Controller
 {
-// AdminController.php
     public function getJson()
     {
         // 从文件中读取数据到PHP变量
@@ -27,142 +28,137 @@ class DelegateController extends Controller
         return $json_string;
     }
     /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
+     *代理默认配额设置
      */
     public function proxycommissionList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
+        // $sWhere = [];
+        // $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        
+        $proxycommissionList = DB::table('delegate_quota');
+        if ($merchant_name !== '') {
+            $proxycommissionList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        $iLimit = request()->get('limit/d', 20);
+        $proxycommissionFinalList = $proxycommissionList->orderby('id', 'desc')->paginate($iLimit);
+
+       /* $aTmp = [];
         $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
+        foreach ($proxycommissionFinalList as $oAuthAdmin) {
             $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
+            $aTmp['level_name'] = $oAuthAdmin->level_name;
+            $aTmp['deposit_times'] = $oAuthAdmin->deposit_times;
+            $aTmp['deposit_amount'] = $oAuthAdmin->deposit_amount;
+            $aTmp['deposit_max'] = $oAuthAdmin->deposit_max;
+            $aTmp['withdraw_times'] = $oAuthAdmin->withdraw_times;
+            $aTmp['withdraw_amount'] = $oAuthAdmin->withdraw_amount;
+            $aTmp['prior'] = $oAuthAdmin->prior;
+            $aTmp['memo'] = $oAuthAdmin->memo;
+            $aTmp['pay_setting'] = $oAuthAdmin->pay_setting;
+            $aTmp['project_limit'] = $oAuthAdmin->project_limit;
             $aFinal[] = $aTmp;
-        }
+        }*/
+
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($proxycommissionFinalList);
+        $res["list"] = $proxycommissionFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+
+        $sOperateName = 'proxycommissionList';
+        $sLogContent = 'proxycommissionList';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
+
+    // 添加数据
+    public function proxycommissionSave()
+    {
+        $data = request()->post();
+        $id = isset($data['id']) ? $data['id'] : '';
+        $merchant_id = isset($data['merchant_id']) ? $data['merchant_id'] : '';
+        $delegate_level = isset($data['delegate_level']) ? $data['delegate_level'] : '';
+        $rebate = isset($data['rebate']) ? $data['rebate'] : '';
+        $default_quota = isset($data['default_quota']) ? $data['default_quota'] : '';
+
+        if ($id != '') {
+            $ProxyConfiguration = ProxyConfiguration::find($id);
+        }else{
+            $ProxyConfiguration = new ProxyConfiguration();
+        }
+
+//      $ProxyConfiguration->id = $iId;
+
+        $ProxyConfiguration->merchant_id = $merchant_id;
+        $ProxyConfiguration->delegate_level = $delegate_level;
+        $ProxyConfiguration->rebate = $rebate;
+        $ProxyConfiguration->default_quota = $default_quota;
+
+        $iRet = $ProxyConfiguration->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $ProxyConfiguration;
+
+        $sOperateName = 'proxycommissionSave';
+        $sLogContent = 'proxycommissionSave';
+
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+
     /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
+     * 数据取得
+     * @param request
+     * @return json
      */
+    public function proxycommissionDelete()
+    {
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+
+        $oIpBlack = ProxyConfiguration::where('id',$iId)->delete();
+        if ($oIpBlack) {
+            $sMessage = '删除成功！';
+        } else {
+            $sMessage = '删除失败！';
+        }
+
+        $aFinal['message'] = $sMessage;
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oIpBlack;
+
+        $sOperateName = 'proxycommissionDelete';
+        $sLogContent = 'proxycommissionDelete';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+    /**
+     *代理推广链接
+     */
+   
     public function proxycommissionProxylist()
     {
         $sWhere = [];
@@ -174,7 +170,7 @@ class DelegateController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $oAuthAdminList = DB::table('delegate_sponsor_links');
         $sTmp = 'DESC';
         if (substr($iSort, 0, 1) == '-') {
             $sTmp = 'ASC';
@@ -193,112 +189,40 @@ class DelegateController extends Controller
         $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
         $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
-            $aFinal[] = $aTmp;
-        }
+        // foreach ($oAuthAdminFinalList as $oAuthAdmin) {
+        //     $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
+        //     $aTmp['id'] = $oAuthAdmin->id;
+        //     $aTmp['username'] = $oAuthAdmin->username;
+        //     $aTmp['password'] = $oAuthAdmin->password;
+        //     $aTmp['tel'] = $oAuthAdmin->tel;
+        //     $aTmp['email'] = $oAuthAdmin->email;
+        //     $aTmp['avatar'] = $oAuthAdmin->avatar;
+        //     $aTmp['sex'] = $oAuthAdmin->sex;
+        //     $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
+        //     $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
+        //     $aTmp['create_time'] = $oAuthAdmin->create_time;
+        //     $aTmp['status'] = $oAuthAdmin->status;
+        //     $aTmp['updated_at'] = $oAuthAdmin->updated_at;
+        //     $aTmp['created_at'] = $oAuthAdmin->created_at;
+        //     $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
+        //     $temp_roles = [];
+        //     if (is_object($roles)) {
+        //         $temp_roles = $roles->toArray();
+        //         $temp_roles = array_column($temp_roles, 'role_id');
+        //     }
+        //     $aTmp['roles'] = $temp_roles;
+        //     $aFinal[] = $aTmp;
+        // }
         $res = [];
         $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["list"] = $oAuthAdminFinalList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-    /**
-     * @api {get} /api/adminRoleList 取得角色列表
-     * @apiGroup admin
-     * @apiParam {string} null 不需要参数
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       null: 'null',
-     *     }
-     *
-     * @apiSuccessExample 取得角色列表成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
-    public function adminRoleList()
-    {
-        $sWhere = [];
-        $iLimit = request()->get('limit/d', 20);
-        //分页配置
-//        $paginate = [
-//            'type' => 'bootstrap',
-//            'var_page' => 'page',
-//            'list_rows' => ($iLimit <= 0 || $iLimit > 20) ? 20 : $iLimit,
-//        ];
-        $iTmp = ($iLimit <= 0 || $iLimit > 20) ? 20 : $iLimit;
-        $lists = AuthRole::where($sWhere)
-            ->paginate($iTmp);
-        $res = [];
-        $res["total"] = $lists->total();
-        $res["list"] = $lists->items();
-        return response()->json($res);
-        return ResultVo::success($res);
-    }
-    /**
-     * @api {post} /api/adminSave  建立新的商户
-     * @apiGroup admin
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
+
     public function adminSave()
     {
         $data = request()->post();
@@ -353,37 +277,7 @@ class DelegateController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($auth_admin);
     }
-    /**
-     * @api {post} /api/adminEdit  編輯管理員信息
-     * @apiGroup admin
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
+
     public function adminEdit()
     {
         $data = request()->post();

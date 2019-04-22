@@ -93,6 +93,8 @@ Route::post('event/adminStatusSave', 'AdminController@adminStatusSave');
 //delegate-management
 //proxycommission_list.vue
 Route::get('event/proxycommissionList', 'DelegateController@proxycommissionList');
+Route::post('event/proxycommissionSave', 'DelegateController@proxycommissionSave');
+Route::post('event/proxycommissionDelete', 'DelegateController@proxycommissionDelete');
 //proxycommission_proxylist.vue
 Route::get('event/proxycommissionProxylist', 'DelegateController@proxycommissionProxylist');
 //event-management
