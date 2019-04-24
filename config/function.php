@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 return [
     'cashOrderlist' => '账变列表',
@@ -55,6 +55,15 @@ return [
     'marqueeDelete' => '跑马灯删除',
     'authAdminList' => '管理员列表',
     'getDayBetween' => '取得时间区间',
+    'proxycommissionList' => '代理默认配额设置列表',
+    'proxycommissionSave' => '代理默认配额设置保存',
+    'proxycommissionDelete' => '代理默认配额设置删除',
+    'proxycommissionProxylist' => '代理推广链接列表',
+    'proxycommissionProxySave' => '代理推广链接保存',
+    'proxycommissionProxyDelete' => '代理推广链接删除',
+    'lotteryriskList' => '游戏风控列表',
+    'lotteryriskSave' => '游戏风控保存',
+    'lotteryriskDelete' => '游戏风控删除',
     'financeIndex' => '财务报表',
     'operationProfit' => '运营报表',
     'pgamePlaylist' => '彩票报表',

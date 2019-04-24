@@ -97,6 +97,8 @@ Route::post('event/proxycommissionSave', 'DelegateController@proxycommissionSave
 Route::post('event/proxycommissionDelete', 'DelegateController@proxycommissionDelete');
 //proxycommission_proxylist.vue
 Route::get('event/proxycommissionProxylist', 'DelegateController@proxycommissionProxylist');
+Route::post('event/proxycommissionProxySave', 'DelegateController@proxycommissionProxySave');
+Route::post('event/proxycommissionProxyDelete', 'DelegateController@proxycommissionProxyDelete');
 //event-management
 //activity_list.vue
 Route::get('event/activityList', 'EventController@activityList');
@@ -220,6 +222,8 @@ Route::post('event/noticeSequence', 'NoticeController@noticeSequence');
 Route::get('event/betlimitList', 'PlayController@betlimitList');
 //lotteryrisk_list.vue
 Route::get('event/lotteryriskList', 'PlayController@lotteryriskList');
+Route::post('event/lotteryriskSave', 'PlayController@lotteryriskSave');
+Route::post('event/lotteryriskDelete', 'PlayController@lotteryriskDelete');
 //pgame_list.vue
 Route::get('event/pgameList', 'PlayController@pgameList');
 //proxygames_list.vue

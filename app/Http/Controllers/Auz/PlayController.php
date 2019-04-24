@@ -9,6 +9,7 @@ use Log;
 use App\common\vo\ResultVo;
 use App\model\AuthAdmin;
 use App\model\AuthRoleAdmin;
+use App\model\AdminLog;
 use App\model\AuthPermission;
 use App\model\AuthPermissionRule;
 use App\model\AuthRole;
@@ -16,6 +17,7 @@ use App\common\utils\PublicFileUtils;
 use App\common\utils\PassWordUtils;
 use App\model\Ad;
 use App\model\AdSite;
+use App\model\GameRisk;
 use App\model\FileResource;
 use App\model\FileResourceTag;
 
@@ -24,10 +26,6 @@ use Illuminate\Support\Facades\Redis;
 class PlayController extends Controller
 {
 
-// AdminController.php
-
-
-
     public function getJson()
     {
         // 从文件中读取数据到PHP变量
@@ -35,43 +33,7 @@ class PlayController extends Controller
         return $json_string;
 
     }
-    /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
-     */
+
     public function betlimitList()
     {
         $sWhere = [];
@@ -139,102 +101,29 @@ class PlayController extends Controller
         return ResultVo::success($res);
     }
 
-    /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
-     */
+    
     public function lotteryriskList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $lotteryriskList = DB::table('game_risk');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
+        $lotteryriskList->orderby('id', 'desc');
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $lotteryriskList->where('status', $iStatus);
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        if ($merchant_name !== '') {
+            $lotteryriskList->where('merchant_name', 'like', '%' . $merchant_name . '%');
         }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
+        $lotteryriskListCount = $lotteryriskList->get();
+        $lotteryriskFinalList = $lotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
         $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
-            $aFinal[] = $aTmp;
-        }
-
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($lotteryriskListCount);
+        $res["list"] = $lotteryriskFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -243,43 +132,98 @@ class PlayController extends Controller
         return ResultVo::success($res);
     }
 
+
+    // 添加数据
+    public function lotteryriskSave()
+    {
+        $data = request()->post();
+        $id = isset($data['id']) ? $data['id'] : '';
+        $game_id = isset($data['game_id']) ? $data['game_id'] : '';
+        $game = isset($data['game']) ? $data['game'] : '';
+        $date = isset($data['date']) ? $data['date'] : '';
+        $issue = isset($data['issue']) ? $data['issue'] : '';
+        $project_people_count = isset($data['project_people_count']) ? $data['project_people_count'] : '';
+        $winner_people_count = isset($data['winner_people_count']) ? $data['winner_people_count'] : '';
+        $winner_people_count_ratio = isset($data['winner_people_count_ratio']) ? $data['winner_people_count_ratio'] : '';
+        $project_count = isset($data['project_count']) ? $data['project_count'] : '';
+        $winner_project_count = isset($data['winner_project_count']) ? $data['winner_project_count'] : '';
+        $winner_project_count_ratio = isset($data['winner_project_count_ratio']) ? $data['winner_project_count_ratio'] : '';
+        $project_amount = isset($data['project_amount']) ? $data['project_amount'] : '';
+        $back_award_amount = isset($data['back_award_amount']) ? $data['back_award_amount'] : '';
+        $loss_ratio = isset($data['loss_ratio']) ? $data['loss_ratio'] : '';
+
+        if ($id != '') {
+            $GameRisk = GameRisk::find($id);
+            $GameRisk->updated_at = date("Y-m-d H:i:s",time());
+        }else{
+            $GameRisk = new GameRisk();
+        }
+
+        $GameRisk->game_id = $game_id;
+        $GameRisk->game = $game;
+        $GameRisk->date = $date;
+        $GameRisk->issue = $issue;
+        $GameRisk->project_people_count = $project_people_count;
+        $GameRisk->winner_people_count = $winner_people_count;
+        $GameRisk->winner_people_count_ratio = $winner_people_count_ratio;
+        $GameRisk->project_count = $project_count;
+        $GameRisk->winner_project_count = $winner_project_count;
+        $GameRisk->winner_project_count_ratio = $winner_project_count_ratio;
+        $GameRisk->project_amount = $project_amount;
+        $GameRisk->back_award_amount = $back_award_amount;
+        $GameRisk->loss_ratio = $loss_ratio;
+
+        $iRet = $GameRisk->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $GameRisk;
+
+        $sOperateName = 'lotteryriskSave';
+        $sLogContent = 'lotteryriskSave';
+
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+
     /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
+     * 数据取得
+     * @param request
+     * @return json
      */
+    public function lotteryriskDelete()
+    {
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+
+        $oIpBlack = GameRisk::where('id',$iId)->delete();
+        if ($oIpBlack) {
+            $sMessage = '删除成功！';
+        } else {
+            $sMessage = '删除失败！';
+        }
+
+        $aFinal['message'] = $sMessage;
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oIpBlack;
+
+        $sOperateName = 'lotteryriskDelete';
+        $sLogContent = 'lotteryriskDelete';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+
+
+    
     public function pgameList()
     {
         $sWhere = [];
