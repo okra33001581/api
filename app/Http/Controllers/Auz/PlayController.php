@@ -18,6 +18,7 @@ use App\common\utils\PassWordUtils;
 use App\model\Ad;
 use App\model\AdSite;
 use App\model\GameRisk;
+use App\model\BettingLimit;
 use App\model\FileResource;
 use App\model\FileResourceTag;
 
@@ -34,150 +35,326 @@ class PlayController extends Controller
 
     }
 
+    /**
+     * 投注限额列表
+     * @param request
+     * @return json
+     */
+
     public function betlimitList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
+        config(['database.connections.mysql.strict' =>  false]);
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
-
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
+        $sName = isset(request()->name) ? request()->name : '';
+        $sLotteryName = isset(request()->lottery_name) ? request()->lottery_name : '';
+        $sTable = isset(request()->table) ? request()->table : '';
+        $oBetlimitList = DB::table('game_limit');
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oBetlimitList->where('status', $iStatus);
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        if ($sName !== '') {
+            $oBetlimitList->where('name', 'like', '%' . $sName . '%');
         }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
-            $aFinal[] = $aTmp;
+        $oBetlimitList->orderby('id','desc');
+        if($sLotteryName){
+            $oBetlimitList->where('lottery_name',$sLotteryName);
         }
-
+        if($sTable){
+            $oBetlimitList->where('name',$sTable);
+            $oBetlimitFinalList = $oBetlimitList->orderby('id', 'desc')->get();
+        }else{
+            $oBetlimitList->groupBy('name');
+            $iLimit = request()->get('limit/d', 20);
+            $oBetlimitFinalList = $oBetlimitList->orderby('id', 'desc')->paginate($iLimit);
+        }
+        // $oBetlimitListCount = $oBetlimitList->get();
+        // $oBetlimitFinalList = $oBetlimitList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+
+       
+        
+        $res["total"] = count($oBetlimitFinalList);
+        $res["list"] = $oBetlimitFinalList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+        $sOperateName = 'betlimitList';
+        $sLogContent = 'betlimitList';
+
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
-    
+    /**
+     * 修改页面下拉框数据
+     * @param request
+     * @return json
+     */
+    public function betlimitOptions()
+    {
+        config(['database.connections.mysql.strict' =>  false]);
+        $name = isset(request()->name) ? request()->name : '';
+        $betlimitOptions = DB::table('game_limit')->select('lottery_name')->where('name',$name);
+        $data = $betlimitOptions->groupBy('lottery_name')->get()->toArray();
+        $res = [];
+        $res["total"] = count($data);
+        $res["list"] = $data;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        $sOperateName = 'betlimitOptions';
+        $sLogContent = 'betlimitOptions';
+
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+
+     /**
+     * 列表页修改名称
+     * @param request
+     * @return json
+     */
+    public function betlimitNameSave($iId = null)
+    {
+
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['name']) ? $data['name'] : '';
+        $oEvent = BettingLimit::find($iId);
+        $oEvent->name = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'betlimitNameSave';
+        $sLogContent = 'betlimitNameSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 单一用户数据修改保存
+     * @param request
+     * @return json
+     */
+    public function betlimitPrizeSave($iId = null)
+    {
+
+        $data = request()->post();
+        if(count($data)==count($data,1)){
+            $iId = isset($data['id']) ? $data['id'] : '';
+            $iFlag = isset($data['prize_limit']) ? $data['prize_limit'] : '';
+            $oEvent = BettingLimit::find($iId);
+            $oEvent->prize_limit = $iFlag;
+            $iRet = $oEvent->save();
+        }else{
+            foreach ($data as $k => $v) {
+                $iId = isset($v['id']) ? $v['id'] : '';
+                $iFlag = isset($v['prize_limit']) ? $v['prize_limit'] : '';
+                $oEvent = BettingLimit::find($iId);
+                $oEvent->prize_limit = $iFlag;
+                $iRet = $oEvent->save();
+            }
+        }
+        // die;
+        
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'betlimitPrizeSave';
+        $sLogContent = 'betlimitPrizeSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 投注限额列表数据删除
+     * @param request
+     * @return json
+     */
+    public function betlimitDelete()
+    {
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+
+        $oIpBlack = BettingLimit::where('id',$iId)->delete();
+        if ($oIpBlack) {
+            $sMessage = '删除成功！';
+        } else {
+            $sMessage = '删除失败！';
+        }
+
+        $aFinal['message'] = $sMessage;
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oIpBlack;
+
+        $sOperateName = 'betlimitDelete';
+        $sLogContent = 'betlimitDelete';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 游戏风控数据列表
+     * @param request
+     * @return json
+     */
     public function lotteryriskList()
     {
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
         $iStatus = isset(request()->status) ? request()->status : '';
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $lotteryriskList = DB::table('game_risk');
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $oLotteryriskList = DB::table('game_risk');
 
-        $lotteryriskList->orderby('id', 'desc');
+        $oLotteryriskList->orderby('id', 'desc');
         if ($iStatus !== '') {
-            $lotteryriskList->where('status', $iStatus);
+            $oLotteryriskList->where('status', $iStatus);
         }
-        if ($merchant_name !== '') {
-            $lotteryriskList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        if ($sMerchantName !== '') {
+            $oLotteryriskList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        $lotteryriskListCount = $lotteryriskList->get();
-        $lotteryriskFinalList = $lotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
+        $oLotteryriskListCount = $oLotteryriskList->get();
+        $oLotteryriskFinalList = $oLotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
+        $aStatus = ['未通过','已通过','未处理'];
+        foreach ($oLotteryriskFinalList as $k => &$v) {
+            $v->status = $aStatus[$v->status];
+        }
         $aTmp = [];
         $aFinal = [];
         $res = [];
-        $res["total"] = count($lotteryriskListCount);
-        $res["list"] = $lotteryriskFinalList->toArray();
+        $res["total"] = count($oLotteryriskListCount);
+        $res["list"] = $oLotteryriskFinalList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+
+        $sOperateName = 'lotteryriskList';
+        $sLogContent = 'lotteryriskList';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
 
-    // 添加数据
+    /**
+     * 游戏风控列表数据状态修改
+     * @param request
+     * @return json
+     */
+    public function lotteryriskStatusSave($iId = null)
+    {
+
+        $data = request()->post();
+        $flag_arr = ['refuse'=>0,'pass'=>1];
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+        $oEvent = GameRisk::find($iId);
+        $oEvent->status = $flag_arr[$iFlag];
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'usersafetyStatusSave';
+        $sLogContent = 'usersafetyStatusSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 游戏风控列表数据修改和添加
+     * @param request
+     * @return json
+     */
     public function lotteryriskSave()
     {
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
-        $game_id = isset($data['game_id']) ? $data['game_id'] : '';
-        $game = isset($data['game']) ? $data['game'] : '';
-        $date = isset($data['date']) ? $data['date'] : '';
-        $issue = isset($data['issue']) ? $data['issue'] : '';
-        $project_people_count = isset($data['project_people_count']) ? $data['project_people_count'] : '';
-        $winner_people_count = isset($data['winner_people_count']) ? $data['winner_people_count'] : '';
-        $winner_people_count_ratio = isset($data['winner_people_count_ratio']) ? $data['winner_people_count_ratio'] : '';
-        $project_count = isset($data['project_count']) ? $data['project_count'] : '';
-        $winner_project_count = isset($data['winner_project_count']) ? $data['winner_project_count'] : '';
-        $winner_project_count_ratio = isset($data['winner_project_count_ratio']) ? $data['winner_project_count_ratio'] : '';
-        $project_amount = isset($data['project_amount']) ? $data['project_amount'] : '';
-        $back_award_amount = isset($data['back_award_amount']) ? $data['back_award_amount'] : '';
-        $loss_ratio = isset($data['loss_ratio']) ? $data['loss_ratio'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iGameId = isset($data['game_id']) ? $data['game_id'] : '';
+        $sGame = isset($data['game']) ? $data['game'] : '';
+        $sDate = isset($data['date']) ? $data['date'] : '';
+        $sIssue = isset($data['issue']) ? $data['issue'] : '';
+        $iProjectPeopleCount = isset($data['project_people_count']) ? $data['project_people_count'] : '';
+        $iWinnerPeopleCount = isset($data['winner_people_count']) ? $data['winner_people_count'] : '';
+        $iWinnerPeopleCountRatio = isset($data['winner_people_count_ratio']) ? $data['winner_people_count_ratio'] : '';
+        $iProjectCount = isset($data['project_count']) ? $data['project_count'] : '';
+        $iWinnerProjectCount = isset($data['winner_project_count']) ? $data['winner_project_count'] : '';
+        $iWinnerProjectCountRatio = isset($data['winner_project_count_ratio']) ? $data['winner_project_count_ratio'] : '';
+        $sProjectAmount = isset($data['project_amount']) ? $data['project_amount'] : '';
+        $sBackAwardAmount = isset($data['back_award_amount']) ? $data['back_award_amount'] : '';
+        $sLossRatio = isset($data['loss_ratio']) ? $data['loss_ratio'] : '';
+        $iStatus = isset($data['status']) ? $data['status'] : '';
 
-        if ($id != '') {
-            $GameRisk = GameRisk::find($id);
-            $GameRisk->updated_at = date("Y-m-d H:i:s",time());
+        $aStatus = ['未通过','已通过','未处理'];
+        if ($iId != '') {
+            $oGameRisk = GameRisk::find($iId);
+            $oGameRisk->updated_at = date("Y-m-d H:i:s",time());
         }else{
-            $GameRisk = new GameRisk();
+            $oGameRisk = new GameRisk();
         }
 
-        $GameRisk->game_id = $game_id;
-        $GameRisk->game = $game;
-        $GameRisk->date = $date;
-        $GameRisk->issue = $issue;
-        $GameRisk->project_people_count = $project_people_count;
-        $GameRisk->winner_people_count = $winner_people_count;
-        $GameRisk->winner_people_count_ratio = $winner_people_count_ratio;
-        $GameRisk->project_count = $project_count;
-        $GameRisk->winner_project_count = $winner_project_count;
-        $GameRisk->winner_project_count_ratio = $winner_project_count_ratio;
-        $GameRisk->project_amount = $project_amount;
-        $GameRisk->back_award_amount = $back_award_amount;
-        $GameRisk->loss_ratio = $loss_ratio;
+        $oGameRisk->game_id = $iGameId;
+        $oGameRisk->game = $sGame;
+        $oGameRisk->date = $sDate;
+        $oGameRisk->issue = $sIssue;
+        $oGameRisk->project_people_count = $iProjectPeopleCount;
+        $oGameRisk->winner_people_count = $iWinnerPeopleCount;
+        $oGameRisk->winner_people_count_ratio = $iWinnerPeopleCountRatio;
+        $oGameRisk->project_count = $iProjectCount;
+        $oGameRisk->winner_project_count = $iWinnerProjectCount;
+        $oGameRisk->winner_project_count_ratio = $iWinnerProjectCountRatio;
+        $oGameRisk->project_amount = $sProjectAmount;
+        $oGameRisk->back_award_amount = $sBackAwardAmount;
+        $oGameRisk->loss_ratio = $sLossRatio;
 
-        $iRet = $GameRisk->save();
-
+        $iRet = $oGameRisk->save();
+        if ($iId != '') {
+            $oGameRisk->status = $aStatus[$iStatus];
+        }else{
+            $oGameRisk->status = $aStatus[2];
+        }
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $GameRisk;
+        $aFinal['data'] = $oGameRisk;
 
         $sOperateName = 'lotteryriskSave';
         $sLogContent = 'lotteryriskSave';
@@ -190,7 +367,7 @@ class PlayController extends Controller
 
 
     /**
-     * 数据取得
+     * 游戏风控列表数据删除
      * @param request
      * @return json
      */
@@ -226,66 +403,48 @@ class PlayController extends Controller
     
     public function pgameList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
+        config(['database.connections.mysql.strict' =>  false]);
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
+        $sLotteryName = isset(request()->lottery_name) ? request()->lottery_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sWayType = isset(request()->way_type) ? request()->way_type : '';
+        $oPgameList = DB::table('game');
 
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
+        $oPgameList->orderby('id', 'desc');
+        $oPgameList->groupBy('lottery_name');
+        if ($sLotteryName !== '') {
+            $oPgameList->where('lottery_name', $sLotteryName);
         }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
+        if ($sWayType !== '') {
+            $oPgameList->where('way_type', $sWayType);
         }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+        if ($sMerchantName !== '') {
+            $oPgameList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+        $oPgameListCount = $oPgameList->get();
+        $oPgameFinalList = $oPgameList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
+        
+        foreach ($oPgameFinalList as $k => &$v) {
+            $aTemp = DB::table('game')->select()->where('lottery_name',$v->lottery_name)->get()->toArray();
+            $v->children = $aTemp;
         }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
         $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
-            $aFinal[] = $aTmp;
-        }
-
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["total"] = count($oPgameListCount);
+        $res["list"] = $oPgameFinalList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
+
+
+        $sOperateName = 'pgameList';
+        $sLogContent = 'pgameList';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
 
         return response()->json($aFinal);
         return ResultVo::success($res);

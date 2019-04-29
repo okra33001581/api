@@ -220,8 +220,14 @@ Route::post('event/noticeSequence', 'NoticeController@noticeSequence');
 //play-management
 //betlimit_list.vue
 Route::get('event/betlimitList', 'PlayController@betlimitList');
+Route::get('event/betlimitOptions', 'PlayController@betlimitOptions');
+Route::post('event/betlimitNameSave', 'PlayController@betlimitNameSave');
+Route::post('event/betlimitPrizeSave', 'PlayController@betlimitPrizeSave');
+Route::post('event/betlimitDelete', 'PlayController@betlimitDelete');
+
 //lotteryrisk_list.vue
 Route::get('event/lotteryriskList', 'PlayController@lotteryriskList');
+Route::post('event/lotteryriskStatusSave', 'PlayController@lotteryriskStatusSave');
 Route::post('event/lotteryriskSave', 'PlayController@lotteryriskSave');
 Route::post('event/lotteryriskDelete', 'PlayController@lotteryriskDelete');
 //pgame_list.vue

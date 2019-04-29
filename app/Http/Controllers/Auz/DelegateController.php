@@ -16,24 +16,29 @@ class DelegateController extends Controller
         $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
         return $json_string;
     }
+    
+
     /**
-     *代理默认配额设置
+     * 代理默认配置列表数据
+     * @param request
+     * @return json
      */
+
     public function proxycommissionList()
     {
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         
-        $proxycommissionList = DB::table('delegate_quota');
-        if ($merchant_name !== '') {
-            $proxycommissionList->where('merchant_name', 'like', '%' . $merchant_name . '%');
+        $oProxycommissionList = DB::table('delegate_quota');
+        if ($sMerchantName !== '') {
+            $oProxycommissionList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
         $iLimit = request()->get('limit/d', 20);
-        $proxycommissionFinalList = $proxycommissionList->orderby('id', 'desc')->paginate($iLimit);
+        $oProxycommissionFinalList = $oProxycommissionList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($proxycommissionFinalList);
-        $res["list"] = $proxycommissionFinalList->toArray();
+        $res["total"] = count($oProxycommissionFinalList);
+        $res["list"] = $oProxycommissionFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -52,32 +57,36 @@ class DelegateController extends Controller
         return ResultVo::success($res);
     }
 
-    // 添加数据
+    /**
+     * 代理默认配置添加和修改数据
+     * @param request
+     * @return json
+     */
     public function proxycommissionSave()
     {
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
-        $merchant_id = isset($data['merchant_id']) ? $data['merchant_id'] : '';
-        $delegate_level = isset($data['delegate_level']) ? $data['delegate_level'] : '';
-        $rebate = isset($data['rebate']) ? $data['rebate'] : '';
-        $default_quota = isset($data['default_quota']) ? $data['default_quota'] : '';
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iMerchantId = isset($data['merchant_id']) ? $data['merchant_id'] : '';
+        $iDelegateLevel = isset($data['delegate_level']) ? $data['delegate_level'] : '';
+        $sRebate = isset($data['rebate']) ? $data['rebate'] : '';
+        $sDefaultQuota = isset($data['default_quota']) ? $data['default_quota'] : '';
 
-        if ($id != '') {
-            $ProxyConfiguration = ProxyConfiguration::find($id);
+        if ($iId != '') {
+            $oProxyConfiguration = ProxyConfiguration::find($iId);
         }else{
-            $ProxyConfiguration = new ProxyConfiguration();
+            $oProxyConfiguration = new ProxyConfiguration();
         }
 
-        $ProxyConfiguration->merchant_id = $merchant_id;
-        $ProxyConfiguration->delegate_level = $delegate_level;
-        $ProxyConfiguration->rebate = $rebate;
-        $ProxyConfiguration->default_quota = $default_quota;
+        $oProxyConfiguration->merchant_id = $iMerchantId;
+        $oProxyConfiguration->delegate_level = $iDelegateLevel;
+        $oProxyConfiguration->rebate = $sRebate;
+        $oProxyConfiguration->default_quota = $sDefaultQuota;
 
-        $iRet = $ProxyConfiguration->save();
+        $iRet = $oProxyConfiguration->save();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $ProxyConfiguration;
+        $aFinal['data'] = $oProxyConfiguration;
 
         $sOperateName = 'proxycommissionSave';
         $sLogContent = 'proxycommissionSave';
@@ -90,7 +99,7 @@ class DelegateController extends Controller
 
 
     /**
-     * 数据取得
+     * 代理默认配置删除数据
      * @param request
      * @return json
      */
@@ -122,49 +131,51 @@ class DelegateController extends Controller
     }
 
     /**
-     *代理推广链接
+     * 代理推广链接列表
+     * @param request
+     * @return json
      */
    
     public function proxycommissionProxylist()
     {
         // 第一个选项
-        $status_arr = ['delegate_account','bind_domain','invite_code'];
+        $aStatus = ['delegate_account','bind_domain','invite_code'];
         // 第二个选项
-        $count_arr = ['register_people_count','visit_count'];
+        $aCount = ['register_people_count','visit_count'];
         // 第三个选项
-        $type_arr = ['代理','会员'];
+        $aType = ['代理','会员'];
 
         $sOrder = 'id DESC';
-        $limit = isset(request()->limit) ? request()->limit : '';
-        $page = isset(request()->page) ? request()->page : '';
-        $status = isset(request()->status) ? request()->status : '';
-        $count = isset(request()->count) ? request()->count : '';
-        $type = isset(request()->type) ? request()->type : '';
-        $proxycommissionProxylist = DB::table('delegate_sponsor_links');
-            $proxycommissionProxylist->orderby('id','desc');
-        if ($status !== '') {
-            $name1 = $status_arr[$status];
-            $value1 = isset(request()->info) ? request()->info : '';
-            if ($value1) {
-                $proxycommissionProxylist->where($name1,'like','%'.$value1.'%');
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $iPage = isset(request()->page) ? request()->page : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $iCount = isset(request()->count) ? request()->count : '';
+        $iType = isset(request()->type) ? request()->type : '';
+        $oProxycommissionProxylist = DB::table('delegate_sponsor_links');
+            $oProxycommissionProxylist->orderby('id','desc');
+        if ($iStatus !== '') {
+            $sName1 = $aStatus[$iStatus];
+            $sInfo = isset(request()->info) ? request()->info : '';
+            if ($sInfo) {
+                $oProxycommissionProxylist->where($sName1,'like','%'.$sInfo.'%');
             }
         }
-        if ($count !== '') {
-            $name2 = $count_arr[$count];
-            $begin_count = isset(request()->begin_count) ? request()->begin_count : '';
-            $end_count = isset(request()->end_count) ? request()->end_count : '';
-            $proxycommissionProxylist->whereBetween($name2,[$begin_count,$end_count]);
+        if ($iCount !== '') {
+            $sName2 = $aCount[$iCount];
+            $iBeginCount = isset(request()->begin_count) ? request()->begin_count : '';
+            $iEndCount = isset(request()->end_count) ? request()->end_count : '';
+            $oProxycommissionProxylist->whereBetween($sName2,[$iBeginCount,$iEndCount]);
         }
-        if ($type !== '') {
-            $proxycommissionProxylist->where('open_account_type',$type_arr[$type]);
+        if ($iType !== '') {
+            $oProxycommissionProxylist->where('open_account_type',$aType[$iType]);
         }
-        $proxycommissionProxylistCount = $proxycommissionProxylist->get();
-        $proxycommissionProxyFinalList = $proxycommissionProxylist->skip(($page - 1) * $limit)->take($limit)->get();
+        $oProxycommissionProxylistCount = $oProxycommissionProxylist->get();
+        $oProxycommissionProxyFinalList = $oProxycommissionProxylist->skip(($iPage - 1) * $iLimit)->take($iLimit)->get();
         $aTmp = [];
         $aFinal = [];
         $res = [];
-        $res["total"] = count($proxycommissionProxylistCount);
-        $res["list"] = $proxycommissionProxyFinalList->toArray();;
+        $res["total"] = count($oProxycommissionProxylistCount);
+        $res["list"] = $oProxycommissionProxyFinalList->toArray();;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -180,34 +191,40 @@ class DelegateController extends Controller
         return ResultVo::success($res);
     }
 
+    /**
+     * 代理推广链接数据添加和修改
+     * @param request
+     * @return json
+     */
+
     public function proxycommissionProxySave()
     {
         $data = request()->post();
-        $id = isset($data['id']) ? $data['id'] : '';
-        $delegate_account = isset($data['delegate_account']) ? $data['delegate_account'] : '';
-        $bind_domain = isset($data['bind_domain']) ? $data['bind_domain'] : '';
-        $invite_code = isset($data['invite_code']) ? $data['invite_code'] : '';
-        $open_account_type = isset($data['open_account_type']) ? $data['open_account_type'] : '';
-        $rebate = isset($data['rebate']) ? $data['rebate'] : '';
-        $memo = isset($data['memo']) ? $data['memo'] : '';
-        if ($id != '') {
-            $ProxyGeneralize = ProxyGeneralize::find($id);
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sDelegateAccount = isset($data['delegate_account']) ? $data['delegate_account'] : '';
+        $sBindDomain = isset($data['bind_domain']) ? $data['bind_domain'] : '';
+        $sInviteCode = isset($data['invite_code']) ? $data['invite_code'] : '';
+        $sOpenAccountType = isset($data['open_account_type']) ? $data['open_account_type'] : '';
+        $sRebate = isset($data['rebate']) ? $data['rebate'] : '';
+        $sMemo = isset($data['memo']) ? $data['memo'] : '';
+        if ($iId != '') {
+            $oProxyGeneralize = ProxyGeneralize::find($iId);
         }else{
-            $ProxyGeneralize = new ProxyGeneralize();
+            $oProxyGeneralize = new ProxyGeneralize();
         }
 
-        $ProxyGeneralize->delegate_account = $delegate_account;
-        $ProxyGeneralize->bind_domain = $bind_domain;
-        $ProxyGeneralize->invite_code = $invite_code;
-        $ProxyGeneralize->open_account_type = $open_account_type;
-        $ProxyGeneralize->rebate = $rebate;
-        $ProxyGeneralize->memo = $memo;
+        $oProxyGeneralize->delegate_account = $sDelegateAccount;
+        $oProxyGeneralize->bind_domain = $sBindDomain;
+        $oProxyGeneralize->invite_code = $sInviteCode;
+        $oProxyGeneralize->open_account_type = $sOpenAccountType;
+        $oProxyGeneralize->rebate = $sRebate;
+        $oProxyGeneralize->memo = $sMemo;
 
-        $iRet = $ProxyGeneralize->save();
+        $iRet = $oProxyGeneralize->save();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $ProxyGeneralize;
+        $aFinal['data'] = $oProxyGeneralize;
 
         $sOperateName = 'proxycommissionProxySave';
         $sLogContent = 'proxycommissionProxySave';
@@ -218,6 +235,11 @@ class DelegateController extends Controller
         return response()->json($aFinal);
     }
 
+    /**
+     * 代理推广链接数据删除
+     * @param request
+     * @return json
+     */
    
     public function proxycommissionProxyDelete()
     {
