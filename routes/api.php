@@ -232,6 +232,11 @@ Route::post('event/lotteryriskSave', 'PlayController@lotteryriskSave');
 Route::post('event/lotteryriskDelete', 'PlayController@lotteryriskDelete');
 //pgame_list.vue
 Route::get('event/pgameList', 'PlayController@pgameList');
+Route::post('event/pgameSave', 'PlayController@pgameSave');
+Route::post('event/pgamePropertySave', 'PlayController@pgamePropertySave');
+Route::post('event/pgameSequenceSave', 'PlayController@pgameSequenceSave');
+Route::post('event/pgameStatusSave', 'PlayController@pgameStatusSave');
+Route::post('event/pgameKillRateSave', 'PlayController@pgameKillRateSave');
 //proxygames_list.vue
 Route::get('event/proxygamesList', 'PlayController@proxygamesList');
 //report-management

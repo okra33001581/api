@@ -16,6 +16,7 @@ use App\model\AuthRole;
 use App\common\utils\PublicFileUtils;
 use App\common\utils\PassWordUtils;
 use App\model\Ad;
+use App\model\Game;
 use App\model\AdSite;
 use App\model\GameRisk;
 use App\model\BettingLimit;
@@ -400,7 +401,11 @@ class PlayController extends Controller
 
 
 
-    
+    /**
+     * 彩票游戏列表
+     * @param request
+     * @return json
+     */
     public function pgameList()
     {
         config(['database.connections.mysql.strict' =>  false]);
@@ -409,10 +414,12 @@ class PlayController extends Controller
         $sLotteryName = isset(request()->lottery_name) ? request()->lottery_name : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $sWayType = isset(request()->way_type) ? request()->way_type : '';
+        $sAct = isset(request()->act) ? request()->act : '';
         $oPgameList = DB::table('game');
 
-        $oPgameList->orderby('id', 'desc');
-        $oPgameList->groupBy('lottery_name');
+        if(empty($sAct)){
+            $oPgameList->groupBy('lottery_name');
+        }
         if ($sLotteryName !== '') {
             $oPgameList->where('lottery_name', $sLotteryName);
         }
@@ -422,17 +429,52 @@ class PlayController extends Controller
         if ($sMerchantName !== '') {
             $oPgameList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        $oPgameListCount = $oPgameList->get();
-        $oPgameFinalList = $oPgameList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        
-        foreach ($oPgameFinalList as $k => &$v) {
-            $aTemp = DB::table('game')->select()->where('lottery_name',$v->lottery_name)->get()->toArray();
-            $v->children = $aTemp;
+
+        //判断是否只查询子数据
+        if(empty($sAct)){
+            $oPgameFinalList = request()->get('limit/d', 20);
+            $oPgameFinalList = $oPgameList->orderby('id', 'asc')->paginate($iLimit);
+            foreach ($oPgameFinalList as $k => &$v) {
+                $aTemp = DB::table('game')->select()->where('lottery_name',$v->lottery_name)->get()->toArray();
+                
+                foreach ($aTemp as $key => &$val) {
+                    $val->properties = [];
+                    if($val->is_hot){
+                        $val->properties[] = $val->is_hot;
+                    }
+                    if($val->is_recommand){
+                        $val->properties[] = $val->is_recommand;
+                    }
+                    if($val->is_new){
+                        $val->properties[] = $val->is_new;
+                    }
+                }
+
+                $v->children = $aTemp;
+
+
+            }
+        }else{
+            $oPgameFinalList = $oPgameList->orderby('id', 'asc')->get();
+
+            foreach ($oPgameFinalList as $key => &$val) {
+                $val->properties = [];
+                if($val->is_hot){
+                    $val->properties[] = $val->is_hot;
+                }
+                if($val->is_recommand){
+                    $val->properties[] = $val->is_recommand;
+                }
+                if($val->is_new){
+                    $val->properties[] = $val->is_new;
+                }
+            }
+
+
         }
         $aTmp = [];
         $aFinal = [];
         $res = [];
-        $res["total"] = count($oPgameListCount);
         $res["list"] = $oPgameFinalList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -448,6 +490,179 @@ class PlayController extends Controller
 
         return response()->json($aFinal);
         return ResultVo::success($res);
+    }
+
+    /**
+     * 列表页新增数据
+     * @param request
+     * @return json
+     */
+    public function pgameSave()
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sKillRate = isset($data['kill_rate']) ? $data['kill_rate'] : '';
+        $iLotteryId = isset($data['lottery_id']) ? $data['lottery_id'] : '';
+        $sLotteryName = isset($data['lottery_name']) ? $data['lottery_name'] : '';
+        $sType = isset($data['type']) ? $data['type'] : '';
+        $sPeriodDay = isset($data['period_day']) ? $data['period_day'] : '';
+        $sPeriodSecond = isset($data['period_second']) ? $data['period_second'] : '';
+        $sSalesBegin = isset($data['sales_begin']) ? $data['sales_begin'] : '';
+        $sSalesEnd = isset($data['sales_end']) ? $data['sales_end'] : '';
+        $sSequence = isset($data['sequence']) ? $data['sequence'] : '';
+        $sStatus = isset($data['status']) ? $data['status'] : '';
+        $oEvent = new Game;
+        $oEvent->kill_rate = $sKillRate;
+        $oEvent->lottery_id = $iLotteryId;
+        $oEvent->lottery_name = $sLotteryName;
+        $oEvent->type = $sType;
+        $oEvent->period_day = $sPeriodDay;
+        $oEvent->period_second = $sPeriodSecond;
+        $oEvent->sales_end = date('Y-m-d',time());
+        $oEvent->sequence = $sSequence;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'pgameKillRateSave';
+        $sLogContent = 'pgameKillRateSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 彩票游戏属性数据保存
+     * @param request
+     * @return json
+     */
+    public function pgamePropertySave($iId = null)
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sPropertyName = isset($data['property_name']) ? $data['property_name'] : '';
+        $sPropertyValue = isset($data['property_value']) ? $data['property_value'] : '';
+
+        $aProperty = ['热门'=>'is_hot','推荐'=>'is_recommand','新上'=>'is_new'];
+        $sPropertyField = $aProperty[$sPropertyName];
+
+        $oEvent = Game::find($iId);
+        
+        if ($sPropertyValue) {
+            $oEvent->$sPropertyField='';
+        }else{
+            $oEvent->$sPropertyField=$sPropertyName;
+        }
+
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'updatePgamePropertySave';
+        $sLogContent = 'updatePgamePropertySave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+     /**
+     * 列表页修改排序
+     * @param request
+     * @return json
+     */
+    public function pgameSequenceSave($iId = null)
+    {
+
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = Game::find($iId);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'pgameSequenceSave';
+        $sLogContent = 'pgameSequenceSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 列表页修改游戏杀率
+     * @param request
+     * @return json
+     */
+    public function pgameKillRateSave($iId = null)
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['kill_rate']) ? $data['kill_rate'] : '';
+        $oEvent = Game::find($iId);
+        $oEvent->kill_rate = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'pgameKillRateSave';
+        $sLogContent = 'pgameKillRateSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    
+
+    /**
+     * 列表页修改状态
+     * @param request
+     * @return json
+     */
+    public function pgameStatusSave($iId = null)
+    {
+
+        $data = request()->post();
+        
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['status']) ? $data['status'] : '';
+        if($iFlag=='停止销售'){
+            $iFlag='销售中';
+        }else{
+            $iFlag='停止销售';
+        }
+        $oEvent = Game::find($iId);
+        $oEvent->status = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oEvent;
+
+        $sOperateName = 'pgameStatusSave';
+        $sLogContent = 'pgameStatusSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
     }
 
 
