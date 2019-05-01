@@ -217,6 +217,19 @@ Route::post('event/marqueeDelete', 'NoticeController@marqueeDelete');
 Route::post('event/marqueeSequence', 'NoticeController@marqueeSequence');
 Route::post('event/noticeSequence', 'NoticeController@noticeSequence');
 
+
+
+//ThirdGameController.php
+
+Route::get('event/agLogList', 'ThirdGameController@agLogList');
+Route::get('event/agUserTurnoverList', 'ThirdGameController@agUserTurnoverList');
+Route::get('event/basketballList', 'ThirdGameController@basketballList');
+Route::get('event/footballList', 'ThirdGameController@footballList');
+Route::get('event/gaUserTurnoverList', 'ThirdGameController@gaUserTurnoverList');
+Route::get('event/gameTypeList', 'ThirdGameController@gameTypeList');
+Route::get('event/merchantGameList', 'ThirdGameController@merchantGameList');
+Route::get('event/thirdPlatList', 'ThirdGameController@thirdPlatList');
+
 //play-management
 //betlimit_list.vue
 Route::get('event/betlimitList', 'PlayController@betlimitList');

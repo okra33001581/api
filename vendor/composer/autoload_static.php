@@ -379,6 +379,9 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
         'App\\Http\\Controllers\\FundController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/FundController.php',
         'App\\Http\\Controllers\\LogController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/LogController.php',
         'App\\Http\\Controllers\\NoticeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/NoticeController.php',
+
+        'App\\Http\\Controllers\\ThirdGameController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ThirdGameController.php',
+
         'App\\Http\\Controllers\\PlayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PlayController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
         'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/SiteController.php',
