@@ -232,6 +232,7 @@ Route::post('event/lotteryriskSave', 'PlayController@lotteryriskSave');
 Route::post('event/lotteryriskDelete', 'PlayController@lotteryriskDelete');
 //pgame_list.vue
 Route::get('event/pgameList', 'PlayController@pgameList');
+Route::get('event/pgameSearchList', 'PlayController@pgameSearchList');
 Route::post('event/pgameSave', 'PlayController@pgameSave');
 Route::post('event/pgamePropertySave', 'PlayController@pgamePropertySave');
 Route::post('event/pgameSequenceSave', 'PlayController@pgameSequenceSave');

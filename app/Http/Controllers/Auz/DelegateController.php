@@ -10,14 +10,6 @@ use App\model\ProxyConfiguration;
 use Illuminate\Support\Facades\Redis;
 class DelegateController extends Controller
 {
-    public function getJson()
-    {
-        // 从文件中读取数据到PHP变量
-        $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
-        return $json_string;
-    }
-    
-
     /**
      * 代理默认配置列表数据
      * @param request
@@ -46,10 +38,7 @@ class DelegateController extends Controller
         $sOperateName = 'proxycommissionList';
         $sLogContent = 'proxycommissionList';
 
-
         $dt = now();
-
-
 
         AdminLog::adminLogSave($sOperateName);
 

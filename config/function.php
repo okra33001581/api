@@ -70,6 +70,7 @@ return [
     'lotteryriskSave' => '游戏风控保存',
     'lotteryriskDelete' => '游戏风控删除',
     'pgameList' => '彩票游戏列表',
+    'pgameSearchList' => '彩票游戏玩法列表',
     'pgameSave' => '彩票游戏列表数据保存',
     'pgamePropertySave' => '彩票游戏属性数据保存',
     'pgameSequenceSave' => '彩票游戏列表页修改排序',
