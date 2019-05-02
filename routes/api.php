@@ -244,6 +244,13 @@ Route::post('event/thirdMerchantGameStatusSave', 'ThirdGameController@thirdMerch
 Route::post('event/thirdPlatsStatusSave', 'ThirdGameController@thirdPlatsStatusSave');
 Route::post('event/thirdGameTypesSubStatusSave', 'ThirdGameController@thirdGameTypesSubStatusSave');
 
+Route::post('event/thirdBallSave', 'ThirdGameController@thirdBallSave');
+Route::post('event/thirdGameTypesSave', 'ThirdGameController@thirdGameTypesSave');
+Route::post('event/thirdGameTypesDetailSave', 'ThirdGameController@thirdGameTypesDetailSave');
+Route::post('event/thirdMerchantgameSave', 'ThirdGameController@thirdMerchantgameSave');
+Route::post('event/thirdPlatsSave', 'ThirdGameController@thirdPlatsSave');
+
+
 //play-management
 //betlimit_list.vue
 Route::get('event/betlimitList', 'PlayController@betlimitList');

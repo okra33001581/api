@@ -865,4 +865,286 @@ class ThirdGameController extends Controller
         return response()->json($aFinal);
     }
 
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdBallSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $type=isset($data['type'])?$data['type']:'';
+        $district=isset($data['district'])?$data['district']:'';
+        $nationality=isset($data['nationality'])?$data['nationality']:'';
+        $icon=isset($data['icon'])?$data['icon']:'';
+        $name=isset($data['name'])?$data['name']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $status=isset($data['status'])?$data['status']:'';
+
+
+        if ($id != '') {
+            $oQrCode = ThirdBall::find($id);
+        } else {
+            $oQrCode = new ThirdBall();
+        }
+
+        $oQrCode->type=$type;
+        $oQrCode->district=$district;
+        $oQrCode->nationality=$nationality;
+        $oQrCode->icon=$icon;
+        $oQrCode->name=$name;
+        $oQrCode->sequence=$sequence;
+        $oQrCode->status=$status;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdBallSave';
+        $sLogContent = 'thirdBallSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdGameTypesSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $type=isset($data['type'])?$data['type']:'';
+        $name=isset($data['name'])?$data['name']:'';
+        $identifier=isset($data['identifier'])?$data['identifier']:'';
+        $plat_id=isset($data['plat_id'])?$data['plat_id']:'';
+        $rate_basis=isset($data['rate_basis'])?$data['rate_basis']:'';
+        $created_at=isset($data['created_at'])?$data['created_at']:'';
+        $updated_at=isset($data['updated_at'])?$data['updated_at']:'';
+        $status=isset($data['status'])?$data['status']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+
+
+        if ($id != '') {
+            $oQrCode = ThirdGameTypes::find($id);
+        } else {
+            $oQrCode = new ThirdGameTypes();
+        }
+
+        $oQrCode->type=$type;
+        $oQrCode->name=$name;
+        $oQrCode->identifier=$identifier;
+        $oQrCode->plat_id=$plat_id;
+        $oQrCode->rate_basis=$rate_basis;
+        $oQrCode->created_at=$created_at;
+        $oQrCode->updated_at=$updated_at;
+        $oQrCode->status=$status;
+        $oQrCode->sequence=$sequence;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdGameTypesSave';
+        $sLogContent = 'thirdGameTypesSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdGameTypesDetailSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $plat_id=isset($data['plat_id'])?$data['plat_id']:'';
+        $plat_name=isset($data['plat_name'])?$data['plat_name']:'';
+        $name=isset($data['name'])?$data['name']:'';
+        $icon=isset($data['icon'])?$data['icon']:'';
+        $desc=isset($data['desc'])?$data['desc']:'';
+        $status=isset($data['status'])?$data['status']:'';
+
+
+        if ($id != '') {
+            $oQrCode = ThirdGameTypesDetail::find($id);
+        } else {
+            $oQrCode = new ThirdGameTypesDetail();
+        }
+
+        $oQrCode->plat_id=$plat_id;
+        $oQrCode->plat_name=$plat_name;
+        $oQrCode->name=$name;
+        $oQrCode->icon=$icon;
+        $oQrCode->desc=$desc;
+        $oQrCode->status=$status;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdGameTypesDetailSave';
+        $sLogContent = 'thirdGameTypesDetailSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdMerchantgameSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
+        $merchant_name=isset($data['merchant_name'])?$data['merchant_name']:'';
+        $type=isset($data['type'])?$data['type']:'';
+        $plat_id=isset($data['plat_id'])?$data['plat_id']:'';
+        $plat_name=isset($data['plat_name'])?$data['plat_name']:'';
+        $plat_icon=isset($data['plat_icon'])?$data['plat_icon']:'';
+        $sub_game_id=isset($data['sub_game_id'])?$data['sub_game_id']:'';
+        $sub_game_name=isset($data['sub_game_name'])?$data['sub_game_name']:'';
+        $sub_game_icon=isset($data['sub_game_icon'])?$data['sub_game_icon']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+        $status=isset($data['status'])?$data['status']:'';
+
+
+        if ($id != '') {
+            $oQrCode = ThirdMerchantGame::find($id);
+        } else {
+            $oQrCode = new ThirdMerchantGame();
+        }
+
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->merchant_name=$merchant_name;
+        $oQrCode->type=$type;
+        $oQrCode->plat_id=$plat_id;
+        $oQrCode->plat_name=$plat_name;
+        $oQrCode->plat_icon=$plat_icon;
+        $oQrCode->sub_game_id=$sub_game_id;
+        $oQrCode->sub_game_name=$sub_game_name;
+        $oQrCode->sub_game_icon=$sub_game_icon;
+        $oQrCode->sequence=$sequence;
+        $oQrCode->status=$status;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdMerchantgameSave';
+        $sLogContent = 'thirdMerchantgameSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdPlatsSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $identity=isset($data['identity'])?$data['identity']:'';
+        $name=isset($data['name'])?$data['name']:'';
+        $plat_identity=isset($data['plat_identity'])?$data['plat_identity']:'';
+        $params_key=isset($data['params_key'])?$data['params_key']:'';
+        $key=isset($data['key'])?$data['key']:'';
+        $iframe_url=isset($data['iframe_url'])?$data['iframe_url']:'';
+        $data_url=isset($data['data_url'])?$data['data_url']:'';
+        $status=isset($data['status'])?$data['status']:'';
+        $query_enabled=isset($data['query_enabled'])?$data['query_enabled']:'';
+        $free_data_url=isset($data['free_data_url'])?$data['free_data_url']:'';
+        $sequence=isset($data['sequence'])?$data['sequence']:'';
+
+
+        if ($id != '') {
+            $oQrCode = ThirdPlats::find($id);
+        } else {
+            $oQrCode = new ThirdPlats();
+        }
+
+        $oQrCode->identity=$identity;
+        $oQrCode->name=$name;
+        $oQrCode->plat_identity=$plat_identity;
+        $oQrCode->params_key=$params_key;
+        $oQrCode->key=$key;
+        $oQrCode->iframe_url=$iframe_url;
+        $oQrCode->data_url=$data_url;
+        $oQrCode->status=$status;
+        $oQrCode->query_enabled=$query_enabled;
+        $oQrCode->free_data_url=$free_data_url;
+        $oQrCode->sequence=$sequence;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
 }
