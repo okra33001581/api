@@ -250,6 +250,11 @@ Route::post('event/thirdGameTypesDetailSave', 'ThirdGameController@thirdGameType
 Route::post('event/thirdMerchantgameSave', 'ThirdGameController@thirdMerchantgameSave');
 Route::post('event/thirdPlatsSave', 'ThirdGameController@thirdPlatsSave');
 
+Route::post('event/thirdBallDel', 'ThirdGameController@thirdBallDel');
+Route::post('event/thirdGameTypesDel', 'ThirdGameController@thirdGameTypesDel');
+Route::post('event/thirdGameTypesDetailDel', 'ThirdGameController@thirdGameTypesDetailDel');
+Route::post('event/thirdMerchantgameDel', 'ThirdGameController@thirdMerchantgameDel');
+Route::post('event/thirdPlatsDel', 'ThirdGameController@thirdPlatsDel');
 
 //play-management
 //betlimit_list.vue

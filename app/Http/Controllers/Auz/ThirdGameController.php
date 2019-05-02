@@ -949,8 +949,8 @@ class ThirdGameController extends Controller
         $oQrCode->identifier=$identifier;
         $oQrCode->plat_id=$plat_id;
         $oQrCode->rate_basis=$rate_basis;
-        $oQrCode->created_at=$created_at;
-        $oQrCode->updated_at=$updated_at;
+        $oQrCode->created_at=now();
+        $oQrCode->updated_at=now();
         $oQrCode->status=$status;
         $oQrCode->sequence=$sequence;
 
@@ -1033,9 +1033,39 @@ class ThirdGameController extends Controller
     public function thirdMerchantgameSave()
     {
         $data = request()->post();
-
+        $type=isset($data['type'])?$data['type']:'';
         $id=isset($data['id'])?$data['id']:'';
-        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
+
+        if ($type == 'game_type_list_detail') {
+            $oThirdGameTypesDetail = ThirdGameTypesDetail::find($id);
+
+            $oQrCode = new ThirdMerchantGame();
+            $oQrCode->merchant_id='1010';
+            $oQrCode->merchant_name='admin';
+            $oQrCode->type=$oThirdGameTypesDetail->name;
+            $oQrCode->plat_id=$oThirdGameTypesDetail->plat_id;
+            $oQrCode->plat_name=$oThirdGameTypesDetail->plat_name;
+            $oQrCode->plat_icon=$oThirdGameTypesDetail->icon;;
+            $oQrCode->sub_game_id=$oThirdGameTypesDetail->name;
+            $oQrCode->sub_game_name=$oThirdGameTypesDetail->name;
+            $oQrCode->sub_game_icon=$oThirdGameTypesDetail->icon;
+        } else {
+            $oThirdGameTypesDetail = ThirdBall::find($id);
+
+            $oQrCode = new ThirdMerchantGame();
+            $oQrCode->merchant_id='1010';
+            $oQrCode->merchant_name='admin';
+            $oQrCode->type=$oThirdGameTypesDetail->type;
+            $oQrCode->plat_id=$oThirdGameTypesDetail->district;
+            $oQrCode->plat_name=$oThirdGameTypesDetail->nationality;
+            $oQrCode->plat_icon=$oThirdGameTypesDetail->icon;;
+            $oQrCode->sub_game_id=$oThirdGameTypesDetail->name;
+            $oQrCode->sub_game_name=$oThirdGameTypesDetail->name;
+            $oQrCode->sub_game_icon=$oThirdGameTypesDetail->icon;
+        }
+
+
+/*        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
         $merchant_name=isset($data['merchant_name'])?$data['merchant_name']:'';
         $type=isset($data['type'])?$data['type']:'';
         $plat_id=isset($data['plat_id'])?$data['plat_id']:'';
@@ -1064,7 +1094,7 @@ class ThirdGameController extends Controller
         $oQrCode->sub_game_name=$sub_game_name;
         $oQrCode->sub_game_icon=$sub_game_icon;
         $oQrCode->sequence=$sequence;
-        $oQrCode->status=$status;
+        $oQrCode->status=$status;*/
 
         $iRet = $oQrCode->save();
 
@@ -1146,5 +1176,202 @@ class ThirdGameController extends Controller
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function thirdBallDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        ThirdBall::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function thirdGameTypesDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        ThirdGameTypes::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function thirdGameTypesDetailDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        ThirdGameTypesDetail::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function thirdMerchantgameDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        ThirdMerchantGame::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function thirdPlatsDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        ThirdPlats::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+
 
 }
