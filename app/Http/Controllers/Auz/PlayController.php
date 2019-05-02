@@ -3,38 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\model\Event;
 use DB;
 use Log;
 use App\common\vo\ResultVo;
-use App\model\AuthAdmin;
-use App\model\AuthRoleAdmin;
 use App\model\AdminLog;
-use App\model\AuthPermission;
-use App\model\AuthPermissionRule;
-use App\model\AuthRole;
-use App\common\utils\PublicFileUtils;
-use App\common\utils\PassWordUtils;
-use App\model\Ad;
-use App\model\AdSite;
+use App\model\Game;
 use App\model\GameRisk;
 use App\model\BettingLimit;
-use App\model\FileResource;
-use App\model\FileResourceTag;
-
-use Illuminate\Support\Facades\Redis;
 
 class PlayController extends Controller
 {
-
-    public function getJson()
-    {
-        // 从文件中读取数据到PHP变量
-        $json_string = file_get_contents('/home/ok/api/app/Http/Controllers/Auz/data.json');
-        return $json_string;
-
-    }
-
     /**
      * 投注限额列表
      * @param request
@@ -93,7 +71,7 @@ class PlayController extends Controller
     }
 
     /**
-     * 修改页面下拉框数据
+     * 获取页面下拉框数据
      * @param request
      * @return json
      */
@@ -133,13 +111,13 @@ class PlayController extends Controller
         $data = request()->post();
 
         $iId = isset($data['id']) ? $data['id'] : '';
-        $iFlag = isset($data['name']) ? $data['name'] : '';
-        $oEvent = BettingLimit::find($iId);
-        $oEvent->name = $iFlag;
-        $iRet = $oEvent->save();
+        $sName = isset($data['name']) ? $data['name'] : '';
+        $oBettingLimit = BettingLimit::find($iId);
+        $oBettingLimit->name = $sName;
+        $iRet = $oBettingLimit->save();
         $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oBettingLimit;
 
         $sOperateName = 'betlimitNameSave';
         $sLogContent = 'betlimitNameSave';
@@ -161,24 +139,24 @@ class PlayController extends Controller
         $data = request()->post();
         if(count($data)==count($data,1)){
             $iId = isset($data['id']) ? $data['id'] : '';
-            $iFlag = isset($data['prize_limit']) ? $data['prize_limit'] : '';
-            $oEvent = BettingLimit::find($iId);
-            $oEvent->prize_limit = $iFlag;
-            $iRet = $oEvent->save();
+            $sPrizeLimit = isset($data['prize_limit']) ? $data['prize_limit'] : '';
+            $oBettingLimit = BettingLimit::find($iId);
+            $oBettingLimit->prize_limit = $sPrizeLimit;
+            $iRet = $oBettingLimit->save();
         }else{
             foreach ($data as $k => $v) {
                 $iId = isset($v['id']) ? $v['id'] : '';
-                $iFlag = isset($v['prize_limit']) ? $v['prize_limit'] : '';
-                $oEvent = BettingLimit::find($iId);
-                $oEvent->prize_limit = $iFlag;
-                $iRet = $oEvent->save();
+                $sPrizeLimit = isset($v['prize_limit']) ? $v['prize_limit'] : '';
+                $oBettingLimit = BettingLimit::find($iId);
+                $oBettingLimit->prize_limit = $sPrizeLimit;
+                $iRet = $oBettingLimit->save();
             }
         }
         // die;
         
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $oEvent;
+        $aFinal['data'] = $oBettingLimit;
 
         $sOperateName = 'betlimitPrizeSave';
         $sLogContent = 'betlimitPrizeSave';
@@ -283,12 +261,12 @@ class PlayController extends Controller
         $flag_arr = ['refuse'=>0,'pass'=>1];
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oEvent = GameRisk::find($iId);
-        $oEvent->status = $flag_arr[$iFlag];
-        $iRet = $oEvent->save();
+        $oGameRisk = GameRisk::find($iId);
+        $oGameRisk->status = $flag_arr[$iFlag];
+        $iRet = $oGameRisk->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+        $aFinal['data'] = $oGameRisk;
 
         $sOperateName = 'usersafetyStatusSave';
         $sLogContent = 'usersafetyStatusSave';
@@ -400,7 +378,11 @@ class PlayController extends Controller
 
 
 
-    
+    /**
+     * 彩票游戏列表
+     * @param request
+     * @return json
+     */
     public function pgameList()
     {
         config(['database.connections.mysql.strict' =>  false]);
@@ -409,10 +391,12 @@ class PlayController extends Controller
         $sLotteryName = isset(request()->lottery_name) ? request()->lottery_name : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $sWayType = isset(request()->way_type) ? request()->way_type : '';
+        $sAct = isset(request()->act) ? request()->act : '';
         $oPgameList = DB::table('game');
 
-        $oPgameList->orderby('id', 'desc');
-        $oPgameList->groupBy('lottery_name');
+        if(empty($sAct)){
+            $oPgameList->groupBy('lottery_name');
+        }
         if ($sLotteryName !== '') {
             $oPgameList->where('lottery_name', $sLotteryName);
         }
@@ -422,17 +406,52 @@ class PlayController extends Controller
         if ($sMerchantName !== '') {
             $oPgameList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        $oPgameListCount = $oPgameList->get();
-        $oPgameFinalList = $oPgameList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        
-        foreach ($oPgameFinalList as $k => &$v) {
-            $aTemp = DB::table('game')->select()->where('lottery_name',$v->lottery_name)->get()->toArray();
-            $v->children = $aTemp;
+
+        //判断是否只查询子数据
+        if(empty($sAct)){
+            $oPgameFinalList = request()->get('limit/d', 20);
+            $oPgameFinalList = $oPgameList->orderby('id', 'asc')->paginate($iLimit);
+            foreach ($oPgameFinalList as $k => &$v) {
+                $aTemp = DB::table('game')->select()->where('lottery_name',$v->lottery_name)->get()->toArray();
+                
+                foreach ($aTemp as $key => &$val) {
+                    $val->properties = [];
+                    if($val->is_hot){
+                        $val->properties[] = $val->is_hot;
+                    }
+                    if($val->is_recommand){
+                        $val->properties[] = $val->is_recommand;
+                    }
+                    if($val->is_new){
+                        $val->properties[] = $val->is_new;
+                    }
+                }
+
+                $v->children = $aTemp;
+
+
+            }
+        }else{
+            $oPgameFinalList = $oPgameList->orderby('id', 'asc')->get();
+
+            foreach ($oPgameFinalList as $key => &$val) {
+                $val->properties = [];
+                if($val->is_hot){
+                    $val->properties[] = $val->is_hot;
+                }
+                if($val->is_recommand){
+                    $val->properties[] = $val->is_recommand;
+                }
+                if($val->is_new){
+                    $val->properties[] = $val->is_new;
+                }
+            }
+
+
         }
         $aTmp = [];
         $aFinal = [];
         $res = [];
-        $res["total"] = count($oPgameListCount);
         $res["list"] = $oPgameFinalList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
@@ -452,430 +471,254 @@ class PlayController extends Controller
 
 
     /**
-     * @api {get} /api/admin 显示商户列表
-     * @apiGroup admin
-     *
-     *
-     * @apiSuccessExample 返回商户信息列表
-     * HTTP/1.1 200 OK
-     * {
-     *  "data": [
-     *     {
-     *       "id": 2 // 整数型  用户标识
-     *       "name": "test"  //字符型 用户昵称
-     *       "email": "test@qq.com"  // 字符型 用户email，商户登录时的email
-     *       "role": "admin" // 字符型 角色  可以取得值为admin或editor
-     *       "avatar": "" // 字符型 用户的头像图片
-     *     }
-     *   ],
-     * "status": "success",
-     * "status_code": 200,
-     * "links": {
-     * "first": "http://manger.test/api/admin?page=1",
-     * "last": "http://manger.test/api/admin?page=19",
-     * "prev": null,
-     * "next": "http://manger.test/api/admin?page=2"
-     * },
-     * "meta": {adminDelete
-     * "current_page": 1, // 当前页
-     * "from": 1, //当前页开始的记录
-     * "last_page": 19, //总页数
-     * "path": "http://manger.test/api/admin",
-     * "per_page": 15,
-     * "to": 15, //当前页结束的记录
-     * "total": 271  // 总条数
-     * }
-     * }
-     *
+     * 获取玩法列表
+     * @param request
+     * @return json
      */
-    public function proxygamesList()
+    public function pgameSearchList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
-        $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('auth_admins');
-
-        $sTmp = 'DESC';
-        if (substr($iSort, 0, 1) == '-') {
-            $sTmp = 'ASC';
-        }
-        $sOrder = substr($iSort, 1, strlen($iSort));
-        if ($sTmp != '') {
-            $oAuthAdminList->orderby($sOrder, $sTmp);
-        }
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-        $oAuthAdminListCount = $oAuthAdminList->get();
-        $oAuthAdminFinalList = $oAuthAdminList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        $aTmp = [];
+        config(['database.connections.mysql.strict' =>  false]);
+        $pgameWayTypeList = DB::table('game')->select()->groupBy('way_type')->get()->toArray();
+        $pgameLotteryNameList = DB::table('game')->select()->groupBy('lottery_name')->get()->toArray();
         $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['password'] = $oAuthAdmin->password;
-            $aTmp['tel'] = $oAuthAdmin->tel;
-            $aTmp['email'] = $oAuthAdmin->email;
-            $aTmp['avatar'] = $oAuthAdmin->avatar;
-            $aTmp['sex'] = $oAuthAdmin->sex;
-            $aTmp['last_login_ip'] = $oAuthAdmin->last_login_ip;
-            $aTmp['last_login_time'] = $oAuthAdmin->last_login_time;
-            $aTmp['create_time'] = $oAuthAdmin->create_time;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $roles = AuthRoleAdmin::where('admin_id', $oAuthAdmin->id)->first();
-            $temp_roles = [];
-            if (is_object($roles)) {
-                $temp_roles = $roles->toArray();
-                $temp_roles = array_column($temp_roles, 'role_id');
-            }
-            $aTmp['roles'] = $temp_roles;
-            $aFinal[] = $aTmp;
-        }
-
         $res = [];
-        $res["total"] = count($oAuthAdminListCount);
-        $res["list"] = $aFinal;
+        $res["wayTypeList"] = $pgameWayTypeList;
+        $res["lotteryNameList"] = $pgameLotteryNameList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
+        $sOperateName = 'pgameSearchList';
+        $sLogContent = 'pgameSearchList';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
-        return ResultVo::success($res);
+    }
+
+
+    /**
+     * 列表页新增数据
+     * @param request
+     * @return json
+     */
+    public function pgameSave()
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sKillRate = isset($data['kill_rate']) ? $data['kill_rate'] : '';
+        $iLotteryId = isset($data['lottery_id']) ? $data['lottery_id'] : '';
+        $sLotteryName = isset($data['lottery_name']) ? $data['lottery_name'] : '';
+        $sType = isset($data['type']) ? $data['type'] : '';
+        $sPeriodDay = isset($data['period_day']) ? $data['period_day'] : '';
+        $sPeriodSecond = isset($data['period_second']) ? $data['period_second'] : '';
+        $sSalesBegin = isset($data['sales_begin']) ? $data['sales_begin'] : '';
+        $sSalesEnd = isset($data['sales_end']) ? $data['sales_end'] : '';
+        $sSequence = isset($data['sequence']) ? $data['sequence'] : '';
+        $sStatus = isset($data['status']) ? $data['status'] : '';
+        $oGame = new Game;
+        $oGame->kill_rate = $sKillRate;
+        $oGame->lottery_id = $iLotteryId;
+        $oGame->lottery_name = $sLotteryName;
+        $oGame->type = $sType;
+        $oGame->period_day = $sPeriodDay;
+        $oGame->period_second = $sPeriodSecond;
+        $oGame->sales_begin = date('Y-m-d',time());
+        $oGame->sales_end = date('Y-m-d',time());
+        $oGame->sequence = $sSequence;
+        $iRet = $oGame->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oGame;
+
+        $sOperateName = 'pgameKillRateSave';
+        $sLogContent = 'pgameKillRateSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 彩票游戏属性数据保存
+     * @param request
+     * @return json
+     */
+    public function pgamePropertySave($iId = null)
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $sPropertyName = isset($data['property_name']) ? $data['property_name'] : '';
+        $sPropertyValue = isset($data['property_value']) ? $data['property_value'] : '';
+
+        $aProperty = ['热门'=>'is_hot','推荐'=>'is_recommand','新上'=>'is_new'];
+        $sPropertyField = $aProperty[$sPropertyName];
+
+        $oGame = Game::find($iId);
+        
+        if ($sPropertyValue) {
+            $oGame->$sPropertyField='';
+        }else{
+            $oGame->$sPropertyField=$sPropertyName;
+        }
+
+        $iRet = $oGame->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oGame;
+
+        $sOperateName = 'updatePgamePropertySave';
+        $sLogContent = 'updatePgamePropertySave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+     /**
+     * 列表页修改排序
+     * @param request
+     * @return json
+     */
+    public function pgameSequenceSave($iId = null)
+    {
+
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oGame = Game::find($iId);
+        $oGame->sequence = $iFlag;
+        $iRet = $oGame->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oGame;
+
+        $sOperateName = 'pgameSequenceSave';
+        $sLogContent = 'pgameSequenceSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
     }
 
     /**
-     * @api {get} /api/adminRoleList 取得角色列表
-     * @apiGroup admin
-     * @apiParam {string} null 不需要参数
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       null: 'null',
-     *     }
-     *
-     * @apiSuccessExample 取得角色列表成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
+     * 列表页修改游戏杀率
+     * @param request
+     * @return json
      */
-    public function adminRoleList()
+    public function pgameKillRateSave($iId = null)
     {
-        $sWhere = [];
-        $iLimit = request()->get('limit/d', 20);
-        //分页配置
-//        $paginate = [
-//            'type' => 'bootstrap',
-//            'var_page' => 'page',
-//            'list_rows' => ($iLimit <= 0 || $iLimit > 20) ? 20 : $iLimit,
-//        ];
-        $iTmp = ($iLimit <= 0 || $iLimit > 20) ? 20 : $iLimit;
-        $lists = AuthRole::where($sWhere)
-            ->paginate($iTmp);
 
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['kill_rate']) ? $data['kill_rate'] : '';
+        $oGame = Game::find($iId);
+        $oGame->kill_rate = $iFlag;
+        $iRet = $oGame->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oGame;
+
+        $sOperateName = 'pgameKillRateSave';
+        $sLogContent = 'pgameKillRateSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    
+
+    /**
+     * 列表页修改状态
+     * @param request
+     * @return json
+     */
+    public function pgameStatusSave($iId = null)
+    {
+
+        $data = request()->post();
+        
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['status']) ? $data['status'] : '';
+        if($iFlag=='停止销售'){
+            $iFlag='销售中';
+        }else{
+            $iFlag='停止销售';
+        }
+        $oGame = Game::find($iId);
+        $oGame->status = $iFlag;
+        $iRet = $oGame->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oGame;
+
+        $sOperateName = 'pgameStatusSave';
+        $sLogContent = 'pgameStatusSave';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 三方游戏列表
+     * @param request
+     * @return json
+     */
+    public function proxygamesList()
+    {
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $oLotteryriskList = DB::table('game_risk');
+
+        $oLotteryriskList->orderby('id', 'desc');
+        if ($iStatus !== '') {
+            $oLotteryriskList->where('status', $iStatus);
+        }
+        if ($sMerchantName !== '') {
+            $oLotteryriskList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        }
+        $oLotteryriskListCount = $oLotteryriskList->get();
+        $oLotteryriskFinalList = $oLotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
+        $aStatus = ['未通过','已通过','未处理'];
+        foreach ($oLotteryriskFinalList as $k => &$v) {
+            $v->status = $aStatus[$v->status];
+        }
+        $aTmp = [];
+        $aFinal = [];
         $res = [];
-        $res["total"] = $lists->total();
-        $res["list"] = $lists->items();
-        return response()->json($res);
+        $res["total"] = count($oLotteryriskListCount);
+        $res["list"] = $oLotteryriskFinalList;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'proxygamesList';
+        $sLogContent = 'proxygamesList';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
         return ResultVo::success($res);
     }
+    
 
-
-    /**
-     * @api {post} /api/adminSave  建立新的商户
-     * @apiGroup admin
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
-    public function adminSave()
-    {
-        $data = request()->post();
-        if (empty($data['username']) || empty($data['password'])) {
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $sUsername = $data['username'];
-        // 模型
-//        $info = AuthAdmin::where('username',$sUsername)
-//            ->field('username')
-//            ->find();
-
-        $oAuthAdmin = AuthAdmin::where('username', $sUsername)
-            ->first();
-
-//        if ($oAuthAdmin){
-//            return ResultVo::error(ErrorCode::DATA_REPEAT);
-//        }
-
-        $status = isset($data['status']) ? $data['status'] : 0;
-        $auth_admin = new AuthAdmin();
-        $auth_admin->username = $sUsername;
-        $auth_admin->password = PassWordUtils::create($data['password']);
-        $auth_admin->status = $status;
-        $auth_admin->create_time = date("Y-m-d H:i:s");
-        $result = $auth_admin->save();
-
-        if (!$result) {
-            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
-
-        $roles = (isset($data['roles']) && is_array($data['roles'])) ? $data['roles'] : [];
-
-        //$adminInfo = $this->adminInfo; // 登录用户信息
-        $admin_id = $auth_admin->id;
-        if ($roles) {
-            $temp = [];
-            foreach ($roles as $key => $value) {
-                $temp[$key]['role_id'] = $value;
-                $temp[$key]['admin_id'] = $admin_id;
-            }
-            //添加用户的角色
-
-            if (count($temp) > 0) {
-                foreach ($temp as $k => $v) {
-                    $oAuthRoleAdmin = new AuthRoleAdmin();
-                    $oAuthRoleAdmin->role_id = $v['role_id'];
-                    $oAuthRoleAdmin->admin_id = $v['admin_id'];
-                    $iRet = $oAuthRoleAdmin->save();
-                }
-            }
-//            $oAuthRoleAdmin->saveAll($temp);
-        }
-
-        $auth_admin['password'] = '';
-        $auth_admin['roles'] = $roles;
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $auth_admin;
-
-        return response()->json($aFinal);
-        return ResultVo::success($auth_admin);
-    }
-
-    /**
-     * @api {post} /api/adminEdit  編輯管理員信息
-     * @apiGroup admin
-     * @apiParam {string} name 用户昵称
-     * @apiParam {string} email 用户登陆名　email格式 必须唯一
-     * @apiParam {string} password 用户登陆密码
-     * @apiParam {string="admin","editor"} [role="editor"] 角色 内容为空或者其他的都设置为editor
-     * @apiParam {string} [avatar] 用户头像地址
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       name: 'test',
-     *       email: '1111@qq.com',
-     *       password: '123456',
-     *       role: 'editor',
-     *       avatar: 'uploads/20178989.png'
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
-    public function adminEdit()
-    {
-        $data = request()->post();
-
-
-//        Log::info($data);
-        $aRoles = $data['roles'];
-
-        if (empty($data['id']) || empty($data['username'])) {
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-        $iId = $data['id'];
-        $sUsername = strip_tags($data['username']);
-        // 模型
-//        $auth_admin = AuthAdmin::where('id',$iId)
-//            ->field('id,username')
-//            ->find();
-        $oAuthAdmin = AuthAdmin::where('id', $iId)
-            ->first();
-
-        if (!$oAuthAdmin) {
-            return ResultVo::error(ErrorCode::DATA_NOT, "商户不存在");
-        }
-        $login_info = $oAuthAdmin;
-        $login_user_name = isset($login_info['username']) ? $login_info['username'] : '';
-        // 如果是超级商户，判断当前登录用户是否匹配
-        if ($oAuthAdmin->username == 'admin' && $login_user_name != $oAuthAdmin->username) {
-            return ResultVo::error(ErrorCode::DATA_NOT, "最高权限用户，无权修改");
-        }
-
-//        $info = AuthAdmin::where('username',$sUsername)
-//            ->field('id')
-//            ->find();
-
-        $info = AuthAdmin::where('username', $sUsername)
-            ->first();
-
-        // 判断username 是否重名，剔除自己
-//        if (!empty($info['id']) && $info['id'] != $iId){
-//            return ResultVo::error(ErrorCode::DATA_REPEAT, "商户已存在");
-//        }
-
-        $status = isset($data['status']) ? $data['status'] : 0;
-        $sPassword = isset($data['password']) ? PassWordUtils::create($data['password']) : '';
-        $oAuthAdmin->username = $sUsername;
-        if ($sPassword) {
-            $oAuthAdmin->password = $sPassword;
-        }
-        $oAuthAdmin->status = $status;
-//        $oAuthAdmin->role_id = implode(",", $aRoles);
-
-        $result = $oAuthAdmin->save();
-
-        $roles = (isset($data['roles']) && is_array($data['roles'])) ? $data['roles'] : [];
-        if (!$result) {
-            // 没有做任何更改
-            $oAuthRoleAdmin = AuthRoleAdmin::where('admin_id', $iId)->field('role_id')->select();
-            if ($oAuthRoleAdmin) {
-                $oAuthRoleAdmin = $oAuthRoleAdmin->toArray();
-                $oAuthRoleAdmin = array_column($oAuthRoleAdmin, 'role_id');
-            }
-            // 没有差值，权限也没做更改
-            if ($roles == $oAuthRoleAdmin) {
-                return ResultVo::error(ErrorCode::DATA_CHANGE);
-            }
-        }
-
-
-        if ($roles) {
-            // 先删除
-            AuthRoleAdmin::where('admin_id', $iId)->delete();
-            $temp = [];
-            foreach ($roles as $key => $value) {
-                $temp[$key]['role_id'] = $value;
-                $temp[$key]['admin_id'] = $iId;
-            }
-
-
-            //添加用户的角色
-            $oAuthRoleAdmin = new AuthRoleAdmin();
-
-            if (count($temp) > 0) {
-                foreach ($temp as $k => $v) {
-                    $oAuthPermission = new AuthRoleAdmin();
-                    $oAuthPermission->role_id = $v['role_id'];
-                    $oAuthPermission->admin_id = $v['admin_id'];
-                    $result = $oAuthPermission->save();
-                    if (!$result) {
-                        return ResultVo::error(ErrorCode::NOT_NETWORK);
-                    }
-                }
-//            return ResultVo::error(ErrorCode::NOT_NETWORK);
-            }
-
-        }
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-//        $aFinal['data'] = $res;
-
-        return response()->json($aFinal);
-
-        return ResultVo::success();
-    }
-
-    /**
-     * @api {post} /api/adminDelete  删除商户
-     * @apiGroup admin
-     * @apiParam {string} id 编号
-     * @apiParamExample {json} 请求的参数例子:
-     *     {
-     *       id: '111111',
-     *     }
-     *
-     * @apiSuccessExample 新建用户成功
-     * HTTP/1.1 201 OK
-     * {
-     * "status": "success",
-     * "status_code": 201
-     * }
-     * @apiErrorExample 数据验证出错
-     * HTTP/1.1 404 Not Found
-     * {
-     * "status": "error",
-     * "status_code": 404,
-     * "message": "信息提交不完全或者不规范，校验不通过，请重新提交"
-     * }
-     */
-    public function adminDelete()
-    {
-//        $iId = request()->post('id/d');
-        $iId = request()->all()['id'];
-        if ($iId == '') {
-            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
-        }
-//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
-        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
-        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
-//            return ResultVo::error(ErrorCode::NOT_NETWORK);
-        }
-        // 删除权限
-        AuthRoleAdmin::where('admin_id', $iId)->delete();
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-//        $aFinal['data'] = $res;
-
-        return response()->json($aFinal);
-        return ResultVo::success();
-
-    }
 }

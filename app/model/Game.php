@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
  * Class Event - 活动表
  * @author zebra
  */
-class ProxyConfiguration extends Model
+class Game extends Model
 {
     // table name
-    protected $table = 'delegate_quota';
-    public $timestamps = false;
+    protected $table = 'game';
 
+    public $timestamps = false;
 
 }
