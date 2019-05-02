@@ -54,8 +54,9 @@ class ReportController extends Controller
         if ($dtEndDate !== '') {
             $oAuthAdminList->where('date', '<=', $dtEndDate);
         }
-
-        $iLimit = request()->get('limit/d', 20);
+        if ($iLimit!=9999) {
+            $iLimit = request()->get('limit/d', 20);
+        }
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -170,8 +171,9 @@ class ReportController extends Controller
             $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
 
         }
-
-        $iLimit = request()->get('limit/d', 20);
+        if ($iLimit!=9999) {
+            $iLimit = request()->get('limit/d', 20);
+        }
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -325,8 +327,9 @@ class ReportController extends Controller
             }
 
         }
-
-        $iLimit = request()->get('limit/d', 20);
+        if ($iLimit!=9999) {
+            $iLimit = request()->get('limit/d', 20);
+        }
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -427,8 +430,9 @@ class ReportController extends Controller
             $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
 
         }
-
-        $iLimit = request()->get('limit/d', 20);
+        if ($iLimit!=9999) {
+            $iLimit = request()->get('limit/d', 20);
+        }
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -536,8 +540,9 @@ class ReportController extends Controller
             $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
 
         }
-
-        $iLimit = request()->get('limit/d', 20);
+        if ($iLimit!=9999) {
+            $iLimit = request()->get('limit/d', 20);
+        }
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 

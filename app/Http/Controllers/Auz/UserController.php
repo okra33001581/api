@@ -696,8 +696,9 @@ class UserController extends Controller
                 $oAuthAdminList->where('last_login_date', '>=', $dtTmp);
                 break;
         }
-
-        $iLimit = request()->get('limit/d', 20);
+        if($iLimit!=9999){
+            $iLimit = request()->get('limit/d', 20);
+        }
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
