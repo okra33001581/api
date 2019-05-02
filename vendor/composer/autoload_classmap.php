@@ -16,6 +16,8 @@ return array(
     'App\\Http\\Controllers\\LogController' => $baseDir . '/app/Http/Controllers/Auz/LogController.php',
     'App\\Http\\Controllers\\NoticeController' => $baseDir . '/app/Http/Controllers/Auz/NoticeController.php',
     'App\\Http\\Controllers\\PlayController' => $baseDir . '/app/Http/Controllers/Auz/PlayController.php',
+    'App\\Http\\Controllers\\ThirdGameController' => $baseDir . '/app/Http/Controllers/Auz/ThirdGameController.php',
+
     'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
     'App\\Http\\Controllers\\SiteController' => $baseDir . '/app/Http/Controllers/Auz/SiteController.php',
 

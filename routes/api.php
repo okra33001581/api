@@ -217,6 +217,45 @@ Route::post('event/marqueeDelete', 'NoticeController@marqueeDelete');
 Route::post('event/marqueeSequence', 'NoticeController@marqueeSequence');
 Route::post('event/noticeSequence', 'NoticeController@noticeSequence');
 
+
+
+//ThirdGameController.php
+
+Route::get('event/agLogList', 'ThirdGameController@agLogList');
+Route::get('event/agUserTurnoverList', 'ThirdGameController@agUserTurnoverList');
+Route::get('event/basketballList', 'ThirdGameController@basketballList');
+Route::get('event/footballList', 'ThirdGameController@footballList');
+Route::get('event/gaUserTurnoverList', 'ThirdGameController@gaUserTurnoverList');
+Route::get('event/gameTypeList', 'ThirdGameController@gameTypeList');
+Route::get('event/merchantGameList', 'ThirdGameController@merchantGameList');
+Route::get('event/thirdPlatList', 'ThirdGameController@thirdPlatList');
+
+Route::get('event/gameTypeDetailList', 'ThirdGameController@gameTypeDetailList');
+
+
+Route::post('event/thirdBallSequence', 'ThirdGameController@thirdBallSequence');
+Route::post('event/thirdGameTypesSequence', 'ThirdGameController@thirdGameTypesSequence');
+Route::post('event/thirdMerchantGameSequence', 'ThirdGameController@thirdMerchantGameSequence');
+Route::post('event/thirdPlatsSequence', 'ThirdGameController@thirdPlatsSequence');
+
+Route::post('event/thirdBallStatusSave', 'ThirdGameController@thirdBallStatusSave');
+Route::post('event/thirdGameTypesStatusSave', 'ThirdGameController@thirdGameTypesStatusSave');
+Route::post('event/thirdMerchantGameStatusSave', 'ThirdGameController@thirdMerchantGameStatusSave');
+Route::post('event/thirdPlatsStatusSave', 'ThirdGameController@thirdPlatsStatusSave');
+Route::post('event/thirdGameTypesSubStatusSave', 'ThirdGameController@thirdGameTypesSubStatusSave');
+
+Route::post('event/thirdBallSave', 'ThirdGameController@thirdBallSave');
+Route::post('event/thirdGameTypesSave', 'ThirdGameController@thirdGameTypesSave');
+Route::post('event/thirdGameTypesDetailSave', 'ThirdGameController@thirdGameTypesDetailSave');
+Route::post('event/thirdMerchantgameSave', 'ThirdGameController@thirdMerchantgameSave');
+Route::post('event/thirdPlatsSave', 'ThirdGameController@thirdPlatsSave');
+
+Route::post('event/thirdBallDel', 'ThirdGameController@thirdBallDel');
+Route::post('event/thirdGameTypesDel', 'ThirdGameController@thirdGameTypesDel');
+Route::post('event/thirdGameTypesDetailDel', 'ThirdGameController@thirdGameTypesDetailDel');
+Route::post('event/thirdMerchantgameDel', 'ThirdGameController@thirdMerchantgameDel');
+Route::post('event/thirdPlatsDel', 'ThirdGameController@thirdPlatsDel');
+
 //play-management
 //betlimit_list.vue
 Route::get('event/betlimitList', 'PlayController@betlimitList');
