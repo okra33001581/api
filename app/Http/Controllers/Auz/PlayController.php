@@ -223,7 +223,7 @@ class PlayController extends Controller
         }
         $oLotteryriskListCount = $oLotteryriskList->get();
         $oLotteryriskFinalList = $oLotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        $aStatus = ['未通过','已通过','未处理'];
+        $aStatus = ['拒绝','同意','未处理'];
         foreach ($oLotteryriskFinalList as $k => &$v) {
             $v->status = $aStatus[$v->status];
         }
@@ -302,7 +302,7 @@ class PlayController extends Controller
         $sLossRatio = isset($data['loss_ratio']) ? $data['loss_ratio'] : '';
         $iStatus = isset($data['status']) ? $data['status'] : '';
 
-        $aStatus = ['未通过','已通过','未处理'];
+        $aStatus = ['拒绝','同意','未处理'];
         if ($iId != '') {
             $oGameRisk = GameRisk::find($iId);
             $oGameRisk->updated_at = date("Y-m-d H:i:s",time());
@@ -695,7 +695,7 @@ class PlayController extends Controller
         }
         $oLotteryriskListCount = $oLotteryriskList->get();
         $oLotteryriskFinalList = $oLotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        $aStatus = ['未通过','已通过','未处理'];
+        $aStatus = ['拒绝','同意','未处理'];
         foreach ($oLotteryriskFinalList as $k => &$v) {
             $v->status = $aStatus[$v->status];
         }
