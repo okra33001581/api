@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/model/Department.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,13 +16,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="440" column="49" lean-forward="true" selection-start-line="440" selection-start-column="49" selection-end-line="440" selection-end-column="49" />
+            <state relative-caret-position="292">
+              <caret line="421" column="20" lean-forward="true" selection-start-line="421" selection-start-column="20" selection-end-line="421" selection-end-column="20" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="257">
+              <caret line="747" lean-forward="true" selection-start-line="747" selection-end-line="747" />
+              <folding>
+                <element signature="e#40#47#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="554" column="66" lean-forward="true" selection-start-line="554" selection-start-column="66" selection-end-line="554" selection-end-column="66" />
+              <folding>
+                <element signature="e#40#47#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -65,24 +87,6 @@
               <folding>
                 <element signature="e#7#35#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/ThirdBall.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/ThirdGameTypes.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -129,7 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$sFreePlay</find>
       <find>$sSubAccount = '123';</find>
       <find>user_level</find>
       <find>usercon</find>
@@ -159,6 +162,7 @@
       <find>authPermissionRuleSave</find>
       <find>auth</find>
       <find>permissionRuleDeptIndex</find>
+      <find>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/task00001</find>
     </findStrings>
     <replaceStrings>
       <replace>$sLowerRegisterColumn</replace>
@@ -232,7 +236,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/EventController.php" />
         <option value="$PROJECT_DIR$/app/model/AdminLog.php" />
         <option value="$PROJECT_DIR$/config/function.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/NoticeController.php" />
         <option value="$PROJECT_DIR$/app/common/utils/DateUtils.php" />
@@ -249,11 +252,12 @@
         <option value="$PROJECT_DIR$/app/model/ThirdAgFtpGetLogs.php" />
         <option value="$PROJECT_DIR$/app/model/ThirdGameTypesDetail.php" />
         <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/ThirdGameController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/model/Department.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php" />
       </list>
     </option>
   </component>
@@ -480,14 +484,7 @@
       <workItem from="1556682035043" duration="7827000" />
       <workItem from="1556764643252" duration="7889000" />
       <workItem from="1556850059563" duration="5916000" />
-      <workItem from="1556859959735" duration="1976000" />
-    </task>
-    <task id="LOCAL-00047" summary="update">
-      <created>1554276376257</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1554276376257</updated>
+      <workItem from="1556859959735" duration="2882000" />
     </task>
     <task id="LOCAL-00048" summary="update">
       <created>1554283618645</created>
@@ -825,11 +822,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556855701542</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="update">
+      <created>1556862055969</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1556862055970</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="403648000" />
+    <option name="totallyTimeSpent" value="404554000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -842,8 +846,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="984" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25262576" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25262576" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -1073,16 +1078,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25095">
-          <caret line="1693" column="46" selection-start-line="1693" selection-start-column="46" selection-end-line="1693" selection-end-column="46" />
-          <folding>
-            <element signature="e#40#47#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/LogController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3825">
@@ -1200,16 +1195,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2400">
-          <caret line="167" column="55" selection-start-line="167" selection-start-column="55" selection-end-line="167" selection-end-column="55" />
-          <folding>
-            <element signature="e#40#47#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1284,10 +1269,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/PermissionRuleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="440" column="49" lean-forward="true" selection-start-line="440" selection-start-column="49" selection-end-line="440" selection-end-column="49" />
+        <state relative-caret-position="292">
+          <caret line="421" column="20" lean-forward="true" selection-start-line="421" selection-start-column="20" selection-end-line="421" selection-end-column="20" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="747" lean-forward="true" selection-start-line="747" selection-end-line="747" />
+          <folding>
+            <element signature="e#40#47#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ReportController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="554" column="66" lean-forward="true" selection-start-line="554" selection-start-column="66" selection-end-line="554" selection-end-column="66" />
+          <folding>
+            <element signature="e#40#47#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

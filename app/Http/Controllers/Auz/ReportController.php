@@ -56,6 +56,7 @@ class ReportController extends Controller
         }
 
         $iLimit = request()->get('limit', 20);
+
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -172,6 +173,7 @@ class ReportController extends Controller
         }
 
         $iLimit = request()->get('limit', 20);
+
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -327,6 +329,7 @@ class ReportController extends Controller
         }
 
         $iLimit = request()->get('limit', 20);
+
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -429,6 +432,7 @@ class ReportController extends Controller
         }
 
         $iLimit = request()->get('limit', 20);
+
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -538,6 +542,7 @@ class ReportController extends Controller
         }
 
         $iLimit = request()->get('limit', 20);
+
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
