@@ -30,6 +30,10 @@ class DateUtils
         $aTmp = [];
 
         switch ($sDataPeriod) {
+            case 'yesterday':
+                $aTmp['begin_date']=mktime(0,0,0,date('m'),date('d')-1,date('Y'));
+                $aTmp['end_date']=mktime(0,0,0,date('m'),date('d'),date('Y'))-1;
+                break;
             case 'today':
                 $aTmp['begin_date']=mktime(0,0,0,date('m'),date('d'),date('Y'));
                 $aTmp['end_date']=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
