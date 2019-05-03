@@ -26,7 +26,7 @@ class DelegateController extends Controller
         if ($sMerchantName !== '') {
             $oProxycommissionList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oProxycommissionFinalList = $oProxycommissionList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
         $res["total"] = count($oProxycommissionFinalList);

@@ -45,7 +45,7 @@ class PlayController extends Controller
             $oBetlimitFinalList = $oBetlimitList->orderby('id', 'desc')->get();
         }else{
             $oBetlimitList->groupBy('name');
-            $iLimit = request()->get('limit/d', 20);
+            $iLimit = request()->get('limit', 20);
             $oBetlimitFinalList = $oBetlimitList->orderby('id', 'desc')->paginate($iLimit);
         }
         // $oBetlimitListCount = $oBetlimitList->get();

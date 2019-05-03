@@ -120,7 +120,7 @@ class FundController extends Controller
         }
 
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -194,7 +194,7 @@ class FundController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -320,7 +320,7 @@ class FundController extends Controller
         }
 
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -459,7 +459,7 @@ class FundController extends Controller
             $oAuthAdminList->where('account', '=', $sAccount);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -853,7 +853,7 @@ class FundController extends Controller
 
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
         /*$aTmp = [];
         $aFinal = [];
@@ -998,7 +998,7 @@ class FundController extends Controller
                 break;
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -1154,7 +1154,7 @@ class FundController extends Controller
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -1307,7 +1307,7 @@ class FundController extends Controller
 //        if ($sAccount !== '') {
 //            $oAuthAdminList->where('account', '=', $sAccount);
 //        }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -1390,7 +1390,7 @@ class FundController extends Controller
             $oAuthAdminList->where('pay_type', $sPayType);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -1475,7 +1475,7 @@ class FundController extends Controller
             $oAuthAdminList->where('in_type', $sInType);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -1585,7 +1585,7 @@ class FundController extends Controller
             $oAuthAdminList->where('status', '=', $status);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -1676,7 +1676,7 @@ class FundController extends Controller
             $oAuthAdminList->where('third_type', $sThirdType);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -1763,7 +1763,7 @@ class FundController extends Controller
         if ($sMerchantName !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
        /* $aTmp = [];

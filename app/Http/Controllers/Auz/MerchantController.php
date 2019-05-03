@@ -271,7 +271,7 @@
 //    public function adminRoleList()
 //    {
 //        $sWhere = [];
-//        $iLimit = request()->get('limit/d', 20);
+//        $iLimit = request()->get('limit', 20);
 //        //分页配置
 ////        $paginate = [
 ////            'type' => 'bootstrap',

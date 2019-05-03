@@ -59,7 +59,7 @@ class SiteController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -147,7 +147,7 @@ class SiteController extends Controller
 //        if ($sUserName !== '') {
 //            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
 //        }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -218,7 +218,7 @@ class SiteController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $aTmp = [];
@@ -401,7 +401,7 @@ class SiteController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*        $aTmp = [];
@@ -475,7 +475,7 @@ class SiteController extends Controller
             $oAuthAdminList->where('type', $sType);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -555,7 +555,7 @@ class SiteController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -628,7 +628,7 @@ class SiteController extends Controller
         if ($sUserName !== '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
         /*$aTmp = [];
         $aFinal = [];
@@ -1268,7 +1268,7 @@ class SiteController extends Controller
         }
 
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
         /*        $aTmp = [];
                 $aFinal = [];
@@ -1338,7 +1338,7 @@ class SiteController extends Controller
         }
 
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -1406,7 +1406,7 @@ class SiteController extends Controller
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /* $aTmp = [];

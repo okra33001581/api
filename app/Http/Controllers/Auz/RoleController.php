@@ -47,7 +47,7 @@ class RoleController extends Controller
             $where[] = ['name', 'like', $sName . '%'];
             $order = '';
         }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $lists = AuthRole::orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];

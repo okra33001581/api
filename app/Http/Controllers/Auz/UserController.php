@@ -249,7 +249,7 @@ class UserController extends Controller
             }
 
         }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -553,7 +553,7 @@ class UserController extends Controller
             $oAuthAdminList->where('login_date', '>=', $dtEndDate);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -697,7 +697,7 @@ class UserController extends Controller
                 break;
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         /*$aTmp = [];
@@ -780,7 +780,7 @@ class UserController extends Controller
             $oAuthAdminList->where('username', 'like', '%' . $sUsername . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -886,7 +886,7 @@ class UserController extends Controller
             $oAuthAdminList->where('submit_date', '>=', $dtEndDate);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -998,7 +998,7 @@ class UserController extends Controller
             $oAuthAdminList->where('is_black', '=', $sIsBlack);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -1138,7 +1138,7 @@ class UserController extends Controller
         $sUserName = isset(request()->username) ? request()->username : '';
         $oAuthAdminList = DB::table('user_level');
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
        /* $aTmp = [];
@@ -1222,7 +1222,7 @@ class UserController extends Controller
             $oAuthAdminList->where('created_at', '<=', $dtEndDate);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -1269,7 +1269,7 @@ class UserController extends Controller
 //    public function adminRoleList()
 //    {
 //        $sWhere = [];
-//        $iLimit = request()->get('limit/d', 20);
+//        $iLimit = request()->get('limit', 20);
 //        //分页配置
 ////        $paginate = [
 ////            'type' => 'bootstrap',

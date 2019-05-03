@@ -79,7 +79,7 @@ class LogController extends Controller
         }
 
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 //
 //
@@ -155,7 +155,7 @@ class LogController extends Controller
             $oAuthAdminList->where('created_at', '<=', $dtEndDate);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 //        $aTmp = [];
@@ -252,7 +252,7 @@ class LogController extends Controller
             $oAuthAdminList->where('ip_address', 'like', '%' . $sKeywords . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 //        $aTmp = [];

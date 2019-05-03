@@ -58,7 +58,7 @@ class NoticeController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 //        $aTmp = [];
@@ -179,7 +179,7 @@ class NoticeController extends Controller
             $oAuthAdminList->where('category', $sCategory);
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 
@@ -257,7 +257,7 @@ class NoticeController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 

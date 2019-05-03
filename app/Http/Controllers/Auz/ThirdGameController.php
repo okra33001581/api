@@ -60,7 +60,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -116,7 +116,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -172,7 +172,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -228,7 +228,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -284,7 +284,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -340,7 +340,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -399,7 +399,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -456,7 +456,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
@@ -515,7 +515,7 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
         }
 
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];

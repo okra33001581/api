@@ -60,7 +60,7 @@ class AdminController extends Controller
         if ($sUserName != '') {
             $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
 //        $aTmp = [];
@@ -120,7 +120,7 @@ class AdminController extends Controller
     public function adminRoleList()
     {
         $sWhere = [];
-        $iLimit = request()->get('limit/d', 20);
+        $iLimit = request()->get('limit', 20);
         //分页配置
 //        $paginate = [
 //            'type' => 'bootstrap',
