@@ -37,27 +37,14 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
 
-        $sTitle = isset(request()->title) ? request()->title : '';
-        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
+        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
 
         $oAuthAdminList = DB::table('third_ag_ftp_get_logs');
 
 
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
-
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
-        }
-
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($is_parse !== '') {
+            $oAuthAdminList->where('is_parse', $is_parse);
         }
 
         $iLimit = request()->get('limit', 20);
@@ -93,27 +80,18 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-
-        $sTitle = isset(request()->title) ? request()->title : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
 
         $oAuthAdminList = DB::table('third_ag_project_record');
 
-
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
 
         if ($sMerchantName !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
 
         $iLimit = request()->get('limit', 20);
@@ -149,27 +127,34 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
 
-        $sTitle = isset(request()->title) ? request()->title : '';
-        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
+        $type = isset(request()->type) ? request()->type : '';
+        $district = isset(request()->district) ? request()->district : '';
+        $nationality = isset(request()->nationality) ? request()->nationality : '';
+        $name = isset(request()->name) ? request()->name : '';
+        $status = isset(request()->status) ? request()->status : '';
 
         $oAuthAdminList = DB::table('third_ball');
 
 
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+        if ($type !== '') {
+            $oAuthAdminList->where('type', 'like', $type);
         }
 
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        if ($district !== '') {
+            $oAuthAdminList->where('district', 'like', '%' . $district . '%');
         }
 
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($nationality !== '') {
+            $oAuthAdminList->where('nationality', 'like', '%' . $nationality . '%');
+        }
+        if ($name !== '') {
+            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
+        }
+
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', 'like', '%' . $status . '%');
         }
 
         $iLimit = request()->get('limit', 20);
@@ -205,28 +190,37 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
 
-        $sTitle = isset(request()->title) ? request()->title : '';
-        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
+
+        $type = isset(request()->type) ? request()->type : '';
+        $district = isset(request()->district) ? request()->district : '';
+        $nationality = isset(request()->nationality) ? request()->nationality : '';
+        $name = isset(request()->name) ? request()->name : '';
+        $status = isset(request()->status) ? request()->status : '';
 
         $oAuthAdminList = DB::table('third_ball');
 
 
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+        if ($type !== '') {
+            $oAuthAdminList->where('type', 'like', $type);
         }
 
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        if ($district !== '') {
+            $oAuthAdminList->where('district', 'like', '%' . $district . '%');
         }
 
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($nationality !== '') {
+            $oAuthAdminList->where('nationality', 'like', '%' . $nationality . '%');
         }
+        if ($name !== '') {
+            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
+        }
+
+
+        if ($status !== '') {
+            $oAuthAdminList->where('status', 'like', '%' . $status . '%');
+        }
+
 
         $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
@@ -261,27 +255,17 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-
-        $sTitle = isset(request()->title) ? request()->title : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
 
         $oAuthAdminList = DB::table('third_user_ga_turnovers');
-
-
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
-        }
 
         if ($sMerchantName !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($sUserName !== '') {
+            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
         }
 
         $iLimit = request()->get('limit', 20);
@@ -317,27 +301,23 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
 
-        $sTitle = isset(request()->title) ? request()->title : '';
-        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $type = isset(request()->type) ? request()->type : '';
+        $name = isset(request()->name) ? request()->name : '';
 
         $oAuthAdminList = DB::table('third_game_types');
-
 
         if ($iStatus !== '') {
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        if ($type !== '') {
+            $oAuthAdminList->where('type', 'like', '%' . $type . '%');
         }
 
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($name !== '') {
+            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
         }
 
         $iLimit = request()->get('limit', 20);
@@ -377,12 +357,11 @@ class ThirdGameController extends Controller
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
 
-        $sTitle = isset(request()->title) ? request()->title : '';
-        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $name = isset(request()->name) ? request()->name : '';
+        $plat_namee = isset(request()->plat_name) ? request()->plat_name : '';
+
 
         $oAuthAdminList = DB::table('third_game_types_detail');
 
@@ -391,13 +370,14 @@ class ThirdGameController extends Controller
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        if ($name !== '') {
+            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
         }
 
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($plat_namee !== '') {
+            $oAuthAdminList->where('plat_name', 'like', '%' . $plat_namee . '%');
         }
+
 
         $iLimit = request()->get('limit', 20);
         $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
@@ -433,27 +413,35 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
 
-        $sTitle = isset(request()->title) ? request()->title : '';
-        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
+
+        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $type = isset(request()->type) ? request()->type : '';
+        $plat_name = isset(request()->plat_name) ? request()->plat_name : '';
+        $sub_game_name = isset(request()->sub_game_name) ? request()->sub_game_name : '';
+        $status = isset(request()->status) ? request()->status : '';
 
         $oAuthAdminList = DB::table('third_merchant_game');
 
-
-        if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+        if ($merchant_name !== '') {
+            $oAuthAdminList->where('merchant_name', 'like', $merchant_name);
         }
 
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        if ($type !== '') {
+            $oAuthAdminList->where('type', 'like', '%' . $type . '%');
         }
 
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+
+        if ($plat_name !== '') {
+            $oAuthAdminList->where('plat_name', 'like', '%' . $plat_name . '%');
+        }
+
+
+        if ($sub_game_name !== '') {
+            $oAuthAdminList->where('sub_game_name', 'like', '%' . $sub_game_name . '%');
+        }
+        if ($status !== '') {
+            $oAuthAdminList->where('status', 'like', '%' . $status . '%');
         }
 
         $iLimit = request()->get('limit', 20);
@@ -492,27 +480,18 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-        $iStatus = isset(request()->status) ? request()->status : '';
-        $sUserName = isset(request()->username) ? request()->username : '';
 
-        $sTitle = isset(request()->title) ? request()->title : '';
-        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $sTitle = isset(request()->title) ? request()->title : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $name = isset(request()->name) ? request()->name : '';
 
         $oAuthAdminList = DB::table('third_plats');
-
 
         if ($iStatus !== '') {
             $oAuthAdminList->where('status', $iStatus);
         }
 
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
-        }
-
-        if ($sTitle !== '') {
-            $oAuthAdminList->where('title', 'like', '%' . $sTitle . '%');
+        if ($name !== '') {
+            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
         }
 
         $iLimit = request()->get('limit', 20);
@@ -1039,6 +1018,17 @@ class ThirdGameController extends Controller
         if ($type == 'game_type_list_detail') {
             $oThirdGameTypesDetail = ThirdGameTypesDetail::find($id);
 
+            $oThirdMerchantGame = ThirdMerchantGame::where('sub_game_name', $oThirdGameTypesDetail->name)->first();
+
+            if (is_object($oThirdMerchantGame)) {
+
+                $aFinal['message'] = '游戏已经添加';
+                $aFinal['code'] = '0';
+
+                return response()->json($aFinal);
+
+            }
+
             $oQrCode = new ThirdMerchantGame();
             $oQrCode->merchant_id='1010';
             $oQrCode->merchant_name='admin';
@@ -1051,6 +1041,18 @@ class ThirdGameController extends Controller
             $oQrCode->sub_game_icon=$oThirdGameTypesDetail->icon;
         } else {
             $oThirdGameTypesDetail = ThirdBall::find($id);
+
+
+            $oThirdMerchantGame = ThirdMerchantGame::where('sub_game_name', $oThirdGameTypesDetail->name)->first();
+
+            if (is_object($oThirdMerchantGame)) {
+
+                $aFinal['message'] = '游戏已经添加';
+                $aFinal['code'] = '0';
+
+                return response()->json($aFinal);
+
+            }
 
             $oQrCode = new ThirdMerchantGame();
             $oQrCode->merchant_id='1010';
@@ -1065,41 +1067,10 @@ class ThirdGameController extends Controller
         }
 
 
-/*        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
-        $merchant_name=isset($data['merchant_name'])?$data['merchant_name']:'';
-        $type=isset($data['type'])?$data['type']:'';
-        $plat_id=isset($data['plat_id'])?$data['plat_id']:'';
-        $plat_name=isset($data['plat_name'])?$data['plat_name']:'';
-        $plat_icon=isset($data['plat_icon'])?$data['plat_icon']:'';
-        $sub_game_id=isset($data['sub_game_id'])?$data['sub_game_id']:'';
-        $sub_game_name=isset($data['sub_game_name'])?$data['sub_game_name']:'';
-        $sub_game_icon=isset($data['sub_game_icon'])?$data['sub_game_icon']:'';
-        $sequence=isset($data['sequence'])?$data['sequence']:'';
-        $status=isset($data['status'])?$data['status']:'';
-
-
-        if ($id != '') {
-            $oQrCode = ThirdMerchantGame::find($id);
-        } else {
-            $oQrCode = new ThirdMerchantGame();
-        }
-
-        $oQrCode->merchant_id=$merchant_id;
-        $oQrCode->merchant_name=$merchant_name;
-        $oQrCode->type=$type;
-        $oQrCode->plat_id=$plat_id;
-        $oQrCode->plat_name=$plat_name;
-        $oQrCode->plat_icon=$plat_icon;
-        $oQrCode->sub_game_id=$sub_game_id;
-        $oQrCode->sub_game_name=$sub_game_name;
-        $oQrCode->sub_game_icon=$sub_game_icon;
-        $oQrCode->sequence=$sequence;
-        $oQrCode->status=$status;*/
-
         $iRet = $oQrCode->save();
 
         $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
+        $aFinal['code'] = '1';
         $aFinal['data'] = $oQrCode;
 
 
@@ -1372,6 +1343,35 @@ class ThirdGameController extends Controller
 
     }
 
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    /*public function merchantGameSequence($iId = null)
+    {
 
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
+        $oEvent = ThirdMerchantGame::find($iId);
+        $oEvent->sequence = $iFlag;
+        $iRet = $oEvent->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = $iFlag;
+        $aFinal['data'] = $oEvent;
+
+
+        $sOperateName = 'marqueeSequence';
+        $sLogContent = 'marqueeSequence';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }*/
 
 }
