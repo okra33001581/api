@@ -42,7 +42,18 @@ Route::post('event/permissionRuleSave', 'PermissionRuleController@permissionRule
 Route::post('event/permissionRuleEdit', 'PermissionRuleController@permissionRuleEdit');
 Route::post('event/permissionRuleDelete', 'PermissionRuleController@permissionRuleDelete');
 
+
+
 Route::post('event/ruleStatusSave', 'PermissionRuleController@ruleStatusSave');
+
+Route::get('event/permissionRuleDeptIndex', 'PermissionRuleController@permissionRuleDeptIndex');
+Route::get('event/permissionRuleDeptTree', 'PermissionRuleController@permissionRuleDeptTree');
+Route::post('event/permissionRuleDeptSave', 'PermissionRuleController@permissionRuleDeptSave');
+Route::post('event/ruleDeptStatusSave', 'PermissionRuleController@ruleDeptStatusSave');
+Route::post('event/permissionRuleDeptDelete', 'PermissionRuleController@permissionRuleDeptDelete');
+
+
+
 
 // RoleController.php
 Route::get('event/roleIndex', 'RoleController@roleIndex');
