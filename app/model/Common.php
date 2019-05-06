@@ -15,12 +15,12 @@ class Common extends Model
 
     public $timestamps = false;
 
-    public static $thirdMerchantGameStatusSaveRules=[
-                        'flag' => 'required|string|in:启用1,禁用1',
+    public static $statusSaveRules=[
+                        'flag' => 'required|string|in:启用,禁用,同意,拒绝',
 //                        'flagab' => 'required|integer|in:0,1',
                     ];
-    public static $thirdMerchantGameStatusSaveMessages=[
-                        'flag'=>'名称必须aaa',
+    public static $statusSaveMessages=[
+                        'flag'=>'名称必须为启用、禁用、同意或拒绝',
 //                        'flagab'=>'名称必须bbb',
                     ];
 

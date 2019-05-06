@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'thirdMerchantGameStatusSave_success' => 'ing language lines are used during authentication for vari.',
-    'thirdMerchantGameStatusSave_failed' => 'age lines according to your application\'s requirements.',
+    'statusSave_success' => 'operate successfully',
+    'statusSave_failed' => 'operation failure',
 
 ];

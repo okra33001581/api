@@ -708,31 +708,37 @@ class ThirdGameController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = ThirdBall::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+
+                $oEvent = ThirdBall::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+          }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
 
-
-        $sOperateName = 'payGroupStatusSave';
-        $sLogContent = 'payGroupStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        
     }
 
 
@@ -748,31 +754,37 @@ class ThirdGameController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = ThirdGameTypes::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = ThirdGameTypes::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+
+           }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
 
-
-        $sOperateName = 'payGroupStatusSave';
-        $sLogContent = 'payGroupStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
     }
 
 
@@ -788,31 +800,35 @@ class ThirdGameController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = ThirdGameTypesDetail::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = ThirdGameTypesDetail::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'payGroupStatusSave';
-        $sLogContent = 'payGroupStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
@@ -833,18 +849,18 @@ class ThirdGameController extends Controller
         try
         {
 
-            if($this->validate(request(),Common::$thirdMerchantGameStatusSaveRules,Common::$thirdMerchantGameStatusSaveMessages)) {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
                 $oEvent = ThirdMerchantGame::find($iId);
                 if (is_object($oEvent)) {
                     $iStatue = $oEvent->status;
                 }
                 $oEvent->status = $iFlag;
                 $iRet = $oEvent->save();
-                $aFinal['message'] = CommonUtils::getMessage('thirdMerchantGameStatusSave_success');
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
                 $aFinal['code'] = 1;
                 $aFinal['data'] = $oEvent;
-                $sOperateName = 'payGroupStatusSave';
-                $sLogContent = 'payGroupStatusSave';
+                $sOperateName = 'thirdMerchantGameStatusSave';
+                $sLogContent = 'thirdMerchantGameStatusSave';
                 $dt = now();
                 AdminLog::adminLogSave($sOperateName);
                 return response()->json($aFinal);
@@ -871,31 +887,36 @@ class ThirdGameController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = ThirdPlats::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = ThirdPlats::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'payGroupStatusSave';
-        $sLogContent = 'payGroupStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**

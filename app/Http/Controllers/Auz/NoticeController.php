@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\common\utils\CommonUtils;
 use App\model\Notice;
 use DB;
 use Log;
@@ -14,6 +15,7 @@ use App\model\AdSite;
 use App\model\Message;
 use App\model\Marquee;
 use App\model\AdminLog;
+use App\model\Common;
 
 
 /**
@@ -597,43 +599,38 @@ class NoticeController extends Controller
 
         $data = request()->post();
 
-//        $sId = isset($data['id']) ? $data['id'] : '';
-        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $aTmp = Event::getArrayFromString($sId);
-
-
-        Log::info($aTmp);
-
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
-
-        }*/
-
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = Notice::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = Notice::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'noticeStatusSave';
+                $sLogContent = 'noticeStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'noticeStatusSave';
-        $sLogContent = 'noticeStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
     /**
      * 数据取得

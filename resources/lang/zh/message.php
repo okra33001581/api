@@ -13,6 +13,6 @@ return [
     |
     */
 
-    'thirdMerchantGameStatusSave_success' => '中文1343.',
-    'thirdMerchantGameStatusSave_failed' => '中文1343dfdafdf达到法定.',
+    'statusSave_success' => '操作成功',
+    'statusSave_failed' => '操作失败',
 ];

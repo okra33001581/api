@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\common\utils\CommonUtils;
 use Illuminate\Http\Request;
 use DB;
 use Log;
@@ -10,6 +11,7 @@ use App\model\AdminLog;
 use App\model\Game;
 use App\model\GameRisk;
 use App\model\BettingLimit;
+use App\model\Common;
 
 class PlayController extends Controller
 {
@@ -223,10 +225,6 @@ class PlayController extends Controller
         }
         $oLotteryriskListCount = $oLotteryriskList->get();
         $oLotteryriskFinalList = $oLotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        $aStatus = ['拒绝','同意','未处理'];
-        foreach ($oLotteryriskFinalList as $k => &$v) {
-            $v->status = $aStatus[$v->status];
-        }
         $aTmp = [];
         $aFinal = [];
         $res = [];
@@ -258,23 +256,34 @@ class PlayController extends Controller
     {
 
         $data = request()->post();
-        $flag_arr = ['refuse'=>0,'pass'=>1];
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oGameRisk = GameRisk::find($iId);
-        $oGameRisk->status = $flag_arr[$iFlag];
-        $iRet = $oGameRisk->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oGameRisk;
+        try
+        {
 
-        $sOperateName = 'usersafetyStatusSave';
-        $sLogContent = 'usersafetyStatusSave';
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oGameRisk = GameRisk::find($iId);
+                $oGameRisk->status = $iFlag;
+                $iRet = $oGameRisk->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oGameRisk;
 
-        $dt = now();
+                $sOperateName = 'usersafetyStatusSave';
+                $sLogContent = 'usersafetyStatusSave';
 
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
@@ -300,9 +309,8 @@ class PlayController extends Controller
         $sProjectAmount = isset($data['project_amount']) ? $data['project_amount'] : '';
         $sBackAwardAmount = isset($data['back_award_amount']) ? $data['back_award_amount'] : '';
         $sLossRatio = isset($data['loss_ratio']) ? $data['loss_ratio'] : '';
-        $iStatus = isset($data['status']) ? $data['status'] : '';
+        $sStatus = isset($data['status']) ? $data['status'] : '';
 
-        $aStatus = ['拒绝','同意','未处理'];
         if ($iId != '') {
             $oGameRisk = GameRisk::find($iId);
             $oGameRisk->updated_at = date("Y-m-d H:i:s",time());
@@ -323,13 +331,8 @@ class PlayController extends Controller
         $oGameRisk->project_amount = $sProjectAmount;
         $oGameRisk->back_award_amount = $sBackAwardAmount;
         $oGameRisk->loss_ratio = $sLossRatio;
+        $oGameRisk->status = $sStatus;
 
-        $iRet = $oGameRisk->save();
-        if ($iId != '') {
-            $oGameRisk->status = $aStatus[$iStatus];
-        }else{
-            $oGameRisk->status = $aStatus[2];
-        }
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $oGameRisk;
@@ -695,10 +698,7 @@ class PlayController extends Controller
         }
         $oLotteryriskListCount = $oLotteryriskList->get();
         $oLotteryriskFinalList = $oLotteryriskList->skip(($sIpage - 1) * $iLimit)->take($iLimit)->get();
-        $aStatus = ['拒绝','同意','未处理'];
-        foreach ($oLotteryriskFinalList as $k => &$v) {
-            $v->status = $aStatus[$v->status];
-        }
+        
         $aTmp = [];
         $aFinal = [];
         $res = [];
