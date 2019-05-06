@@ -247,6 +247,8 @@ Route::get('event/gameTypeDetailList', 'ThirdGameController@gameTypeDetailList')
 Route::post('event/thirdBallSequence', 'ThirdGameController@thirdBallSequence');
 Route::post('event/thirdGameTypesSequence', 'ThirdGameController@thirdGameTypesSequence');
 Route::post('event/thirdMerchantGameSequence', 'ThirdGameController@thirdMerchantGameSequence');
+Route::post('event/thirdMerchantGameFee', 'ThirdGameController@thirdMerchantGameFee');
+Route::post('event/thirdMerchantGameSubFee', 'ThirdGameController@thirdMerchantGameSubFee');
 Route::post('event/thirdPlatsSequence', 'ThirdGameController@thirdPlatsSequence');
 
 Route::post('event/thirdBallStatusSave', 'ThirdGameController@thirdBallStatusSave');

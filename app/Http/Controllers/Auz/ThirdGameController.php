@@ -399,7 +399,7 @@ class ThirdGameController extends Controller
     }
 
     /**
-     * 数据取得
+     * 商户游戏管理列表
      * @param request
      * @return json
      */
@@ -409,45 +409,41 @@ class ThirdGameController extends Controller
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sType = isset(request()->type) ? request()->type : '';
+        $sPlatName = isset(request()->plat_name) ? request()->plat_name : '';
+        $sSubGameName = isset(request()->sub_game_name) ? request()->sub_game_name : '';
+        $sStatus = isset(request()->status) ? request()->status : '';
 
+        $oMerchantGameList = DB::table('third_merchant_game');
 
-        $merchant_name = isset(request()->merchant_name) ? request()->merchant_name : '';
-        $type = isset(request()->type) ? request()->type : '';
-        $plat_name = isset(request()->plat_name) ? request()->plat_name : '';
-        $sub_game_name = isset(request()->sub_game_name) ? request()->sub_game_name : '';
-        $status = isset(request()->status) ? request()->status : '';
-
-        $oAuthAdminList = DB::table('third_merchant_game');
-
-        if ($merchant_name !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', $merchant_name);
+        if ($sMerchantName !== '') {
+            $oMerchantGameList->where('merchant_name', 'like', $sMerchantName);
         }
 
-        if ($type !== '') {
-            $oAuthAdminList->where('type', 'like', '%' . $type . '%');
+        if ($sType !== '') {
+            $oMerchantGameList->where('type', 'like', '%' . $sType . '%');
         }
 
 
-        if ($plat_name !== '') {
-            $oAuthAdminList->where('plat_name', 'like', '%' . $plat_name . '%');
+        if ($sPlatName !== '') {
+            $oMerchantGameList->where('plat_name', 'like', '%' . $sPlatName . '%');
         }
 
 
-        if ($sub_game_name !== '') {
-            $oAuthAdminList->where('sub_game_name', 'like', '%' . $sub_game_name . '%');
+        if ($sSubGameName !== '') {
+            $oMerchantGameList->where('sub_game_name', 'like', '%' . $sSubGameName . '%');
         }
-        if ($status !== '') {
-            $oAuthAdminList->where('status', 'like', '%' . $status . '%');
+        if ($sStatus !== '') {
+            $oMerchantGameList->where('status', $sStatus );
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $oMerchantGameFinalList = $oMerchantGameList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oMerchantGameFinalList);
+        $res["list"] = $oMerchantGameFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -605,6 +601,63 @@ class ThirdGameController extends Controller
         $dt = now();
 
 
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 商户游戏管理列表修改排序值
+     * @param request
+     * @return json
+     */
+    public function thirdMerchantGameFee()
+    {
+
+        $data = request()->post();
+        $sType = isset($data['type']) ? $data['type'] : '';
+        $sPlatName = isset($data['plat_name']) ? $data['plat_name'] : '';
+        $sFee = isset($data['fee']) ? $data['fee'] : '';
+        $oMerchantGame = DB::table('third_merchant_game')
+        ->where('type',$sType)
+        ->where('plat_name',$sPlatName)
+        ->update(['fee'=>$sFee,'sub_fee'=>$sFee]);
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oMerchantGame;
+
+        $sOperateName = 'thirdMerchantGameFee';
+        $sLogContent = 'thirdMerchantGameFee';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 商户游戏管理列表修改排序值
+     * @param request
+     * @return json
+     */
+    public function thirdMerchantGameSubFee()
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['sub_fee']) ? $data['sub_fee'] : '';
+        $oMerchantGame = ThirdMerchantGame::find($iId);
+        $oMerchantGame->sub_fee = $iFlag;
+        $iRet = $oMerchantGame->save();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oMerchantGame;
+
+        $sOperateName = 'thirdMerchantGameSubFee';
+        $sLogContent = 'thirdMerchantGameSubFee';
+
+        $dt = now();
 
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
