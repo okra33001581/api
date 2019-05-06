@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\common\utils\CommonUtils;
 use DB;
 use Log;
 use App\common\vo\ResultVo;
-use App\common\utils\PublicFileUtils;
 use App\model\AdminLog;
 
-use App\model\ThirdAgFtpGetLogs;
-use App\model\ThirdAgProjectRecord;
 use App\model\ThirdBall;
 use App\model\ThirdGameTypes;
 use App\model\ThirdMerchantGame;
 use App\model\ThirdPlats;
-use App\model\ThirdUserGaTurnovers;
 use App\model\ThirdGameTypesDetail;
+use App\model\Common;
 
 /**
  * Class Event - 公告相关控制器
@@ -777,31 +775,34 @@ class ThirdGameController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = ThirdMerchantGame::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+
+
+        try
+        {
+
+            if($this->validate(request(),Common::$thirdMerchantGameStatusSaveRules,Common::$thirdMerchantGameStatusSaveMessages)) {
+                $oEvent = ThirdMerchantGame::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('thirdMerchantGameStatusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'payGroupStatusSave';
-        $sLogContent = 'payGroupStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
