@@ -16,7 +16,7 @@ class Common extends Model
     public $timestamps = false;
 
     public static $statusSaveRules=[
-                        'flag' => 'required|string|in:启用,禁用,同意,拒绝',
+                        'flag' => 'required|string|in:启用,禁用,同意,拒绝,销售中,停止销售',
 //                        'flagab' => 'required|integer|in:0,1',
                     ];
     public static $statusSaveMessages=[

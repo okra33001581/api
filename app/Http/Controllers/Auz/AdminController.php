@@ -14,6 +14,7 @@ use App\model\AuthPermissionRule;
 use App\model\AuthRole;
 use App\common\utils\PublicFileUtils;
 use App\common\utils\PassWordUtils;
+use App\common\utils\CommonUtils;
 use App\model\Ad;
 use App\model\AdSite;
 use App\model\FileResource;
@@ -21,6 +22,7 @@ use App\model\FileResourceTag;
 
 use Illuminate\Support\Facades\Redis;
 use App\model\AdminLog;
+use App\model\Common;
 
 /**
  * Class Event - 管理员相关控制器
@@ -391,32 +393,32 @@ class AdminController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = AuthAdmin::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = AuthAdmin::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'floatwindowconfigList';
+                $sLogContent = '查询';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-
-        $sOperateName = 'floatwindowconfigList';
-        $sLogContent = '查询';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 

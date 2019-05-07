@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\common\utils\CommonUtils;
 use Illuminate\Http\Request;
 use App\model\Event;
 use DB;
@@ -22,6 +23,7 @@ use App\model\FileResourceTag;
 use Illuminate\Support\Facades\Redis;
 use Storage;
 use App\model\EventUserPrize;
+use App\model\Common;
 
 /**
  * Class Event - 活动控制器
@@ -457,7 +459,7 @@ class EventController extends Controller
         $oAuthAdminFinalList = $oAuthAdminList->get();
 
         $aTmp = [];
-        $aFinal = [];
+        $aList = [];
 //        Log::info('huangqiu');
         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
 
@@ -474,12 +476,12 @@ class EventController extends Controller
             $aTmp['request_date'] = $oAuthAdmin->request_date;
             $aTmp['status'] = $oAuthAdmin->status;
 
-            $aFinal[] = $aTmp;
+            $aList[] = $aTmp;
         }
 
         $res = [];
         $res["total"] = 12;
-        $res["list"] = $aFinal;
+        $res["list"] = $aList;
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -879,34 +881,34 @@ class EventController extends Controller
     {
 
         $data = request()->post();
-
-//        $sId = isset($data['id']) ? $data['id'] : '';
-        /*$iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $aTmp = Event::getArrayFromString($sId);
-
-
-        Log::info($aTmp);
-
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
-
-        }*/
-
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = Event::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
-        }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
 
-        return response()->json($aFinal);
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = Event::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                return response()->json($aFinal);
+
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
+
     }
 
 
@@ -916,27 +918,31 @@ class EventController extends Controller
 
         $sId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $aTmp = Event::getArrayFromString($sId);
 
+        try
+        {
 
-        Log::info($aTmp);
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
 
-        if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+                $aTmp = Event::getArrayFromString($sId);
 
+                Log::info($aTmp);
+                if ($bSucc = EventUserPrize::whereIn('id',$aTmp)->update(['status' => $iFlag]) > 0) {
+                }
+
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                return response()->json($aFinal);
+
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
         }
 
-//        $iFlag = 0;
-//        if (is_object($oEvent)) {
-//            $iStatue = $oEvent->status;
-//        }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-//        $oEvent->status = $iFlag;
-//        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $bSucc;
-//        $aFinal['data'] = $oEvent;
-
-        return response()->json($aFinal);
     }
 
     /**

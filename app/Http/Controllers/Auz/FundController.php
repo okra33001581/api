@@ -7,6 +7,7 @@ use Log;
 use App\common\vo\ResultVo;
 use App\model\AuthRoleAdmin;
 use App\common\utils\PublicFileUtils;
+use App\common\utils\CommonUtils;
 use App\model\Ad;
 use App\model\AdSite;
 use App\model\PaySetting;
@@ -27,6 +28,7 @@ use App\model\RakeBack;
 
 use App\model\PayAccount;
 use App\model\AdminLog;
+use App\model\Common;
 
 /**
  * Class Event - 资金相关控制器
@@ -1817,38 +1819,47 @@ class FundController extends Controller
      * @param request
      * @return json
      */
-    public function payGroupStatusSave($iId = null)
+    public function payGroupStatusSave()
     {
 
         $data = request()->post();
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = PayGroup::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = PayGroup::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+
+                $dt = now();
+
+
+
+                AdminLog::adminLogSave($sOperateName);
+
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'payGroupStatusSave';
-        $sLogContent = 'payGroupStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -1863,32 +1874,34 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = CashWithdraw::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = CashWithdraw::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->out_status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'cashwithdrawStatusSave';
+                $sLogContent = 'cashwithdrawStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->out_status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-
-        $sOperateName = 'cashwithdrawStatusSave';
-        $sLogContent = 'cashwithdrawStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
     /**
      * 数据取得
@@ -2021,31 +2034,34 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = UserBetsCheck::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = UserBetsCheck::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'userbetscheckStatusSave';
+                $sLogContent = 'userbetscheckStatusSave';
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'userbetscheckStatusSave';
-        $sLogContent = 'userbetscheckStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -2060,31 +2076,35 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = TransferOrder::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = TransferOrder::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'transferorderStatusSave';
+                $sLogContent = 'transferorderStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'transferorderStatusSave';
-        $sLogContent = 'transferorderStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
     /**
      * 数据保存
@@ -2098,31 +2118,34 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = ManualPay::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = ManualPay::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'manualpayStatusSave';
+                $sLogContent = 'manualpayStatusSave';
+
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'manualpayStatusSave';
-        $sLogContent = 'manualpayStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -2137,31 +2160,38 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = ManualPayConfirm::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = ManualPayConfirm::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'manualpayconfirmStatusSave';
+                $sLogContent = 'manualpayconfirmStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+
+                return response()->json($aFinal);
+
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
 
-
-        $sOperateName = 'manualpayconfirmStatusSave';
-        $sLogContent = 'manualpayconfirmStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
     }
 
     /**
@@ -2176,31 +2206,31 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = CompanyMoney::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = CompanyMoney::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'companymoneyStatusSave';
+                $sLogContent = 'companymoneyStatusSave';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'companymoneyStatusSave';
-        $sLogContent = 'companymoneyStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -2215,31 +2245,34 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = FastPayMoney::find($iId);
-//        $iFlag = 0;
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = FastPayMoney::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'fastpaymoneyStatusSave';
+                $sLogContent = 'fastpaymoneyStatusSave';
+
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-//        $iFlag = $iStatue == 0 ? 1 : 0;
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'fastpaymoneyStatusSave';
-        $sLogContent = 'fastpaymoneyStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -2254,30 +2287,34 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-
         $aTmp = explode(",", $iId);
 
-        if ($bSucc = RakeBack::whereIn('id', $aTmp)->update(['status' => $iFlag]) > 0) {
+        try
+        {
 
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+
+                if ($bSucc = RakeBack::whereIn('id', $aTmp)->update(['status' => $iFlag]) > 0) {
+                }
+
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+
+                $sOperateName = 'rakebackStatusSave';
+                $sLogContent = 'rakebackStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-//        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'rakebackStatusSave';
-        $sLogContent = 'rakebackStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -2437,25 +2474,30 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oEvent = PayAccount::find($iId);
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = PayAccount::find($iId);
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
 
+                $sOperateName = 'payAccountStatusSave';
+                $sLogContent = 'payAccountStatusSave';
 
-        $sOperateName = 'payAccountStatusSave';
-        $sLogContent = 'payAccountStatusSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -2470,25 +2512,32 @@ class FundController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-        $oEvent = ThirdAccount::find($iId);
-        $oEvent->status = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
+        try
+        {
 
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = ThirdAccount::find($iId);
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
 
-        $sOperateName = 'thirdAccountStatusSave';
-        $sLogContent = 'thirdAccountStatusSave';
+                $sOperateName = 'thirdAccountStatusSave';
+                $sLogContent = 'thirdAccountStatusSave';
 
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
 
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
     /**
      * 数据保存

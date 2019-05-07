@@ -653,26 +653,35 @@ class PlayController extends Controller
         $data = request()->post();
         
         $iId = isset($data['id']) ? $data['id'] : '';
-        $iFlag = isset($data['status']) ? $data['status'] : '';
-        if($iFlag=='停止销售'){
-            $iFlag='销售中';
-        }else{
-            $iFlag='停止销售';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oGame = Game::find($iId);
+                $oGame->status = $iFlag;
+                $iRet = $oGame->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oGame;
+
+                $sOperateName = 'pgameStatusSave';
+                $sLogContent = 'pgameStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+
+            }
         }
-        $oGame = Game::find($iId);
-        $oGame->status = $iFlag;
-        $iRet = $oGame->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $oGame;
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
 
-        $sOperateName = 'pgameStatusSave';
-        $sLogContent = 'pgameStatusSave';
-
-        $dt = now();
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
     }
 
 
