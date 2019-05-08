@@ -14,5 +14,7 @@ return [
     */
 
     'statusSave_success' => '操作成功',
+    'updateSave_success' => '修改成功',
     'statusSave_failed' => '操作失败',
+    'updateSave_failed' => '修改失败',
 ];

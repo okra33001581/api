@@ -94,6 +94,21 @@ class ThirdMerchantGame extends Model
         return explode(",",$sTmp);
     }
 
+    /**
+     * 商户游戏管理列表修改排序值
+     * @param request
+     * @return json
+     */
+    public function thirdMerchantGameFee($data){
+        $sType = isset($data['type']) ? $data['type'] : '';
+        $sPlatName = isset($data['plat_name']) ? $data['plat_name'] : '';
+        $sFee = isset($data['fee']) ? $data['fee'] : '';
+        return $this
+            ->where('type',$sType)
+            ->where('plat_name',$sPlatName)
+            ->update(['fee'=>$sFee,'sub_fee'=>$sFee]);
+    }
+
 
 
 

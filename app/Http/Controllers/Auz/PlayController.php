@@ -114,20 +114,28 @@ class PlayController extends Controller
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $sName = isset($data['name']) ? $data['name'] : '';
-        $oBettingLimit = BettingLimit::find($iId);
-        $oBettingLimit->name = $sName;
-        $iRet = $oBettingLimit->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $oBettingLimit;
-
-        $sOperateName = 'betlimitNameSave';
-        $sLogContent = 'betlimitNameSave';
-
-        $dt = now();
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$betlimitSaveRules,Common::$betlimitSaveMessages)) {
+                $oBettingLimit = BettingLimit::find($iId);
+                $oBettingLimit->name = $sName;
+                $iRet = $oBettingLimit->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oBettingLimit;
+                $sOperateName = 'betlimitNameSave';
+                $sLogContent = 'betlimitNameSave';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -139,12 +147,26 @@ class PlayController extends Controller
     {
 
         $data = request()->post();
+
+        
         if(count($data)==count($data,1)){
-            $iId = isset($data['id']) ? $data['id'] : '';
-            $sPrizeLimit = isset($data['prize_limit']) ? $data['prize_limit'] : '';
-            $oBettingLimit = BettingLimit::find($iId);
-            $oBettingLimit->prize_limit = $sPrizeLimit;
-            $iRet = $oBettingLimit->save();
+            try
+            {
+                if($this->validate(request(),Common::$betlimitSaveRules,Common::$betlimitSaveMessages)) {
+                    $iId = isset($data['id']) ? $data['id'] : '';
+                    $sPrizeLimit = isset($data['prize_limit']) ? $data['prize_limit'] : '';
+                    $oBettingLimit = BettingLimit::find($iId);
+                    $oBettingLimit->prize_limit = $sPrizeLimit;
+                    $iRet = $oBettingLimit->save();
+
+                }
+            }
+            catch (\Exception $e) {
+                $aFinal['message'] = '非法数据请求';
+                $aFinal['code'] = 0;
+                $aFinal['data'] = '';
+                return response()->json($aFinal);
+            }
         }else{
             foreach ($data as $k => $v) {
                 $iId = isset($v['id']) ? $v['id'] : '';
@@ -154,19 +176,16 @@ class PlayController extends Controller
                 $iRet = $oBettingLimit->save();
             }
         }
-        // die;
-        
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
+        $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+        $aFinal['code'] = 1;
         $aFinal['data'] = $oBettingLimit;
-
         $sOperateName = 'betlimitPrizeSave';
         $sLogContent = 'betlimitPrizeSave';
-
         $dt = now();
-
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
+        
+
     }
 
 
@@ -551,7 +570,7 @@ class PlayController extends Controller
      * @param request
      * @return json
      */
-    public function pgamePropertySave($iId = null)
+    public function pgamePropertySave()
     {
 
         $data = request()->post();
@@ -561,27 +580,32 @@ class PlayController extends Controller
 
         $aProperty = ['热门'=>'is_hot','推荐'=>'is_recommand','新上'=>'is_new'];
         $sPropertyField = $aProperty[$sPropertyName];
-
-        $oGame = Game::find($iId);
-        
-        if ($sPropertyValue) {
-            $oGame->$sPropertyField='';
-        }else{
-            $oGame->$sPropertyField=$sPropertyName;
+        try
+        {
+            if($this->validate(request(),Common::$newPropertySaveRules,Common::$newPropertySaveMessages)) {
+                $oGame = Game::find($iId);
+                if ($sPropertyValue) {
+                    $oGame->$sPropertyField='';
+                }else{
+                    $oGame->$sPropertyField=$sPropertyName;
+                }
+                $iRet = $oGame->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oGame;
+                $sOperateName = 'updatePgamePropertySave';
+                $sLogContent = 'updatePgamePropertySave';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-
-        $iRet = $oGame->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $oGame;
-
-        $sOperateName = 'updatePgamePropertySave';
-        $sLogContent = 'updatePgamePropertySave';
-
-        $dt = now();
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
@@ -590,27 +614,34 @@ class PlayController extends Controller
      * @param request
      * @return json
      */
-    public function pgameSequenceSave($iId = null)
+    public function pgameSequenceSave()
     {
 
         $data = request()->post();
-
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oGame = Game::find($iId);
-        $oGame->sequence = $iFlag;
-        $iRet = $oGame->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oGame;
-
-        $sOperateName = 'pgameSequenceSave';
-        $sLogContent = 'pgameSequenceSave';
-
-        $dt = now();
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oGame = Game::find($iId);
+                $oGame->sequence = $iFlag;
+                $iRet = $oGame->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oGame;
+                $sOperateName = 'pgameSequenceSave';
+                $sLogContent = 'pgameSequenceSave';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**

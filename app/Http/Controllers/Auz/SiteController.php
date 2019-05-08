@@ -8,6 +8,7 @@ use Log;
 use App\common\vo\ResultVo;
 use App\model\AuthRoleAdmin;
 use App\common\utils\PublicFileUtils;
+use App\common\utils\CommonUtils;
 use App\model\Ad;
 use App\model\AdSite;
 use App\model\IpBlack;
@@ -22,6 +23,7 @@ use App\model\LotteryGroup;
 
 use App\model\AdminLog;
 use App\model\Event;
+use App\model\Common;
 
 
 /**
@@ -1683,30 +1685,34 @@ class SiteController extends Controller
      * @param request
      * @return json
      */
-    public function updateLotterygroupSequence($iId = null)
+    public function updateLotterygroupSequence()
     {
 
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = LotteryGroup::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'updateLotterygroupSequence';
-        $sLogContent = 'updateLotterygroupSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = LotteryGroup::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'updateLotterygroupSequence';
+                $sLogContent = 'updateLotterygroupSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -1714,31 +1720,36 @@ class SiteController extends Controller
      * @param request
      * @return json
      */
-    public function updateInformationSequence($iId = null)
+    public function updateInformationSequence()
     {
 
         $data = request()->post();
 
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = Information::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
 
-
-        $sOperateName = 'updateInformationSequence';
-        $sLogContent = 'updateInformationSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = Information::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'updateInformationSequence';
+                $sLogContent = 'updateInformationSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -1752,24 +1763,28 @@ class SiteController extends Controller
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = RotatePlay::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'updateRotateSequence';
-        $sLogContent = 'updateRotateSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = RotatePlay::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'updateRotateSequence';
+                $sLogContent = 'updateRotateSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -1777,30 +1792,38 @@ class SiteController extends Controller
      * @param request
      * @return json
      */
-    public function updatefloatwindowSequence($iId = null)
+    public function updatefloatwindowSequence()
     {
 
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = FloatWindow::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
 
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
 
-        $sOperateName = 'updatefloatwindowSequence';
-        $sLogContent = 'updatefloatwindowSequence';
+                $oEvent = FloatWindow::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
 
+                $sOperateName = 'updatefloatwindowSequence';
+                $sLogContent = 'updatefloatwindowSequence';
 
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
@@ -1818,7 +1841,6 @@ class SiteController extends Controller
         $recommand = isset($data['recommand']) ? $data['recommand'] : '';
         $sNew = isset($data['new']) ? $data['new'] : '';
 
-//        Log::info($data);
         $sFirst1 = substr($hot, 0, 1);
         $sFirst2 = substr($recommand, 0, 1);
         $sFirst3 = substr($sNew, 0, 1);
@@ -1835,49 +1857,53 @@ class SiteController extends Controller
             $bFlag3 = true;
         }
 
-        $oEvent = LotteryGroup::find($iId);
+        try
+        {
+            if($this->validate(request(),Common::$propertySaveRules,Common::$propertySaveMessages)) {
 
-        if ($hot != '') {
-            if ($bFlag1) {
-                $oEvent->hot = substr($hot, 1, strlen($hot));
-            } else {
-                $oEvent->hot = '';
+                $oEvent = LotteryGroup::find($iId);
+                if ($hot != '') {
+                    if ($bFlag1) {
+                        $oEvent->hot = substr($hot, 1, strlen($hot));
+                    } else {
+                        $oEvent->hot = '';
+                    }
+
+                }
+
+                if ($recommand != '') {
+                    if ($bFlag2) {
+                        $oEvent->recommand = substr($recommand, 1, strlen($recommand));
+                    } else {
+                        $oEvent->recommand = '';
+                    }
+                }
+
+                if ($sNew != '') {
+                    if ($bFlag3) {
+                        $oEvent->new = substr($sNew, 1, strlen($sNew));
+                    } else {
+                        $oEvent->new = '';
+                    }
+                }
+
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'updateLotteryGroupPropertySave';
+                $sLogContent = 'updateLotteryGroupPropertySave';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
             }
-
         }
-
-        if ($recommand != '') {
-            if ($bFlag2) {
-                $oEvent->recommand = substr($recommand, 1, strlen($recommand));
-            } else {
-                $oEvent->recommand = '';
-            }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
         }
-
-        if ($sNew != '') {
-            if ($bFlag3) {
-                $oEvent->new = substr($sNew, 1, strlen($sNew));
-            } else {
-                $oEvent->new = '';
-            }
-        }
-
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 1;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'updateLotteryGroupPropertySave';
-        $sLogContent = 'updateLotteryGroupPropertySave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
     }
 
 

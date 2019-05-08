@@ -1901,30 +1901,32 @@ class UserController extends Controller
      * @param request
      * @return json
      */
-    public function updateUserlayerPaySetting($iId = null)
+    public function updateUserlayerPaySetting()
     {
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $sRakeSetting = isset($data['pay_setting']) ? $data['pay_setting'] : '';
-        $oEvent = UserLevel::find($iId);
-        $oEvent->pay_setting = $sRakeSetting;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-//        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'updateUserlayerPaySetting';
-        $sLogContent = 'updateUserlayerPaySetting';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$paySettingSaveRules,Common::$paySettingSaveMessages)) {
+                $oEvent = UserLevel::find($iId);
+                $oEvent->pay_setting = $sRakeSetting;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $sOperateName = 'updateUserlayerPaySetting';
+                $sLogContent = 'updateUserlayerPaySetting';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -1932,25 +1934,31 @@ class UserController extends Controller
      * @param request
      * @return json
      */
-    public function updateUserlayerProjectLimit($iId = null)
+    public function updateUserlayerProjectLimit()
     {
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $sRakeSetting = isset($data['project_limit']) ? $data['project_limit'] : '';
-        $oEvent = UserLevel::find($iId);
-        $oEvent->project_limit = $sRakeSetting;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-//        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'updateUserlayerProjectLimit';
-        $dt = now();
-
-        AdminLog::adminLogSave($sOperateName);
-
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$projectLimitSaveRules,Common::$projectLimitSaveMessages)) {   
+                $oEvent = UserLevel::find($iId);
+                $oEvent->project_limit = $sRakeSetting;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $sOperateName = 'updateUserlayerProjectLimit';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 

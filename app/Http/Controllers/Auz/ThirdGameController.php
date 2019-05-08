@@ -409,47 +409,49 @@ class ThirdGameController extends Controller
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $sType = isset(request()->type) ? request()->type : '';
         $sPlatName = isset(request()->plat_name) ? request()->plat_name : '';
         $sSubGameName = isset(request()->sub_game_name) ? request()->sub_game_name : '';
-        $sStatus = isset(request()->status) ? request()->status : '';
 
-        $oMerchantGameList = DB::table('third_merchant_game');
+
+        $oAuthAdminList = DB::table('third_merchant_game');
+
+
+        if ($iStatus !== '') {
+            $oAuthAdminList->where('status', $iStatus);
+        }
 
         if ($sMerchantName !== '') {
-            $oMerchantGameList->where('merchant_name', 'like', $sMerchantName);
+            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($sType !== '') {
-            $oMerchantGameList->where('type', 'like', '%' . $sType . '%');
+            $oAuthAdminList->where('type', 'like', '%' . $sType . '%');
         }
-
 
         if ($sPlatName !== '') {
-            $oMerchantGameList->where('plat_name', 'like', '%' . $sPlatName . '%');
+            $oAuthAdminList->where('plat_name', 'like', '%' . $sPlatName . '%');
         }
-
 
         if ($sSubGameName !== '') {
-            $oMerchantGameList->where('sub_game_name', 'like', '%' . $sSubGameName . '%');
+            $oAuthAdminList->where('sub_game_name', 'like', '%' . $sSubGameName . '%');
         }
-        if ($sStatus !== '') {
-            $oMerchantGameList->where('status', $sStatus );
-        }
+
 
         $iLimit = request()->get('limit', 20);
-        $oMerchantGameFinalList = $oMerchantGameList->orderby('id', 'desc')->paginate($iLimit);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oMerchantGameFinalList);
-        $res["list"] = $oMerchantGameFinalList->toArray();
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'merchantGameList';
+        $sLogContent = 'merchantGameList';
 
         $dt = now();
 
@@ -548,30 +550,34 @@ class ThirdGameController extends Controller
      * @param request
      * @return json
      */
-    public function thirdGameTypesSequence($iId = null)
+    public function thirdGameTypesSequence()
     {
 
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = ThirdGameTypes::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'marqueeSequence';
-        $sLogContent = 'marqueeSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = ThirdGameTypes::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'marqueeSequence';
+                $sLogContent = 'marqueeSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
@@ -616,16 +622,11 @@ class ThirdGameController extends Controller
     {
 
         $data = request()->post();
-        $sType = isset($data['type']) ? $data['type'] : '';
-        $sPlatName = isset($data['plat_name']) ? $data['plat_name'] : '';
-        $sFee = isset($data['fee']) ? $data['fee'] : '';
-        $oMerchantGame = DB::table('third_merchant_game')
-        ->where('type',$sType)
-        ->where('plat_name',$sPlatName)
-        ->update(['fee'=>$sFee,'sub_fee'=>$sFee]);
+        $oMerchantGame = new ThirdMerchantGame;
+        $aData = $oMerchantGame->thirdMerchantGameFee($data);
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $oMerchantGame;
+        $aFinal['data'] = $aData;
 
         $sOperateName = 'thirdMerchantGameFee';
         $sLogContent = 'thirdMerchantGameFee';
@@ -669,30 +670,34 @@ class ThirdGameController extends Controller
      * @param request
      * @return json
      */
-    public function thirdPlatsSequence($iId = null)
+    public function thirdPlatsSequence()
     {
 
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = ThirdPlats::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'marqueeSequence';
-        $sLogContent = 'marqueeSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = ThirdPlats::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'marqueeSequence';
+                $sLogContent = 'marqueeSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 

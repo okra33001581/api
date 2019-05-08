@@ -563,31 +563,33 @@ class NoticeController extends Controller
     {
 
         $data = request()->post();
-
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['flag']) ? $data['flag'] : '';
-//
-        $oEvent = Notice::find($iId);
-        if (is_object($oEvent)) {
-            $iStatue = $oEvent->status;
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = Notice::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->is_top = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'noticeTopSave';
+                $sLogContent = 'noticeTopSave';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
         }
-        $oEvent->is_top = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'noticeTopSave';
-        $sLogContent = 'noticeTopSave';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
     /**
      * 数据保存
@@ -753,31 +755,34 @@ class NoticeController extends Controller
      * @param request
      * @return json
      */
-    public function noticeSequence($iId = null)
+    public function noticeSequence()
     {
 
         $data = request()->post();
-
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = Notice::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'noticeSequence';
-        $sLogContent = 'noticeSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = Notice::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'noticeSequence';
+                $sLogContent = 'noticeSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -791,24 +796,28 @@ class NoticeController extends Controller
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = Marquee::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'marqueeSequence';
-        $sLogContent = 'marqueeSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = Marquee::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'marqueeSequence';
+                $sLogContent = 'marqueeSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
