@@ -185,6 +185,8 @@ Route::post('event/thirdAccountStatusSave', 'FundController@thirdAccountStatusSa
 
 Route::post('event/thirdAccountIsTopSave', 'FundController@thirdAccountIsTopSave');
 
+
+
 //log-management
 //log_adminlog.vue
 Route::get('event/logAdminlog', 'LogController@logAdminlog');
@@ -268,6 +270,8 @@ Route::post('event/thirdGameTypesDel', 'ThirdGameController@thirdGameTypesDel');
 Route::post('event/thirdGameTypesDetailDel', 'ThirdGameController@thirdGameTypesDetailDel');
 Route::post('event/thirdMerchantgameDel', 'ThirdGameController@thirdMerchantgameDel');
 Route::post('event/thirdPlatsDel', 'ThirdGameController@thirdPlatsDel');
+Route::get('event/gameTypeSetList', 'ThirdGameController@gameTypeSetList');
+Route::get('event/gameProfitList', 'ThirdGameController@gameProfitList');
 
 //play-management
 //betlimit_list.vue
