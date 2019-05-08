@@ -525,24 +525,28 @@ class ThirdGameController extends Controller
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = ThirdBall::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'marqueeSequence';
-        $sLogContent = 'marqueeSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = ThirdBall::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'marqueeSequence';
+                $sLogContent = 'marqueeSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -586,30 +590,34 @@ class ThirdGameController extends Controller
      * @param request
      * @return json
      */
-    public function thirdMerchantGameSequence($iId = null)
+    public function thirdMerchantGameSequence()
     {
 
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sequence']) ? $data['sequence'] : '';
-        $oEvent = ThirdMerchantGame::find($iId);
-        $oEvent->sequence = $iFlag;
-        $iRet = $oEvent->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = $iFlag;
-        $aFinal['data'] = $oEvent;
-
-
-        $sOperateName = 'marqueeSequence';
-        $sLogContent = 'marqueeSequence';
-
-
-        $dt = now();
-
-
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$sequenceSaveRules,Common::$sequenceSaveMessages)) {
+                $oEvent = ThirdMerchantGame::find($iId);
+                $oEvent->sequence = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'marqueeSequence';
+                $sLogContent = 'marqueeSequence';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
@@ -622,19 +630,27 @@ class ThirdGameController extends Controller
     {
 
         $data = request()->post();
-        $oMerchantGame = new ThirdMerchantGame;
-        $aData = $oMerchantGame->thirdMerchantGameFee($data);
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $aData;
-
-        $sOperateName = 'thirdMerchantGameFee';
-        $sLogContent = 'thirdMerchantGameFee';
-
-        $dt = now();
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$feeSaveRules,Common::$feeSaveMessages)) {
+                $oMerchantGame = new ThirdMerchantGame;
+                $aData = $oMerchantGame->thirdMerchantGameFee($data);
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $aData;
+                $sOperateName = 'thirdMerchantGameFee';
+                $sLogContent = 'thirdMerchantGameFee';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
     /**
@@ -648,20 +664,28 @@ class ThirdGameController extends Controller
         $data = request()->post();
         $iId = isset($data['id']) ? $data['id'] : '';
         $iFlag = isset($data['sub_fee']) ? $data['sub_fee'] : '';
-        $oMerchantGame = ThirdMerchantGame::find($iId);
-        $oMerchantGame->sub_fee = $iFlag;
-        $iRet = $oMerchantGame->save();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $oMerchantGame;
-
-        $sOperateName = 'thirdMerchantGameSubFee';
-        $sLogContent = 'thirdMerchantGameSubFee';
-
-        $dt = now();
-
-        AdminLog::adminLogSave($sOperateName);
-        return response()->json($aFinal);
+        try
+        {
+            if($this->validate(request(),Common::$feeSaveRules,Common::$feeSaveMessages)) {
+                $oMerchantGame = ThirdMerchantGame::find($iId);
+                $oMerchantGame->sub_fee = $iFlag;
+                $iRet = $oMerchantGame->save();
+                $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oMerchantGame;
+                $sOperateName = 'thirdMerchantGameSubFee';
+                $sLogContent = 'thirdMerchantGameSubFee';
+                $dt = now();
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
     }
 
 
@@ -1149,7 +1173,7 @@ class ThirdGameController extends Controller
 
         $iRet = $oQrCode->save();
 
-        $aFinal['message'] = 'success';
+        $aFinal['message'] = '添加成功';
         $aFinal['code'] = '1';
         $aFinal['data'] = $oQrCode;
 

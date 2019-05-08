@@ -92,5 +92,19 @@ class Common extends Model
                         'prize_limit'=>'数据错误',
                     ];
 
+    //游戏费用相关
+    public static $feeSaveRules=[
+                        'type' => 'filled|string',
+                        'plat_name' => 'filled|string',
+                        'fee' => 'filled|string',
+                        'sub_fee' => 'filled|string',
+                    ];
+    public static $feeSaveMessages=[
+                        'type'=>'数据错误',
+                        'plat_name'=>'数据错误',
+                        'fee'=>'数据错误',
+                        'sub_fee'=>'数据错误',
+                    ];
+
 
 }
