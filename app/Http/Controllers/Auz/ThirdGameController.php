@@ -342,10 +342,19 @@ class ThirdGameController extends Controller
         return ResultVo::success($res);
     }
 
+    public function objectToArray($e){
+        $e=(array)$e;
+        foreach($e as $k=>$v){
+            if( gettype($v)=='resource' ) return;
+            if( gettype($v)=='object' || gettype($v)=='array' )
+                $e[$k]=(array)$this->objectToArray($v);
+        }
+        return $e;
+    }
 
 
     /**
-     * 数据取得
+     * 游戏类别明细管理
      * @param request
      * @return json
      */
@@ -360,46 +369,114 @@ class ThirdGameController extends Controller
         $iRoleId = isset(request()->role_id) ? request()->role_id : '';
 
         $iStatus = isset(request()->status) ? request()->status : '';
-        $name = isset(request()->name) ? request()->name : '';
-        $plat_namee = isset(request()->plat_name) ? request()->plat_name : '';
+        $sName = isset(request()->name) ? request()->name : '';
+        $sPlatNamee = isset(request()->plat_name) ? request()->plat_name : '';
 
 
-        $oAuthAdminList = DB::table('third_game_types_detail');
+        $gameTypeDetailList = DB::table('third_game_types_detail as tgtd');
+        $gameTypeDetailList->select('tgtd.id','tgtd.plat_id','tgtd.plat_name','tgtd.name','tgtd.icon','tgtd.desc','tgtd.status','tgtd.set_id','tgtd.ext_field1','tgtd.ext_field2','tgtd.ext_field3','tgtd.ext_field4','tgtd.ext_field5','tgtd.ext_field6','tgtd.ext_field7','tgtd.ext_field8','tgtd.ext_field9','tgtd.ext_field10','tgtd.ext_field11','tgtd.ext_field12','tgtd.ext_field13','tgtd.ext_field14','tgtd.ext_field15','tgtd.ext_field16','tgtd.ext_field17','tgtd.ext_field18','tgtd.ext_field19','tgtd.ext_field20','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
+        $gameTypeDetailList->leftJoin('third_game_set as tgs', 'tgtd.set_id', '=', 'tgs.id');
+        // $sql = "select tgtd.id,tgtd.plat_id,tgtd.plat_name,tgtd.name,tgtd.icon,tgtd.desc,tgtd.status,tgtd.set_id,tgtd.ext_field1,tgtd.ext_field2,tgtd.ext_field3,tgtd.ext_field4,tgtd.ext_field5,tgtd.ext_field6,tgtd.ext_field7,tgtd.ext_field8,tgtd.ext_field9,tgtd.ext_field10,tgtd.ext_field11,tgtd.ext_field12,tgtd.ext_field13,tgtd.ext_field14,tgtd.ext_field15,tgtd.ext_field16,tgtd.ext_field17,tgtd.ext_field18,tgtd.ext_field19,tgtd.ext_field20,tgs.ext_column1,tgs.ext_column2,tgs.ext_column3,tgs.ext_column4,tgs.ext_column5,tgs.ext_column6,tgs.ext_column7,tgs.ext_column8,tgs.ext_column9,tgs.ext_column10,tgs.ext_column11,tgs.ext_column12,tgs.ext_column13,tgs.ext_column14,tgs.ext_column15,tgs.ext_column16,tgs.ext_column17,tgs.ext_column18,tgs.ext_column19,tgs.ext_column20 from third_game_types_detail as a left join third_game_set as b on tgtd.set_id=tgs.id limit 10,10";
+          // $gameTypeDetailList = DB::select($sql);
+        // $gameTypeDetailFinalList = $this->objectToArray($gameTypeDetailList);
+
 
 
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $gameTypeDetailList->where('tgtd.status', $iStatus);
         }
-
-        if ($name !== '') {
-            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
+        if ($sName !== '') {
+            $gameTypeDetailList->where('tgtd.name', 'like', '%' . $sName . '%');
         }
-
-        if ($plat_namee !== '') {
-            $oAuthAdminList->where('plat_name', 'like', '%' . $plat_namee . '%');
+        if ($sPlatNamee !== '') {
+            $gameTypeDetailList->where('tgtd.plat_name', 'like', '%' . $sPlatNamee . '%');
         }
-
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $gameTypeDetailFinalList = $gameTypeDetailList->orderby('tgtd.id', 'desc')->paginate($iLimit);
+        $res = [];
+        $res["total"] = count($gameTypeDetailFinalList);
+        $res["list"] = $gameTypeDetailFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+        $sOperateName = 'marqueeList';
+        $sLogContent = 'marqueeList';
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
 
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+    /**
+     * 游戏类别设置
+     * @param request
+     * @return json
+     */
+    public function gameTypeSetList()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
+        $oAuthAdminList = DB::table('third_game_set');
+        if ($is_parse !== '') {
+            $oAuthAdminList->where('is_parse', $is_parse);
+        }
+        $iLimit = request()->get('limit', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
         $res["total"] = count($oAuthAdminFinalList);
         $res["list"] = $oAuthAdminFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
         $sOperateName = 'marqueeList';
         $sLogContent = 'marqueeList';
-
         $dt = now();
-
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
+    /**
+     * 游戏盈亏
+     * @param request
+     * @return json
+     */
+    public function gameProfitList()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
+        $oAuthAdminList = DB::table('third_profits');
+        if ($is_parse !== '') {
+            $oAuthAdminList->where('is_parse', $is_parse);
+        }
+        $iLimit = request()->get('limit', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $res = [];
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+        $sOperateName = 'marqueeList';
+        $sLogContent = 'marqueeList';
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
 
     /**
      * 商户游戏管理列表
@@ -515,6 +592,7 @@ class ThirdGameController extends Controller
     }
 
 
+    
 
 
     /**
@@ -638,6 +716,11 @@ class ThirdGameController extends Controller
             if($this->validate(request(),Common::$feeSaveRules,Common::$feeSaveMessages)) {
                 $oMerchantGame = new ThirdMerchantGame;
                 $aData = $oMerchantGame->thirdMerchantGameFee($data);
+                if ($aData) {
+                    // commit trans
+                } else {
+                    // rollback trans
+                }
                 $aFinal['message'] = CommonUtils::getMessage('updateSave_success');
                 $aFinal['code'] = 1;
                 $aFinal['data'] = $aData;
@@ -1069,43 +1152,59 @@ class ThirdGameController extends Controller
     {
         $data = request()->post();
 
-        $id=isset($data['id'])?$data['id']:'';
-        $plat_id=isset($data['plat_id'])?$data['plat_id']:'';
-        $plat_name=isset($data['plat_name'])?$data['plat_name']:'';
-        $name=isset($data['name'])?$data['name']:'';
-        $icon=isset($data['icon'])?$data['icon']:'';
-        $desc=isset($data['desc'])?$data['desc']:'';
-        $status=isset($data['status'])?$data['status']:'';
+        $iId=isset($data['id'])?$data['id']:'';
+        $iPlatId=isset($data['plat_id'])?$data['plat_id']:'';
+        $sPlatName=isset($data['plat_name'])?$data['plat_name']:'';
+        $sName=isset($data['name'])?$data['name']:'';
+        $sIcon=isset($data['icon'])?$data['icon']:'';
+        $sDesc=isset($data['desc'])?$data['desc']:'';
+        $sStatus=isset($data['status'])?$data['status']:'';
 
-
-        if ($id != '') {
-            $oQrCode = ThirdGameTypesDetail::find($id);
+        if ($iId != '') {
+            $oThirdGameTypesDetail = ThirdGameTypesDetail::find($iId);
         } else {
-            $oQrCode = new ThirdGameTypesDetail();
+            $oThirdGameTypesDetail = new ThirdGameTypesDetail();
         }
+        $oThirdGameTypesDetail->plat_id=$iPlatId;
+        $oThirdGameTypesDetail->plat_name=$sPlatName;
+        $oThirdGameTypesDetail->name=$sName;
+        $oThirdGameTypesDetail->icon=$sIcon;
+        $oThirdGameTypesDetail->desc=$sDesc;
+        $oThirdGameTypesDetail->status=$sStatus;
 
-        $oQrCode->plat_id=$plat_id;
-        $oQrCode->plat_name=$plat_name;
-        $oQrCode->name=$name;
-        $oQrCode->icon=$icon;
-        $oQrCode->desc=$desc;
-        $oQrCode->status=$status;
+        // for ($i=1; $i < 20; $i++) { 
+        //     $oThirdGameTypesDetail->ext_field.$i=$data['ext_field'.$i];
+        // }
 
-        $iRet = $oQrCode->save();
+        $oThirdGameTypesDetail->ext_field1=$data['ext_field1'];
+        $oThirdGameTypesDetail->ext_field2=$data['ext_field2'];
+        $oThirdGameTypesDetail->ext_field3=$data['ext_field3'];
+        $oThirdGameTypesDetail->ext_field4=$data['ext_field4'];
+        $oThirdGameTypesDetail->ext_field5=$data['ext_field5'];
+        $oThirdGameTypesDetail->ext_field6=$data['ext_field6'];
+        $oThirdGameTypesDetail->ext_field7=$data['ext_field7'];
+        $oThirdGameTypesDetail->ext_field8=$data['ext_field8'];
+        $oThirdGameTypesDetail->ext_field9=$data['ext_field9'];
+        $oThirdGameTypesDetail->ext_field10=$data['ext_field10'];
+        $oThirdGameTypesDetail->ext_field11=$data['ext_field11'];
+        $oThirdGameTypesDetail->ext_field12=$data['ext_field12'];
+        $oThirdGameTypesDetail->ext_field13=$data['ext_field13'];
+        $oThirdGameTypesDetail->ext_field14=$data['ext_field14'];
+        $oThirdGameTypesDetail->ext_field15=$data['ext_field15'];
+        $oThirdGameTypesDetail->ext_field16=$data['ext_field16'];
+        $oThirdGameTypesDetail->ext_field17=$data['ext_field17'];
+        $oThirdGameTypesDetail->ext_field18=$data['ext_field18'];
+        $oThirdGameTypesDetail->ext_field19=$data['ext_field19'];
+        $oThirdGameTypesDetail->ext_field20=$data['ext_field20'];
 
+        $iRet = $oThirdGameTypesDetail->save();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $oQrCode;
-
+        $aFinal['data'] = $oThirdGameTypesDetail;
 
         $sOperateName = 'thirdGameTypesDetailSave';
         $sLogContent = 'thirdGameTypesDetailSave';
-
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }
