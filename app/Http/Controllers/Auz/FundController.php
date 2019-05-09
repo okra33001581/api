@@ -29,6 +29,8 @@ use App\model\RakeBack;
 use App\model\PayAccount;
 use App\model\AdminLog;
 use App\model\Common;
+use App\model\UserAccounts;
+use App\model\MerchantAccounts;
 
 /**
  * Class Event - 资金相关控制器
@@ -36,6 +38,103 @@ use App\model\Common;
  */
 class FundController extends Controller
 {
+
+
+    /**
+     * 获取用户账户列表
+     * @param request
+     * @return json
+     */
+    public function userAccountsList()
+    {
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sUserName = isset(request()->username) ? request()->username : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $sEndDate = isset(request()->endDate) ? request()->endDate : '';
+        $oUserAccountsList = DB::table('user_accounts');
+        if ($iStatus != '') {
+            $oUserAccountsList->where('status', $iStatus);
+        }
+        if ($sMerchantName != '') {
+            $oUserAccountsList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        }
+        if ($sUserName != '') {
+            $oUserAccountsList->where('username', 'like', '%' . $sUserName . '%');
+        }
+        if ($sBeginDate != '') {
+            $oUserAccountsList->where('project_date', '>=', $sBeginDate);
+        }
+        if ($sEndDate != '') {
+            $oUserAccountsList->where('project_date', '<=', $sEndDate);
+        }
+        $iLimit = request()->get('limit', 20);
+        $oUserAccountsFinalList = $oUserAccountsList->orderby('id', 'desc')->paginate($iLimit);
+        $res = [];
+        $res["total"] = count($oUserAccountsFinalList);
+        $res["list"] = $oUserAccountsFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+        $sOperateName = 'userAccountsList';
+        $sLogContent = 'userAccountsList';
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+    /**
+     * 获取商户账户列表
+     * @param request
+     * @return json
+     */
+    public function merchantAccountsList()
+    {
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sUserName = isset(request()->username) ? request()->username : '';
+        $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
+        $sBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
+        $sEndDate = isset(request()->endDate) ? request()->endDate : '';
+        $oUserAccountsList = DB::table('user_merchant_accounts');
+        if ($iStatus != '') {
+            $oUserAccountsList->where('status', $iStatus);
+        }
+        if ($sMerchantName != '') {
+            $oUserAccountsList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        }
+        if ($sUserName != '') {
+            $oUserAccountsList->where('username', 'like', '%' . $sUserName . '%');
+        }
+        if ($sBeginDate != '') {
+            $oUserAccountsList->where('project_date', '>=', $sBeginDate);
+        }
+        if ($sEndDate != '') {
+            $oUserAccountsList->where('project_date', '<=', $sEndDate);
+        }
+        $iLimit = request()->get('limit', 20);
+        $oUserAccountsFinalList = $oUserAccountsList->orderby('id', 'desc')->paginate($iLimit);
+        $res = [];
+        $res["total"] = count($oUserAccountsFinalList);
+        $res["list"] = $oUserAccountsFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+        $sOperateName = 'merchantAccountsList';
+        $sLogContent = 'merchantAccountsList';
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+
     /**
      * 数据取得
      * @param request
@@ -1814,6 +1913,86 @@ class FundController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
+
+
+    /**
+     * 用户账户列表状态修改
+     * @param request
+     * @return json
+     */
+    public function userAccountsStatusSave()
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oUserAccounts = UserAccounts::find($iId);
+                $oUserAccounts->status = $iFlag;
+                $iRet = $oUserAccounts->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oUserAccounts;
+
+                $sOperateName = 'usersafetyStatusSave';
+                $sLogContent = 'usersafetyStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
+    }
+
+    /**
+     * 用户账户列表状态修改
+     * @param request
+     * @return json
+     */
+    public function merchantAccountsStatusSave()
+    {
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oMerchantAccounts = MerchantAccounts::find($iId);
+                $oMerchantAccounts->status = $iFlag;
+                $iRet = $oMerchantAccounts->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oMerchantAccounts;
+
+                $sOperateName = 'merchantAccountsStatusSave';
+                $sLogContent = 'merchantAccountsStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
+    }
+
     /**
      * 数据保存
      * @param request

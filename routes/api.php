@@ -114,6 +114,10 @@ Route::post('event/proxycommissionProxyDelete', 'DelegateController@proxycommiss
 //activity_list.vue
 Route::get('event/activityList', 'EventController@activityList');
 //fund-management
+//cash_rakeback.vue
+Route::get('event/userAccountsList', 'FundController@userAccountsList');
+//cash_rakeback.vue
+Route::get('event/merchantAccountsList', 'FundController@merchantAccountsList');
 //cash_orderlist.vue
 Route::get('event/cashOrderlist', 'FundController@cashOrderlist');
 //cash_paysetting.vue
@@ -143,6 +147,8 @@ Route::get('event/tripartiteList', 'FundController@tripartiteList');
 //userbetscheck_list.vue
 Route::get('event/userbetscheckList', 'FundController@userbetscheckList');
 
+Route::post('event/userAccountsStatusSave', 'FundController@userAccountsStatusSave');
+Route::post('event/merchantAccountsStatusSave', 'FundController@merchantAccountsStatusSave');
 Route::post('event/paysettingSave', 'FundController@paysettingSave');
 Route::post('event/depositAccountSave', 'FundController@depositAccountSave');
 
