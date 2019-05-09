@@ -1566,4 +1566,48 @@ class ThirdGameController extends Controller
         return ResultVo::success($res);
     }
 
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function transactionTypeList()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+
+        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
+
+        $oAuthAdminList = DB::table('transaction_types');
+
+
+        if ($is_parse !== '') {
+            $oAuthAdminList->where('is_parse', $is_parse);
+        }
+
+        $iLimit = request()->get('limit', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+
+        $res = [];
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        $sOperateName = 'merchantsIp';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
 }
