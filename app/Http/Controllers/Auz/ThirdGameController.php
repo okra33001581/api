@@ -1512,8 +1512,7 @@ class ThirdGameController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'merchantsDomains';
 
         $dt = now();
 
@@ -1557,8 +1556,7 @@ class ThirdGameController extends Controller
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'merchantsIp';
 
         $dt = now();
 

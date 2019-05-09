@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3a827f27-ced2-4721-b2bd-69e4be5db877" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auz/ThirdGameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auz/ThirdGameController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ThirdGameController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="373" column="8" selection-start-line="372" selection-start-column="8" selection-end-line="373" selection-end-column="8" />
+            <state relative-caret-position="502">
+              <caret line="1560" column="20" lean-forward="true" selection-start-line="1560" selection-start-column="20" selection-end-line="1560" selection-end-column="20" />
               <folding>
                 <element signature="e#40#73#0#PHP" expanded="true" />
               </folding>
@@ -62,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="264" column="38" selection-start-line="264" selection-start-column="38" selection-end-line="264" selection-end-column="38" />
+            <state relative-caret-position="282">
+              <caret line="282" lean-forward="true" selection-start-line="282" selection-end-line="282" />
               <folding>
                 <element signature="e#7#35#0#PHP" expanded="true" />
               </folding>
@@ -143,8 +144,8 @@
       <find>permissionRuleDeptIndex</find>
       <find>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/task00001</find>
       <find>thir</find>
-      <find>gameProfitList</find>
       <find>CommonUtils</find>
+      <find>gameProfitList</find>
     </findStrings>
     <replaceStrings>
       <replace>$sLowerRegisterColumn</replace>
@@ -442,13 +443,6 @@
       <workItem from="1556764643252" duration="7889000" />
       <workItem from="1556850059563" duration="5916000" />
       <workItem from="1556859959735" duration="2882000" />
-    </task>
-    <task id="LOCAL-00049" summary="update">
-      <created>1554344584336</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1554344584336</updated>
     </task>
     <task id="LOCAL-00050" summary="update">
       <created>1554359032070</created>
@@ -786,11 +780,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557297236116</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="update">
+      <created>1557378779140</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1557378779140</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="412185000" />
+    <option name="totallyTimeSpent" value="412791000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1217,16 +1218,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="264" column="38" selection-start-line="264" selection-start-column="38" selection-end-line="264" selection-end-column="38" />
-          <folding>
-            <element signature="e#7#35#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/basic.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
@@ -1244,10 +1235,20 @@
     <entry file="file://$PROJECT_DIR$/resources/lang/en/passwords.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="282" lean-forward="true" selection-start-line="282" selection-end-line="282" />
+          <folding>
+            <element signature="e#7#35#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auz/ThirdGameController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="373" column="8" selection-start-line="372" selection-start-column="8" selection-end-line="373" selection-end-column="8" />
+        <state relative-caret-position="502">
+          <caret line="1560" column="20" lean-forward="true" selection-start-line="1560" selection-start-column="20" selection-end-line="1560" selection-end-column="20" />
           <folding>
             <element signature="e#40#73#0#PHP" expanded="true" />
           </folding>
