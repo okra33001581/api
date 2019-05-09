@@ -245,7 +245,7 @@ class ThirdGameController extends Controller
         return ResultVo::success($res);
     }
     /**
-     * 数据取得
+     * GA流水列表
      * @param request
      * @return json
      */
@@ -260,22 +260,23 @@ class ThirdGameController extends Controller
         $sUserName = isset(request()->username) ? request()->username : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $oAuthAdminList = DB::table('third_user_ga_turnovers');
-
+        $gaUserTurnoverList = DB::table('third_user_ga_turnovers as tugt');
+        $gaUserTurnoverList->select('tugt.*','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
+        $gaUserTurnoverList->leftJoin('third_game_set as tgs', 'tugt.set_id', '=', 'tgs.id');
         if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $gaUserTurnoverList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
+            $gaUserTurnoverList->where('username', 'like', '%' . $sUserName . '%');
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $gaUserTurnoverFinalList = $gaUserTurnoverList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($gaUserTurnoverFinalList);
+        $res["list"] = $gaUserTurnoverFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1151,51 +1152,74 @@ class ThirdGameController extends Controller
     public function thirdGameTypesDetailSave()
     {
         $data = request()->post();
-
         $iId=isset($data['id'])?$data['id']:'';
         $iPlatId=isset($data['plat_id'])?$data['plat_id']:'';
+        $iSetId=isset($data['set_id'])?$data['set_id']:'';
         $sPlatName=isset($data['plat_name'])?$data['plat_name']:'';
         $sName=isset($data['name'])?$data['name']:'';
         $sIcon=isset($data['icon'])?$data['icon']:'';
         $sDesc=isset($data['desc'])?$data['desc']:'';
-        $sStatus=isset($data['status'])?$data['status']:'';
+        //$sStatus=isset($data['status'])?$data['status']:'';
+        $sExtField1=isset($data['ext_field1'])?$data['ext_field1']:'';
+        $sExtField2=isset($data['ext_field2'])?$data['ext_field2']:'';
+        $sExtField3=isset($data['ext_field3'])?$data['ext_field3']:'';
+        $sExtField4=isset($data['ext_field4'])?$data['ext_field4']:'';
+        $sExtField5=isset($data['ext_field5'])?$data['ext_field5']:'';
+        $sExtField6=isset($data['ext_field6'])?$data['ext_field6']:'';
+        $sExtField7=isset($data['ext_field7'])?$data['ext_field7']:'';
+        $sExtField8=isset($data['ext_field8'])?$data['ext_field8']:'';
+        $sExtField9=isset($data['ext_field9'])?$data['ext_field9']:'';
+        $sExtField10=isset($data['ext_field10'])?$data['ext_field10']:'';
+        $sExtField11=isset($data['ext_field11'])?$data['ext_field11']:'';
+        $sExtField12=isset($data['ext_field12'])?$data['ext_field12']:'';
+        $sExtField13=isset($data['ext_field13'])?$data['ext_field13']:'';
+        $sExtField14=isset($data['ext_field14'])?$data['ext_field14']:'';
+        $sExtField15=isset($data['ext_field15'])?$data['ext_field15']:'';
+        $sExtField16=isset($data['ext_field16'])?$data['ext_field16']:'';
+        $sExtField17=isset($data['ext_field17'])?$data['ext_field17']:'';
+        $sExtField18=isset($data['ext_field18'])?$data['ext_field18']:'';
+        $sExtField19=isset($data['ext_field19'])?$data['ext_field19']:'';
+        $sExtField20=isset($data['ext_field20'])?$data['ext_field20']:'';
 
-        if ($iId != '') {
+        if ($iId != '' && empty($iSetId)) {
             $oThirdGameTypesDetail = ThirdGameTypesDetail::find($iId);
         } else {
             $oThirdGameTypesDetail = new ThirdGameTypesDetail();
         }
         $oThirdGameTypesDetail->plat_id=$iPlatId;
+        if($iSetId){
+            $oThirdGameTypesDetail->set_id=$iSetId;
+        }
         $oThirdGameTypesDetail->plat_name=$sPlatName;
         $oThirdGameTypesDetail->name=$sName;
         $oThirdGameTypesDetail->icon=$sIcon;
         $oThirdGameTypesDetail->desc=$sDesc;
-        $oThirdGameTypesDetail->status=$sStatus;
+        //$oThirdGameTypesDetail->status=$sStatus;
 
         // for ($i=1; $i < 20; $i++) { 
         //     $oThirdGameTypesDetail->ext_field.$i=$data['ext_field'.$i];
         // }
 
-        $oThirdGameTypesDetail->ext_field1=$data['ext_field1'];
-        $oThirdGameTypesDetail->ext_field2=$data['ext_field2'];
-        $oThirdGameTypesDetail->ext_field3=$data['ext_field3'];
-        $oThirdGameTypesDetail->ext_field4=$data['ext_field4'];
-        $oThirdGameTypesDetail->ext_field5=$data['ext_field5'];
-        $oThirdGameTypesDetail->ext_field6=$data['ext_field6'];
-        $oThirdGameTypesDetail->ext_field7=$data['ext_field7'];
-        $oThirdGameTypesDetail->ext_field8=$data['ext_field8'];
-        $oThirdGameTypesDetail->ext_field9=$data['ext_field9'];
-        $oThirdGameTypesDetail->ext_field10=$data['ext_field10'];
-        $oThirdGameTypesDetail->ext_field11=$data['ext_field11'];
-        $oThirdGameTypesDetail->ext_field12=$data['ext_field12'];
-        $oThirdGameTypesDetail->ext_field13=$data['ext_field13'];
-        $oThirdGameTypesDetail->ext_field14=$data['ext_field14'];
-        $oThirdGameTypesDetail->ext_field15=$data['ext_field15'];
-        $oThirdGameTypesDetail->ext_field16=$data['ext_field16'];
-        $oThirdGameTypesDetail->ext_field17=$data['ext_field17'];
-        $oThirdGameTypesDetail->ext_field18=$data['ext_field18'];
-        $oThirdGameTypesDetail->ext_field19=$data['ext_field19'];
-        $oThirdGameTypesDetail->ext_field20=$data['ext_field20'];
+        $oThirdGameTypesDetail->ext_field1=$sExtField1;
+        $oThirdGameTypesDetail->ext_field2=$sExtField2;
+        $oThirdGameTypesDetail->ext_field3=$sExtField3;
+        $oThirdGameTypesDetail->ext_field4=$sExtField4;
+        $oThirdGameTypesDetail->ext_field5=$sExtField5;
+        $oThirdGameTypesDetail->ext_field6=$sExtField6;
+        $oThirdGameTypesDetail->ext_field7=$sExtField7;
+        $oThirdGameTypesDetail->ext_field8=$sExtField8;
+        $oThirdGameTypesDetail->ext_field9=$sExtField9;
+        $oThirdGameTypesDetail->ext_field10=$sExtField10;
+        $oThirdGameTypesDetail->ext_field11=$sExtField11;
+        $oThirdGameTypesDetail->ext_field12=$sExtField12;
+        $oThirdGameTypesDetail->ext_field13=$sExtField13;
+        $oThirdGameTypesDetail->ext_field14=$sExtField14;
+        $oThirdGameTypesDetail->ext_field15=$sExtField15;
+        $oThirdGameTypesDetail->ext_field16=$sExtField16;
+        $oThirdGameTypesDetail->ext_field17=$sExtField17;
+        $oThirdGameTypesDetail->ext_field18=$sExtField18;
+        $oThirdGameTypesDetail->ext_field19=$sExtField19;
+        $oThirdGameTypesDetail->ext_field20=$sExtField20;
 
         $iRet = $oThirdGameTypesDetail->save();
         $aFinal['message'] = 'success';
@@ -2160,31 +2184,35 @@ class ThirdGameController extends Controller
     public function thirdGameSetSave()
     {
         $data = request()->post();
-
+        var_dump($data);die;
         $id=isset($data['id'])?$data['id']:'';
         $domains=isset($data['domains'])?$data['domains']:'';
-
-        Log::info($this->objectToArray($domains));
-        $ext_column1=isset($data['ext_column1'])?$data['ext_column1']:'';
-        $ext_column2=isset($data['ext_column2'])?$data['ext_column2']:'';
-        $ext_column3=isset($data['ext_column3'])?$data['ext_column3']:'';
-        $ext_column4=isset($data['ext_column4'])?$data['ext_column4']:'';
-        $ext_column5=isset($data['ext_column5'])?$data['ext_column5']:'';
-        $ext_column6=isset($data['ext_column6'])?$data['ext_column6']:'';
-        $ext_column7=isset($data['ext_column7'])?$data['ext_column7']:'';
-        $ext_column8=isset($data['ext_column8'])?$data['ext_column8']:'';
-        $ext_column9=isset($data['ext_column9'])?$data['ext_column9']:'';
-        $ext_column10=isset($data['ext_column10'])?$data['ext_column10']:'';
-        $ext_column11=isset($data['ext_column11'])?$data['ext_column11']:'';
-        $ext_column12=isset($data['ext_column12'])?$data['ext_column12']:'';
-        $ext_column13=isset($data['ext_column13'])?$data['ext_column13']:'';
-        $ext_column14=isset($data['ext_column14'])?$data['ext_column14']:'';
-        $ext_column15=isset($data['ext_column15'])?$data['ext_column15']:'';
-        $ext_column16=isset($data['ext_column16'])?$data['ext_column16']:'';
-        $ext_column17=isset($data['ext_column17'])?$data['ext_column17']:'';
-        $ext_column18=isset($data['ext_column18'])?$data['ext_column18']:'';
-        $ext_column19=isset($data['ext_column19'])?$data['ext_column19']:'';
-        $ext_column20=isset($data['ext_column20'])?$data['ext_column20']:'';
+        $aData = [];
+        foreach ($data['domains'] as $k => $v) {
+            $index = $k+1;
+            $aData["ext_column".$index] = $v['value'];
+        }
+        // Log::info($this->objectToArray($domains));
+        $ext_column1=isset($aData['ext_column1'])?$aData['ext_column1']:'';
+        $ext_column2=isset($aData['ext_column2'])?$aData['ext_column2']:'';
+        $ext_column3=isset($aData['ext_column3'])?$aData['ext_column3']:'';
+        $ext_column4=isset($aData['ext_column4'])?$aData['ext_column4']:'';
+        $ext_column5=isset($aData['ext_column5'])?$aData['ext_column5']:'';
+        $ext_column6=isset($aData['ext_column6'])?$aData['ext_column6']:'';
+        $ext_column7=isset($aData['ext_column7'])?$aData['ext_column7']:'';
+        $ext_column8=isset($aData['ext_column8'])?$aData['ext_column8']:'';
+        $ext_column9=isset($aData['ext_column9'])?$aData['ext_column9']:'';
+        $ext_column10=isset($aData['ext_column10'])?$aData['ext_column10']:'';
+        $ext_column11=isset($aData['ext_column11'])?$aData['ext_column11']:'';
+        $ext_column12=isset($aData['ext_column12'])?$aData['ext_column12']:'';
+        $ext_column13=isset($aData['ext_column13'])?$aData['ext_column13']:'';
+        $ext_column14=isset($aData['ext_column14'])?$aData['ext_column14']:'';
+        $ext_column15=isset($aData['ext_column15'])?$aData['ext_column15']:'';
+        $ext_column16=isset($aData['ext_column16'])?$aData['ext_column16']:'';
+        $ext_column17=isset($aData['ext_column17'])?$aData['ext_column17']:'';
+        $ext_column18=isset($aData['ext_column18'])?$aData['ext_column18']:'';
+        $ext_column19=isset($aData['ext_column19'])?$aData['ext_column19']:'';
+        $ext_column20=isset($aData['ext_column20'])?$aData['ext_column20']:'';
 
 
         if ($id != '') {
