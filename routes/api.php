@@ -290,6 +290,9 @@ Route::post('event/merchantsIpDel', 'ThirdGameController@merchantsIpDel');
 Route::post('event/transactionTypeDel', 'ThirdGameController@transactionTypeDel');
 Route::post('event/merchantsDomainsDel', 'ThirdGameController@merchantsDomainsDel');
 
+Route::post('event/merchantsIpStatusSave', 'ThirdGameController@merchantsIpStatusSave');
+Route::post('event/transactionTypeStatusSave', 'ThirdGameController@transactionTypeStatusSave');
+Route::post('event/merchantsDomainsStatusSave', 'ThirdGameController@merchantsDomainsStatusSave');
 
 //play-management
 //betlimit_list.vue
