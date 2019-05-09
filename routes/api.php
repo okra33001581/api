@@ -248,7 +248,8 @@ Route::get('event/gaUserTurnoverList', 'ThirdGameController@gaUserTurnoverList')
 Route::get('event/gameTypeList', 'ThirdGameController@gameTypeList');
 Route::get('event/merchantGameList', 'ThirdGameController@merchantGameList');
 Route::get('event/thirdPlatList', 'ThirdGameController@thirdPlatList');
-
+Route::get('event/gameTypeSetList', 'ThirdGameController@gameTypeSetList');
+Route::get('event/gameProfitList', 'ThirdGameController@gameProfitList');
 Route::get('event/gameTypeDetailList', 'ThirdGameController@gameTypeDetailList');
 
 
