@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\common\utils\CommonUtils;
+use App\model\MerchantsDomains;
+use App\model\MerchantsIp;
+use App\model\TransactionTypes;
 use DB;
 use Log;
 use App\common\vo\ResultVo;
@@ -13,6 +16,7 @@ use App\model\ThirdGameTypes;
 use App\model\ThirdMerchantGame;
 use App\model\ThirdPlats;
 use App\model\ThirdGameTypesDetail;
+use App\model\ThirdGameSet;
 use App\model\Common;
 
 /**
@@ -401,7 +405,6 @@ class ThirdGameController extends Controller
         $sLogContent = 'marqueeList';
         $dt = now();
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -1576,5 +1579,661 @@ class ThirdGameController extends Controller
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
     }*/
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function merchantsDomains()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+
+        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
+
+        $oAuthAdminList = DB::table('merchants_domains');
+
+
+        if ($is_parse !== '') {
+            $oAuthAdminList->where('is_parse', $is_parse);
+        }
+
+        $iLimit = request()->get('limit', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+
+        $res = [];
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        $sOperateName = 'merchantsDomains';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function merchantsIp()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+
+        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
+
+        $oAuthAdminList = DB::table('merchants_ip');
+
+
+        if ($is_parse !== '') {
+            $oAuthAdminList->where('is_parse', $is_parse);
+        }
+
+        $iLimit = request()->get('limit', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+
+        $res = [];
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        $sOperateName = 'merchantsIp';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function transactionTypeList()
+    {
+        $sWhere = [];
+        $sOrder = 'id DESC';
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        // +id -id
+        $iSort = isset(request()->sort) ? request()->sort : '';
+
+        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
+
+        $oAuthAdminList = DB::table('transaction_types');
+
+
+        if ($is_parse !== '') {
+            $oAuthAdminList->where('is_parse', $is_parse);
+        }
+
+        $iLimit = request()->get('limit', 20);
+        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+
+        $res = [];
+        $res["total"] = count($oAuthAdminFinalList);
+        $res["list"] = $oAuthAdminFinalList->toArray();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        $sOperateName = 'merchantsIp';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function merchantsIpSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
+        $ip=isset($data['ip'])?$data['ip']:'';
+        $parent_id=isset($data['parent_id'])?$data['parent_id']:0;
+        $parent_level=isset($data['parent_level'])?$data['parent_level']:'';
+        $parent_path=isset($data['parent_path'])?$data['parent_path']:'';
+        $created_at=isset($data['created_at'])?$data['created_at']:'';
+        $updated_at=isset($data['updated_at'])?$data['updated_at']:'';
+
+
+        if ($id != '') {
+            $oQrCode = MerchantsIp::find($id);
+        } else {
+            $oQrCode = new MerchantsIp();
+        }
+
+//        $oQrCode->id=$id;
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->ip=$ip;
+        $oQrCode->parent_id=$parent_id;
+        $oQrCode->parent_level=$parent_level;
+        $oQrCode->parent_path=$parent_path;
+        $oQrCode->created_at=now();
+        $oQrCode->updated_at=now();
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function transactionTypeSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:0;
+        $merchant_name=isset($data['merchant_name'])?$data['merchant_name']:'';
+        $parent_id=isset($data['parent_id'])?$data['parent_id']:0;
+        $parent=isset($data['parent'])?$data['parent']:'';
+        $fund_flow_id=isset($data['fund_flow_id'])?$data['fund_flow_id']:0;
+        $description=isset($data['description'])?$data['description']:'';
+        $cn_title=isset($data['cn_title'])?$data['cn_title']:'';
+        $balance=isset($data['balance'])?$data['balance']:'';
+        $available=isset($data['available'])?$data['available']:'';
+        $frozen=isset($data['frozen'])?$data['frozen']:'';
+        $withdrawable=isset($data['withdrawable'])?$data['withdrawable']:'';
+        $prohibit_amount=isset($data['prohibit_amount'])?$data['prohibit_amount']:'';
+        $credit=isset($data['credit'])?$data['credit']:'';
+        $debit=isset($data['debit'])?$data['debit']:'';
+        $project_linked=isset($data['project_linked'])?$data['project_linked']:'';
+        $trace_linked=isset($data['trace_linked'])?$data['trace_linked']:'';
+        $reverse_type=isset($data['reverse_type'])?$data['reverse_type']:'';
+        $created_at=isset($data['created_at'])?$data['created_at']:'';
+        $updated_at=isset($data['updated_at'])?$data['updated_at']:'';
+
+        if ($id != '') {
+            $oQrCode = TransactionTypes::find($id);
+        } else {
+            $oQrCode = new TransactionTypes();
+        }
+
+//        $oQrCode->id=$id;
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->merchant_name=$merchant_name;
+        $oQrCode->parent_id=$parent_id;
+        $oQrCode->parent=$parent;
+        $oQrCode->fund_flow_id=$fund_flow_id;
+        $oQrCode->description=$description;
+        $oQrCode->cn_title=$cn_title;
+        $oQrCode->balance=$balance;
+        $oQrCode->available=$available;
+        $oQrCode->frozen=$frozen;
+        $oQrCode->withdrawable=$withdrawable;
+        $oQrCode->prohibit_amount=$prohibit_amount;
+        $oQrCode->credit=$credit;
+        $oQrCode->debit=$debit;
+        $oQrCode->project_linked=$project_linked;
+        $oQrCode->trace_linked=$trace_linked;
+        $oQrCode->reverse_type=$reverse_type;
+        $oQrCode->created_at=now();
+        $oQrCode->updated_at=now();
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function merchantsDomainsSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['merchant_id']:'';
+        $domain=isset($data['domain'])?$data['domain']:'';
+        $status=isset($data['status'])?$data['status']:'';
+        $created_at=isset($data['created_at'])?$data['created_at']:'';
+        $updated_at=isset($data['updated_at'])?$data['updated_at']:'';
+
+
+
+        if ($id != '') {
+            $oQrCode = MerchantsDomains::find($id);
+        } else {
+            $oQrCode = new MerchantsDomains();
+        }
+
+//        $oQrCode->id=$id;
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->domain=$domain;
+        $oQrCode->status=$status;
+        $oQrCode->created_at=now();
+        $oQrCode->updated_at=now();
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function merchantsIpDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        MerchantsIp::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function transactionTypeDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        TransactionTypes::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function merchantsDomainsDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        MerchantsDomains::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function merchantsIpStatusSave($iId = null)
+    {
+
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+
+                $oEvent = MerchantsIp::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
+
+
+    }
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function transactionTypeStatusSave($iId = null)
+    {
+
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+
+                $oEvent = TransactionTypes::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
+
+
+    }
+
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function merchantsDomainsStatusSave($iId = null)
+    {
+
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+
+        try
+        {
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+
+                $oEvent = MerchantsDomains::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+            }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
+
+
+    }
+
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdGameSetSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $domains=isset($data['domains'])?$data['domains']:'';
+
+        Log::info($this->objectToArray($domains));
+        $ext_column1=isset($data['ext_column1'])?$data['ext_column1']:'';
+        $ext_column2=isset($data['ext_column2'])?$data['ext_column2']:'';
+        $ext_column3=isset($data['ext_column3'])?$data['ext_column3']:'';
+        $ext_column4=isset($data['ext_column4'])?$data['ext_column4']:'';
+        $ext_column5=isset($data['ext_column5'])?$data['ext_column5']:'';
+        $ext_column6=isset($data['ext_column6'])?$data['ext_column6']:'';
+        $ext_column7=isset($data['ext_column7'])?$data['ext_column7']:'';
+        $ext_column8=isset($data['ext_column8'])?$data['ext_column8']:'';
+        $ext_column9=isset($data['ext_column9'])?$data['ext_column9']:'';
+        $ext_column10=isset($data['ext_column10'])?$data['ext_column10']:'';
+        $ext_column11=isset($data['ext_column11'])?$data['ext_column11']:'';
+        $ext_column12=isset($data['ext_column12'])?$data['ext_column12']:'';
+        $ext_column13=isset($data['ext_column13'])?$data['ext_column13']:'';
+        $ext_column14=isset($data['ext_column14'])?$data['ext_column14']:'';
+        $ext_column15=isset($data['ext_column15'])?$data['ext_column15']:'';
+        $ext_column16=isset($data['ext_column16'])?$data['ext_column16']:'';
+        $ext_column17=isset($data['ext_column17'])?$data['ext_column17']:'';
+        $ext_column18=isset($data['ext_column18'])?$data['ext_column18']:'';
+        $ext_column19=isset($data['ext_column19'])?$data['ext_column19']:'';
+        $ext_column20=isset($data['ext_column20'])?$data['ext_column20']:'';
+
+
+        if ($id != '') {
+            $oQrCode = ThirdGameSet::find($id);
+        } else {
+            $oQrCode = new ThirdGameSet();
+        }
+
+//        $oQrCode->id=$id;
+//        $oQrCode->id=$id;
+        $oQrCode->ext_column1=$ext_column1;
+        $oQrCode->ext_column2=$ext_column2;
+        $oQrCode->ext_column3=$ext_column3;
+        $oQrCode->ext_column4=$ext_column4;
+        $oQrCode->ext_column5=$ext_column5;
+        $oQrCode->ext_column6=$ext_column6;
+        $oQrCode->ext_column7=$ext_column7;
+        $oQrCode->ext_column8=$ext_column8;
+        $oQrCode->ext_column9=$ext_column9;
+        $oQrCode->ext_column10=$ext_column10;
+        $oQrCode->ext_column11=$ext_column11;
+        $oQrCode->ext_column12=$ext_column12;
+        $oQrCode->ext_column13=$ext_column13;
+        $oQrCode->ext_column14=$ext_column14;
+        $oQrCode->ext_column15=$ext_column15;
+        $oQrCode->ext_column16=$ext_column16;
+        $oQrCode->ext_column17=$ext_column17;
+        $oQrCode->ext_column18=$ext_column18;
+        $oQrCode->ext_column19=$ext_column19;
+        $oQrCode->ext_column20=$ext_column20;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
 
 }
