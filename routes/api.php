@@ -294,6 +294,7 @@ Route::post('event/merchantsDomainsDel', 'ThirdGameController@merchantsDomainsDe
 Route::post('event/merchantsIpStatusSave', 'ThirdGameController@merchantsIpStatusSave');
 Route::post('event/transactionTypeStatusSave', 'ThirdGameController@transactionTypeStatusSave');
 Route::post('event/merchantsDomainsStatusSave', 'ThirdGameController@merchantsDomainsStatusSave');
+Route::post('event/thirdGameSetSave', 'ThirdGameController@thirdGameSetSave');
 
 //play-management
 //betlimit_list.vue

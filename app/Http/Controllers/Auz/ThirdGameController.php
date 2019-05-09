@@ -16,6 +16,7 @@ use App\model\ThirdGameTypes;
 use App\model\ThirdMerchantGame;
 use App\model\ThirdPlats;
 use App\model\ThirdGameTypesDetail;
+use App\model\ThirdGameSet;
 use App\model\Common;
 
 /**
@@ -2149,5 +2150,91 @@ class ThirdGameController extends Controller
 
 
     }
+
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdGameSetSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['id']:'';
+        $domains=isset($data['domains'])?$data['domains']:'';
+
+        Log::info($this->objectToArray($domains));
+        $ext_column1=isset($data['ext_column1'])?$data['ext_column1']:'';
+        $ext_column2=isset($data['ext_column2'])?$data['ext_column2']:'';
+        $ext_column3=isset($data['ext_column3'])?$data['ext_column3']:'';
+        $ext_column4=isset($data['ext_column4'])?$data['ext_column4']:'';
+        $ext_column5=isset($data['ext_column5'])?$data['ext_column5']:'';
+        $ext_column6=isset($data['ext_column6'])?$data['ext_column6']:'';
+        $ext_column7=isset($data['ext_column7'])?$data['ext_column7']:'';
+        $ext_column8=isset($data['ext_column8'])?$data['ext_column8']:'';
+        $ext_column9=isset($data['ext_column9'])?$data['ext_column9']:'';
+        $ext_column10=isset($data['ext_column10'])?$data['ext_column10']:'';
+        $ext_column11=isset($data['ext_column11'])?$data['ext_column11']:'';
+        $ext_column12=isset($data['ext_column12'])?$data['ext_column12']:'';
+        $ext_column13=isset($data['ext_column13'])?$data['ext_column13']:'';
+        $ext_column14=isset($data['ext_column14'])?$data['ext_column14']:'';
+        $ext_column15=isset($data['ext_column15'])?$data['ext_column15']:'';
+        $ext_column16=isset($data['ext_column16'])?$data['ext_column16']:'';
+        $ext_column17=isset($data['ext_column17'])?$data['ext_column17']:'';
+        $ext_column18=isset($data['ext_column18'])?$data['ext_column18']:'';
+        $ext_column19=isset($data['ext_column19'])?$data['ext_column19']:'';
+        $ext_column20=isset($data['ext_column20'])?$data['ext_column20']:'';
+
+
+        if ($id != '') {
+            $oQrCode = ThirdGameSet::find($id);
+        } else {
+            $oQrCode = new ThirdGameSet();
+        }
+
+//        $oQrCode->id=$id;
+//        $oQrCode->id=$id;
+        $oQrCode->ext_column1=$ext_column1;
+        $oQrCode->ext_column2=$ext_column2;
+        $oQrCode->ext_column3=$ext_column3;
+        $oQrCode->ext_column4=$ext_column4;
+        $oQrCode->ext_column5=$ext_column5;
+        $oQrCode->ext_column6=$ext_column6;
+        $oQrCode->ext_column7=$ext_column7;
+        $oQrCode->ext_column8=$ext_column8;
+        $oQrCode->ext_column9=$ext_column9;
+        $oQrCode->ext_column10=$ext_column10;
+        $oQrCode->ext_column11=$ext_column11;
+        $oQrCode->ext_column12=$ext_column12;
+        $oQrCode->ext_column13=$ext_column13;
+        $oQrCode->ext_column14=$ext_column14;
+        $oQrCode->ext_column15=$ext_column15;
+        $oQrCode->ext_column16=$ext_column16;
+        $oQrCode->ext_column17=$ext_column17;
+        $oQrCode->ext_column18=$ext_column18;
+        $oQrCode->ext_column19=$ext_column19;
+        $oQrCode->ext_column20=$ext_column20;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
 
 }
