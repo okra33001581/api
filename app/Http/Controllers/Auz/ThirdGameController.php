@@ -1610,4 +1610,305 @@ class ThirdGameController extends Controller
         return ResultVo::success($res);
     }
 
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function merchantsIpSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['']:'';
+        $ip=isset($data['ip'])?$data['']:'';
+        $parent_id=isset($data['parent_id'])?$data['']:'';
+        $parent_level=isset($data['parent_level'])?$data['']:'';
+        $parent_path=isset($data['parent_path'])?$data['']:'';
+        $created_at=isset($data['created_at'])?$data['']:'';
+        $updated_at=isset($data['updated_at'])?$data['']:'';
+
+
+        if ($id != '') {
+            $oQrCode = MerchantsIp::find($id);
+        } else {
+            $oQrCode = new MerchantsIp();
+        }
+
+        $oQrCode->id=$id;
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->ip=$ip;
+        $oQrCode->parent_id=$parent_id;
+        $oQrCode->parent_level=$parent_level;
+        $oQrCode->parent_path=$parent_path;
+        $oQrCode->created_at=$created_at;
+        $oQrCode->updated_at=$updated_at;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function transactionTypeSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['']:'';
+        $merchant_name=isset($data['merchant_name'])?$data['']:'';
+        $parent_id=isset($data['parent_id'])?$data['']:'';
+        $parent=isset($data['parent'])?$data['']:'';
+        $fund_flow_id=isset($data['fund_flow_id'])?$data['']:'';
+        $description=isset($data['description'])?$data['']:'';
+        $cn_title=isset($data['cn_title'])?$data['']:'';
+        $balance=isset($data['balance'])?$data['']:'';
+        $available=isset($data['available'])?$data['']:'';
+        $frozen=isset($data['frozen'])?$data['']:'';
+        $withdrawable=isset($data['withdrawable'])?$data['']:'';
+        $prohibit_amount=isset($data['prohibit_amount'])?$data['']:'';
+        $credit=isset($data['credit'])?$data['']:'';
+        $debit=isset($data['debit'])?$data['']:'';
+        $project_linked=isset($data['project_linked'])?$data['']:'';
+        $trace_linked=isset($data['trace_linked'])?$data['']:'';
+        $reverse_type=isset($data['reverse_type'])?$data['']:'';
+        $created_at=isset($data['created_at'])?$data['']:'';
+        $updated_at=isset($data['updated_at'])?$data['']:'';
+
+        if ($id != '') {
+            $oQrCode = TransactionTypes::find($id);
+        } else {
+            $oQrCode = new TransactionTypes();
+        }
+
+        $oQrCode->id=$id;
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->merchant_name=$merchant_name;
+        $oQrCode->parent_id=$parent_id;
+        $oQrCode->parent=$parent;
+        $oQrCode->fund_flow_id=$fund_flow_id;
+        $oQrCode->description=$description;
+        $oQrCode->cn_title=$cn_title;
+        $oQrCode->balance=$balance;
+        $oQrCode->available=$available;
+        $oQrCode->frozen=$frozen;
+        $oQrCode->withdrawable=$withdrawable;
+        $oQrCode->prohibit_amount=$prohibit_amount;
+        $oQrCode->credit=$credit;
+        $oQrCode->debit=$debit;
+        $oQrCode->project_linked=$project_linked;
+        $oQrCode->trace_linked=$trace_linked;
+        $oQrCode->reverse_type=$reverse_type;
+        $oQrCode->created_at=$created_at;
+        $oQrCode->updated_at=$updated_at;
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function merchantsDomainsSave()
+    {
+        $data = request()->post();
+
+        $id=isset($data['id'])?$data['']:'';
+        $merchant_id=isset($data['merchant_id'])?$data['']:'';
+        $domain=isset($data['domain'])?$data['']:'';
+        $status=isset($data['status'])?$data['']:'';
+        $created_at=isset($data['created_at'])?$data['']:'';
+        $updated_at=isset($data['updated_at'])?$data['']:'';
+
+
+
+        if ($id != '') {
+            $oQrCode = MerchantsDomains::find($id);
+        } else {
+            $oQrCode = new MerchantsDomains();
+        }
+
+        $oQrCode->id=$id;
+        $oQrCode->merchant_id=$merchant_id;
+        $oQrCode->domain=$domain;
+        $oQrCode->status=$status;
+        $oQrCode->created_at=$created_at;
+        $oQrCode->updated_at=$updated_at;
+        $oQrCode->updated_at=$updated_at;
+
+
+        $iRet = $oQrCode->save();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $oQrCode;
+
+
+        $sOperateName = 'thirdPlatsSave';
+        $sLogContent = 'thirdPlatsSave';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function merchantsIpDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        MerchantsIp::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function transactionTypeDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        TransactionTypes::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function merchantsDomainsDel()
+    {
+//        $iId = request()->post('id/d');
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+//        $auth_admin = AuthAdmin::where('id',$iId)->field('username')->find();
+//        $oAuthAdmin = AuthAdmin::where('id', $iId)->first();
+//        if (!$oAuthAdmin || $oAuthAdmin['username'] == 'admin' || !$oAuthAdmin->delete()) {
+////            return ResultVo::error(ErrorCode::NOT_NETWORK);
+//        }
+        // 删除权限
+        MerchantsDomains::where('id', '=', $iId)->delete();
+
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+//        $aFinal['data'] = $res;
+
+
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+
+
+        $dt = now();
+
+
+
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
 }

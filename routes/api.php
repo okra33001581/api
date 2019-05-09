@@ -281,6 +281,16 @@ Route::get('event/gameProfitList', 'ThirdGameController@gameProfitList');
 Route::get('event/merchantsDomains', 'ThirdGameController@merchantsDomains');
 Route::get('event/merchantsIp', 'ThirdGameController@merchantsIp');
 Route::get('event/transactionTypeList', 'ThirdGameController@transactionTypeList');
+
+Route::post('event/merchantsIpSave', 'ThirdGameController@merchantsIpSave');
+Route::post('event/transactionTypeSave', 'ThirdGameController@transactionTypeSave');
+Route::post('event/merchantsDomainsSave', 'ThirdGameController@merchantsDomainsSave');
+
+Route::post('event/merchantsIpDel', 'ThirdGameController@merchantsIpDel');
+Route::post('event/transactionTypeDel', 'ThirdGameController@transactionTypeDel');
+Route::post('event/merchantsDomainsDel', 'ThirdGameController@merchantsDomainsDel');
+
+
 //play-management
 //betlimit_list.vue
 Route::get('event/betlimitList', 'PlayController@betlimitList');
