@@ -278,6 +278,8 @@ Route::post('event/thirdMerchantgameDel', 'ThirdGameController@thirdMerchantgame
 Route::post('event/thirdPlatsDel', 'ThirdGameController@thirdPlatsDel');
 Route::get('event/gameTypeSetList', 'ThirdGameController@gameTypeSetList');
 Route::get('event/gameProfitList', 'ThirdGameController@gameProfitList');
+Route::get('event/merchantsDomains', 'ThirdGameController@merchantsDomains');
+Route::get('event/merchantsIp', 'ThirdGameController@merchantsIp');
 
 //play-management
 //betlimit_list.vue
