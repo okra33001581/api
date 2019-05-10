@@ -423,7 +423,7 @@ class ThirdGameController extends Controller
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
+        $sType = isset(request()->type) ? request()->type : '';
         $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $ogameTypeSetList = DB::table('third_game_set');
@@ -432,6 +432,9 @@ class ThirdGameController extends Controller
         }
         if ($iStatus !== '') {
             $ogameTypeSetList->where('status', $iStatus);
+        }
+        if ($sType !== '') {
+            $ogameTypeSetList->where('type', $sType);
         }
         $iLimit = request()->get('limit', 20);
         $ogameTypeSetFinalList = $ogameTypeSetList->orderby('id', 'desc')->paginate($iLimit);
@@ -2259,7 +2262,7 @@ class ThirdGameController extends Controller
     {
         $data = request()->post();
         $id=isset($data['id'])?$data['id']:'';
-        $domains=isset($data['domains'])?$data['domains']:'';
+        $sType=isset($data['type'])?$data['type']:'';
         $aData = [];
         foreach ($data['domains'] as $k => $v) {
             $index = $k+1;
@@ -2289,39 +2292,40 @@ class ThirdGameController extends Controller
 
 
         if ($id != '') {
-            $oQrCode = ThirdGameSet::find($id);
+            $ThirdGameSet = ThirdGameSet::find($id);
         } else {
-            $oQrCode = new ThirdGameSet();
+            $ThirdGameSet = new ThirdGameSet();
         }
 
-//        $oQrCode->id=$id;
-//        $oQrCode->id=$id;
-        $oQrCode->ext_column1=$ext_column1;
-        $oQrCode->ext_column2=$ext_column2;
-        $oQrCode->ext_column3=$ext_column3;
-        $oQrCode->ext_column4=$ext_column4;
-        $oQrCode->ext_column5=$ext_column5;
-        $oQrCode->ext_column6=$ext_column6;
-        $oQrCode->ext_column7=$ext_column7;
-        $oQrCode->ext_column8=$ext_column8;
-        $oQrCode->ext_column9=$ext_column9;
-        $oQrCode->ext_column10=$ext_column10;
-        $oQrCode->ext_column11=$ext_column11;
-        $oQrCode->ext_column12=$ext_column12;
-        $oQrCode->ext_column13=$ext_column13;
-        $oQrCode->ext_column14=$ext_column14;
-        $oQrCode->ext_column15=$ext_column15;
-        $oQrCode->ext_column16=$ext_column16;
-        $oQrCode->ext_column17=$ext_column17;
-        $oQrCode->ext_column18=$ext_column18;
-        $oQrCode->ext_column19=$ext_column19;
-        $oQrCode->ext_column20=$ext_column20;
+//        $ThirdGameSet->id=$id;
+//        $ThirdGameSet->id=$id;
+        $ThirdGameSet->ext_column1=$ext_column1;
+        $ThirdGameSet->ext_column2=$ext_column2;
+        $ThirdGameSet->ext_column3=$ext_column3;
+        $ThirdGameSet->ext_column4=$ext_column4;
+        $ThirdGameSet->ext_column5=$ext_column5;
+        $ThirdGameSet->ext_column6=$ext_column6;
+        $ThirdGameSet->ext_column7=$ext_column7;
+        $ThirdGameSet->ext_column8=$ext_column8;
+        $ThirdGameSet->ext_column9=$ext_column9;
+        $ThirdGameSet->ext_column10=$ext_column10;
+        $ThirdGameSet->ext_column11=$ext_column11;
+        $ThirdGameSet->ext_column12=$ext_column12;
+        $ThirdGameSet->ext_column13=$ext_column13;
+        $ThirdGameSet->ext_column14=$ext_column14;
+        $ThirdGameSet->ext_column15=$ext_column15;
+        $ThirdGameSet->ext_column16=$ext_column16;
+        $ThirdGameSet->ext_column17=$ext_column17;
+        $ThirdGameSet->ext_column18=$ext_column18;
+        $ThirdGameSet->ext_column19=$ext_column19;
+        $ThirdGameSet->ext_column20=$ext_column20;
+        $ThirdGameSet->type=$sType;
 
-        $iRet = $oQrCode->save();
+        $iRet = $ThirdGameSet->save();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
-        $aFinal['data'] = $oQrCode;
+        $aFinal['data'] = $ThirdGameSet;
 
 
         $sOperateName = 'thirdPlatsSave';
