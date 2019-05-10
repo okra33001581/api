@@ -165,11 +165,27 @@ class AdminController extends Controller
 //        }
 
         $status = isset($data['status']) ? $data['status'] : 0;
+
+        $identity=isset($data['identity'])?$data['identity']:'';
+        $is_tester=isset($data['is_tester'])?$data['is_tester']:'';
+        $post_url=isset($data['post_url'])?$data['post_url']:'';
+        $safe_key=isset($data['safe_key'])?$data['safe_key']:'';
+        $template=isset($data['template'])?$data['template']:'';
+        $wallet_id=isset($data['wallet_id'])?$data['wallet_id']:'';
+
+
         $auth_admin = new AuthAdmin();
         $auth_admin->username = $sUsername;
         $auth_admin->password = PassWordUtils::create($data['password']);
         $auth_admin->status = $status;
         $auth_admin->create_time = date("Y-m-d H:i:s");
+        $auth_admin->identity= $identity;
+        $auth_admin->is_tester = $is_tester;
+        $auth_admin->post_url= $post_url;
+        $auth_admin->safe_key= $safe_key;
+        $auth_admin->template= $template;
+        $auth_admin->wallet_id = $wallet_id;
+
         $result = $auth_admin->save();
 
         if (!$result) {
