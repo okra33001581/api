@@ -425,15 +425,19 @@ class ThirdGameController extends Controller
         // +id -id
         $iSort = isset(request()->sort) ? request()->sort : '';
         $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
-        $oAuthAdminList = DB::table('third_game_set');
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $ogameTypeSetList = DB::table('third_game_set');
         if ($is_parse !== '') {
-            $oAuthAdminList->where('is_parse', $is_parse);
+            $ogameTypeSetList->where('is_parse', $is_parse);
+        }
+        if ($iStatus !== '') {
+            $ogameTypeSetList->where('status', $iStatus);
         }
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $ogameTypeSetFinalList = $ogameTypeSetList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($ogameTypeSetFinalList);
+        $res["list"] = $ogameTypeSetFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -875,6 +879,51 @@ class ThirdGameController extends Controller
 
             if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
                 $oEvent = ThirdGameTypes::find($iId);
+                if (is_object($oEvent)) {
+                    $iStatue = $oEvent->status;
+                }
+                $oEvent->status = $iFlag;
+                $iRet = $oEvent->save();
+                $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+                $aFinal['code'] = 1;
+                $aFinal['data'] = $oEvent;
+
+                $sOperateName = 'payGroupStatusSave';
+                $sLogContent = 'payGroupStatusSave';
+
+                $dt = now();
+
+                AdminLog::adminLogSave($sOperateName);
+                return response()->json($aFinal);
+
+           }
+        }
+        catch (\Exception $e) {
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+            return response()->json($aFinal);
+        }
+
+    }
+
+    /**
+     * 数据保存
+     * @param request
+     * @return json
+     */
+    public function thirdGameSetStatusSave()
+    {
+
+        $data = request()->post();
+
+        $iId = isset($data['id']) ? $data['id'] : '';
+        $iFlag = isset($data['flag']) ? $data['flag'] : '';
+        try
+        {
+
+            if($this->validate(request(),Common::$statusSaveRules,Common::$statusSaveMessages)) {
+                $oEvent = ThirdGameSet::find($iId);
                 if (is_object($oEvent)) {
                     $iStatue = $oEvent->status;
                 }
@@ -1450,6 +1499,31 @@ class ThirdGameController extends Controller
 
 
 
+        AdminLog::adminLogSave($sOperateName);
+        return response()->json($aFinal);
+        return ResultVo::success();
+
+    }
+
+
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function thirdGameSetDel()
+    {
+        $iId = request()->all()['id'];
+        if ($iId == '') {
+            return ResultVo::error(ErrorCode::HTTP_METHOD_NOT_ALLOWED);
+        }
+        // 删除权限
+        ThirdGameSet::where('id', '=', $iId)->delete();
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $sOperateName = 'messageDelete';
+        $sLogContent = 'messageDelete';
+        $dt = now();
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success();
@@ -2184,7 +2258,6 @@ class ThirdGameController extends Controller
     public function thirdGameSetSave()
     {
         $data = request()->post();
-        var_dump($data);die;
         $id=isset($data['id'])?$data['id']:'';
         $domains=isset($data['domains'])?$data['domains']:'';
         $aData = [];

@@ -262,6 +262,7 @@ Route::post('event/thirdPlatsSequence', 'ThirdGameController@thirdPlatsSequence'
 
 Route::post('event/thirdBallStatusSave', 'ThirdGameController@thirdBallStatusSave');
 Route::post('event/thirdGameTypesStatusSave', 'ThirdGameController@thirdGameTypesStatusSave');
+Route::post('event/thirdGameSetStatusSave', 'ThirdGameController@thirdGameSetStatusSave');
 Route::post('event/thirdMerchantGameStatusSave', 'ThirdGameController@thirdMerchantGameStatusSave');
 Route::post('event/thirdPlatsStatusSave', 'ThirdGameController@thirdPlatsStatusSave');
 Route::post('event/thirdGameTypesSubStatusSave', 'ThirdGameController@thirdGameTypesSubStatusSave');
@@ -274,6 +275,7 @@ Route::post('event/thirdPlatsSave', 'ThirdGameController@thirdPlatsSave');
 
 Route::post('event/thirdBallDel', 'ThirdGameController@thirdBallDel');
 Route::post('event/thirdGameTypesDel', 'ThirdGameController@thirdGameTypesDel');
+Route::post('event/thirdGameSetDel', 'ThirdGameController@thirdGameSetDel');
 Route::post('event/thirdGameTypesDetailDel', 'ThirdGameController@thirdGameTypesDetailDel');
 Route::post('event/thirdMerchantgameDel', 'ThirdGameController@thirdMerchantgameDel');
 Route::post('event/thirdPlatsDel', 'ThirdGameController@thirdPlatsDel');
