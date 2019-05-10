@@ -370,28 +370,21 @@ class ThirdGameController extends Controller
      */
     public function gameTypeDetailList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
-
+        $sIdentity = isset(request()->identity) ? request()->identity : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sName = isset(request()->name) ? request()->name : '';
         $sPlatNamee = isset(request()->plat_name) ? request()->plat_name : '';
 
-
         $gameTypeDetailList = DB::table('third_game_types_detail as tgtd');
         $gameTypeDetailList->select('tgtd.id','tgtd.plat_id','tgtd.plat_name','tgtd.name','tgtd.icon','tgtd.desc','tgtd.status','tgtd.set_id','tgtd.ext_field1','tgtd.ext_field2','tgtd.ext_field3','tgtd.ext_field4','tgtd.ext_field5','tgtd.ext_field6','tgtd.ext_field7','tgtd.ext_field8','tgtd.ext_field9','tgtd.ext_field10','tgtd.ext_field11','tgtd.ext_field12','tgtd.ext_field13','tgtd.ext_field14','tgtd.ext_field15','tgtd.ext_field16','tgtd.ext_field17','tgtd.ext_field18','tgtd.ext_field19','tgtd.ext_field20','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
         $gameTypeDetailList->leftJoin('third_game_set as tgs', 'tgtd.set_id', '=', 'tgs.id');
-        // $sql = "select tgtd.id,tgtd.plat_id,tgtd.plat_name,tgtd.name,tgtd.icon,tgtd.desc,tgtd.status,tgtd.set_id,tgtd.ext_field1,tgtd.ext_field2,tgtd.ext_field3,tgtd.ext_field4,tgtd.ext_field5,tgtd.ext_field6,tgtd.ext_field7,tgtd.ext_field8,tgtd.ext_field9,tgtd.ext_field10,tgtd.ext_field11,tgtd.ext_field12,tgtd.ext_field13,tgtd.ext_field14,tgtd.ext_field15,tgtd.ext_field16,tgtd.ext_field17,tgtd.ext_field18,tgtd.ext_field19,tgtd.ext_field20,tgs.ext_column1,tgs.ext_column2,tgs.ext_column3,tgs.ext_column4,tgs.ext_column5,tgs.ext_column6,tgs.ext_column7,tgs.ext_column8,tgs.ext_column9,tgs.ext_column10,tgs.ext_column11,tgs.ext_column12,tgs.ext_column13,tgs.ext_column14,tgs.ext_column15,tgs.ext_column16,tgs.ext_column17,tgs.ext_column18,tgs.ext_column19,tgs.ext_column20 from third_game_types_detail as a left join third_game_set as b on tgtd.set_id=tgs.id limit 10,10";
-          // $gameTypeDetailList = DB::select($sql);
-        // $gameTypeDetailFinalList = $this->objectToArray($gameTypeDetailList);
+        if($sIdentity){
+            $gameTypeDetailList->leftJoin('third_game_types as tgt', 'tgtd.plat_id', '=', 'tgt.id');
+            $gameTypeDetailList->where('tgt.short', $sIdentity);
 
-
-
+        }
         if ($iStatus !== '') {
             $gameTypeDetailList->where('tgtd.status', $iStatus);
         }
@@ -576,22 +569,22 @@ class ThirdGameController extends Controller
         $iStatus = isset(request()->status) ? request()->status : '';
         $name = isset(request()->name) ? request()->name : '';
 
-        $oAuthAdminList = DB::table('third_plats');
+        $oThirdPlatList = DB::table('third_plats');
 
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oThirdPlatList->where('status', $iStatus);
         }
 
         if ($name !== '') {
-            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
+            $oThirdPlatList->where('name', 'like', '%' . $name . '%');
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $oThirdPlatFinalList = $oThirdPlatList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oThirdPlatFinalList);
+        $res["list"] = $oThirdPlatFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
@@ -1241,7 +1234,7 @@ class ThirdGameController extends Controller
         $sExtField19=isset($data['ext_field19'])?$data['ext_field19']:'';
         $sExtField20=isset($data['ext_field20'])?$data['ext_field20']:'';
 
-        if ($iId != '' && empty($iSetId)) {
+        if ($iId) {
             $oThirdGameTypesDetail = ThirdGameTypesDetail::find($iId);
         } else {
             $oThirdGameTypesDetail = new ThirdGameTypesDetail();
