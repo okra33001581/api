@@ -260,16 +260,24 @@ class ThirdGameController extends Controller
         $sUserName = isset(request()->username) ? request()->username : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
+        $sType = isset(request()->type) ? request()->type : '';
+
         $gaUserTurnoverList = DB::table('third_user_ga_turnovers as tugt');
         $gaUserTurnoverList->select('tugt.*','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
         $gaUserTurnoverList->leftJoin('third_game_set as tgs', 'tugt.set_id', '=', 'tgs.id');
+
         if ($sMerchantName !== '') {
-            $gaUserTurnoverList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $gaUserTurnoverList->where('tugt.merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($sUserName !== '') {
-            $gaUserTurnoverList->where('username', 'like', '%' . $sUserName . '%');
+            $gaUserTurnoverList->where('tugt.username', 'like', '%' . $sUserName . '%');
         }
+
+        if ($sType !== '') {
+            $gaUserTurnoverList->where('tugt.type', 'like', '%' . $sType . '%');
+        }
+
 
         $iLimit = request()->get('limit', 20);
         $gaUserTurnoverFinalList = $gaUserTurnoverList->orderby('id', 'desc')->paginate($iLimit);
