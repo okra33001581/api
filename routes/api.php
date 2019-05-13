@@ -352,6 +352,11 @@ Route::post('event/proxyiptablesBlackSave', 'SiteController@proxyiptablesBlackSa
 
 Route::post('event/systemConfigSave', 'SiteController@systemConfigSave');
 
+Route::post('event/sysConfigsSave', 'SystemController@sysConfigsSave');
+Route::post('event/sysConfigsStatusSave', 'SystemController@sysConfigsStatusSave');
+Route::post('event/sysConfigsSequenceSave', 'SystemController@sysConfigsSequenceSave');
+Route::post('event/sysConfigsDel', 'SystemController@sysConfigsDel');
+
 Route::post('event/webIconSave', 'SiteController@webIconSave');
 
 Route::post('event/qrCodeSave', 'SiteController@qrCodeSave');
@@ -370,6 +375,8 @@ Route::get('event/blacklist', 'SiteController@blacklist');
 Route::post('event/blackDelete', 'SiteController@blackDelete');
 
 Route::get('event/systemconfiglist', 'SiteController@systemconfiglist');
+
+Route::get('event/sysConfigsList', 'SystemController@sysConfigsList');
 
 Route::post('event/informationStatusSave', 'SiteController@informationStatusSave');
 
