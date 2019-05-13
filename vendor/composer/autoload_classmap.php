@@ -18,6 +18,8 @@ return array(
     'App\\Http\\Controllers\\PlayController' => $baseDir . '/app/Http/Controllers/Auz/PlayController.php',
     'App\\Http\\Controllers\\ThirdGameController' => $baseDir . '/app/Http/Controllers/Auz/ThirdGameController.php',
 
+    'App\\Http\\Controllers\\SystemController' => $baseDir . '/app/Http/Controllers/Auz/SystemController.php',
+
     'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/Auz/ReportController.php',
     'App\\Http\\Controllers\\SiteController' => $baseDir . '/app/Http/Controllers/Auz/SiteController.php',
 

@@ -382,6 +382,8 @@ class ComposerStaticInit7269aa6cffe9cd2edae7dce2f0f7e160
 
         'App\\Http\\Controllers\\ThirdGameController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ThirdGameController.php',
 
+        'App\\Http\\Controllers\\SystemController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/SystemController.php',
+
         'App\\Http\\Controllers\\PlayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/PlayController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/ReportController.php',
         'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auz/SiteController.php',
