@@ -420,8 +420,8 @@ class ThirdGameController extends Controller
     {
         config(['database.connections.mysql.strict' =>  false]);
 
-        $gameTypesList = DB::table('third_game_types')->select('name');
-        $data = $gameTypesList->groupBy('name')->orderby('id')->get()->toArray();
+        $gameTypesList = DB::table('third_game_set')->select('id','type');
+        $data = $gameTypesList->groupBy('type')->orderby('id')->get()->toArray();
 
         $res = [];
         $res["list"] = $data;
@@ -454,6 +454,7 @@ class ThirdGameController extends Controller
         $sIpage = isset(request()->page) ? request()->page : '';
         // +id -id
         $sType = isset(request()->type) ? request()->type : '';
+        $iId = isset(request()->id) ? request()->id : '';
         $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $ogameTypeSetList = DB::table('third_game_set');
@@ -465,6 +466,9 @@ class ThirdGameController extends Controller
         }
         if ($sType !== '') {
             $ogameTypeSetList->where('type', $sType);
+        }
+        if ($iId !== '') {
+            $ogameTypeSetList->where('id', $iId);
         }
         $iLimit = request()->get('limit', 20);
         $ogameTypeSetFinalList = $ogameTypeSetList->orderby('id', 'desc')->paginate($iLimit);
@@ -1234,7 +1238,6 @@ class ThirdGameController extends Controller
     public function thirdGameTypesDetailSave()
     {
         $data = request()->post();
-     
         $iId=isset($data['id'])?$data['id']:'';
         $iPlatId=isset($data['plat_id'])?$data['plat_id']:'';
         $iSetId=isset($data['set_id'])?$data['set_id']:'';
