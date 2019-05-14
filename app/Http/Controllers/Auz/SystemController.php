@@ -18,6 +18,7 @@ use App\model\ThirdPlats;
 use App\model\ThirdGameTypesDetail;
 use App\model\ThirdGameSet;
 use App\model\SysConfigs;
+use App\model\SystemMonitor;
 use App\model\Common;
 
 /**
@@ -224,6 +225,83 @@ class SystemController extends Controller
         $dt = now();
 
         AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+    }
+
+
+    /**
+     * 系统监控设置列表
+     * @param request
+     * @return json
+     */
+    public function systemMonitorList()
+    {
+        $iLimit = isset(request()->limit) ? request()->limit : '';
+        $sIpage = isset(request()->page) ? request()->page : '';
+        $iStatus = isset(request()->status) ? request()->status : '';
+        $sTableName = isset(request()->table_name) ? request()->table_name : '';
+        $sEsName = isset(request()->es_name) ? request()->es_name : '';
+        $systemMonitorList = DB::table('system_monitor');
+
+        $systemMonitorList->orderby('id', 'desc');
+        if ($iStatus !== '') {
+            $systemMonitorList->where('status', $iStatus);
+        }
+        if ($sTableName !== '') {
+            $systemMonitorList->where('table_name', 'like', '%' . $sTableName . '%');
+        }
+        if ($sEsName !== '') {
+            $systemMonitorList->where('es_name', 'like', '%' . $sEsName . '%');
+        }
+        $iLimit = request()->get('limit', 20);
+        $systemMonitorList = $systemMonitorList->orderby('id', 'desc')->paginate($iLimit);
+        $aTmp = [];
+        $aFinal = [];
+        $res = [];
+        $res["total"] = count($systemMonitorList);
+        $res["list"] = $systemMonitorList;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        $sOperateName = 'systemMonitorList';
+        $sLogContent = 'systemMonitorList';
+        $dt = now();
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
+
+    /**
+     * 系统监控清除ES
+     * @param request
+     * @return json
+     */
+    public function systemMonitorClear()
+    {   
+
+        $data = request()->post();
+        $iId = isset($data['id']) ? $data['id'] : '';
+
+        $oSystemMonitor = SystemMonitor::find($iId);
+        $oSystemMonitor->es_record_count = 0;
+        $iRet = $oSystemMonitor->save();
+        if($iRet){
+            $aFinal['message'] = CommonUtils::getMessage('statusSave_success');
+            $aFinal['code'] = 1;
+            $aFinal['data'] = $oSystemMonitor;
+            $sOperateName = 'sysConfigsStatusSave';
+            $sLogContent = 'sysConfigsStatusSave';
+            $dt = now();
+            AdminLog::adminLogSave($sOperateName);
+        }else{
+            $aFinal['message'] = '非法数据请求';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = '';
+        }
 
         return response()->json($aFinal);
     }

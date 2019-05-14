@@ -378,6 +378,8 @@ Route::post('event/blackDelete', 'SiteController@blackDelete');
 Route::get('event/systemconfiglist', 'SiteController@systemconfiglist');
 
 Route::get('event/sysConfigsList', 'SystemController@sysConfigsList');
+Route::get('event/systemMonitorList', 'SystemController@systemMonitorList');
+Route::post('event/systemMonitorClear', 'SystemController@systemMonitorClear');
 
 Route::post('event/informationStatusSave', 'SiteController@informationStatusSave');
 
