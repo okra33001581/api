@@ -246,6 +246,7 @@ Route::get('event/basketballList', 'ThirdGameController@basketballList');
 Route::get('event/footballList', 'ThirdGameController@footballList');
 Route::get('event/gaUserTurnoverList', 'ThirdGameController@gaUserTurnoverList');
 Route::get('event/gameTypeList', 'ThirdGameController@gameTypeList');
+Route::get('event/gameTypesList', 'ThirdGameController@gameTypesList');
 Route::get('event/merchantGameList', 'ThirdGameController@merchantGameList');
 Route::get('event/thirdPlatList', 'ThirdGameController@thirdPlatList');
 Route::get('event/gameTypeSetList', 'ThirdGameController@gameTypeSetList');

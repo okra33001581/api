@@ -411,6 +411,35 @@ class ThirdGameController extends Controller
         return ResultVo::success($res);
     }
 
+    /**
+     * 数据取得
+     * @param request
+     * @return json
+     */
+    public function gameTypesList()
+    {
+        config(['database.connections.mysql.strict' =>  false]);
+
+        $gameTypesList = DB::table('third_game_types')->select('name');
+        $data = $gameTypesList->groupBy('name')->orderby('id')->get()->toArray();
+
+        $res = [];
+        $res["list"] = $data;
+        $aFinal['message'] = 'success';
+        $aFinal['code'] = 0;
+        $aFinal['data'] = $res;
+
+        $sOperateName = 'gameTypesList';
+        $sLogContent = 'gameTypesList';
+
+        $dt = now();
+
+        AdminLog::adminLogSave($sOperateName);
+
+        return response()->json($aFinal);
+        return ResultVo::success($res);
+    }
+
 
     /**
      * 游戏类别设置
@@ -1205,6 +1234,7 @@ class ThirdGameController extends Controller
     public function thirdGameTypesDetailSave()
     {
         $data = request()->post();
+     
         $iId=isset($data['id'])?$data['id']:'';
         $iPlatId=isset($data['plat_id'])?$data['plat_id']:'';
         $iSetId=isset($data['set_id'])?$data['set_id']:'';
