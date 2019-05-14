@@ -37,6 +37,7 @@ class SystemController extends Controller
 		$iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
         $iStatus = isset(request()->status) ? request()->status : '';
+        $iParentId = isset(request()->parent_id) ? request()->parent_id : null;
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
         $sysConfigsList = DB::table('sys_configs');
 
@@ -47,6 +48,7 @@ class SystemController extends Controller
         if ($sMerchantName !== '') {
             $sysConfigsList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
+        $sysConfigsList->where('parent_id',$iParentId);
         $iLimit = request()->get('limit', 20);
         $sysConfigsList = $sysConfigsList->orderby('id', 'desc')->paginate($iLimit);
         $aTmp = [];
@@ -77,7 +79,7 @@ class SystemController extends Controller
     {	
         $data = request()->post();
         $id=isset($data['id'])?$data['id']:'';
-        $iParentId=isset($data['parent_id'])?$data['parent_id']:'';
+        $iParentId=isset($data['parent_id'])?$data['parent_id']:null;
         $sParent=isset($data['parent'])?$data['parent']:'';
         $sItem=isset($data['item'])?$data['item']:'';
         $sValue=isset($data['value'])?$data['value']:'';
