@@ -8,6 +8,7 @@ use App\common\vo\ResultVo;
 use App\model\Ad;
 use App\model\AdSite;
 use App\model\AdminLog;
+use App\common\utils\CommonUtils;
 
 /**
  * Class Event - 日志相关控制器
@@ -51,60 +52,63 @@ class LogController extends Controller
 
         $sKeywords = isset(request()->keywords) ? request()->keywords : '';
 
-        $oAuthAdminList = DB::table('log_admin');
+        $search_type = isset(request()->search_type) ? request()->search_type : '';
 
-        if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
-        }
-        if ($dtBeginDate != '') {
-            $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
-        }
-        if ($dtEndDate != '') {
-            $oAuthAdminList->where('created_at', '<=', $dtEndDate);
-        }
-        if ($sLogContent != '') {
-            $oAuthAdminList->where('log_content', 'like', '%' . $sLogContent . '%');
-        }
-        if ($sSubAccount != '') {
-            $oAuthAdminList->where('sub_account', 'like', '%' . $sSubAccount . '%');
-        }
-        if ($sIp != '') {
-            $oAuthAdminList->where('ip', $sIp);
-        }
-        if ($sCookies != '') {
-            $oAuthAdminList->where('cookies', $sCookies);
-        }
-        if ($sKeywords != '') {
-            $oAuthAdminList->where('log_content', $sKeywords);
-        }
-
-
-        $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-//
-//
-//        $aTmp = [];
-//        $aFinal = [];
-//        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-//            $aTmp['id'] = $oAuthAdmin->id;
-//            $aTmp['sub_account'] = $oAuthAdmin->sub_account;
-//            $aTmp['operate_name'] = $oAuthAdmin->operate_name;
-//            $aTmp['log_content'] = $oAuthAdmin->log_content;
-//            $aTmp['ip'] = $oAuthAdmin->ip;
-//            $aTmp['cookies'] = $oAuthAdmin->cookies;
-//            $aTmp['date'] = $oAuthAdmin->date;
-//            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-//            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-//
-//            $aFinal[] = $aTmp;
-//        }
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();;
-        $aFinal['message'] = 'success';
+        if ($search_type == 'ES') {
+            $sUrl = 'http://192.168.36.147:9200/log_admin/log_admin/_search?q=Operate_name:"floatwindowconfigList"&from=10&size=2';
+            $sResult = CommonUtils::getCurlFileGetContents($sUrl);
+            $oAuthAdminFinalList = AdminLog::getEsData($sResult,$iTotal);
+            $res["total"] = $iTotal;
+            $res["list"] = $oAuthAdminFinalList;
+            $aFinal['message'] = 'success';
 
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+
+        } else {
+
+            $oAuthAdminList = DB::table('log_admin');
+
+            if ($sMerchantName != '') {
+                $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            }
+            if ($dtBeginDate != '') {
+                $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
+            }
+            if ($dtEndDate != '') {
+                $oAuthAdminList->where('created_at', '<=', $dtEndDate);
+            }
+            if ($sLogContent != '') {
+                $oAuthAdminList->where('log_content', 'like', '%' . $sLogContent . '%');
+            }
+            if ($sSubAccount != '') {
+                $oAuthAdminList->where('sub_account', 'like', '%' . $sSubAccount . '%');
+            }
+            if ($sIp != '') {
+                $oAuthAdminList->where('ip', $sIp);
+            }
+            if ($sCookies != '') {
+                $oAuthAdminList->where('cookies', $sCookies);
+            }
+            if ($sKeywords != '') {
+                $oAuthAdminList->where('log_content', $sKeywords);
+            }
+
+            $iLimit = request()->get('limit', 20);
+            $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+
+            $res["total"] = count($oAuthAdminFinalList);
+            $res["list"] = $oAuthAdminFinalList->toArray();;
+            $aFinal['message'] = 'success';
+
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        }
+
+
+
+
 
 
 
