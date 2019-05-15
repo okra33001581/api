@@ -27,40 +27,32 @@ class ThirdGameController extends Controller
 {
 
     /**
-     * 数据取得
+     * AG日志管理列表
      * @param request
      * @return json
      */
     public function agLogList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
+        $sIsParse = isset(request()->is_parse) ? request()->is_parse : '';
+        $oAgLogList = DB::table('third_ag_ftp_get_logs');
 
-        $is_parse = isset(request()->is_parse) ? request()->is_parse : '';
-
-        $oAuthAdminList = DB::table('third_ag_ftp_get_logs');
-
-
-        if ($is_parse !== '') {
-            $oAuthAdminList->where('is_parse', $is_parse);
+        if ($sIsParse !== '') {
+            $oAgLogList->where('is_parse', $sIsParse);
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $oAgLogFinalList = $oAgLogList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oAgLogFinalList);
+        $res["list"] = $oAgLogFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'agLogList';
+        $sLogContent = 'agLogList';
 
         $dt = now();
 
@@ -86,7 +78,6 @@ class ThirdGameController extends Controller
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         $oAuthAdminList = DB::table('third_ag_project_record');
-
 
         if ($sMerchantName !== '') {
             $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
@@ -116,61 +107,50 @@ class ThirdGameController extends Controller
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
-       /**
-     * 数据取得
+    /**
+     * 竞彩-篮球数据列表
      * @param request
      * @return json
      */
     public function basketballList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
+        $sType = isset(request()->type) ? request()->type : '';
+        $sDistrict = isset(request()->district) ? request()->district : '';
+        $sNationality = isset(request()->nationality) ? request()->nationality : '';
+        $sName = isset(request()->name) ? request()->name : '';
+        $sStatus = isset(request()->status) ? request()->status : '';
 
-        $type = isset(request()->type) ? request()->type : '';
-        $district = isset(request()->district) ? request()->district : '';
-        $nationality = isset(request()->nationality) ? request()->nationality : '';
-        $name = isset(request()->name) ? request()->name : '';
-        $status = isset(request()->status) ? request()->status : '';
+        $oBasketballList = DB::table('third_ball');
 
-        $oAuthAdminList = DB::table('third_ball');
-
-
-        if ($type !== '') {
-            $oAuthAdminList->where('type', 'like', $type);
+        if ($sType !== '') {
+            $oBasketballList->where('type', 'like', $sType);
         }
-
-        if ($district !== '') {
-            $oAuthAdminList->where('district', 'like', '%' . $district . '%');
+        if ($sDistrict !== '') {
+            $oBasketballList->where('district', 'like', '%' . $sDistrict . '%');
         }
-
-        if ($nationality !== '') {
-            $oAuthAdminList->where('nationality', 'like', '%' . $nationality . '%');
+        if ($sNationality !== '') {
+            $oBasketballList->where('nationality', 'like', '%' . $sNationality . '%');
         }
-        if ($name !== '') {
-            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
+        if ($sName !== '') {
+            $oBasketballList->where('name', 'like', '%' . $sName . '%');
         }
-
-
-        if ($status !== '') {
-            $oAuthAdminList->where('status', 'like', '%' . $status . '%');
+        if ($sStatus !== '') {
+            $oBasketballList->where('status', 'like', '%' . $sStatus . '%');
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $oBasketballFinalList = $oBasketballList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oBasketballFinalList);
+        $res["list"] = $oBasketballFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'basketballList';
+        $sLogContent = 'basketballList';
 
         $dt = now();
 
@@ -180,62 +160,51 @@ class ThirdGameController extends Controller
         return ResultVo::success($res);
     }
     /**
-     * 数据取得
+     * 竞彩-足球数据列表
      * @param request
      * @return json
      */
     public function footballList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
+        $sType = isset(request()->type) ? request()->type : '';
+        $sDistrict = isset(request()->district) ? request()->district : '';
+        $sNationality = isset(request()->nationality) ? request()->nationality : '';
+        $sName = isset(request()->name) ? request()->name : '';
+        $sStatus = isset(request()->status) ? request()->status : '';
+
+        $oFootballList = DB::table('third_ball');
 
 
-        $type = isset(request()->type) ? request()->type : '';
-        $district = isset(request()->district) ? request()->district : '';
-        $nationality = isset(request()->nationality) ? request()->nationality : '';
-        $name = isset(request()->name) ? request()->name : '';
-        $status = isset(request()->status) ? request()->status : '';
-
-        $oAuthAdminList = DB::table('third_ball');
-
-
-        if ($type !== '') {
-            $oAuthAdminList->where('type', 'like', $type);
+        if ($sType !== '') {
+            $oFootballList->where('type', 'like', $sType);
         }
-
-        if ($district !== '') {
-            $oAuthAdminList->where('district', 'like', '%' . $district . '%');
+        if ($sDistrict !== '') {
+            $oFootballList->where('district', 'like', '%' . $sDistrict . '%');
         }
-
-        if ($nationality !== '') {
-            $oAuthAdminList->where('nationality', 'like', '%' . $nationality . '%');
+        if ($sNationality !== '') {
+            $oFootballList->where('nationality', 'like', '%' . $sNationality . '%');
         }
-        if ($name !== '') {
-            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
+        if ($sName !== '') {
+            $oFootballList->where('name', 'like', '%' . $sName . '%');
         }
-
-
-        if ($status !== '') {
-            $oAuthAdminList->where('status', 'like', '%' . $status . '%');
+        if ($sStatus !== '') {
+            $oFootballList->where('status', 'like', '%' . $sStatus . '%');
         }
 
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $oFootballFinalList = $oFootballList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oFootballFinalList);
+        $res["list"] = $oFootballFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'footballList';
+        $sLogContent = 'footballList';
 
         $dt = now();
 
@@ -251,46 +220,38 @@ class ThirdGameController extends Controller
      */
     public function gaUserTurnoverList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
         $sUserName = isset(request()->username) ? request()->username : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
         $sType = isset(request()->type) ? request()->type : '';
 
-        $gaUserTurnoverList = DB::table('third_user_ga_turnovers as tugt');
-        $gaUserTurnoverList->select('tugt.*','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
-        $gaUserTurnoverList->leftJoin('third_game_set as tgs', 'tugt.set_id', '=', 'tgs.id');
+        $oGaUserTurnoverList = DB::table('third_user_ga_turnovers as tugt');
+        $oGaUserTurnoverList->select('tugt.*','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
+        $oGaUserTurnoverList->leftJoin('third_game_set as tgs', 'tugt.set_id', '=', 'tgs.id');
 
         if ($sMerchantName !== '') {
-            $gaUserTurnoverList->where('tugt.merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oGaUserTurnoverList->where('tugt.merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-
         if ($sUserName !== '') {
-            $gaUserTurnoverList->where('tugt.username', 'like', '%' . $sUserName . '%');
+            $oGaUserTurnoverList->where('tugt.username', 'like', '%' . $sUserName . '%');
         }
-
         if ($sType !== '') {
-            $gaUserTurnoverList->where('tugt.type', 'like', '%' . $sType . '%');
+            $oGaUserTurnoverList->where('tugt.type', 'like', '%' . $sType . '%');
         }
-
 
         $iLimit = request()->get('limit', 20);
-        $gaUserTurnoverFinalList = $gaUserTurnoverList->orderby('id', 'desc')->paginate($iLimit);
+        $oGaUserTurnoverFinalList = $ooGaUserTurnoverList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($gaUserTurnoverFinalList);
-        $res["list"] = $gaUserTurnoverFinalList->toArray();
+        $res["total"] = count($oGaUserTurnoverFinalList);
+        $res["list"] = $oGaUserTurnoverFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'gaUserTurnoverList';
+        $sLogContent = 'gaUserTurnoverList';
 
         $dt = now();
 
@@ -306,43 +267,35 @@ class ThirdGameController extends Controller
      */
     public function gameTypeList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-
         $iStatus = isset(request()->status) ? request()->status : '';
-        $type = isset(request()->type) ? request()->type : '';
-        $name = isset(request()->name) ? request()->name : '';
+        $sName = isset(request()->name) ? request()->name : '';
+        $sType = isset(request()->type) ? request()->type : '';
 
-        $oAuthAdminList = DB::table('third_game_types');
+        $oGameTypeList = DB::table('third_game_types');
 
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oGameTypeList->where('status', $iStatus);
         }
-
-        if ($type !== '') {
-            $oAuthAdminList->where('type', 'like', '%' . $type . '%');
+        if ($sType !== '') {
+            $oGameTypeList->where('type', 'like', '%' . $sType . '%');
         }
-
-        if ($name !== '') {
-            $oAuthAdminList->where('name', 'like', '%' . $name . '%');
+        if ($sName !== '') {
+            $oGameTypeList->where('name', 'like', '%' . $sName . '%');
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
+        $oGameTypeFinalList = $oGameTypeList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oGameTypeFinalList);
+        $res["list"] = $oGameTypeFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'gameTypeList';
+        $sLogContent = 'gameTypeList';
 
         $dt = now();
 
@@ -371,40 +324,39 @@ class ThirdGameController extends Controller
     public function gameTypeDetailList()
     {
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
         $sIdentity = isset(request()->identity) ? request()->identity : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sName = isset(request()->name) ? request()->name : '';
         $sPlatNamee = isset(request()->plat_name) ? request()->plat_name : '';
 
-        $gameTypeDetailList = DB::table('third_game_types_detail as tgtd');
-        $gameTypeDetailList->select('tgtd.id','tgtd.plat_id','tgtd.plat_name','tgtd.name','tgtd.icon','tgtd.desc','tgtd.status','tgtd.set_id','tgtd.ext_field1','tgtd.ext_field2','tgtd.ext_field3','tgtd.ext_field4','tgtd.ext_field5','tgtd.ext_field6','tgtd.ext_field7','tgtd.ext_field8','tgtd.ext_field9','tgtd.ext_field10','tgtd.ext_field11','tgtd.ext_field12','tgtd.ext_field13','tgtd.ext_field14','tgtd.ext_field15','tgtd.ext_field16','tgtd.ext_field17','tgtd.ext_field18','tgtd.ext_field19','tgtd.ext_field20','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
-        $gameTypeDetailList->leftJoin('third_game_set as tgs', 'tgtd.set_id', '=', 'tgs.id');
+        $oGameTypeDetailList = DB::table('third_game_types_detail as tgtd');
+        $oGameTypeDetailList->select('tgtd.id','tgtd.plat_id','tgtd.plat_name','tgtd.name','tgtd.icon','tgtd.desc','tgtd.status','tgtd.set_id','tgtd.ext_field1','tgtd.ext_field2','tgtd.ext_field3','tgtd.ext_field4','tgtd.ext_field5','tgtd.ext_field6','tgtd.ext_field7','tgtd.ext_field8','tgtd.ext_field9','tgtd.ext_field10','tgtd.ext_field11','tgtd.ext_field12','tgtd.ext_field13','tgtd.ext_field14','tgtd.ext_field15','tgtd.ext_field16','tgtd.ext_field17','tgtd.ext_field18','tgtd.ext_field19','tgtd.ext_field20','tgs.ext_column1','tgs.ext_column2','tgs.ext_column3','tgs.ext_column4','tgs.ext_column5','tgs.ext_column6','tgs.ext_column7','tgs.ext_column8','tgs.ext_column9','tgs.ext_column10','tgs.ext_column11','tgs.ext_column12','tgs.ext_column13','tgs.ext_column14','tgs.ext_column15','tgs.ext_column16','tgs.ext_column17','tgs.ext_column18','tgs.ext_column19','tgs.ext_column20');
+        $oGameTypeDetailList->leftJoin('third_game_set as tgs', 'tgtd.set_id', '=', 'tgs.id');
         if($sIdentity){
-            $gameTypeDetailList->leftJoin('third_game_types as tgt', 'tgtd.plat_id', '=', 'tgt.id');
-            $gameTypeDetailList->where('tgt.short', $sIdentity);
+            $oGameTypeDetailList->leftJoin('third_game_types as tgt', 'tgtd.plat_id', '=', 'tgt.id');
+            $oGameTypeDetailList->where('tgt.short', $sIdentity);
 
         }
         if ($iStatus !== '') {
-            $gameTypeDetailList->where('tgtd.status', $iStatus);
+            $oGameTypeDetailList->where('tgtd.status', $iStatus);
         }
         if ($sName !== '') {
-            $gameTypeDetailList->where('tgtd.name', 'like', '%' . $sName . '%');
+            $oGameTypeDetailList->where('tgtd.name', 'like', '%' . $sName . '%');
         }
         if ($sPlatNamee !== '') {
-            $gameTypeDetailList->where('tgtd.plat_name', 'like', '%' . $sPlatNamee . '%');
+            $oGameTypeDetailList->where('tgtd.plat_name', 'like', '%' . $sPlatNamee . '%');
         }
 
         $iLimit = request()->get('limit', 20);
-        $gameTypeDetailFinalList = $gameTypeDetailList->orderby('tgtd.id', 'desc')->paginate($iLimit);
+        $oGameTypeDetailFinalList = $oGameTypeDetailList->orderby('tgtd.id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($gameTypeDetailFinalList);
-        $res["list"] = $gameTypeDetailFinalList->toArray();
+        $res["total"] = count($oGameTypeDetailFinalList);
+        $res["list"] = $oGameTypeDetailFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-        $sOperateName = 'marqueeList';
-        $sLogContent = 'marqueeList';
+        $sOperateName = 'gameTypeDetailList';
+        $sLogContent = 'gameTypeDetailList';
         $dt = now();
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
