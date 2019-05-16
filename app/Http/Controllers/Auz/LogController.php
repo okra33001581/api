@@ -16,6 +16,7 @@ use App\common\utils\CommonUtils;
  */
 class LogController extends Controller
 {
+    const ES_URL = 'http://192.168.36.147:9200/';
     /**
      * 数据取得
      * @param request
@@ -24,15 +25,11 @@ class LogController extends Controller
     public function logAdminlog()
     {
 
-        $sWhere = [];
+        $sWhere = '';
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
-
 
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
@@ -40,9 +37,7 @@ class LogController extends Controller
 
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
 
-//        $sType = isset(request()->type) ? request()->type : '';
         $sLogContent = isset(request()->log_content) ? request()->log_content : '';
-
 
         $sSubAccount = isset(request()->sub_account) ? request()->sub_account : '';
 
@@ -52,15 +47,46 @@ class LogController extends Controller
 
         $sKeywords = isset(request()->keywords) ? request()->keywords : '';
 
-        $search_type = isset(request()->search_type) ? request()->search_type : '';
+        $sSearchType = isset(request()->search_type) ? request()->search_type : '';
 
         $res = [];
-        if ($search_type == 'ES') {
-            $sUrl = 'http://192.168.36.147:9200/log_admin/log_admin/_search?q=Operate_name:"floatwindowconfigList"&from=10&size=2';
-            $sResult = CommonUtils::getCurlFileGetContents($sUrl);
-            $oAuthAdminFinalList = AdminLog::getEsData($sResult,$iTotal);
+        if ($sSearchType == 'ES') {
+
+            if ($sMerchantName != '') {
+                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+            }
+
+            if ($dtBeginDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+            }
+            if ($dtEndDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
+            }
+            if ($sLogContent != '') {
+                $sWhere .= '{ "wildcard":{ "Log_content": "*'.$sLogContent.'*" } },';
+            }
+            if ($sSubAccount != '') {
+                $sWhere .= '{ "wildcard":{ "Sub_account": "*'.$sSubAccount.'*" } },';
+            }
+            if ($sIp != '') {
+                $sWhere .= '{ "wildcard":{ "Ip": "*'.$sIp.'*" } },';
+            }
+            if ($sCookies != '') {
+                $sWhere .= '{ "wildcard":{ "Cookies": "*'.$sCookies.'*" } },';
+            }
+            if ($sKeywords != '') {
+                $sWhere .= '{ "wildcard":{ "Keywords": "*'.$sKeywords.'*" } },';
+            }
+            if (substr($sWhere, -1)==',') {
+                $sWhere = substr($sWhere,0,-1);
+            }
+            $data['where'] = $sWhere;
+            $data['page'] = $sIpage;
+            $data['url'] = self::ES_URL."log_admin/_search?pretty";
+            $sResult = CommonUtils::getCurlFileGetContents($data);
+            $oLogAdminlogFinalList = AdminLog::getEsData($sResult,$iTotal);
             $res["total"] = $iTotal;
-            $res["list"] = $oAuthAdminFinalList;
+            $res["list"] = $oLogAdminlogFinalList;
             $aFinal['message'] = 'success';
 
             $aFinal['code'] = 0;
@@ -68,60 +94,45 @@ class LogController extends Controller
 
         } else {
 
-            $oAuthAdminList = DB::table('log_admin');
+            $oLogAdminlogList = DB::table('log_admin');
 
             if ($sMerchantName != '') {
-                $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+                $oLogAdminlogList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
             }
             if ($dtBeginDate != '') {
-                $oAuthAdminList->where('created_at', '>=', $dtBeginDate);
+                $oLogAdminlogList->where('date', '>=', $dtBeginDate);
             }
             if ($dtEndDate != '') {
-                $oAuthAdminList->where('created_at', '<=', $dtEndDate);
+                $oLogAdminlogList->where('date', '<=', $dtEndDate);
             }
             if ($sLogContent != '') {
-                $oAuthAdminList->where('log_content', 'like', '%' . $sLogContent . '%');
+                $oLogAdminlogList->where('log_content', 'like', '%' . $sLogContent . '%');
             }
             if ($sSubAccount != '') {
-                $oAuthAdminList->where('sub_account', 'like', '%' . $sSubAccount . '%');
+                $oLogAdminlogList->where('sub_account', 'like', '%' . $sSubAccount . '%');
             }
             if ($sIp != '') {
-                $oAuthAdminList->where('ip', $sIp);
+                $oLogAdminlogList->where('ip', $sIp);
             }
             if ($sCookies != '') {
-                $oAuthAdminList->where('cookies', $sCookies);
+                $oLogAdminlogList->where('cookies', $sCookies);
             }
             if ($sKeywords != '') {
-                $oAuthAdminList->where('log_content', $sKeywords);
+                $oLogAdminlogList->where('log_content', $sKeywords);
             }
 
             $iLimit = request()->get('limit', 20);
-            $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-            $res["total"] = count($oAuthAdminFinalList);
-            $res["list"] = $oAuthAdminFinalList->toArray();;
+            $oLogAdminlogFinalList = $oLogAdminlogList->orderby('id', 'desc')->paginate($iLimit);
+            $res["total"] = count($oLogAdminlogFinalList);
+            $res["list"] = $oLogAdminlogFinalList->toArray();;
             $aFinal['message'] = 'success';
-
             $aFinal['code'] = 0;
             $aFinal['data'] = $res;
         }
-
-
-
-
-
-
-
         $sOperateName = 'logAdminlog';
         $sLogContent = 'logAdminlog';
-
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }

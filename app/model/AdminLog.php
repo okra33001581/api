@@ -65,20 +65,9 @@ class AdminLog extends Model
         $resFinal = array();
         foreach ($data as $item) {
             $aTmp = CommonUtils::objectToArray($item);
-            $res['id'] = $aTmp['_source']['Id'];
-            $res['sub_account'] = $aTmp['_source']['Sub_account'];
-            $res['operate_name'] = $aTmp['_source']['Operate_name'];
-            $res['log_content'] = $aTmp['_source']['Log_content'];
-            $res['ip'] = $aTmp['_source']['Ip'];
-            $res['cookies'] = $aTmp['_source']['Cookies'];
-            $res['date'] = $aTmp['_source']['Date'];
-            $res['merchant_id'] = $aTmp['_source']['Merchant_id'];
-            $res['merchant_name'] = $aTmp['_source']['Merchant_name'];
-            $res['created_at'] = $aTmp['_source']['Created_at'];
-            $res['origin'] = $aTmp['_source']['Origin'];
-            $res['referer'] = $aTmp['_source']['Referer'];
-            $res['user_agent'] = $aTmp['_source']['User_agent'];
-            $res['type'] = $aTmp['_source']['Type'];
+            foreach (array_keys($aTmp['_source']) as $key) {
+                $res[strtolower($key)] = $aTmp['_source'][$key];
+            }
             $resFinal[] = $res;
         }
         return $resFinal;

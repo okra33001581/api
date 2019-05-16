@@ -9,6 +9,7 @@ use App\model\Ad;
 use App\model\AdSite;
 
 use App\common\utils\DateUtils;
+use App\common\utils\CommonUtils;
 use App\model\AdminLog;
 
 /**
@@ -17,6 +18,8 @@ use App\model\AdminLog;
  */
 class ReportController extends Controller
 {
+    //配置es地址
+    const ES_URL = 'http://192.168.36.147:9200/';
 
     /**
      * 数据取得
@@ -25,79 +28,69 @@ class ReportController extends Controller
      */
     public function financeIndex()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
+        $sWhere = '';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
-
-
-        $oAuthAdminList = DB::table('report_finance');
-
-
-
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
-        }
-
-        if ($dtBeginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $dtBeginDate);
-        }
-
-        if ($dtEndDate !== '') {
-            $oAuthAdminList->where('date', '<=', $dtEndDate);
-        }
-
-        $iLimit = request()->get('limit', 20);
-
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-
-       /* $aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['date'] = $oAuthAdmin->date;
-            $aTmp['company_in'] = $oAuthAdmin->company_in;
-            $aTmp['third_in'] = $oAuthAdmin->third_in;
-            $aTmp['deposit'] = $oAuthAdmin->deposit;
-            $aTmp['common_deposit'] = $oAuthAdmin->common_deposit;
-            $aTmp['benefit'] = $oAuthAdmin->benefit;
-            $aTmp['total_rebate'] = $oAuthAdmin->total_rebate;
-            $aTmp['day_salary'] = $oAuthAdmin->day_salary;
-            $aTmp['bankcard_out'] = $oAuthAdmin->bankcard_out;
-            $aTmp['third_out'] = $oAuthAdmin->third_out;
-            $aTmp['user_subtraction'] = $oAuthAdmin->user_subtraction;
-            $aTmp['artifical_withdraw'] = $oAuthAdmin->artifical_withdraw;
-            $aTmp['total'] = $oAuthAdmin->total;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-            $aFinal[] = $aTmp;
-        }*/
-
+        $sSearchType = isset(request()->search_type) ? request()->search_type : '';
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
 
+        
+        if ($sSearchType == 'ES') {
+            if ($sMerchantName !== '') {
+                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+            }
+            if ($dtBeginDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+            }
+            if ($dtEndDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
+            }
+            if (substr($sWhere, -1)==',') {
+                $sWhere = substr($sWhere,0,-1);
+            }
+            $data['where'] = $sWhere;
+            $data['page'] = $sIpage;
+            $data['url'] = self::ES_URL."report_finance/_search?pretty";
+            $sResult = CommonUtils::getCurlFileGetContents($data);
+            $oFinanceIndexFinalList = AdminLog::getEsData($sResult,$iTotal);
+            $res["total"] = $iTotal;
+            $res["list"] = $oFinanceIndexFinalList;
+            $aFinal['message'] = 'success';
 
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        } else {
+        
+            $oFinanceIndexList = DB::table('report_finance');
+
+            if ($sMerchantName !== '') {
+                $oFinanceIndexList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            }
+
+            if ($dtBeginDate !== '') {
+                $oFinanceIndexList->where('date', '>=', $dtBeginDate);
+            }
+
+            if ($dtEndDate !== '') {
+                $oFinanceIndexList->where('date', '<=', $dtEndDate);
+            }
+
+            $iLimit = request()->get('limit', 20);
+
+            $oFinanceIndexFinalList = $oFinanceIndexList->orderby('id', 'desc')->paginate($iLimit);
+
+            $res["total"] = count($oFinanceIndexFinalList);
+            $res["list"] = $oFinanceIndexFinalList->toArray();
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        }
         $sOperateName = 'financeIndex';
         $sLogContent = 'financeIndex';
-
-
         $dt = now();
-
-
 
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
@@ -110,117 +103,98 @@ class ReportController extends Controller
      */
     public function operationProfit()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
+        $sWhere = '';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
-
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
-
-        $model = isset(request()->model) ? request()->model : '';
-
-        $platform = isset(request()->platform) ? request()->platform : '';
-
+        $sModel = isset(request()->model) ? request()->model : '';
+        $sPlatform = isset(request()->platform) ? request()->platform : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-
-
         $dtPeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
-
-        $oAuthAdminList = DB::table('report_operation_profit');
-
-
-
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
-        }
-
-        if ($dtBeginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $dtBeginDate);
-        }
-
-        if ($dtEndDate !== '') {
-            $oAuthAdminList->where('date', '<=', $dtEndDate);
-        }
-
-        if ($model !== '') {
-            $oAuthAdminList->where('model', 'like', '%' . $model . '%');
-        }
-
-        if ($platform !== '') {
-            $oAuthAdminList->where('platform', 'like', '%' . $platform . '%');
-        }
-
-
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-
-
-        if ($dtPeriod != '') {
-            $aTmp = DateUtils::getDateArray($dtPeriod);
-            $oAuthAdminList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
-            $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
-
-        }
-
-        $iLimit = request()->get('limit', 20);
-
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-            $aTmp['user_id'] = $oAuthAdmin->user_id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['group'] = $oAuthAdmin->group;
-            $aTmp['in_total_amount'] = $oAuthAdmin->in_total_amount;
-            $aTmp['total_out_amount'] = $oAuthAdmin->total_out_amount;
-            $aTmp['valid_profit'] = $oAuthAdmin->valid_profit;
-            $aTmp['sum_turnover'] = $oAuthAdmin->sum_turnover;
-            $aTmp['prize_amount'] = $oAuthAdmin->prize_amount;
-            $aTmp['rebate_amount'] = $oAuthAdmin->rebate_amount;
-            $aTmp['game_profit_loss'] = $oAuthAdmin->game_profit_loss;
-            $aTmp['benefit_amount'] = $oAuthAdmin->benefit_amount;
-            $aTmp['day_salary'] = $oAuthAdmin->day_salary;
-            $aTmp['system_subtraction'] = $oAuthAdmin->system_subtraction;
-            $aTmp['final_amount'] = $oAuthAdmin->final_amount;
-            $aTmp['date'] = $oAuthAdmin->date;
-            $aTmp['platform'] = $oAuthAdmin->platform;
-            $aTmp['model'] = $oAuthAdmin->model;
-
-
-            $aFinal[] = $aTmp;
-        }*/
-
+        $sSearchType = isset(request()->search_type) ? request()->search_type : '';
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
 
+        if ($sSearchType == 'ES') {
+
+            if ($sMerchantName !== '') {
+                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+            }
+            if ($dtBeginDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+            }
+            if ($dtEndDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
+            }
+            if ($sModel !== '') {
+                $sWhere .= '{ "wildcard":{ "Model": "*'.$sModel.'*" } },';
+            }
+            if ($sPlatform !== '') {
+                $sWhere .= '{ "wildcard":{ "Platform": "*'.$sPlatform.'*" } },';
+            }
+            if ($sUserName !== '') {
+                $sWhere .= '{ "wildcard":{ "Username": "*'.$sUserName.'*" } },';
+            }
+            if ($dtPeriod != '') {
+                $aTmp = DateUtils::getDateArray($dtPeriod);
+                
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.date('Y-m-d H:i:s',$aTmp['begin_date']).'"}  } },';
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.date('Y-m-d H:i:s',$aTmp['end_date']).'"} } },';
+
+            }
+            if (substr($sWhere, -1)==',') {
+                $sWhere = substr($sWhere,0,-1);
+            }
+            $data['where'] = $sWhere;
+            $data['page'] = $sIpage;
+            $data['url'] = self::ES_URL."report_operation_profit/_search?pretty";
+            
+            $sResult = CommonUtils::getCurlFileGetContents($data);
+            $oOperationProfitFinalList = AdminLog::getEsData($sResult,$iTotal);
+            $res["total"] = $iTotal;
+            $res["list"] = $oOperationProfitFinalList;
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        } else {
+            $oOperationProfitList = DB::table('report_operation_profit');
+            if ($sMerchantName !== '') {
+                $oOperationProfitList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            }
+            if ($dtBeginDate !== '') {
+                $oOperationProfitList->where('date', '>=', $dtBeginDate);
+            }
+            if ($dtEndDate !== '') {
+                $oOperationProfitList->where('date', '<=', $dtEndDate);
+            }
+            if ($sModel !== '') {
+                $oOperationProfitList->where('model', 'like', '%' . $sModel . '%');
+            }
+            if ($sPlatform !== '') {
+                $oOperationProfitList->where('platform', 'like', '%' . $sPlatform . '%');
+            }
+            if ($sUserName !== '') {
+                $oOperationProfitList->where('username', 'like', '%' . $sUserName . '%');
+            }
+            if ($dtPeriod != '') {
+                $aTmp = DateUtils::getDateArray($dtPeriod);
+                $oOperationProfitList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
+                $oOperationProfitList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
+            }
+            $iLimit = request()->get('limit', 20);
+            $oOperationProfitFinalList = $oOperationProfitList->orderby('id', 'desc')->paginate($iLimit);
+            $res["total"] = count($oOperationProfitFinalList);
+            $res["list"] = $oOperationProfitFinalList->toArray();
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        }
 
         $sOperateName = 'operationProfit';
         $sLogContent = 'operationProfit';
-
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -232,146 +206,190 @@ class ReportController extends Controller
      */
     public function pgamePlaylist()
     {
-        $sWhere = [];
+        $sWhere = '';
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-
-
-        $way_type = isset(request()->way_type) ? request()->way_type : '';
-        $lottery = isset(request()->lottery) ? request()->lottery : '';
-        $way = isset(request()->way) ? request()->way : '';
-        $prize_status = isset(request()->prize_status) ? request()->prize_status : '';
+        $sWayType = isset(request()->way_type) ? request()->way_type : '';
+        $sLottery = isset(request()->lottery) ? request()->lottery : '';
+        $sWay = isset(request()->way) ? request()->way : '';
+        $sPrizeStatus = isset(request()->prize_status) ? request()->prize_status : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
-        $sort = isset(request()->sort) ? request()->sort : '';
-        $prize_type = isset(request()->prize_type) ? request()->prize_type : '';
+        $sSort = isset(request()->sort) ? request()->sort : '';
+        $sPrizeType = isset(request()->prize_type) ? request()->prize_type : '';
         $iMin = isset(request()->min) ? request()->min : '';
         $iMax = isset(request()->max) ? request()->max : '';
-        $select_info_type = isset(request()->select_info_type) ? request()->select_info_type : '';
-        $issue = isset(request()->issue) ? request()->issue : '';
-
-
-        $oAuthAdminList = DB::table('report_pgame_playlist');
-
-
-        if ($way_type !== '') {
-            $oAuthAdminList->where('way_type', $way_type);
-        }
-
-
-        if ($lottery !== '') {
-            $oAuthAdminList->where('lottery', $lottery);
-        }
-
-
-        if ($way !== '') {
-            $oAuthAdminList->where('way', $way);
-        }
-
-
-
-        if ($prize_status !== '') {
-            $oAuthAdminList->where('prize_status', $prize_status);
-        }
-
-        if ($dtBeginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $dtBeginDate);
-        }
-
-        if ($dtEndDate !== '') {
-            $oAuthAdminList->where('date', '>=', $dtEndDate);
-        }
-
-        if ($sort == '逆序') {
-            $oAuthAdminList->orderBy('id', 'DESC');
-        }
-
-        if ($sort == '顺序') {
-            $oAuthAdminList->orderBy('id', 'asc');
-        }
-
-        if ($prize_type == '奖金') {
-            if ($iMin !== '') {
-                $oAuthAdminList->where('prize_amount', '>=', $iMin);
-            }
-
-            if ($iMax !== '') {
-                $oAuthAdminList->where('prize_amount', '>=', $iMax);
-            }
-        }
-
-        if ($prize_type == '倍数') {
-            if ($iMin !== '') {
-                $oAuthAdminList->where('multiple', '>=', $iMin);
-            }
-
-            if ($iMax !== '') {
-                $oAuthAdminList->where('multiple', '>=', $iMax);
-            }
-        }
-
-
-        if ($select_info_type == '用户名') {
-            if ($issue !== '') {
-                $oAuthAdminList->where('username', 'like', '%' . $issue . '%');
-            }
-
-        }
-
-        if ($select_info_type == '注单') {
-            if ($issue !== '') {
-                $oAuthAdminList->where('project', 'like', '%' . $issue . '%');
-            }
-
-        }
-
-        $iLimit = request()->get('limit', 20);
-
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['project'] = $oAuthAdmin->project;
-            $aTmp['user_id'] = $oAuthAdmin->user_id;
-            $aTmp['uername'] = $oAuthAdmin->uername;
-            $aTmp['date'] = $oAuthAdmin->date;
-            $aTmp['lottery'] = $oAuthAdmin->lottery;
-            $aTmp['issue_count'] = $oAuthAdmin->issue_count;
-            $aTmp['prize_number'] = $oAuthAdmin->prize_number;
-            $aTmp['way'] = $oAuthAdmin->way;
-            $aTmp['dynamic_prize'] = $oAuthAdmin->dynamic_prize;
-            $aTmp['project_content'] = $oAuthAdmin->project_content;
-            $aTmp['multiple'] = $oAuthAdmin->multiple;
-            $aTmp['total_amount'] = $oAuthAdmin->total_amount;
-            $aTmp['mode'] = $oAuthAdmin->mode;
-            $aTmp['prize_amount'] = $oAuthAdmin->prize_amount;
-            $aTmp['prize_status'] = $oAuthAdmin->prize_status;
-            $aTmp['status'] = $oAuthAdmin->status;
-
-            $aFinal[] = $aTmp;
-        }*/
-
+        $sSelectInfoType = isset(request()->select_info_type) ? request()->select_info_type : '';
+        $sIssue = isset(request()->issue) ? request()->issue : '';
+        $sSearchType = isset(request()->search_type) ? request()->search_type : '';
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
+        if ($sSearchType == 'ES') {
+
+            if ($sWayType !== '') {
+                $sWhere .= '{ "wildcard":{ "Way_type": "*'.$sWayType.'*" } },';
+            }
+
+            if ($sLottery !== '') {
+                $sWhere .= '{ "wildcard":{ "Lottery": "*'.$sLottery.'*" } },';
+            }
+
+            if ($sWay !== '') {
+                $sWhere .= '{ "wildcard":{ "Way": "*'.$sWay.'*" } },';
+            }
+
+            if ($sPrizeStatus !== '') {
+                $sWhere .= '{ "wildcard":{ "Prize_status": "*'.$sPrizeStatus.'*" } },';
+            }
+
+            if ($dtBeginDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+            }
+            if ($dtEndDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
+            }
+
+            if ($sSort == '逆序') {
+                $sWhere .=',"sort" : [{"id": "desc"}]}';
+            }
+
+            if ($sSort == '顺序') {
+                $sWhere .=',"sort" : [{"id": "asc"}]}';
+            }
+
+            if ($sPrizeType == '奖金') {
+                if ($iMin !== '') {
+                    $sWhere .= '{ "range":{ "Prize_amount": {"from" : "'.$iMin.'"}  } },';
+                }
+
+                if ($iMax !== '') {
+                    $sWhere .= '{ "range":{ "Prize_amount": {"to" : "'.$iMax.'"}  } },';
+
+                }
+            }
+
+            if ($sPrizeType == '倍数') {
+                if ($iMin !== '') {
+                    $sWhere .= '{ "range":{ "Multiple": {"from" : "'.$iMin.'"}  } },';
+                }
+
+                if ($iMax !== '') {
+                    $sWhere .= '{ "range":{ "Multiple": {"to" : "'.$iMax.'"}  } },';
+                }
+            }
 
 
+            if ($sSelectInfoType == '用户名') {
+                if ($sIssue !== '') {
+                    $sWhere .= '{ "wildcard":{ "Username": "*'.$sIssue.'*" } },';
+                }
+
+            }
+
+            if ($sSelectInfoType == '注单') {
+                if ($sIssue !== '') {
+                    $sWhere .= '{ "wildcard":{ "Project": "*'.$sIssue.'*" } },';
+                }
+
+            }
+
+            if (substr($sWhere, -1)==',') {
+                $sWhere = substr($sWhere,0,-1);
+            }
+            $data['where'] = $sWhere;
+            $data['page'] = $sIpage;
+            $data['url'] = self::ES_URL."report_pgame_playlist/_search?pretty";
+
+            $sResult = CommonUtils::getCurlFileGetContents($data);
+            $oPgamePlayFinalList = AdminLog::getEsData($sResult,$iTotal);
+            $res["total"] = $iTotal;
+            $res["list"] = $oPgamePlayFinalList;
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        } else {
+
+            $oPgamePlayList = DB::table('report_pgame_playlist');
+
+            if ($sWayType !== '') {
+                $oPgamePlayList->where('way_type', $sWayType);
+            }
+
+            if ($sLottery !== '') {
+                $oPgamePlayList->where('lottery', $sLottery);
+            }
+
+            if ($sWay !== '') {
+                $oPgamePlayList->where('way', $sWay);
+            }
+
+            if ($sPrizeStatus !== '') {
+                $oPgamePlayList->where('prize_status', $sPrizeStatus);
+            }
+
+            if ($dtBeginDate !== '') {
+                $oPgamePlayList->where('date', '>=', $dtBeginDate);
+            }
+
+            if ($dtEndDate !== '') {
+                $oPgamePlayList->where('date', '>=', $dtEndDate);
+            }
+
+            if ($sSort == '逆序') {
+                $oPgamePlayList->orderBy('id', 'DESC');
+            }
+
+            if ($sSort == '顺序') {
+                $oPgamePlayList->orderBy('id', 'asc');
+            }
+
+            if ($sPrizeType == '奖金') {
+                if ($iMin !== '') {
+                    $oPgamePlayList->where('prize_amount', '>=', $iMin);
+                }
+
+                if ($iMax !== '') {
+                    $oPgamePlayList->where('prize_amount', '>=', $iMax);
+                }
+            }
+
+            if ($sPrizeType == '倍数') {
+                if ($iMin !== '') {
+                    $oPgamePlayList->where('multiple', '>=', $iMin);
+                }
+
+                if ($iMax !== '') {
+                    $oPgamePlayList->where('multiple', '>=', $iMax);
+                }
+            }
+
+
+            if ($sSelectInfoType == '用户名') {
+                if ($sIssue !== '') {
+                    $oPgamePlayList->where('username', 'like', '%' . $sIssue . '%');
+                }
+
+            }
+
+            if ($sSelectInfoType == '注单') {
+                if ($sIssue !== '') {
+                    $oPgamePlayList->where('project', 'like', '%' . $sIssue . '%');
+                }
+
+            }
+
+            $iLimit = request()->get('limit', 20);
+            $oPgamePlayFinalList = $oPgamePlayList->orderby('id', 'desc')->paginate($iLimit);
+            $res["total"] = count($oPgamePlayFinalList);
+            $res["list"] = $oPgamePlayFinalList->toArray();
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        }
         $sOperateName = 'pgamePlaylist';
         $sLogContent = 'pgamePlaylist';
 
-
         $dt = now();
-
-
 
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
@@ -384,87 +402,79 @@ class ReportController extends Controller
      */
     public function preportProfit()
     {
-        $sWhere = [];
+        $sWhere = '';
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
 
         $sUserName = isset(request()->username) ? request()->username : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
-
         $dtPeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
-
-
-        $oAuthAdminList = DB::table('report_platform');
-
-
-
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
-        }
-
-
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-
-        if ($dtBeginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $dtBeginDate);
-        }
-
-        if ($dtEndDate !== '') {
-            $oAuthAdminList->where('date', '<=', $dtEndDate);
-        }
-
-
-        if ($dtPeriod != '') {
-            $aTmp = DateUtils::getDateArray($dtPeriod);
-            $oAuthAdminList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
-            $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
-
-        }
-
-        $iLimit = request()->get('limit', 20);
-
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-            $aTmp['user_id'] = $oAuthAdmin->user_id;
-            $aTmp['username'] = $oAuthAdmin->username;
-            $aTmp['group'] = $oAuthAdmin->group;
-            $aTmp['total_project'] = $oAuthAdmin->total_project;
-            $aTmp['valid_project'] = $oAuthAdmin->valid_project;
-            $aTmp['prize_total_amount'] = $oAuthAdmin->prize_total_amount;
-            $aTmp['rebate_amount'] = $oAuthAdmin->rebate_amount;
-            $aTmp['game_profit_loss'] = $oAuthAdmin->game_profit_loss;
-            $aTmp['profit_ratio'] = $oAuthAdmin->profit_ratio;
-            $aTmp['project_count'] = $oAuthAdmin->project_count;
-            $aTmp['active_count'] = $oAuthAdmin->active_count;
-            $aTmp['date'] = $oAuthAdmin->date;
-
-            $aFinal[] = $aTmp;
-        }*/
-
+        $sSearchType = isset(request()->search_type) ? request()->search_type : '';
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
+        
+        if ($sSearchType == 'ES') {
+            if ($sMerchantName !== '') {
+                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+            }
+            if ($sUserName !== '') {
+                $sWhere .= '{ "wildcard":{ "Username": "*'.$sUserName.'*" } },';
+            }
+            if ($dtBeginDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+            }
+            if ($dtEndDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
+            }
+            if ($dtPeriod != '') {
+                $aTmp = DateUtils::getDateArray($dtPeriod);
+                
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.date('Y-m-d H:i:s',$aTmp['begin_date']).'"}  } },';
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.date('Y-m-d H:i:s',$aTmp['end_date']).'"} } },';
 
+            }
+            if (substr($sWhere, -1)==',') {
+                $sWhere = substr($sWhere,0,-1);
+            }
+            $data['where'] = $sWhere;
+            $data['page'] = $sIpage;
+            $data['url'] = self::ES_URL."report_platform/_search?pretty";
+            $sResult = CommonUtils::getCurlFileGetContents($data);
+            $oPreportProfitFinalList = AdminLog::getEsData($sResult,$iTotal);
+            $res["total"] = $iTotal;
+            $res["list"] = $oPreportProfitFinalList;
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        } else {
+            $oPreportProfitList = DB::table('report_platform');
+            if ($sMerchantName !== '') {
+                $oPreportProfitList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            }
+            if ($sUserName !== '') {
+                $oPreportProfitList->where('username', 'like', '%' . $sUserName . '%');
+            }
+            if ($dtBeginDate !== '') {
+                $oPreportProfitList->where('date', '>=', $dtBeginDate);
+            }
+            if ($dtEndDate !== '') {
+                $oPreportProfitList->where('date', '<=', $dtEndDate);
+            }
+            if ($dtPeriod != '') {
+                $aTmp = DateUtils::getDateArray($dtPeriod);
+                $oPreportProfitList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
+                $oPreportProfitList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
+            }
+            $iLimit = request()->get('limit', 20);
+            $oPreportProfitFinalList = $oPreportProfitList->orderby('id', 'desc')->paginate($iLimit);
+            $res["total"] = count($oPreportProfitFinalList);
+            $res["list"] = $oPreportProfitFinalList->toArray();
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        }
 
         $sOperateName = 'preportProfit';
         $sLogContent = 'preportProfit';
@@ -485,101 +495,91 @@ class ReportController extends Controller
      */
     public function userReport()
     {
-        $sWhere = [];
+        $sWhere = '';
         $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
         $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
         $dtPeriod = isset(request()->datePeriod) ? request()->datePeriod : '';
-
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
-
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
-
-        $model = isset(request()->model) ? request()->model : '';
-
-        $platform = isset(request()->platform) ? request()->platform : '';
-
+        $sModel = isset(request()->model) ? request()->model : '';
+        $sPlatform = isset(request()->platform) ? request()->platform : '';
         $sUserName = isset(request()->username) ? request()->username : '';
+        $sSearchType = isset(request()->search_type) ? request()->search_type : '';
+       
+        if ($sSearchType == 'ES') {
+            if ($sMerchantName !== '') {
+                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+            }
+            if ($sUserName !== '') {
+                $sWhere .= '{ "wildcard":{ "Username": "*'.$sUserName.'*" } },';
+            }
+            if ($sModel !== '') {
+                $sWhere .= '{ "wildcard":{ "Model": "*'.$sModel.'*" } },';
+            }
+            if ($sPlatform !== '') {
+                $sWhere .= '{ "wildcard":{ "Platform": "*'.$sPlatform.'*" } },';
+            }
+            if ($dtBeginDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+            }
+            if ($dtEndDate != '') {
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
+            }
+            if ($dtPeriod != '') {
+                $aTmp = DateUtils::getDateArray($dtPeriod);
+                
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.date('Y-m-d H:i:s',$aTmp['begin_date']).'"}  } },';
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.date('Y-m-d H:i:s',$aTmp['end_date']).'"} } },';
 
-        $oAuthAdminList = DB::table('report_user');
+            }
+            $data['where'] = $sWhere;
+            $data['page'] = $sIpage;
+            $data['url'] = self::ES_URL."report_user/_search?pretty";
+            $sResult = CommonUtils::getCurlFileGetContents($data);
+            $oUserReportFinalList = AdminLog::getEsData($sResult,$iTotal);
+            $res["total"] = $iTotal;
+            $res["list"] = $oUserReportFinalList;
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
+        } else {
+            $oUserReportList = DB::table('report_user');
+            if ($sMerchantName !== '') {
+                $oUserReportList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            }
+            if ($dtBeginDate !== '') {
+                $oUserReportList->where('date', '>=', $dtBeginDate);
+            }
+            if ($dtEndDate !== '') {
+                $oUserReportList->where('date', '<=', $dtEndDate);
+            }
+            if ($sModel !== '') {
+                $oUserReportList->where('model', 'like', '%' . $sModel . '%');
+            }
+            if ($sPlatform !== '') {
+                $oUserReportList->where('platform', 'like', '%' . $sPlatform . '%');
+            }
+            if ($sUserName !== '') {
+                $oUserReportList->where('username', 'like', '%' . $sUserName . '%');
+            }
+            if ($dtPeriod != '') {
+                $aTmp = DateUtils::getDateArray($dtPeriod);
+                $oUserReportList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
+                $oUserReportList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
 
+            }
 
-
-        if ($sMerchantName !== '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $iLimit = request()->get('limit', 20);
+            $oUserReportFinalList = $oUserReportList->orderby('id', 'desc')->paginate($iLimit);
+            $res = [];
+            $res["total"] = count($oUserReportFinalList);
+            $res["list"] = $oUserReportFinalList->toArray();
+            $aFinal['message'] = 'success';
+            $aFinal['code'] = 0;
+            $aFinal['data'] = $res;
         }
-
-        if ($dtBeginDate !== '') {
-            $oAuthAdminList->where('date', '>=', $dtBeginDate);
-        }
-
-        if ($dtEndDate !== '') {
-            $oAuthAdminList->where('date', '<=', $dtEndDate);
-        }
-
-        if ($model !== '') {
-            $oAuthAdminList->where('model', 'like', '%' . $model . '%');
-        }
-
-        if ($platform !== '') {
-            $oAuthAdminList->where('platform', 'like', '%' . $platform . '%');
-        }
-
-
-        if ($sUserName !== '') {
-            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-        }
-
-        if ($dtPeriod != '') {
-            $aTmp = DateUtils::getDateArray($dtPeriod);
-            $oAuthAdminList->where('date', '>=', date('Y-m-d 00:00:00',$aTmp['begin_date']));
-            $oAuthAdminList->where('date', '<=', date('Y-m-d 23:59:59',$aTmp['end_date']));
-
-        }
-
-        $iLimit = request()->get('limit', 20);
-
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['date'] = $oAuthAdmin->date;
-            $aTmp['ip_count'] = $oAuthAdmin->ip_count;
-            $aTmp['register_count'] = $oAuthAdmin->register_count;
-            $aTmp['active_count'] = $oAuthAdmin->active_count;
-            $aTmp['first_deposit_count'] = $oAuthAdmin->first_deposit_count;
-            $aTmp['first_deposit_amount'] = $oAuthAdmin->first_deposit_amount;
-            $aTmp['in_people_count'] = $oAuthAdmin->in_people_count;
-            $aTmp['in_times'] = $oAuthAdmin->in_times;
-            $aTmp['out_times'] = $oAuthAdmin->out_times;
-
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-
-            $aTmp['date'] = $oAuthAdmin->date;
-            $aTmp['platform'] = $oAuthAdmin->platform;
-            $aTmp['model'] = $oAuthAdmin->model;
-
-            $aFinal[] = $aTmp;
-        }*/
-
-        $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
-        $aFinal['message'] = 'success';
-        $aFinal['code'] = 0;
-        $aFinal['data'] = $res;
-
-
-
 
         $sOperateName = 'userReport';
         $sLogContent = 'userReport';
