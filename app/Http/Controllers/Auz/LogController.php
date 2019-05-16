@@ -57,9 +57,11 @@ class LogController extends Controller
             }
 
             if ($dtBeginDate != '') {
+                $dtBeginDate = str_replace(' ','T',$dtBeginDate);
                 $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
             }
             if ($dtEndDate != '') {
+                $dtEndDate = str_replace(' ','T',$dtEndDate);
                 $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
             }
             if ($sLogContent != '') {

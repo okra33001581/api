@@ -39,7 +39,16 @@ class CommonUtils
                         }
                     },
                 "from":'.$data['page'].',"size":20}';
-        // $sTmp = '{"query" : {"bool" : {"must" : [{"range" : {"Date" : {"gt" : "2019-05-01 00:00:00"}}},{"range" : {"Date" : {"lt" : "2019-05-31 23:59:59"}}},{"wildcard" : {"Sub_account" : "*1*"}},{"wildcard" : {"Ip" : "*123*"}}]}},"from" : 0,"size" : 10}';
+        // $sTmp = '{ "query":{
+        //             "bool":{
+        //                 "must":[
+        //                     { "range":{ "Date":{ "from":"2019-05-01","to":"2019-05-31"} } },
+        //                     {"wildcard" : {"Log_content" : "*列表*"}}
+        //                 ]
+        //             }
+        //         },
+        //         "from":'.$data['page'].',"size":10}';
+        // $sTmp = '{"query" : {"bool" : {"must" : [{"range" : {"Date" : {"gt" : "2019-05-01"}}},{"wildcard" : {"Log_content" : "*列表*"}}]}},"from" : 0,"size" : 10}';
         curl_setopt($curl, CURLOPT_POSTFIELDS, $sTmp);
         //执行命令
         $data = curl_exec($curl);
