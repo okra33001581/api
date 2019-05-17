@@ -241,7 +241,7 @@ class ThirdGameController extends Controller
         }
 
         $iLimit = request()->get('limit', 20);
-        $oGaUserTurnoverFinalList = $ooGaUserTurnoverList->orderby('id', 'desc')->paginate($iLimit);
+        $oGaUserTurnoverFinalList = $oGaUserTurnoverList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
         $res["total"] = count($oGaUserTurnoverFinalList);
