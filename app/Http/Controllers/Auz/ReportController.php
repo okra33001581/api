@@ -56,6 +56,7 @@ class ReportController extends Controller
             }
             $data['where'] = $sWhere;
             $data['page'] = $sIpage;
+            $data['limit'] = $iLimit;
             $data['url'] = self::ES_URL."report_finance/_search?pretty";
             $sResult = CommonUtils::getCurlFileGetContents($data);
             $oFinanceIndexFinalList = AdminLog::getEsData($sResult,$iTotal);
@@ -155,6 +156,7 @@ class ReportController extends Controller
             }
             $data['where'] = $sWhere;
             $data['page'] = $sIpage;
+            $data['limit'] = $iLimit;
             $data['url'] = self::ES_URL."report_operation_profit/_search?pretty";
             
             $sResult = CommonUtils::getCurlFileGetContents($data);
@@ -263,11 +265,11 @@ class ReportController extends Controller
             }
 
             if ($sSort == '逆序') {
-                $data['sort'] =',"sort" : [{"Id": "desc"}]}';
+                $data['sort'] =',"sort" : [{"_id": "desc"}]}';
             }
 
             if ($sSort == '顺序') {
-                $data['sort'] =',"sort" : [{"Id": "asc"}]}';
+                $data['sort'] =',"sort" : [{"_id": "asc"}]}';
             }
 
             if ($sPrizeType == '奖金') {
@@ -310,6 +312,7 @@ class ReportController extends Controller
             }
             $data['where'] = $sWhere;
             $data['page'] = $sIpage;
+            $data['limit'] = $iLimit;
             $data['url'] = self::ES_URL."report_pgame_playlist/_search?pretty";
 
             $sResult = CommonUtils::getCurlFileGetContents($data);
@@ -459,6 +462,7 @@ class ReportController extends Controller
             }
             $data['where'] = $sWhere;
             $data['page'] = $sIpage;
+            $data['limit'] = $iLimit;
             $data['url'] = self::ES_URL."report_platform/_search?pretty";
             $sResult = CommonUtils::getCurlFileGetContents($data);
             $oPreportProfitFinalList = AdminLog::getEsData($sResult,$iTotal);
@@ -561,6 +565,7 @@ class ReportController extends Controller
             }
             $data['where'] = $sWhere;
             $data['page'] = $sIpage;
+            $data['limit'] = $iLimit;
             $data['url'] = self::ES_URL."report_user/_search?pretty";
             $sResult = CommonUtils::getCurlFileGetContents($data);
             $oUserReportFinalList = AdminLog::getEsData($sResult,$iTotal);

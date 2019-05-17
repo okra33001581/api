@@ -38,7 +38,7 @@ class CommonUtils
                             ]
                         }
                     },
-                "from":'.$data['page'].',"size":20}';
+                "from":'.(($data['page']-1)*20).',"size":'.$data['limit'].'}';
         if (isset($data['sort'])) {
             $sTmp = substr($sTmp,0,-1);
             $sTmp = $sTmp.$data['sort'];
