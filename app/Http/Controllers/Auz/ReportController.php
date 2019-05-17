@@ -57,7 +57,7 @@ class ReportController extends Controller
             $data['where'] = $sWhere;
             $data['page'] = $sIpage;
             $data['limit'] = $iLimit;
-            $data['url'] = self::ES_URL."report_finance/_search?pretty";
+            $data['url'] = self::ES_URL."report_finance1/_search?pretty";
             $sResult = CommonUtils::getCurlFileGetContents($data);
             $oFinanceIndexFinalList = AdminLog::getEsData($sResult,$iTotal);
             $res["total"] = $iTotal;
