@@ -39,13 +39,16 @@ class ReportController extends Controller
 
         
         if ($sSearchType == 'ES') {
-            if ($sMerchantName !== '') {
-                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+            if ($sMerchantName != '') {
+                $sWhere .= '{ "match_phrase_prefix":{ "Merchant_name": "'.$sMerchantName.'" } },';
             }
+
             if ($dtBeginDate != '') {
+                $dtBeginDate = str_replace(' ','T',$dtBeginDate);
                 $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
             }
             if ($dtEndDate != '') {
+                $dtEndDate = str_replace(' ','T',$dtEndDate);
                 $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
             }
             if (substr($sWhere, -1)==',') {
@@ -70,11 +73,11 @@ class ReportController extends Controller
                 $oFinanceIndexList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
             }
 
-            if ($dtBeginDate !== '') {
+            if ($dtBeginDate !== '' && !$dtPeriod) {
                 $oFinanceIndexList->where('date', '>=', $dtBeginDate);
             }
 
-            if ($dtEndDate !== '') {
+            if ($dtEndDate !== '' && !$dtPeriod) {
                 $oFinanceIndexList->where('date', '<=', $dtEndDate);
             }
 
@@ -120,28 +123,31 @@ class ReportController extends Controller
         if ($sSearchType == 'ES') {
 
             if ($sMerchantName !== '') {
-                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
             }
-            if ($dtBeginDate != '') {
+            if ($dtBeginDate != '' && !$dtPeriod) {
+                $dtBeginDate = str_replace(' ','T',$dtBeginDate);
                 $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
             }
-            if ($dtEndDate != '') {
+            if ($dtEndDate != '' && !$dtPeriod) {
+                $dtEndDate = str_replace(' ','T',$dtEndDate);
                 $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
             }
             if ($sModel !== '') {
-                $sWhere .= '{ "wildcard":{ "Model": "*'.$sModel.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Model": "*'.$sModel.'*" } },';
             }
             if ($sPlatform !== '') {
-                $sWhere .= '{ "wildcard":{ "Platform": "*'.$sPlatform.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Platform": "*'.$sPlatform.'*" } },';
             }
             if ($sUserName !== '') {
-                $sWhere .= '{ "wildcard":{ "Username": "*'.$sUserName.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Username": "*'.$sUserName.'*" } },';
             }
             if ($dtPeriod != '') {
                 $aTmp = DateUtils::getDateArray($dtPeriod);
-                
-                $sWhere .= '{ "range":{ "Date": {"from" : "'.date('Y-m-d H:i:s',$aTmp['begin_date']).'"}  } },';
-                $sWhere .= '{ "range":{ "Date": {"to" : "'.date('Y-m-d H:i:s',$aTmp['end_date']).'"} } },';
+                $dtBeginDate = str_replace(' ','T',date('Y-m-d H:i:s',$aTmp['begin_date']));
+                $dtEndDate = str_replace(' ','T',date('Y-m-d H:i:s',$aTmp['end_date']));
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
 
             }
             if (substr($sWhere, -1)==',') {
@@ -163,10 +169,10 @@ class ReportController extends Controller
             if ($sMerchantName !== '') {
                 $oOperationProfitList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
             }
-            if ($dtBeginDate !== '') {
+            if ($dtBeginDate !== '' && !$dtPeriod) {
                 $oOperationProfitList->where('date', '>=', $dtBeginDate);
             }
-            if ($dtEndDate !== '') {
+            if ($dtEndDate !== '' && !$dtPeriod) {
                 $oOperationProfitList->where('date', '<=', $dtEndDate);
             }
             if ($sModel !== '') {
@@ -214,6 +220,7 @@ class ReportController extends Controller
         $sLottery = isset(request()->lottery) ? request()->lottery : '';
         $sWay = isset(request()->way) ? request()->way : '';
         $sPrizeStatus = isset(request()->prize_status) ? request()->prize_status : '';
+        $sStatus = isset(request()->status) ? request()->status : '';
         $dtBeginDate = isset(request()->beginDate) ? request()->beginDate : '';
         $dtEndDate = isset(request()->endDate) ? request()->endDate : '';
         $sSort = isset(request()->sort) ? request()->sort : '';
@@ -227,34 +234,40 @@ class ReportController extends Controller
         if ($sSearchType == 'ES') {
 
             if ($sWayType !== '') {
-                $sWhere .= '{ "wildcard":{ "Way_type": "*'.$sWayType.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Way_type": "*'.$sWayType.'*" } },';
             }
 
             if ($sLottery !== '') {
-                $sWhere .= '{ "wildcard":{ "Lottery": "*'.$sLottery.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Lottery": "*'.$sLottery.'*" } },';
             }
 
             if ($sWay !== '') {
-                $sWhere .= '{ "wildcard":{ "Way": "*'.$sWay.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Way": "*'.$sWay.'*" } },';
+            }
+
+            if ($sStatus !== '') {
+                $sWhere .= '{ "match_phrase_prefix":{ "Status": "*'.$sStatus.'*" } },';
             }
 
             if ($sPrizeStatus !== '') {
-                $sWhere .= '{ "wildcard":{ "Prize_status": "*'.$sPrizeStatus.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Prize_status": "*'.$sPrizeStatus.'*" } },';
             }
 
             if ($dtBeginDate != '') {
+                $dtBeginDate = str_replace(' ','T',$dtBeginDate);
                 $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
             }
             if ($dtEndDate != '') {
+                $dtEndDate = str_replace(' ','T',$dtEndDate);
                 $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
             }
 
             if ($sSort == '逆序') {
-                $sWhere .=',"sort" : [{"id": "desc"}]}';
+                $data['sort'] =',"sort" : [{"Id": "desc"}]}';
             }
 
             if ($sSort == '顺序') {
-                $sWhere .=',"sort" : [{"id": "asc"}]}';
+                $data['sort'] =',"sort" : [{"Id": "asc"}]}';
             }
 
             if ($sPrizeType == '奖金') {
@@ -264,7 +277,6 @@ class ReportController extends Controller
 
                 if ($iMax !== '') {
                     $sWhere .= '{ "range":{ "Prize_amount": {"to" : "'.$iMax.'"}  } },';
-
                 }
             }
 
@@ -281,14 +293,14 @@ class ReportController extends Controller
 
             if ($sSelectInfoType == '用户名') {
                 if ($sIssue !== '') {
-                    $sWhere .= '{ "wildcard":{ "Username": "*'.$sIssue.'*" } },';
+                    $sWhere .= '{ "match_phrase_prefix":{ "Username": "'.$sIssue.'" } },';
                 }
 
             }
 
             if ($sSelectInfoType == '注单') {
                 if ($sIssue !== '') {
-                    $sWhere .= '{ "wildcard":{ "Project": "*'.$sIssue.'*" } },';
+                    $sWhere .= '{ "match_phrase_prefix":{ "Project": "'.$sIssue.'" } },';
                 }
 
             }
@@ -327,11 +339,15 @@ class ReportController extends Controller
                 $oPgamePlayList->where('prize_status', $sPrizeStatus);
             }
 
-            if ($dtBeginDate !== '') {
+            if ($sStatus !== '') {
+                $oPgamePlayList->where('status', $sStatus);
+            }
+
+            if ($dtBeginDate !== '' && !$dtPeriod) {
                 $oPgamePlayList->where('date', '>=', $dtBeginDate);
             }
 
-            if ($dtEndDate !== '') {
+            if ($dtEndDate !== '' && !$dtPeriod) {
                 $oPgamePlayList->where('date', '>=', $dtEndDate);
             }
 
@@ -417,22 +433,25 @@ class ReportController extends Controller
         
         if ($sSearchType == 'ES') {
             if ($sMerchantName !== '') {
-                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
             }
             if ($sUserName !== '') {
-                $sWhere .= '{ "wildcard":{ "Username": "*'.$sUserName.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Username": "*'.$sUserName.'*" } },';
             }
-            if ($dtBeginDate != '') {
+            if ($dtBeginDate != '' && !$dtPeriod) {
+                $dtBeginDate = str_replace(' ','T',$dtBeginDate);
                 $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
             }
-            if ($dtEndDate != '') {
+            if ($dtEndDate != '' && !$dtPeriod) {
+                $dtEndDate = str_replace(' ','T',$dtEndDate);
                 $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
             }
             if ($dtPeriod != '') {
                 $aTmp = DateUtils::getDateArray($dtPeriod);
-                
-                $sWhere .= '{ "range":{ "Date": {"from" : "'.date('Y-m-d H:i:s',$aTmp['begin_date']).'"}  } },';
-                $sWhere .= '{ "range":{ "Date": {"to" : "'.date('Y-m-d H:i:s',$aTmp['end_date']).'"} } },';
+                $dtBeginDate = str_replace(' ','T',date('Y-m-d H:i:s',$aTmp['begin_date']));
+                $dtEndDate = str_replace(' ','T',date('Y-m-d H:i:s',$aTmp['end_date']));
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
 
             }
             if (substr($sWhere, -1)==',') {
@@ -456,10 +475,10 @@ class ReportController extends Controller
             if ($sUserName !== '') {
                 $oPreportProfitList->where('username', 'like', '%' . $sUserName . '%');
             }
-            if ($dtBeginDate !== '') {
+            if ($dtBeginDate !== '' && !$dtPeriod) {
                 $oPreportProfitList->where('date', '>=', $dtBeginDate);
             }
-            if ($dtEndDate !== '') {
+            if ($dtEndDate !== '' && !$dtPeriod) {
                 $oPreportProfitList->where('date', '<=', $dtEndDate);
             }
             if ($dtPeriod != '') {
@@ -510,29 +529,35 @@ class ReportController extends Controller
        
         if ($sSearchType == 'ES') {
             if ($sMerchantName !== '') {
-                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
             }
             if ($sUserName !== '') {
-                $sWhere .= '{ "wildcard":{ "Username": "*'.$sUserName.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Username": "*'.$sUserName.'*" } },';
             }
             if ($sModel !== '') {
-                $sWhere .= '{ "wildcard":{ "Model": "*'.$sModel.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Model": "*'.$sModel.'*" } },';
             }
             if ($sPlatform !== '') {
-                $sWhere .= '{ "wildcard":{ "Platform": "*'.$sPlatform.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Platform": "*'.$sPlatform.'*" } },';
             }
-            if ($dtBeginDate != '') {
+            if ($dtBeginDate != '' && !$dtPeriod) {
+                $dtBeginDate = str_replace(' ','T',$dtBeginDate);
                 $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
             }
-            if ($dtEndDate != '') {
+            if ($dtEndDate != '' && !$dtPeriod) {
+                $dtEndDate = str_replace(' ','T',$dtEndDate);
                 $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
             }
             if ($dtPeriod != '') {
                 $aTmp = DateUtils::getDateArray($dtPeriod);
-                
-                $sWhere .= '{ "range":{ "Date": {"from" : "'.date('Y-m-d H:i:s',$aTmp['begin_date']).'"}  } },';
-                $sWhere .= '{ "range":{ "Date": {"to" : "'.date('Y-m-d H:i:s',$aTmp['end_date']).'"} } },';
+                $dtBeginDate = str_replace(' ','T',date('Y-m-d H:i:s',$aTmp['begin_date']));
+                $dtEndDate = str_replace(' ','T',date('Y-m-d H:i:s',$aTmp['end_date']));
+                $sWhere .= '{ "range":{ "Date": {"from" : "'.$dtBeginDate.'"}  } },';
+                $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
 
+            }
+            if (substr($sWhere, -1)==',') {
+                $sWhere = substr($sWhere,0,-1);
             }
             $data['where'] = $sWhere;
             $data['page'] = $sIpage;
@@ -549,10 +574,10 @@ class ReportController extends Controller
             if ($sMerchantName !== '') {
                 $oUserReportList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
             }
-            if ($dtBeginDate !== '') {
+            if ($dtBeginDate !== '' && !$dtPeriod) {
                 $oUserReportList->where('date', '>=', $dtBeginDate);
             }
-            if ($dtEndDate !== '') {
+            if ($dtEndDate !== '' && !$dtPeriod) {
                 $oUserReportList->where('date', '<=', $dtEndDate);
             }
             if ($sModel !== '') {

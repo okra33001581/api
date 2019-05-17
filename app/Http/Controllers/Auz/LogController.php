@@ -53,7 +53,7 @@ class LogController extends Controller
         if ($sSearchType == 'ES') {
 
             if ($sMerchantName != '') {
-                $sWhere .= '{ "wildcard":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Merchant_name": "*'.$sMerchantName.'*" } },';
             }
 
             if ($dtBeginDate != '') {
@@ -65,19 +65,19 @@ class LogController extends Controller
                 $sWhere .= '{ "range":{ "Date": {"to" : "'.$dtEndDate.'"} } },';
             }
             if ($sLogContent != '') {
-                $sWhere .= '{ "wildcard":{ "Log_content": "*'.$sLogContent.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Log_content": "*'.$sLogContent.'*" } },';
             }
             if ($sSubAccount != '') {
-                $sWhere .= '{ "wildcard":{ "Sub_account": "*'.$sSubAccount.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Sub_account": "*'.$sSubAccount.'*" } },';
             }
             if ($sIp != '') {
-                $sWhere .= '{ "wildcard":{ "Ip": "*'.$sIp.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Ip": "*'.$sIp.'*" } },';
             }
             if ($sCookies != '') {
-                $sWhere .= '{ "wildcard":{ "Cookies": "*'.$sCookies.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Cookies": "*'.$sCookies.'*" } },';
             }
             if ($sKeywords != '') {
-                $sWhere .= '{ "wildcard":{ "Keywords": "*'.$sKeywords.'*" } },';
+                $sWhere .= '{ "match_phrase_prefix":{ "Keywords": "*'.$sKeywords.'*" } },';
             }
             if (substr($sWhere, -1)==',') {
                 $sWhere = substr($sWhere,0,-1);

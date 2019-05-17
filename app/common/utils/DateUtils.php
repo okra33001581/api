@@ -47,7 +47,10 @@ class DateUtils
                 $aTmp['end_date'] = strtotime(date("Y-m-d H:i:s",mktime(23,59,59,date("m"),date("d")-date("w")+7,date("Y"))));
                 break;
             case 'last_month':
-                $aTmp = get_month_start_end();
+                $aTmp['begin_date'] = date('Y-m-01 00:00:00',strtotime('-1 month'));
+                $aTmp['end_date'] = date("Y-m-d 23:59:59", strtotime(-date('d').'day'));
+                $aTmp['begin_date'] = strtotime($aTmp['begin_date']);
+                $aTmp['end_date'] = strtotime($aTmp['end_date']);
                 break;
             case 'current_month':
                 $aTmp['begin_date'] = mktime(0,0,0,date('m'),1,date('Y'));
