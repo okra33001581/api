@@ -74,11 +74,11 @@ class ReportController extends Controller
                 $oFinanceIndexList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
             }
 
-            if ($dtBeginDate !== '' && !$dtPeriod) {
+            if ($dtBeginDate !== '') {
                 $oFinanceIndexList->where('date', '>=', $dtBeginDate);
             }
 
-            if ($dtEndDate !== '' && !$dtPeriod) {
+            if ($dtEndDate !== '') {
                 $oFinanceIndexList->where('date', '<=', $dtEndDate);
             }
 
@@ -346,11 +346,11 @@ class ReportController extends Controller
                 $oPgamePlayList->where('status', $sStatus);
             }
 
-            if ($dtBeginDate !== '' && !$dtPeriod) {
+            if ($dtBeginDate !== '') {
                 $oPgamePlayList->where('date', '>=', $dtBeginDate);
             }
 
-            if ($dtEndDate !== '' && !$dtPeriod) {
+            if ($dtEndDate !== '') {
                 $oPgamePlayList->where('date', '>=', $dtEndDate);
             }
 
