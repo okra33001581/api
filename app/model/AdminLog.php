@@ -55,7 +55,11 @@ class AdminLog extends Model
 
 
 
-
+    /**
+     * 转换es数据格式
+     * @param $data
+     * @param $iTotal
+     */
     public static function getEsData($data, & $iTotal)
     {
         $datas = json_decode($data);

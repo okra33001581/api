@@ -34,566 +34,234 @@ class SiteController extends Controller
 {
 
     /**
-     * 数据取得
+     * 浮动窗口数据列表
      * @param request
      * @return json
      */
     public function floatwindowconfigList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
 
         $iStatus = isset(request()->status) ? request()->status : '';
 
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $oAuthAdminList = DB::table('site_float_window');
+        $oFloatwindowconfigList = DB::table('site_float_window');
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oFloatwindowconfigList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oFloatwindowconfigList->where('status', $iStatus);
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['position'] = $oAuthAdmin->position;
-            $aTmp['title'] = $oAuthAdmin->title;
-            $aTmp['pic'] = $oAuthAdmin->pic;
-            $aTmp['link_type'] = $oAuthAdmin->link_type;
-            $aTmp['link'] = $oAuthAdmin->link;
-            $aTmp['width'] = $oAuthAdmin->width;
-            $aTmp['right_margin'] = $oAuthAdmin->right_margin;
-            $aTmp['expand_flag'] = $oAuthAdmin->expand_flag;
-            $aTmp['expand_pic'] = $oAuthAdmin->expand_pic;
-            $aTmp['expand_pic_desc'] = $oAuthAdmin->expand_pic_desc;
-            $aTmp['sequence'] = $oAuthAdmin->sequence;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-            $aFinal[] = $aTmp;
-        }*/
+        $oFloatwindowconfigFinalList = $oFloatwindowconfigList->orderby('id', 'desc')->paginate($iLimit);
 
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oFloatwindowconfigFinalList);
+        $res["list"] = $oFloatwindowconfigFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-
         $sOperateName = 'floatwindowconfigList';
         $sLogContent = 'floatwindowconfigList';
 
-
         $dt = now();
 
-
-
         AdminLog::adminLogSave($sOperateName);
-
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
     /**
-     * 数据取得
+     * IP限制数据列表
      * @param request
      * @return json
      */
     public function blacklist()
     {
-
-//        $sAdminUserId = request()->header('X-Adminid');
-//        $token = request()->header('X-Token');
-//
-//
-//        $oAuthAdmin = AuthAdmin::getMerchant($sAdminUserId);
-//        if (is_object($oAuthAdmin)) {
-//            $sMerchantName = AuthAdmin::getMerchant($sAdminUserId);
-//        }
-//
-//        Log::info($sAdminUserId.'========='.$token.'+++++++++++++++++++++++++++++++'.$sMerchantName);
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
         $sType = isset(request()->type) ? request()->type : '';
-
-        $oAuthAdminList = DB::table('site_ip_black');
-
+        $oBlackList = DB::table('site_ip_black');
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oBlackList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
         if ($sType !== '') {
-            $oAuthAdminList->where('type', $sType);
+            $oBlackList->where('type', $sType);
         }
-//        if ($sUserName !== '') {
-//            $oAuthAdminList->where('username', 'like', '%' . $sUserName . '%');
-//        }
+
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-//            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['ip_list'] = $oAuthAdmin->ip_list;
-            $aTmp['district'] = $oAuthAdmin->district;
-            $aTmp['memo'] = $oAuthAdmin->memo;
-            $aTmp['type'] = $oAuthAdmin->type;
-            $aTmp['creator'] = $oAuthAdmin->creator;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $aTmp['updator'] = $oAuthAdmin->updator;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-            $aFinal[] = $aTmp;
-        }*/
-
+        $oBlackFinalList = $oBlackList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oBlackFinalList);
+        $res["list"] = $oBlackFinalList->toArray();
 
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
-
         $sOperateName = 'blacklist';
         $sLogContent = 'blacklist';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
     /**
-     * 数据取得
+     * 系统参数设定数据列表
      * @param request
      * @return json
      */
     public function systemconfiglist()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $oAuthAdminList = DB::table('site_system_config');
-
-
+        $oSystemconfigList = DB::table('site_system_config');
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oSystemconfigList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
+        $oSystemconfigFinalList = $oSystemconfigList->orderby('id', 'desc')->paginate($iLimit);
         $aTmp = [];
         $aFinal = [];
-        /*foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-//            $oAuthAdmin->avatar = PublicFileUtils::createUploadUrl($oAuthAdmin->avatar);
-            $aTmp['id'] = $oAuthAdmin->id;
-            if ($oAuthAdmin->is_login == '1') {
-                $aTmp['is_login'] = true;
-            } else {
-                $aTmp['is_login'] = false;
-            }
-
-            $aTmp['web_title'] = $oAuthAdmin->web_title;
-            $aTmp['web_keyword'] = $oAuthAdmin->web_keyword;
-            $aTmp['web_desc'] = $oAuthAdmin->web_desc;
-            $aTmp['platform_name'] = $oAuthAdmin->platform_name;
-            $aTmp['free_play'] = json_decode($oAuthAdmin->free_play);
-            $aTmp['favorite_skin'] = $oAuthAdmin->favorite_skin;
-
-            if ($oAuthAdmin->is_maintain == '1') {
-                $aTmp['is_maintain'] = true;
-            } else {
-                $aTmp['is_maintain'] = false;
-            }
-
-            $aTmp['maintain_desc'] = $oAuthAdmin->maintain_desc;
-            $aTmp['maintain_date'] = $oAuthAdmin->maintain_date;
-
-            if ($oAuthAdmin->is_web_register == '1') {
-                $aTmp['is_web_register'] = true;
-            } else {
-                $aTmp['is_web_register'] = false;
-            }
-
-            $aTmp['register_default_agent'] = $oAuthAdmin->register_default_agent;
-            $aTmp['register_default_rebate'] = $oAuthAdmin->register_default_rebate;
-            $aTmp['max_rebate'] = $oAuthAdmin->max_rebate;
-            $aTmp['spread_rebate'] = $oAuthAdmin->spread_rebate;
-
-            if ($oAuthAdmin->is_mobile_register == '1') {
-                $aTmp['is_mobile_register'] = true;
-            } else {
-                $aTmp['is_mobile_register'] = false;
-            }
-
-            $aTmp['mobile_default_agent'] = $oAuthAdmin->mobile_default_agent;
-            $aTmp['mobile_register_rebate'] = $oAuthAdmin->mobile_register_rebate;
-
-            if ($oAuthAdmin->autoregister_usertype == '1') {
-                $aTmp['autoregister_usertype'] = true;
-            } else {
-                $aTmp['autoregister_usertype'] = false;
-            }
-
-
-            if ($oAuthAdmin->can_set_rebate == '1') {
-                $aTmp['can_set_rebate'] = true;
-            } else {
-                $aTmp['can_set_rebate'] = false;
-            }
-
-            $aTmp['free_play_rebate'] = $oAuthAdmin->free_play_rebate;
-
-
-
-//            $aTmp['user_register_column'] = [];
-
-            $aTmp['user_register_column'] = json_decode($oAuthAdmin->user_register_column);
-            $aTmp['lower_register_column'] = json_decode($oAuthAdmin->lower_register_column);
-            $aTmp['withdraw_max'] = $oAuthAdmin->withdraw_max;
-            $aTmp['deposit_max'] = $oAuthAdmin->deposit_max;
-
-            if ($oAuthAdmin->can_deposit_decimal_point == '1') {
-                $aTmp['can_deposit_decimal_point'] = true;
-            } else {
-                $aTmp['can_deposit_decimal_point'] = false;
-            }
-
-            $aTmp['withdraw_risk_audit'] = $oAuthAdmin->withdraw_risk_audit;
-            $aTmp['bankcard_bind_max'] = $oAuthAdmin->bankcard_bind_max;
-            $aTmp['withdraw_minutes'] = $oAuthAdmin->withdraw_minutes;
-
-
-            if ($oAuthAdmin->fast_deposit_link_flag == '1') {
-                $aTmp['fast_deposit_link_flag'] = true;
-            } else {
-                $aTmp['fast_deposit_link_flag'] = false;
-            }
-
-            $aTmp['fast_deposit_link'] = $oAuthAdmin->fast_deposit_link;
-            $aTmp['withdraw_date_begin'] = $oAuthAdmin->withdraw_date_begin;
-            $aTmp['withdraw_date_end'] = $oAuthAdmin->withdraw_date_end;
-            $aTmp['login_times'] = $oAuthAdmin->login_times;
-            $aTmp['ip_account_login_count'] = $oAuthAdmin->ip_account_login_count;
-
-            if ($oAuthAdmin->google_login_flag == '1') {
-                $aTmp['google_login_flag'] = true;
-            } else {
-                $aTmp['google_login_flag'] = false;
-            }
-            $aTmp['valid_user_turnover'] = $oAuthAdmin->valid_user_turnover;
-
-            if ($oAuthAdmin->login_onetime_flag == '1') {
-                $aTmp['login_onetime_flag'] = true;
-            } else {
-                $aTmp['login_onetime_flag'] = false;
-            }
-
-            $aTmp['help_link'] = $oAuthAdmin->help_link;
-            $aTmp['qq_link'] = $oAuthAdmin->qq_link;
-            $aTmp['help_tel'] = $oAuthAdmin->help_tel;
-
-            if ($oAuthAdmin->qq_help_flag == '1') {
-                $aTmp['qq_help_flag'] = true;
-            } else {
-                $aTmp['qq_help_flag'] = false;
-            }
-
-            $aTmp['winner_rato'] = $oAuthAdmin->winner_rato;
-            $aTmp['winner_project_rato'] = $oAuthAdmin->winner_project_rato;
-            $aTmp['risk_rato'] = $oAuthAdmin->risk_rato;
-            $aTmp['transfer_type'] = json_decode($oAuthAdmin->transfer_type);
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-            $aTmp['status'] = $oAuthAdmin->status;
-
-            $aFinal[] = $aTmp;
-        }*/
-
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oSystemconfigFinalList);
+        $res["list"] = $oSystemconfigFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-
         $sOperateName = 'systemconfiglist';
         $sLogContent = 'systemconfiglist';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
 
     /**
-     * 数据取得
+     * 公司简介数据列表
      * @param request
      * @return json
      */
     public function informationCompanylist()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
         $iStatus = isset(request()->status) ? request()->status : '';
 
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $oAuthAdminList = DB::table('site_company');
+        $oInformationCompanyList = DB::table('site_company');
 
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oInformationCompanyList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
 
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oInformationCompanyList->where('status', $iStatus);
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-        /*        $aTmp = [];
-                $aFinal = [];
-                foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-                    $aTmp['id'] = $oAuthAdmin->id;
-                    $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-                    $aTmp['status'] = $oAuthAdmin->status;
-                    $aTmp['display_style'] = $oAuthAdmin->display_style;
-                    $aTmp['content'] = $oAuthAdmin->content;
-                    $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-                    $aFinal[] = $aTmp;
-                }*/
-
+        $oInformationCompanyFinalList = $oInformationCompanyList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oInformationCompanyFinalList);
+        $res["list"] = $oInformationCompanyFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
-
         $sOperateName = 'informationCompanylist';
         $sLogContent = 'informationCompanylist';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
     /**
-     * 数据取得
+     * 谘询中心数据列表
      * @param request
      * @return json
      */
     public function informationList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-        $oAuthAdminList = DB::table('site_information');
-
-        $iStatus = isset(request()->status) ? request()->status : '';
-
         $sType = isset(request()->type) ? request()->type : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
-        }
+        $oInformationList = DB::table('site_information');
 
+        if ($sMerchantName != '') {
+            $oInformationList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+        }
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oInformationList->where('status', $iStatus);
         }
 
         if ($sType !== '') {
-            $oAuthAdminList->where('type', $sType);
+            $oInformationList->where('type', $sType);
         }
 
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['title'] = $oAuthAdmin->title;
-            $aTmp['sequence'] = $oAuthAdmin->sequence;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $sTmp = '';
-            if ($oAuthAdmin->type == 0) {
-                $sTmp = '新闻';
-            } else {
-                $sTmp = '技巧';
-            }
-            $aTmp['type'] = $sTmp;
-
-            $aTmp['content'] = $oAuthAdmin->content;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $aTmp['creator'] = $oAuthAdmin->creator;
-            $aTmp['updater'] = $oAuthAdmin->updater;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-
-            $aFinal[] = $aTmp;
-        }*/
-
+        $oInformationFinalList = $oInformationList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oInformationFinalList);
+        $res["list"] = $oInformationFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
 
-
         $sOperateName = 'informationList';
         $sLogContent = 'informationList';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
     /**
-     * 数据取得
+     * 菜单排序数据列表
      * @param request
      * @return json
      */
     public function lotterygroupSort()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $oAuthAdminList = DB::table('site_lotterygroup');
-
         $iStatus = isset(request()->status) ? request()->status : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
+        $oLotterygroupSortList = DB::table('site_lotterygroup');
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oLotterygroupSortList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oLotterygroupSortList->where('status', $iStatus);
         }
-
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['type'] = $oAuthAdmin->type;
-            $aTmp['name'] = $oAuthAdmin->name;
-            $aTmp['sequence'] = $oAuthAdmin->sequence;
-            $aTmp['hot'] = $oAuthAdmin->hot;
-            $aTmp['recommand'] = $oAuthAdmin->recommand;
-            $aTmp['new'] = $oAuthAdmin->new;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-            $aFinal[] = $aTmp;
-        }*/
-
+        $oLotterygroupSortFinalList = $oLotterygroupSortList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oLotterygroupSortFinalList);
+        $res["list"] = $oLotterygroupSortFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
-
         $sOperateName = 'lotterygroupSort';
         $sLogContent = 'lotterygroupSort';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
-
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
@@ -1244,65 +912,32 @@ class SiteController extends Controller
 
 
     /**
-     * 数据取得
+     * 二维码设置数据列表
      * @param request
      * @return json
      */
     public function qrconfigList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-        $iRoleId = isset(request()->role_id) ? request()->role_id : '';
         $iStatus = isset(request()->status) ? request()->status : '';
         $sUserName = isset(request()->username) ? request()->username : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
-        $oAuthAdminList = DB::table('site_qr_code');
-
-
+        $oQrconfigList = DB::table('site_qr_code');
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oQrconfigList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-
-
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-        /*        $aTmp = [];
-                $aFinal = [];
-                foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-                    $aTmp['id'] = $oAuthAdmin->id;
-                    $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-                    $aTmp['h5_address'] = $oAuthAdmin->h5_address;
-                    $aTmp['android_address'] = $oAuthAdmin->android_address;
-                    $aTmp['ios_address'] = $oAuthAdmin->ios_address;
-
-                    $aTmp['pic'] = Event::getFileDomain($oAuthAdmin->pic);
-                    $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-                    $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-                    $aFinal[] = $aTmp;
-                }*/
-
+        $oQrconfigFinalList = $oQrconfigList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oQrconfigFinalList);
+        $res["list"] = $oQrconfigFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
-
         $sOperateName = 'qrconfigList';
         $sLogContent = 'qrconfigList';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
@@ -1310,135 +945,67 @@ class SiteController extends Controller
 
 
     /**
-     * 数据取得
+     * 首页轮播图数据列表
      * @param request
      * @return json
      */
     public function rotationconfigList()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
 
         $iStatus = isset(request()->status) ? request()->status : '';
 
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
-
-
-        $oAuthAdminList = DB::table('site_rotate_play');
-
-
+        $oRotationconfigList = DB::table('site_rotate_play');
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oRotationconfigList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-
         if ($iStatus !== '') {
-            $oAuthAdminList->where('status', $iStatus);
+            $oRotationconfigList->where('status', $iStatus);
         }
-
-
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-        /*$aTmp = [];
-        $aFinal = [];
-        foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-            $aTmp['id'] = $oAuthAdmin->id;
-            $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-            $aTmp['title'] = $oAuthAdmin->title;
-            $aTmp['pc_pic'] = $oAuthAdmin->pc_pic;
-            $aTmp['mobile_pic'] = $oAuthAdmin->mobile_pic;
-            $aTmp['link_type'] = $oAuthAdmin->link_type;
-            $aTmp['link'] = $oAuthAdmin->link;
-            $aTmp['status'] = $oAuthAdmin->status;
-            $aTmp['squence'] = $oAuthAdmin->squence;
-            $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-
-            $aTmp['created_at'] = $oAuthAdmin->created_at;
-            $aTmp['creator'] = $oAuthAdmin->creator;
-            $aTmp['updater'] = $oAuthAdmin->updater;
-            $aTmp['updated_at'] = $oAuthAdmin->updated_at;
-
-            $aFinal[] = $aTmp;
-        }*/
-
+        $oRotationconfigFinalList = $oRotationconfigList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oRotationconfigFinalList);
+        $res["list"] = $oRotationconfigFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
-
         $sOperateName = 'rotationconfigList';
         $sLogContent = 'rotationconfigList';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
     }
 
     /**
-     * 数据取得
+     * 网站图标设置数据列表
      * @param request
      * @return json
      */
     public function systemconfigImagelist()
     {
-        $sWhere = [];
-        $sOrder = 'id DESC';
         $iLimit = isset(request()->limit) ? request()->limit : '';
-        $sIpage = isset(request()->page) ? request()->page : '';
-        // +id -id
-        $iSort = isset(request()->sort) ? request()->sort : '';
-
         $sMerchantName = isset(request()->merchant_name) ? request()->merchant_name : '';
 
-        $oAuthAdminList = DB::table('site_web_icon');
-
+        $oSystemconfigImageList = DB::table('site_web_icon');
         if ($sMerchantName != '') {
-            $oAuthAdminList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
+            $oSystemconfigImageList->where('merchant_name', 'like', '%' . $sMerchantName . '%');
         }
-
         $iLimit = request()->get('limit', 20);
-        $oAuthAdminFinalList = $oAuthAdminList->orderby('id', 'desc')->paginate($iLimit);
-
-        /* $aTmp = [];
-         $aFinal = [];
-         foreach ($oAuthAdminFinalList as $oAuthAdmin) {
-             $aTmp['id'] = $oAuthAdmin->id;
-             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-             $aTmp['icon'] = $oAuthAdmin->icon;
-             $aTmp['pic'] = Event::getFileDomain($oAuthAdmin->pic);
-             $aTmp['merchant_id'] = $oAuthAdmin->merchant_id;
-             $aTmp['merchant_name'] = $oAuthAdmin->merchant_name;
-             $aFinal[] = $aTmp;
-         }*/
-
+        $oSystemconfigImageFinalList = $oSystemconfigImageList->orderby('id', 'desc')->paginate($iLimit);
         $res = [];
-        $res["total"] = count($oAuthAdminFinalList);
-        $res["list"] = $oAuthAdminFinalList->toArray();
+        $res["total"] = count($oSystemconfigImageFinalList);
+        $res["list"] = $oSystemconfigImageFinalList->toArray();
         $aFinal['message'] = 'success';
         $aFinal['code'] = 0;
         $aFinal['data'] = $res;
-
-
         $sOperateName = 'systemconfigImagelist';
         $sLogContent = 'systemconfigImagelist';
 
-
         $dt = now();
-
-
-
         AdminLog::adminLogSave($sOperateName);
         return response()->json($aFinal);
         return ResultVo::success($res);
